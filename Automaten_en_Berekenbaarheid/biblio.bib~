@@ -1,0 +1,33 @@
+@comment{x-kbibtex-personnameformatting=<%l><, %f>}
+
+@article{Knuth:1984:CS:358027.358042,
+	acmid = "358042",
+	address = "New York, NY, USA",
+	author = "Knuth, Donald E.",
+	doi = "10.1145/358027.358042",
+	issn = "0001-0782",
+	issue_date = "April 1984",
+	journal = "Commun. ACM",
+	month = apr,
+	number = "4",
+	numpages = "3",
+	pages = "344--346",
+	publisher = "ACM",
+	title = "{The complexity of songs}",
+	url = "http://doi.acm.org/10.1145/358027.358042",
+	volume = "27",
+	year = "1984"
+}
+
+@article{macdonald,
+	author = "MacDonald, Old",
+	journal = "Institute for Donkey and Cow Farmers: Journal of Animal Synchronisation",
+	location = "Scotland",
+	month = oct,
+	number = "8",
+	pages = "14--18",
+	title = "{A musical introduction to the life of a farmer}",
+	volume = "16",
+	year = "1922"
+}
+
