@@ -1,0 +1,31 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\topmargin -15mm 
+\textwidth 16truecm 
+\textheight 24truecm
+\oddsidemargin 5mm 
+\evensidemargin 5mm
+
+
+\begin{document}
+\pagestyle{empty}
+
+\section*{Oefenzitting 7}
+
+
+\begin{enumerate}
+\item Een \emph{nutteloze toestand van een TM $M$} is een toestand waarin $M$ voor geen enkele invoer kan komen. Zij $U = \{ \langle M, q \rangle \ | \ \text{$M$ is een TM en $q$ een nutteloze toestand van $M$} \}$. Toon aan dat $U$ onbeslisbaar is.
+   % Eenvoudige oefening. Misschien iets naar voren schuiven in deze oefenzitting.
+\item Toon aan dat $R_{\rm DFA} = \{ \langle A \rangle \ | \ \text{$A$ is een DFA die $\widehat{w}$ aanvaardt asa hij $w$ aanvaardt} \}$ beslisbaar is. Is $R_{\rm TM} = \{ \langle M \rangle \ | \ \text{$M$ is een TM die $w$ aanvaardt asa ze $\widehat{w}$ aanvaardt} \}$ ook beslisbaar? Bewijs je antwoord.
+   % Goed van niveau. De studenten die mee zijn met de leerstof kunnen deze oefening aan.
+\item Toon aan dat de taal van alle Turing machines $M$ waarvoor er een invoer bestaat zodanig dat $M$ bij die invoer een niet-blanco symbool zal overschrijven met een blanco symbool, onbeslisbaar is.
+   \item Toon aan dat het `overeenkomstprobleem van Post' beslisbaar is over het alfabet $\Sigma = \{ a \}$. (Dat wil zeggen: toon aan dat het voor een verzameling domino's van de vorm $\left[ \frac{a^m}{a^n} \right]$ met $n,m \in \mathbb{N}$, beslisbaar is of er een overeenkomst bestaat.) 
+%\item Zij $PAL_{\rm DFA} = \{ \langle A \rangle \ | \ \text{$A$ is een DFA die minstens \'e\'en palindroom herkent} \}$. Toon aan dat $PAL_{\rm DFA}$ beslisbaar is.
+\item Toon aan dat er een onbeslisbare deelverzameling van $1^*$ bestaat.
+ \item Toon aan dat de vraag of een context-vrije grammatica $G$ alle strings uit $1^*$ kan genereren beslisbaar is.
+\end{enumerate}
+
+\end{document}
