@@ -1,8 +1,5 @@
-questions.pdf : questions.tex biblio.bib makefile
-	pdflatex --interaction nonstopmode questions.tex
-	bibtex questions
-	pdflatex --interaction nonstopmode questions.tex
-	pdflatex --interaction nonstopmode questions.tex
+lastmodified : *.tex *.bib makefile makeall.sh
+	bash makeall.sh
 clean :
 	rm *.pdf
 	rm *.aux
