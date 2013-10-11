@@ -1,0 +1,83 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{color}
+\usepackage{xypic}
+\xyoption{all}
+
+\topmargin -15mm 
+\textwidth 16truecm 
+\textheight 24truecm
+\oddsidemargin 5mm 
+\evensidemargin 5mm
+
+\newcommand{\kolom}[1]{ \left[ \begin{array}{c} #1 \end{array} \right] }
+
+
+
+% Opmerkingen na oefenzitting:
+%	- Opgave 1 en 3 staan in de cursus (eventueel vervangen door oude examenvragen)
+
+\begin{document}
+\section*{Oefenzitting 2}
+	\begin{enumerate}
+		\item Als $L$ een reguliere taal is over een alfabet $\Sigma$, dan is de taal $L^c = \{ w \ | \ \mbox{$w$  is een string over $\Sigma$ en $w \not\in L$} \}$ ook regulier. Bewijs.   % Sipser 1.10 (a) zonder de hint
+		\item Zij $\Sigma_3$ het alfabet 
+				{\tiny
+					\[ \left\{ \kolom{ 0 \\ 0 \\ 0}, \kolom{ 0 \\ 0 \\ 1}, \kolom{ 0 \\ 1 \\ 0}, \ldots, \kolom{ 1 \\ 1 \\ 1} \right\}. \]
+				}
+				Beschouw een string over $\Sigma_3$ als drie rijen van $0$'en en $1$'en, en beschouw elk van die rijen als de binaire representatie van een natuurlijk getal. Zij $L$ de taal 
+				\[ \{ w \ | \ \mbox{de onderste rij van $w$ is de som van de twee bovenste rijen} \} \]
+				over $\Sigma_3$. {\tiny $\kolom{ 0 \\ 0 \\ 1} \kolom{ 1 \\ 0 \\ 0} \kolom{ 1 \\ 1 \\ 0}$} behoort bijvoorbeeld tot $L$, maar { \tiny $\kolom{ 0 \\0 \\ 1} \kolom{ 1 \\ 0 \\ 1}$} niet. Toon aan dat $L$ regulier is.
+		\item Toon aan dat als $L_1$ en $L_2$ reguliere talen zijn, $L_1 \cap L_2$ dan ook een reguliere taal is. Is $L_1 \setminus L_2$ ook regulier?
+		\item Een \emph{all-paths}-NFA $(Q,\Sigma,\delta,q_0,F)$ verschilt van een NFA doordat een string $w$ enkel aanvaard wordt als 
+				\begin{itemize}
+					\item voor elke mogelijke schrijfwijze $w = y_1 y_2 \ldots y_m$, $y_i \in \Sigma_{\varepsilon}$ en elke sequentie $r_0, r_1, \ldots, r_m$ van toestanden zodanig dat $r_0 = q_0$ en $r_{i+1} \in \delta(r_i,y_{i+1})$, geldt dat $r_m \in F$;
+               \item er minstens \'e\'en schrijfwijze $w = y_1 y_2 \ldots y_m$, $y_i \in \Sigma_{\varepsilon}$ bestaat zodanig dat er een sequentie $r_0, \ldots, r_m$ van toestanden bestaat met $r_0 = q_0$ en $r_{i+1} \in \delta(r_i,y_{i+1})$.
+            \end{itemize}
+				Toon aan dat een taal $L$ regulier is als en slechts als ze herkend wordt door een all-paths-NFA.
+		\item Noem een string $x$ een \emph{prefix} van een string $y$ als er een string $z$ bestaat zodanig dat $y = xz$. Als bovendien $x \neq y$, dan noemen we $x$ een \emph{echte prefix} van $y$. Toon aan dat de klasse van reguliere talen gesloten is onder de volgende operaties.
+				\begin{enumerate}
+					\item $\mathrm{NOPREFIX} (L) = \{ w \in L \ | \ \mbox{geen enkele echte prefix van $w$ zit in $L$} \}$
+					\item $\mathrm{NOEXTEND} (L) = \{ w \in L \ | \ \mbox{$w$ is geen echte prefix van een string in $L$} \}$
+				\end{enumerate}
+				\item Minimaliseer de volgende DFA \\
+          \[  \entrymodifiers={++[o][F-]}
+            \SelectTips{cm}{}
+            \xymatrix {
+              *{} \ar[r] &
+              1               \ar[r]_0    \ar[rd]^1                              &
+              *++[o][F=]{2}   \ar[d]_1    \ar `ur_r[dd]  `[dd] `_dl[dd]^0 [dd]     &
+              3               \ar `ur_d[dd] `_l[dd]^1 [dd]   \ar[d]_0                               \\
+              *{} &
+              4               \ar@(lu,ld)[]_1   \ar@/_/[r]_0      &
+              5               \ar[d]_1          \ar@/_/[l]_0      &
+              *++[o][F=]{6}   \ar@(ru,rd)[]_1   \ar[d]_0          \\
+              *{} &
+              7               \ar[u]_1          \ar[ru]_0                     &
+              *++[o][F=]{8}   \ar@(ld,rd)[]^0   \ar@/_/[r]_1                  &
+             9                \ar@/_/[l]_1      \ar `dr_l[ll] `_ur[ll]^0 [ll]  \\
+         } \]
+   % Proberen of dit voorbeeld nog iets ingewikkelder gemaakt kan worden.
+
+   \item Zij $\Sigma_1 = \{0,1\}, \Sigma_2 = \{a\}$ en $\Sigma_3 = \{a,b,c\}$. Toon aan dat de volgende talen niet regulier zijn.
+      \begin{enumerate}
+         \item $\{ w \in \Sigma_1^*\ |\ \mbox{$\left|w\right|$ is even en de $1$'en in $w$ komen enkel voor in de laatste helft van $w$}\}$   % Niet uit Sipser. 
+         \item $\{ a^{\left( 2^n \right) } \in \Sigma_2^* \ | \ n \geq 0 \}$                                      % Sipser 1.17 (c)
+         \item $\{ a^n \in \Sigma_2^*\ | \ \mbox{$n$ is een priemgetal} \}$                                       % Niet uit Sipser
+         \item $\{ 0^m1^n \in \Sigma_1^* \ | \ m \neq n \}$                                                       % Sipser 1.23 (c)
+         \item $\{ w \in \Sigma_1^* \ | \ \mbox{$w$ is geen palindroom} \}$                                       % Sipser 1.23 (d)
+         \item $\{ a^ib^jc^k \in \Sigma_3^* \ | \ \mbox{$i,j,k \geq 0$ en als $i = 1$, dan moet $j=k$} \}$        % Sipser 1.37
+      \end{enumerate}
+%		\item Zij $x$ en $y$ twee strings over een alfabet $\Sigma$ en $L$ een taal over $\Sigma$. We zeggen dat $x$ en $y$ van elkaar te onderscheiden zijn door $L$ als er een string $z$ bestaat zodanig dat precies \'e\'en van de strings $xz$ en $yz$ tot $L$ behoort. Als voor elke string $z$ geldt dat $xz \in L$ als en slechts als $yz \in L$, dan zeggen ze dat $x$ en $y$ niet te onderscheiden zijn door $L$. Dit noteren we met $x \equiv_L y$.
+%				\begin{enumerate}
+%					\item Maak een DFA $M$ over een alfabet $\Sigma$ en twee strings $x$ en $y$ over $\Sigma$ zodanig dat $x$ en $y$ van elkaar te onderscheiden zijn door $L_M$.                                  % Niet uit Sipser
+%					\item Toon aan dat $\equiv_L$ een equivalentierelatie is.    % Sipser 1.34
+%				\end{enumerate}
+%				Zij $X$ een verzameling strings. We zeggen dat $X$ paarsgewijs te onderscheiden is door $L$ als elke twee strings uit $X$ van elkaar te onderscheiden zijn door $L$. We noemen het maximum aantal elementen dat zo een paarsgewijs te onderscheiden verzameling kan bevatten de \emph{index van $L$}.
+%				\begin{enumerate}
+%					\setcounter{enumii}{2}
+%					\item Toon aan dat als $L$ herkend wordt door een DFA met $k$ toestanden, de index van $L$ dan hoogstens $k$ is.          % Sipser 1.35 (a)
+%					\item Toon aan dat als de index van $L$ een eindig getal $k$ is, $L$ herkend kan worden door een DFA met $k$ toestanden.  % Sipser 1.35 (b)
+%				\end{enumerate}
+	\end{enumerate}
+\end{document}
