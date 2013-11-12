@@ -61,14 +61,14 @@ We beschouwen de verschillende talen.
  \end{equation}
  Vervolgens is $L$ gelijk aan een eindige unie:
  \begin{equation}
-  \cup_{i=0}^980 a^ib^ib^\star
+  \displaystyle\bigcup_{i=0}^{980} a^ib^ib^\star
  \end{equation}
 Concreet ziet de reguliere expressie er dus als volgt uit:
 \begin{equation}
  b^\star\ |\ abb^\star\ |\ aabbb^\star\ |\ aaabbbb^\star\ |\ \cdots\ |\ \underbrace{aaaaa\cdots a}_{980\mbox{\small{ keer}}}\underbrace{bbbbb\cdots b}_{980\mbox{\small{ keer}}}b^\star
 \end{equation}
 
- \item Niet-regulier. Stel dat $a$ en $b$ twee elementen uit $\Sigma$ zijn\footnote{Hoe de symbolen eruit zien maakt niet uit, evenmin dat er nog andere symbolen betrokken zijn.}. In dat geval beschouwen we de string $s=a^dbc^d$. Deze string $\abs{s}>d$
+ \item Niet-regulier. Stel dat $a$ en $b$ twee elementen uit $\Sigma$ zijn\footnote{Hoe de symbolen eruit zien maakt niet uit, evenmin dat er nog andere symbolen betrokken zijn.}. In dat geval beschouwen we de string $s=a^dbc^d$. Voor deze string geldt dus $\abs{s}\geq d$ met $d$ de pomplengte. Voor elke indeling $s=xyz$ geldt dat $y$ uitsluitend uit $a$'s kan bestaan (vermits $\abs{xy}\leq d$ en $\abs{y}>0$). We kunnen dus besluiten dat $y=a^k$ met $k$ onbekend maar $0<k\leq d$. De taal is regulier wanneer voor elke $i$, $xy^iz\in L$, maar $xy^2z=a^{d+k}bc^d$, dit behoort duidelijk niet tot $L$, bijgevolg is de taal niet regulier.
 \end{enumerate}
 \end{answer}
 \begin{question}[Algebra van talen]
