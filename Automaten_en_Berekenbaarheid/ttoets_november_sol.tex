@@ -57,15 +57,15 @@ We beschouwen de verschillende talen.
  \item We beschouwen we de string $s=a^db^{d-1}c^d$. Voor deze string geldt dus $\abs{s}\geq d$ met $d$ de pomplengte. Voor elke indeling $s=xyz$ geldt dat $y$ uitsluitend uit $a$'s kan bestaan (vermits $\abs{xy}\leq d$ en $\abs{y}>0$). We kunnen dus besluiten dat $y=a^k$ met $k$ onbekend maar $0<k\leq d$. De taal is regulier wanneer voor elke $i$, $xy^iz\in L$, maar $xy^2z=a^{d+k}b^{d-1}c^d$, dit behoort duidelijk niet tot $L$, bijgevolg is de taal niet regulier.
  \item Regulier. We construeren eerst een reguliere expressie aan de hand van een parameter $i$:
  \begin{equation}
-  a^ib^ib^\star
+  a^ib^{i+1}b^\star
  \end{equation}
  Vervolgens is $L$ gelijk aan een eindige unie:
  \begin{equation}
-  \displaystyle\bigcup_{i=0}^{980} a^ib^ib^\star
+  \displaystyle\bigcup_{i=0}^{980} a^ib^{i+1}b^\star
  \end{equation}
 Concreet ziet de reguliere expressie er dus als volgt uit:
 \begin{equation}
- b^\star\ |\ abb^\star\ |\ aabbb^\star\ |\ aaabbbb^\star\ |\ \cdots\ |\ \underbrace{aaaaa\cdots a}_{980\mbox{\small{ keer}}}\underbrace{bbbbb\cdots b}_{980\mbox{\small{ keer}}}b^\star
+ bb^\star\ |\ abbb^\star\ |\ aabbbb^\star\ |\ aaabbbbb^\star\ |\ \cdots\ |\ \underbrace{aaaaa\cdots a}_{980\mbox{\small{ keer}}}\underbrace{bbbbbb\cdots b}_{981\mbox{\small{ keer}}}b^\star
 \end{equation}
  \item Niet-regulier. Stel dat $a$ en $b$ twee elementen uit $\Sigma$ zijn\footnote{Hoe de symbolen eruit zien maakt niet uit, evenmin dat er nog andere symbolen betrokken zijn.}. In dat geval beschouwen we de string $s=a^dba^d$. Voor deze string geldt dus $\abs{s}\geq d$ met $d$ de pomplengte. Voor elke indeling $s=xyz$ geldt dat $y$ uitsluitend uit $a$'s kan bestaan (vermits $\abs{xy}\leq d$ en $\abs{y}>0$). We kunnen dus besluiten dat $y=a^k$ met $k$ onbekend maar $0<k\leq d$. De taal is regulier wanneer voor elke $i$, $xy^iz\in L$, maar $xy^2z=a^{d+k}bc^d$, dit behoort duidelijk niet tot $L$, bijgevolg is de taal niet regulier.
 \end{enumerate}
