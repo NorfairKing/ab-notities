@@ -54,7 +54,7 @@ We beschouwen de verschillende talen.
  \path[->] (qw) edge [loop above] node {$a$,$b$} ();
  \end{tikzpicture}
  \end{center}
- \item Niet-regulier.
+ \item We beschouwen we de string $s=a^db^{d-1}c^d$. Voor deze string geldt dus $\abs{s}\geq d$ met $d$ de pomplengte. Voor elke indeling $s=xyz$ geldt dat $y$ uitsluitend uit $a$'s kan bestaan (vermits $\abs{xy}\leq d$ en $\abs{y}>0$). We kunnen dus besluiten dat $y=a^k$ met $k$ onbekend maar $0<k\leq d$. De taal is regulier wanneer voor elke $i$, $xy^iz\in L$, maar $xy^2z=a^{d+k}b^{d-1}c^d$, dit behoort duidelijk niet tot $L$, bijgevolg is de taal niet regulier.
  \item Regulier. We construeren eerst een reguliere expressie aan de hand van een parameter $i$:
  \begin{equation}
   a^ib^ib^\star
@@ -67,8 +67,7 @@ Concreet ziet de reguliere expressie er dus als volgt uit:
 \begin{equation}
  b^\star\ |\ abb^\star\ |\ aabbb^\star\ |\ aaabbbb^\star\ |\ \cdots\ |\ \underbrace{aaaaa\cdots a}_{980\mbox{\small{ keer}}}\underbrace{bbbbb\cdots b}_{980\mbox{\small{ keer}}}b^\star
 \end{equation}
-
- \item Niet-regulier. Stel dat $a$ en $b$ twee elementen uit $\Sigma$ zijn\footnote{Hoe de symbolen eruit zien maakt niet uit, evenmin dat er nog andere symbolen betrokken zijn.}. In dat geval beschouwen we de string $s=a^dbc^d$. Voor deze string geldt dus $\abs{s}\geq d$ met $d$ de pomplengte. Voor elke indeling $s=xyz$ geldt dat $y$ uitsluitend uit $a$'s kan bestaan (vermits $\abs{xy}\leq d$ en $\abs{y}>0$). We kunnen dus besluiten dat $y=a^k$ met $k$ onbekend maar $0<k\leq d$. De taal is regulier wanneer voor elke $i$, $xy^iz\in L$, maar $xy^2z=a^{d+k}bc^d$, dit behoort duidelijk niet tot $L$, bijgevolg is de taal niet regulier.
+ \item Niet-regulier. Stel dat $a$ en $b$ twee elementen uit $\Sigma$ zijn\footnote{Hoe de symbolen eruit zien maakt niet uit, evenmin dat er nog andere symbolen betrokken zijn.}. In dat geval beschouwen we de string $s=a^dba^d$. Voor deze string geldt dus $\abs{s}\geq d$ met $d$ de pomplengte. Voor elke indeling $s=xyz$ geldt dat $y$ uitsluitend uit $a$'s kan bestaan (vermits $\abs{xy}\leq d$ en $\abs{y}>0$). We kunnen dus besluiten dat $y=a^k$ met $k$ onbekend maar $0<k\leq d$. De taal is regulier wanneer voor elke $i$, $xy^iz\in L$, maar $xy^2z=a^{d+k}bc^d$, dit behoort duidelijk niet tot $L$, bijgevolg is de taal niet regulier.
 \end{enumerate}
 \end{answer}
 \begin{question}[Algebra van talen]
@@ -83,7 +82,27 @@ hangt dit af van de talen in kwestie. Bewijs of geef tegenvoorbeelden.
  \item $\overline{L_1}\cup L_3$.
 \end{enumerate}
 \end{question}
-
+\begin{answer}[Pompend lemma voor reguliere talen]
+We beschouwen de verschillende talen.
+\begin{enumerate}
+ \item\label{itm:l1capl3} Hangt van de talen af:
+ \begin{itemize}
+  \item De doorsnede kan regulier zijn, bijvoorbeeld $L_1=\accl{a^mb^n|m\leq n}$ en $L_2=\accl{aab^ma^n|m\geq n}$, dan is $L_1\cap L_2=\accl{aabbb^\star}$ wat regulier is.
+  \item De doorsnede kan niet-regulier zijn, bijvoorbeeld $L_1=\accl{a^mb^n|m\leq n}$ en $L_2=\accl{a^mb^n|m\geq n}$, dan is $L_1\cap L_2=\accl{a^mb^m|m\in\NN}$ wat niet-regulier is.
+ \end{itemize}
+ \item Hangt van de talen af:
+ \begin{itemize}
+  \item De unie kan regulier zijn, bijvoorbeeld: stel $L_1=\accl{a^mb^n|m\geq n}$ en $L_3=\accl{a^\star b^\star}$. De unie is $L_1\cup L_3=\accl{a^\star b^\star}$, deze taal is regulier.
+  \item De unie kan niet-regulier zijn, bijvoorbeeld: stel $L_1=\accl{a^mb^n|m\geq n}$ en $L_3=\accl{aa^\star b}$. De unie is $L_1\cup L_3=\accl{a^mb^n|m\geq n}$, deze taal is niet-regulier.
+ \end{itemize}
+ \item Hangt van de talen af:
+ \begin{itemize}
+  \item De unie kan regulier zijn, bijvoorbeeld stel $L_1=\accl{a^mb^n|m\geq n}$ en $L_2=\accl{a^mb^n|m\leq n}$. De unie is $L_1\cup L_2=\accl{a^\star b^\star}$, deze taal is regulier.
+  \item De unie kan niet-regulier zijn, bijvoorbeeld: stel $L_1=\accl{a^mb^n|m\geq n}$ en $L_2=\accl{a^mb^n|m> n}$. De unie is $L_1\cup L_2=\accl{a^mb^n|m\geq n}$, deze taal is niet-regulier.
+ \end{itemize}
+ \item Hangt van de talen af: vermits het complement van een reguliere taal, regulier is, weten we dat $\overline{L_1}$ ook niet-regulier is. Bijgevolg grijpen we terug naar de voorbeelden uit \ref{itm:l1capl3} om aan te tonen dat het van de talen afhangt.
+\end{enumerate}
+\end{answer}
 \begin{question}[Pompend lemma voor contextvrije talen]
 Indien de voorgestelde taal niet context-vrij is: bewijs dit aan de hand van het pompend lemma voor contextvrije talen.
 Indien de voorgestelde taal dit wel is: geeft een reguliere expressie, een eindige toestandsautomaat, een contextvrije
@@ -98,9 +117,39 @@ elementen bestaat en $R$ een reguliere taal over $\Sigma$.
 \begin{answer}[Pompend lemma voor contextvrije talen]
 We beschouwen de verschillende talen.
 \begin{enumerate}
- \item Context-vrij.
+ \item Context-vrij. Volgend push-down automaat beslist de taal:
+ \begin{center}
+ \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+ \node[state,initial]   (qi) {$q_i$};
+ \node[state] (q0) [right=of qi] {$q_0$};
+ \node[state] (q1) [right=of q0] {$q_1$};
+ \node[state] (q2) [right=of q1] {$q_2$};
+ \node[state,accepting] (qf) [right=of q2] {$q_f$};
+ \path[->] (qi) edge node {$\epsilon,\epsilon\rightarrow 0$} (q0);
+ \path[->] (q0) edge node {$\epsilon,\epsilon\rightarrow\epsilon$} (q1);
+ \path[->] (q1) edge node {$\epsilon,\epsilon\rightarrow\epsilon$} (q2);
+ \path[->] (q2) edge node {$\epsilon,0\rightarrow\epsilon$} (qf);
+ \path[->] (q0) edge [loop above] node {$a,\epsilon\rightarrow 1$} ();
+ \path[->] (q1) edge [loop above] node {$b,\epsilon\rightarrow 1$} ();
+ \path[->] (q2) edge [loop above] node {$c,1\rightarrow \epsilon$} ();
+ \end{tikzpicture}
+ \end{center}
  \item Niet context-vrij.
- \item Context-vrij.
+ \item Context-vrij. $R$ is een reguliere taal, dus kan $R$ geschreven worden als een reguliere expressie $E$. We kunnen deze reguliere expressie inductief omzetten naar een contextvrije grammatica met startsymbool $R_E$ als volgt:
+ \begin{itemize}
+  \item Indien $E=\epsilon$, dan $R_E\rightarrow\epsilon$;
+  \item Indien $E=a$ met $a\in\Sigma$, dan $R_E\rightarrow a$;
+  \item Indien $E=E_1|E_2$ met $E_1$ en $E_2$ reguliere expressies, dan $R_E\rightarrow R_{E_1}$ en $R_E\rightarrow R_{E_2}$;
+  \item Indien $E=E_1E_2$ met $E_1$ en $E_2$ reguliere expressies, dan $R_E\rightarrow R_{E_1}R_{E_2}$;
+  \item Indien $E=\brak{E_1}^\star$ met $E_1$ een reguliere expressie, dan $R_E\rightarrow R_{E_1}R_E$ en $R_E\rightarrow \epsilon$;
+  \item Indien $E=\phi$, dan defini\"eren we geen overgangsregel voor $R_E$.
+ \end{itemize}
+We bekomen dus een symbool $R_E$ die de taal van $R$ beschrijft. Vervolgens bouwen we volgende contextvrije grammatica:
+\begin{itemize}
+ \item Voor elke $a\in\Sigma$ defini\"eren we de regel: $S\rightarrow aSa$.
+ \item We voorzien ook een regel $S\rightarrow R_E$.
+\end{itemize}
+De finale grammatica heeft als startsymbool $S$.
 \end{enumerate}
 \end{answer}
 \begin{question}[Myhill-Nerode relaties]
