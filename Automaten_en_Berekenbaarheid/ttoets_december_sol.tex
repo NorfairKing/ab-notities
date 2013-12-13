@@ -38,10 +38,10 @@ Waar of niet waar? Beargumenteer/bewijs.
 \begin{answer}\hfill
 \begin{itemize}
  \item \textit{Waar}. Een PDA kan belissen (herkennen en co-herkennen) of een gegeven string tot de grammatica in kwestie behoort. Men kan dus een Turingmachine implementeren die in elke iteratie een string genereert en op de overeenkomstige PDA's laat lopen. Op het moment dat de PDA's een verschillend antwoord geven, reject de Turing machine.
- \item \textit{Niet waar}. Hier geldt de stelling van Rice. Men kan immers het Java-programma omzetten naar een Turingmachine. De toestanden die overeenkomen met de gemarkeerde lijn printen vervolgens een karakter op de uniek karakter op de uitvoer. We voegen ook een postprocessor toe die kijkt of het symbool in kwestie werd uitgeschreven. Bijgevolg is de taal niet beslisbaar.
- \item \textit{Waar}. Dit komt neer op het parsen van een context-vrije grammatica. Men kan bijvoorbeeld een Turingmachine bouwen die aan de hand van backtracking alle mogelijke grammatica's uitprobeert\footnote{Men heeft dan wel een lusdetectie-algoritme nodig}.
- \item \textit{Noch beslisbaar noch onbeslisbaar}.
- \item \textit{Co-herkenbaar}. Men kan een Turingmachine bouwen die in elke iteratie $i$, alle strings $\Sigma^i$ genereert en een Turingmachine hiervoor initialiseert. Turingmachines die in de vorige stappen al waren gebouwd worden \'e\'en stap verder gesimuleerd. Op het moment dat $k$ of meer Turingmachines accepteren weten we dat niet aan de eigenschap werd voldaan.
+ \item \textit{Niet waar}. Hier geldt de stelling van Rice. Een bepaalde lijn code uitvoeren is immers niet triviaal\footnote{Het is niet ``altijd'' of ``nooit'' waar, men moet minstens een analyse maken van de werking van de ingevoerde machine.} Daarnaast is de eigenschap taal-invariant. Wanneer men het Java-programma naar andere talen zou omzetten kan men de markering behouden. Eventueel verspreid over meerdere lijnen/toestanden.
+ \item \textit{Waar}. Dit komt neer op het parsen van een string voor een context sensitieve grammatica. Het acceptance probleem voor context sensitieve grammatica's is beslisbaar: men ken een algoritme schrijven die voor elke string eindigt en teruggeeft of de string tot de taal behoort beschreven door de context-sensitieve grammatica.
+ \item \textit{Noch herkenbaar noch co-herkenbaar}. Aan de hand van het bewijs van de stelling van Rice kunnen we zien dat de taal niet co-herkenbaar is en dus evenmin beslisbaar: $M_{\emptyset}$ voldoet niet aan de eigenschap dus moeten we de eigenschap omkeren. De taal is evenmin herkenbaar: we zouden immers $E_{TM}$ kunnen beslissen: we roepen eerst de machine $F_{TM}$ op die kijkt of de taal eindig is, wanneer deze reject, weten we dat de taal niet leeg is. Wanneer de taal wel leeg is, passen we de Turing machine aan: de machine leest eerst voorbij een string van willekeurige lengte, Bijvoorbeeld tot een komma wordt ingelezen. Indien er \'e\'en string of meer in de originele machine werd geaccepteerd, worden nu oneindig veel strings geaccepteerd, we kunnen namelijk voor elke originele string oneindig veel strings op de machine laten accepteren. We laten $F_{TM}$ op de nieuwe machine lopen. Wanneer de machine accepteert is de taal leeg, anders is de taal niet leeg. Vermits $E_{TM}$ echter niet herkenbaar is, is $F_{TM}$ dit bijgevolg evenmin.
+ \item \textit{Co-herkenbaar}. Men kan immers \'e\'en of meerdere Turing machines op een Turing machine simuleren. Volgend algoritme stopt altijd wanneer de string niet tot de taal behoort: de Turing machine werkt met een oneindige lus. Wanneer de machine voor de $i$-de maal de lus uitvoert, beschouwt men voor elke string van lengte $i-1$ een simulatie op een Turingmachine. Deze simulaties hebben echter nog $0$ stappen uitgevoerd. Verder zal men de simulaties die al in vorige iteraties werden beschouwd, \'e\'en stap verderzetten. Wanneer een simulatie afloopt en accepteert, dan wordt een teller opgehoogd. Wanneer de teller gelijk wordt aan $k$ reject de Turing machine, anders blijft de machine verder uitvoeren. Het probleem is niet beslisbaar, vanwege de stelling van Rice.
 \end{itemize}
 \end{answer}
 \begin{question}[Lambda calculus]\brak{f\ x}
@@ -170,4 +170,33 @@ endfunction
 \end{verbatim}
 \end{answer}
 Indien er in een programma meerdere primitief recursieve en/of compositie-functies voorkomen, moet men natuurlijk verschillende namen defini\"eren.
+\paragraph{Voorbeeld}
+Bij wijze van voorbeeld: de $\mbox{som}$-functie is gedefinieerd als: $\mbox{Pr}\left[p^1_1,\mbox{Cn}\left[\mbox{succ},p^3_3\right]\right]$. We bekomen dan volgende code:
+\begin{verbatim}
+function succ(n)
+    return n+1;
+endfunction
+
+function p11(x1)
+    return x1;
+endfunction
+
+function p33(x1,x2,x3)
+    return x3;
+endfunction
+
+function cn(x1,x2,x3)
+    y1 = p33(x1,x2,x3);
+    return succ(y1);
+endfunction
+
+function pr(x1,x2)
+    y = p11(x1);
+    for i = 1:x2
+      y = cn(x1,i,y);
+    endfor
+    return y;
+endfunction
+
+\end{verbatim}
 \end{document}
