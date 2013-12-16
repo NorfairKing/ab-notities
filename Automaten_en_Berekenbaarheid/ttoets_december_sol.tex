@@ -1,0 +1,260 @@
+\documentclass[fleqn]{article}
+\title{Automaten en Berekenbaarheid:\\opgave 2}
+\author{Prof. B. Demoen (\url{Bart.Demoen@cs.kuleuven.be})\\ W. Van Onsem (\url{Willem.VanOnsem@cs.kuleuven.be})}
+\date{12 december 2013}
+\usepackage{tikz,../assignment-nl,amssymb}
+\usetikzlibrary{shapes}
+\newcommand{\lang}[1]{\textsc{#1}}
+\newcommand{\cons}{\mbox{CONS}}
+\newcommand{\NN}{\ensuremath{\mathbb{N}}}
+
+\tikzstyle{every picture}+=[remember picture]
+\everymath{\displaystyle}
+\tikzstyle{na} = [baseline=-.5ex]
+
+\begin{document}
+\maketitle
+\paragraph{Richtlijnen}
+
+Je schrijft enkel op de gekleurde bladen die je gekregen hebt: op je
+werkplek liggen geen andere bladen dan die gekleurde bladen en de
+bladen van de cursustekst. De bladen van je cursustekst waarop
+oplossingen van oefeningen of aanwijzingen tot oplossingen van
+oefeningen staan, steek je ook weg. Je jas, je boekentas, je gsm
+... leg je vooraan in het auditorium, zoals gebruikelijk bij een
+examen. Bij het afgeven zorg je dat je naam op je bladen staat, en dat
+je alles aan elkaar niet. Er zijn 3 vragen.
+
+\begin{question}[Herkenbaar, beslisbaar, regulier, context-vrij,...?]
+Waar of niet waar? Beargumenteer/bewijs.
+\begin{itemize}
+ \item $\mbox{EQ}_{\mbox{\small{CFG}}}=\accl{\tupl{G_1,G_2}| \mbox{Twee context-vrije grammatica's $G_1$ en $G_2$ met $\fun{L}{G_1}=\fun{L}{G_2}$}}$ is co-herkenbaar.
+ \item Bepalen of er voor een gegeven Java-programma een invoer bestaat zodat de Java-emulator een gemarkeerde lijn code zal uitvoeren is beslisbaar.
+ \item $\mbox{A}_{\mbox{\small{CSG}}}=\accl{\tupl{G,x}| \mbox{Een context-sensitieve grammatica $G$ en een string $s\in\Sigma^*$ met $s\in\fun{L}{G}$}}$ is herkenbaar.
+ \item $\accl{\tupl{M}|M\mbox{ is een Turingmachine waarbij de taal $\fun{L}{M}$ een eindig aantal strings bevat}}$ is beslisbaar, herkenbaar, en/of co-herkenbaar.
+ \item $\accl{\tupl{M}|M\mbox{ is een Turingmachine waarbij de taal $\fun{L}{M}$ minder dan $k$ strings bevat}}$ met $k$ een vaste parameter is beslisbaar, herkenbaar, en/of co-herkenbaar.
+\end{itemize}
+\end{question}
+\begin{answer}\hfill
+\begin{itemize}
+ \item \textit{Waar}. Een PDA kan beslissen (in eindige tijd dus) of een
+gegeven string door een gegeven grammatica bepaald wordt.  Een
+Turing machine $M$ die $EQ_{CFG}$ co-herkent werkt dus als volgt: bij de
+twee gegeven grammatica's wordt de overeenkomstige PDA geconstrueerd;
+die PDA's worden vervolgens gesimuleerd op een opeenvolging van
+strings (in lexicografische orde bijvoorbeeld), \'{e}\'{e}n string per
+keer, en op het moment dat een string gevonden wordt waarop de PDA's een
+verschillend antwoord geven, accepteert $M$.
+
+ \item \textit{Niet waar}. Je kan de taal $\tupl{\mbox{Javaprogramma},\mbox{gemarkeerde lijn}}$
+{\em Turing-reduceren} naar een taal $\tupl{TM,\mbox{set toestanden}}$ met de vraag of
+er een invoer voor de $TM$ bestaat die de uitvoering in \'e\'en van de toestanden
+brengt die overeen komt met de gemarkeerde lijn. Daarvan hebben we in de oefeningen gezien dat het niet
+beslisbaar is.
+
+
+ \item \textit{Waar}. Dit komt neer op het parsen van een string voor
+een context sensitieve grammatica. Het acceptance probleem voor
+context sensitieve grammatica's is beslisbaar als volgt: zet de CSG om
+in een LBA\footnote{Dit deden we niet in de cursus, maar is wel
+vermeld als eigenschap van CSG}, en voeg (zoals in de cursus)
+lus-detectie toe aan die LBA. Bepaald worden door een CSG is dus
+equivalent met $A_{LBA}$ hetgeen beslisbaar is.
+
+
+ \item \textit{Noch herkenbaar noch co-herkenbaar}. De eigenschap {\em
+$L_M$ bevat een eindig aantal strings} is een niet-triviale,
+taal-invariante eigenschap van Turing machines, dus volgens Rice is die
+eigenschap niet beslisbaar. Bijgevolg is de verzameling van TMs met
+een eindige taal niet herkenbaar of niet co-herkenbaar (misschien
+beide).
+
+Je kan $A_{TM}$ (Turing-)reduceren naar $\mbox{FINITE}_{TM}$ en naar
+$\mbox{INFINITE}_{TM}$ als volgt:
+\begin{enumerate}
+\item $\tupl{M,w}\rightarrow M_{1w}$: op input $s$ laat $M$ $\abs{s}$ stappen lopen op $w$,
+   	     	     indien $M$ ondertussen accept, dan accepteert $M_{1w}$ $s$
+		     	                          anders reject $M_{1w}$ $s$
+
+\item $\tupl{M,w}\rightarrow M_{2w}$: op input s laat die $M$ $\abs{s}$ stappen lopen op $w$,
+                     indien $M$ ondertussen accept, dan reject $M_{2w}$ $s$
+		     	                          anders accept $M_{2w}$ $s$
+\end{enumerate}
+$M$ accepteert $w$ als en slechts als $M_{1w}$ heeft oneindige taal
+$M$ accepteert $w$ als en slechts als $M_{2w}$ heeft eindige taal
+
+we hebben dus een reductie van een niet herkenbare taal
+$\overline{A_{TM}}$ naar $FINITE_{TM}$ en $INFINITE_{TM}$ dus $\mbox{FINITE}_{TM}$ is niet herkenbaar, en niet co-herkenbaar.
+
+
+
+\item \textit{Co-herkenbaar}. We gebruiken Rice om te laten zien dat de taal niet beslisbaar is:
+de taalinvariante, niet-triviale eigenschap is {\em $\abs{L_M} \leq k$ }
+
+Hier is een TM die gegeven een herkent dat $\abs{L_M} > k$:
+maak van $M$ een enumerator die elke herkende string slechts 1 keer op
+de outputband zet; vanaf dat er meer dan $k$ strings op de tape staan
+accept. Indien $\abs{L_M} > k$ stopt dit, anders niet altijd.
+\end{itemize}
+\end{answer}
+\begin{question}[Lambda calculus]\brak{f\ x}
+\begin{itemize}
+ \item Ontwerp een zuivere $\lambda$-expressie hier $\mbox{il}$ genoemd zodat voor elke $i\geq 0$ geldt: $\fun{\mbox{head}}{\fun{\mbox{tail}^i}{\mbox{il}}}=\fun{f^i}{x}$. Mocht men dus de expressie $\mbox{il}$ evalueren zou dit resulteren in volgende oneindige expressie:
+ \begin{equation}
+  \fun{\cons}{x,\fun{\cons}{ \fun{f}{x}, \fun{\cons}{ \fun{f}{\fun{f}{x}}, \fun{\cons}{ \fun{f}{\fun{f}{\fun{f}{x}}} , \ldots } } }}
+ \end{equation}
+ Evalueer ook de expressie \funm{head}{\funm{tail}{\mbox{il}}} volgens reductie in normaalorde.
+ \item In lambda-calculus zijn variabelen niet altijd gebonden. Omcirkel bij onderstaande expressie de gebonden variabelen en wijs met pijl de overeenkomstige lambda aan. Bijvoorbeeld:
+ \[
+ \tikz[baseline]{\node(l){$\lambda$};}\ \tikz[baseline]{\node(y){x};}\ \tikz[baseline]{\node(x){.};}\ \tikz[baseline]{\node[draw,circle](x){x};}
+ \]
+\begin{tikzpicture}[overlay]
+\path[->] (x) edge [bend left] (l);
+\end{tikzpicture}
+ Ongebonden variabelen duid je aan met een hoedje ($\hat{x}$).
+ \begin{equation}
+  +\ y\ \lambdacal{x}{+\ y\ \lambdacal{y}{\lambdacal{x}{+\ \brak{+\ y\ y}\ x}\ y}}\lambdacal{y}{+\ y\ x}
+ \end{equation}
+\end{itemize}
+\end{question}
+\begin{answer}\hfill
+\begin{itemize}
+ \item We defini\"eren een helperfunctie $\mbox{il2}$ die we tijdens de uitwerking vaak zullen gebruiken:
+ \begin{equation}
+  \mbox{il2} = Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}}
+ \end{equation}
+ . De expressie voor $\mbox{il}$ is dan de volgende:
+\begin{equation}
+\mbox{il}=\mbox{il2}\ f\ x = Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}}\ f\ x
+\end{equation} ofwel voluit
+\begin{equation}
+\lambdacal{g}{\lambdacal{x}{g\ x\ x}\lambdacal{x}{g\ x\ x}}\ \lambdacal{g\ f\ x}{\lambdacal{a\ b\ f}{f\ a\ b}\ x \brak{g\ f\ \brak{f\ x}}}\ f\ x
+\end{equation}
+De werking kan ge\"illustreerd worden met behulp van de \mbox{FAC} functie: de $Y$ operator wordt vervangen door $Y\ \mbox{ily}\rightarrow g\ \brak{Y\ \mbox{ily}}$ met $\mbox{ily}$ de $\mbox{il2}$ functie zonder $Y$ operator. Dit betekent dus dat $g$ in het gedeelte rechts van $Y$ zal binden met $\mbox{il2}$. De functie vereist verder twee parameters $f$ en $x$, als resultaat geven wen een $\mbox{CONS}$-structuur terug, wat dus een head-tail element is van een lijst. De head wordt bepaald door de parameter $x$, de tail rekenen we uit door $\mbox{il2}$ ofwel $g$ verder te propageren. We roepen deze $\mbox{il2}$ op met dezelfde functie $f$ maar met $f\ x$ in plaats van $x$. Doordat deze oproep $\mbox{il2}$ op zijn beurt weer verder zal propageren, ontstaat de gewenste sequentie.\\
+We zullen de evaluatie met behulp van de compacte notatie uitvoeren en enkel operatoren ontbinden wanneer dit nodig is:
+\begin{eqnarray}
+\mbox{head}\ \brak{\mbox{tail}\ \brak{\mbox{il2}\ f\ x}}\hfill\\
+\lambdacal{c}{c\ \lambdacal{a\ b}{a}}\ \brak{\mbox{tail}\ \brak{ \mbox{il2}\ f\ x }}\hfill\\
+\brak{\mbox{tail}\ \brak{ \mbox{il2}\ f\ x }}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\lambdacal{c}{c\ \lambdacal{a\ b}{b}}\ \brak{ \mbox{il2}\ f\ x }}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\brak{ \mbox{il2}\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\brak{ \brak{ Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}} }\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\brak{ \lambdacal{f\ x}{\cons\ x \brak{\mbox{il2}\ f\ \brak{f\ x}}}\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\cons\ x \brak{\mbox{il2}\ f\ \brak{f\ x}} \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\lambdacal{h}{h\ x \brak{\mbox{il2}\ f\ \brak{f\ x}}} \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\lambdacal{a\ b}{b}\ x \brak{\mbox{il2}\ f\ \brak{f\ x}} }\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\brak{ Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}} }\ f\ \brak{f\ x} }\lambdacal{a\ b}{a}\hfill\\
+\brak{\lambdacal{f\ x}{\cons\ x \brak{\mbox{il2}\ f\ \brak{f\ x}}}\ f\ \brak{f\ x} }\lambdacal{a\ b}{a}\hfill\\
+\cons\ \brak{f\ x} \brak{\mbox{il2}\ f\ \brak{f\ \brak{f\ x}}}\lambdacal{a\ b}{a}\hfill\\
+\lambdacal{h}{h\ \brak{f\ x} \brak{\mbox{il2}\ f\ \brak{f\ \brak{f\ x}}}}\lambdacal{a\ b}{a}\hfill\\
+\lambdacal{a\ b}{a}\ \brak{f\ x} \brak{\mbox{il2}\ f\ \brak{f\ \brak{f\ x}}}\hfill\\
+f\ x\hfill
+\end{eqnarray}
+\item Zie onderstaande expressie: \[
+\tikz[baseline]{\node(p1){+};}\ \enctikz{temp}{\hat{y}}\ \lambdacaltikz{x1}{x}{\enctikz{tmp}{\enctikz{tmp}{+\ \hat{y}}}\ \lambdacaltikz{y1}{y}{\lambdacaltikz{x2}{x}{\enctikz{tmp}{+}\ \enctikz{tmp}{(+}\ \enctikzd{y1l1}{y}\ \enctikzd{y1l2}{y}\enctikz{tmp}{)}\ \enctikzd{x1l1}{x}}\ \enctikzd{y1l3}{y}}}\lambdacaltikz{y2}{y}{\enctikz{tmp}{+}\ \enctikzd{y2l1}{y}\ \enctikz{tmp}{\hat{x}}}
+ \]
+\begin{tikzpicture}[overlay]
+\foreach \x/\y/\m in {y1l1/y1/left,y1l2/y1/right,x1l1/x1/left,y1l3/y1/right,y2l1/y2/left} {
+  \path[->] (\x) edge [bend \m] (la\y);
+}
+\end{tikzpicture}
+\end{itemize}
+\end{answer}
+\begin{question}[Primitief recursief en \textsc{for}-programma's]
+Primitief recursieve programma's zijn even sterk als \textsc{for}-programma's: programma's die als enig controle-mechanisme een \verb+for+-lus kunnen defini\"eren. De grenzen (bijvoorbeeld \verb+m+ en \verb+n+) moet voor het binnengaan van de for-lus gekend zijn en zowel de teller als de grens mogen niet aangepast worden tijdens uitvoer van de lus. Recursie is uiteraard ook verboden (anders zou men via recursie for-lussen met aanpasbare teller/grenzen kunnen emuleren). Een geldig \textsc{for}-programma is bijvoorbeeld:
+\begin{verbatim}
+function f(m,n)
+    for i = m:n
+        m = m*n;
+    endfor
+    for i = 0:m
+        n = n+i;
+    endfor
+    return n;
+endfunction
+\end{verbatim}
+Een ongeldig \textsc{for}-programma is bijvoorbeeld:
+\begin{verbatim}
+function f(m,n)
+    for i = m:n
+        i = i*m;
+    endfor
+    for i = 0:m
+        m = m-i;
+        i = 2*i;
+        n = f(m+1,n-1);
+    endfor
+    return n;
+endfunction
+\end{verbatim}
+Beschrijf aan de hand van een reeks transformatieregels hoe men een gegeven primitief-recursieve functie kan omzetten naar een \textsc{for}-programma.
+\end{question}
+\begin{answer}
+De basisfuncties zoals $\mbox{nul}$, $\mbox{suc}$ en $\mbox{p}_i^n$ hebben een straight-forward implementatie:
+\begin{verbatim}
+function nul(n)
+    return 0;
+endfunction
+
+function succ(n)
+    return n+1;
+endfunction
+\end{verbatim}
+De $i$-de projectie uit $n$ elementen:
+\begin{verbatim}
+function pin(x1,x2,...,xn)
+    return xi;
+endfunction
+\end{verbatim}
+De compositie $\mbox{Cn}\left[f,g_1,g_2,\ldots,g_m\right]$ met $f:\NN^m\rightarrow\NN$ en voor elke $g_i$, $g_i:\NN^k\rightarrow\NN$ wordt dan als volgt gedefinieerd:
+\begin{verbatim}
+function cn(x1,x2,...,xk)
+    y1 = g1(x1,x2,...,xk);
+    y2 = g2(x1,x2,...,xk);
+    //...
+    ym = gm(x1,x2,...,xk);
+    return f(y1,y2,...,ym);
+endfunction
+\end{verbatim}
+Tot slot de primitieve recursie functie $\mbox{Pr}\left[f,g\right]$ met $f:\NN^k\rightarrow\NN$ en $g:\NN^{k+2}\rightarrow\NN$:
+\begin{verbatim}
+function pr(x1,x2,...,xk,l)
+    y = f(x1,x2,...,xk);
+    for i=1:l
+        y = g(x1,x2,...,xk,i,y);
+    endfor
+    return y;
+endfunction
+\end{verbatim}
+\end{answer}
+Indien er in een programma meerdere primitief recursieve en/of compositie-functies voorkomen, moet men natuurlijk verschillende namen defini\"eren.
+\paragraph{Voorbeeld}
+Bij wijze van voorbeeld: de $\mbox{som}$-functie is gedefinieerd als: $\mbox{Pr}\left[p^1_1,\mbox{Cn}\left[\mbox{succ},p^3_3\right]\right]$. We bekomen dan volgende code:
+\begin{verbatim}
+function succ(n)
+    return n+1;
+endfunction
+
+function p11(x1)
+    return x1;
+endfunction
+
+function p33(x1,x2,x3)
+    return x3;
+endfunction
+
+function cn(x1,x2,x3)
+    y1 = p33(x1,x2,x3);
+    return succ(y1);
+endfunction
+
+function pr(x1,x2)
+    y = p11(x1);
+    for i = 1:x2
+      y = cn(x1,i,y);
+    endfor
+    return y;
+endfunction
+
+\end{verbatim}
+\end{document}
