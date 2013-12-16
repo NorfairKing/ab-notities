@@ -121,29 +121,29 @@ accept. Indien $\abs{L_M} > k$ stopt dit, anders niet altijd.
 \begin{itemize}
  \item De expressie voor $\mbox{il}$ is de volgende:
 \begin{equation}
-Y\ \ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}}
+Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}}\ f\ x = \brak{Y\ \mbox{il2}}\ f\ x
 \end{equation} ofwel voluit
 \begin{equation}
-\lambdacal{g}{\lambdacal{x}{g\ x\ x}\lambdacal{x}{g\ x\ x}}\ \lambdacal{g\ f\ x}{\lambdacal{a\ b\ f}{f\ a\ b}\ x \brak{g\ f\ \brak{f\ x}}}
+\lambdacal{g}{\lambdacal{x}{g\ x\ x}\lambdacal{x}{g\ x\ x}}\ \lambdacal{g\ f\ x}{\lambdacal{a\ b\ f}{f\ a\ b}\ x \brak{g\ f\ \brak{f\ x}}}\ f\ x
 \end{equation}
-De werking kan ge\"illustreerd worden met behulp van de \mbox{FAC} functie: de $Y$ operator wordt vervangen door $Y\ \mbox{ily}\rightarrow g\ \brak{Y\ \mbox{ily}}$ met $\mbox{ily}$ de $\mbox{il}$ functie zonder $Y$ operator. Dit betekent dus dat $g$ in het gedeelte rechts van $Y$ zal binden met $\mbox{il}$. De functie vereist verder twee parameters $f$ en $x$, als resultaat geven wen een $\mbox{CONS}$-structuur terug, wat dus een head-tail element is van een lijst. De head wordt bepaald door de parameter $x$, de tail rekenen we uit door $\mbox{il}$ ofwel $g$ verder te propageren. We roepen deze $\mbox{il}$ op met dezelfde functie $f$ maar met $f\ x$ in plaats van $x$. Doordat deze oproep $\mbox{il}$ op zijn beurt weer verder zal propageren, ontstaat de gewenste sequentie.\\
+De werking kan ge\"illustreerd worden met behulp van de \mbox{FAC} functie: de $Y$ operator wordt vervangen door $Y\ \mbox{ily}\rightarrow g\ \brak{Y\ \mbox{ily}}$ met $\mbox{ily}$ de $\mbox{il2}$ functie zonder $Y$ operator. Dit betekent dus dat $g$ in het gedeelte rechts van $Y$ zal binden met $\mbox{il2}$. De functie vereist verder twee parameters $f$ en $x$, als resultaat geven wen een $\mbox{CONS}$-structuur terug, wat dus een head-tail element is van een lijst. De head wordt bepaald door de parameter $x$, de tail rekenen we uit door $\mbox{il2}$ ofwel $g$ verder te propageren. We roepen deze $\mbox{il2}$ op met dezelfde functie $f$ maar met $f\ x$ in plaats van $x$. Doordat deze oproep $\mbox{il2}$ op zijn beurt weer verder zal propageren, ontstaat de gewenste sequentie.\\
 We zullen de evaluatie met behulp van de compacte notatie uitvoeren en enkel operatoren ontbinden wanneer dit nodig is:
 \begin{eqnarray}
-\mbox{head}\ \brak{\mbox{tail}\ \brak{\mbox{il}\ f\ x}}\hfill\\
-\lambdacal{c}{c\ \lambdacal{a\ b}{a}}\ \brak{\mbox{tail}\ \brak{ \mbox{il}\ f\ x }}\hfill\\
-\brak{\mbox{tail}\ \brak{ \mbox{il}\ f\ x }}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\lambdacal{c}{c\ \lambdacal{a\ b}{b}}\ \brak{ \mbox{il}\ f\ x }}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\brak{ \mbox{il}\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\mbox{head}\ \brak{\mbox{tail}\ \brak{\mbox{il2}\ f\ x}}\hfill\\
+\lambdacal{c}{c\ \lambdacal{a\ b}{a}}\ \brak{\mbox{tail}\ \brak{ \mbox{il2}\ f\ x }}\hfill\\
+\brak{\mbox{tail}\ \brak{ \mbox{il2}\ f\ x }}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\lambdacal{c}{c\ \lambdacal{a\ b}{b}}\ \brak{ \mbox{il2}\ f\ x }}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\brak{ \mbox{il2}\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
 \brak{\brak{ \brak{ Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}} }\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\brak{ \lambdacal{f\ x}{\cons\ x \brak{\mbox{il}\ f\ \brak{f\ x}}}\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\cons\ x \brak{\mbox{il}\ f\ \brak{f\ x}} \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\lambdacal{h}{h\ x \brak{\mbox{il}\ f\ \brak{f\ x}}} \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\lambdacal{a\ b}{b}\ x \brak{\mbox{il}\ f\ \brak{f\ x}} }\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\brak{ \lambdacal{f\ x}{\cons\ x \brak{\mbox{il2}\ f\ \brak{f\ x}}}\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\cons\ x \brak{\mbox{il2}\ f\ \brak{f\ x}} \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\lambdacal{h}{h\ x \brak{\mbox{il2}\ f\ \brak{f\ x}}} \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\lambdacal{a\ b}{b}\ x \brak{\mbox{il2}\ f\ \brak{f\ x}} }\ \lambdacal{a\ b}{a}\hfill\\
 \brak{\brak{ Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}} }\ f\ \brak{f\ x} }\lambdacal{a\ b}{a}\hfill\\
-\brak{\lambdacal{f\ x}{\cons\ x \brak{\mbox{il}\ f\ \brak{f\ x}}}\ f\ \brak{f\ x} }\lambdacal{a\ b}{a}\hfill\\
-\cons\ \brak{f\ x} \brak{\mbox{il}\ f\ \brak{f\ \brak{f\ x}}}\lambdacal{a\ b}{a}\hfill\\
-\lambdacal{h}{h\ \brak{f\ x} \brak{\mbox{il}\ f\ \brak{f\ \brak{f\ x}}}}\lambdacal{a\ b}{a}\hfill\\
-\lambdacal{a\ b}{a}\ \brak{f\ x} \brak{\mbox{il}\ f\ \brak{f\ \brak{f\ x}}}\hfill\\
+\brak{\lambdacal{f\ x}{\cons\ x \brak{\mbox{il2}\ f\ \brak{f\ x}}}\ f\ \brak{f\ x} }\lambdacal{a\ b}{a}\hfill\\
+\cons\ \brak{f\ x} \brak{\mbox{il2}\ f\ \brak{f\ \brak{f\ x}}}\lambdacal{a\ b}{a}\hfill\\
+\lambdacal{h}{h\ \brak{f\ x} \brak{\mbox{il2}\ f\ \brak{f\ \brak{f\ x}}}}\lambdacal{a\ b}{a}\hfill\\
+\lambdacal{a\ b}{a}\ \brak{f\ x} \brak{\mbox{il2}\ f\ \brak{f\ \brak{f\ x}}}\hfill\\
 f\ x\hfill
 \end{eqnarray}
 \item Zie onderstaande expressie: \[
