@@ -69,7 +69,7 @@ eigenschap niet beslisbaar. Bijgevolg is de verzameling van TMs met
 een eindige taal niet herkenbaar of niet co-herkenbaar (misschien
 beide).
 
-\item Je kan $A_{TM}$ (Turing-)reduceren naar $\mbox{FINITE}_{TM}$ en naar
+Je kan $A_{TM}$ (Turing-)reduceren naar $\mbox{FINITE}_{TM}$ en naar
 $\mbox{INFINITE}_{TM}$ als volgt:
 \begin{enumerate}
 \item $\tupl{M,w}\rightarrow M_{1w}$: op input $s$ laat $M$ $\abs{s}$ stappen lopen op $w$,
@@ -119,9 +119,13 @@ accept. Indien $\abs{L_M} > k$ stopt dit, anders niet altijd.
 \end{question}
 \begin{answer}\hfill
 \begin{itemize}
- \item De expressie voor $\mbox{il}$ is de volgende:
+ \item We defini\"eren een helperfunctie $\mbox{il2}$ die we tijdens de uitwerking vaak zullen gebruiken:
+ \begin{equation}
+  \mbox{il2} = Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}}
+ \end{equation}
+ . De expressie voor $\mbox{il}$ is dan de volgende:
 \begin{equation}
-Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}}\ f\ x = \brak{Y\ \mbox{il2}}\ f\ x
+\mbox{il}=\mbox{il2}\ f\ x = Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}}\ f\ x
 \end{equation} ofwel voluit
 \begin{equation}
 \lambdacal{g}{\lambdacal{x}{g\ x\ x}\lambdacal{x}{g\ x\ x}}\ \lambdacal{g\ f\ x}{\lambdacal{a\ b\ f}{f\ a\ b}\ x \brak{g\ f\ \brak{f\ x}}}\ f\ x
