@@ -37,11 +37,64 @@ Waar of niet waar? Beargumenteer/bewijs.
 \end{question}
 \begin{answer}\hfill
 \begin{itemize}
- \item \textit{Waar}. Een PDA kan beslissen (herkennen en co-herkennen) of een gegeven string tot de grammatica in kwestie behoort. Men kan dus een Turingmachine implementeren die in elke iteratie een string genereert en op de overeenkomstige PDA's laat lopen. Op het moment dat de PDA's een verschillend antwoord geven, reject de Turing machine.
- \item \textit{Niet waar}. Hier geldt de stelling van Rice. Een bepaalde lijn code uitvoeren is immers niet triviaal\footnote{Het is niet ``altijd'' of ``nooit'' waar, men moet minstens een analyse maken van de werking van de ingevoerde machine.} Daarnaast is de eigenschap taal-invariant. Wanneer men het Java-programma naar andere talen zou omzetten kan men de markering behouden.
- \item \textit{Waar}. Dit komt neer op het parsen van een string voor een context sensitieve grammatica. Het acceptance probleem voor context sensitieve grammatica's is beslisbaar: men ken een algoritme schrijven die voor elke string eindigt en teruggeeft of de string tot de taal behoort beschreven door de context-sensitieve grammatica. Dit is equivalent aan het $A_{LBA}$ probleem.
- \item \textit{Noch herkenbaar noch co-herkenbaar}. Aan de hand van het bewijs van de stelling van Rice kunnen we zien dat de taal niet co-herkenbaar is en dus evenmin beslisbaar: $M_{\emptyset}$ voldoet niet aan de eigenschap dus moeten we de eigenschap omkeren. De taal is evenmin herkenbaar: we zouden immers $E_{TM}$ kunnen beslissen: we roepen eerst de machine $F_{TM}$ op die kijkt of de taal eindig is, wanneer deze reject, weten we dat de taal niet leeg is. Wanneer de taal wel leeg is, passen we de Turing machine aan: de machine leest eerst voorbij een string van willekeurige lengte, Bijvoorbeeld tot een komma wordt ingelezen. Indien er \'e\'en string of meer in de originele machine werd geaccepteerd, worden nu oneindig veel strings geaccepteerd, we kunnen namelijk voor elke originele string oneindig veel strings op de machine laten accepteren. We laten $F_{TM}$ op de nieuwe machine lopen. Wanneer de machine accepteert is de taal leeg, anders is de taal niet leeg. Vermits $E_{TM}$ echter niet herkenbaar is, is $F_{TM}$ dit bijgevolg evenmin.
- \item \textit{Co-herkenbaar}. Men kan immers \'e\'en of meerdere Turing machines op een Turing machine simuleren. Volgend algoritme stopt altijd wanneer er $k$ of meer strings tot de taal behoren: de Turing machine werkt met een oneindige lus. Wanneer de machine voor de $i$-de maal de lus uitvoert, beschouwt men voor elke string van lengte $i-1$ een simulatie op een Turing machine. Deze simulaties hebben echter tot dusver $0$ stappen uitgevoerd. Verder zal men de simulaties die al in vorige iteraties werden beschouwd, \'e\'en stap verderzetten. Wanneer een simulatie afloopt en accepteert, dan wordt een teller opgehoogd. Wanneer de teller gelijk wordt aan $k$ reject de Turing machine, anders blijft de machine verder uitvoeren. Het probleem is niet beslisbaar, vanwege de stelling van Rice.
+ \item \textit{Waar}. Een PDA kan beslissen (in eindige tijd dus) of een
+gegeven string door een gegeven grammatica bepaald wordt.  Een
+Turing machine $M$ die $EQ_{CFG}$ co-herkent werkt dus als volgt: bij de
+twee gegeven grammatica's wordt de overeenkomstige PDA geconstrueerd;
+die PDA's worden vervolgens gesimuleerd op een opeenvolging van
+strings (in lexicografische orde bijvoorbeeld), \'{e}\'{e}n string per
+keer, en op het moment dat een string gevonden wordt waarop de PDA's een
+verschillend antwoord geven, accepteert $M$.
+
+ \item \textit{Niet waar}. Je kan de taal $\tupl{\mbox{Javaprogramma},\mbox{gemarkeerde lijn}}$
+{\em Turing-reduceren} naar een taal $\tupl{TM,\mbox{set toestanden}}$ met de vraag of
+er een invoer voor de $TM$ bestaat die de uitvoering in \'e\'en van de toestanden
+brengt die overeen komt met de gemarkeerde lijn. Daarvan hebben we in de oefeningen gezien dat het niet
+beslisbaar is.
+
+
+ \item \textit{Waar}. Dit komt neer op het parsen van een string voor
+een context sensitieve grammatica. Het acceptance probleem voor
+context sensitieve grammatica's is beslisbaar als volgt: zet de CSG om
+in een LBA\footnote{Dit deden we niet in de cursus, maar is wel
+vermeld als eigenschap van CSG}, en voeg (zoals in de cursus)
+lus-detectie toe aan die LBA. Bepaald worden door een CSG is dus
+equivalent met $A_{LBA}$ hetgeen beslisbaar is.
+
+
+ \item \textit{Noch herkenbaar noch co-herkenbaar}. De eigenschap {\em
+$L_M$ bevat een eindig aantal strings} is een niet-triviale,
+taal-invariante eigenschap van Turing machines, dus volgens Rice is die
+eigenschap niet beslisbaar. Bijgevolg is de verzameling van TMs met
+een eindige taal niet herkenbaar of niet co-herkenbaar (misschien
+beide).
+
+\item Je kan $A_{TM}$ (Turing-)reduceren naar $\mbox{FINITE}_{TM}$ en naar
+$\mbox{INFINITE}_{TM}$ als volgt:
+\begin{enumerate}
+\item $\tupl{M,w}\rightarrow M_{1w}$: op input $s$ laat $M$ $\abs{s}$ stappen lopen op $w$,
+   	     	     indien $M$ ondertussen accept, dan accepteert $M_{1w}$ $s$
+		     	                          anders reject $M_{1w}$ $s$
+
+\item $\tupl{M,w}\rightarrow M_{2w}$: op input s laat die $M$ $\abs{s}$ stappen lopen op $w$,
+                     indien $M$ ondertussen accept, dan reject $M_{2w}$ $s$
+		     	                          anders accept $M_{2w}$ $s$
+\end{enumerate}
+$M$ accepteert $w$ als en slechts als $M_{1w}$ heeft oneindige taal
+$M$ accepteert $w$ als en slechts als $M_{2w}$ heeft eindige taal
+
+we hebben dus een reductie van een niet herkenbare taal
+$\overline{A_{TM}}$ naar $FINITE_{TM}$ en $INFINITE_{TM}$ dus $\mbox{FINITE}_{TM}$ is niet herkenbaar, en niet co-herkenbaar.
+
+
+
+\item \textit{Co-herkenbaar}. We gebruiken Rice om te laten zien dat de taal niet beslisbaar is:
+de taalinvariante, niet-triviale eigenschap is {\em $\abs{L_M} \leq k$ }
+
+Hier is een TM die gegeven een herkent dat $\abs{L_M} > k$:
+maak van $M$ een enumerator die elke herkende string slechts 1 keer op
+de outputband zet; vanaf dat er meer dan $k$ strings op de tape staan
+accept. Indien $\abs{L_M} > k$ stopt dit, anders niet altijd.
 \end{itemize}
 \end{answer}
 \begin{question}[Lambda calculus]\brak{f\ x}
@@ -73,23 +126,24 @@ Y\ \ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}}
 \begin{equation}
 \lambdacal{g}{\lambdacal{x}{g\ x\ x}\lambdacal{x}{g\ x\ x}}\ \lambdacal{g\ f\ x}{\lambdacal{a\ b\ f}{f\ a\ b}\ x \brak{g\ f\ \brak{f\ x}}}
 \end{equation}
+De werking kan ge\"illustreerd worden met behulp van de \mbox{FAC} functie: de $Y$ operator wordt vervangen door $Y\ \mbox{ily}\rightarrow g\ \brak{Y\ \mbox{ily}}$ met $\mbox{ily}$ de $\mbox{il}$ functie zonder $Y$ operator. Dit betekent dus dat $g$ in het gedeelte rechts van $Y$ zal binden met $\mbox{il}$. De functie vereist verder twee parameters $f$ en $x$, als resultaat geven wen een $\mbox{CONS}$-structuur terug, wat dus een head-tail element is van een lijst. De head wordt bepaald door de parameter $x$, de tail rekenen we uit door $\mbox{il}$ ofwel $g$ verder te propageren. We roepen deze $\mbox{il}$ op met dezelfde functie $f$ maar met $f\ x$ in plaats van $x$. Doordat deze oproep $\mbox{il}$ op zijn beurt weer verder zal propageren, ontstaat de gewenste sequentie.\\
 We zullen de evaluatie met behulp van de compacte notatie uitvoeren en enkel operatoren ontbinden wanneer dit nodig is:
 \begin{eqnarray}
-\mbox{head}\ \brak{\mbox{tail}\ \brak{\mbox{li}\ f\ x}}\hfill\\
-\lambdacal{c}{c\ \lambdacal{a\ b}{a}}\ \brak{\mbox{tail}\ \brak{ \mbox{li}\ f\ x }}\hfill\\
-\brak{\mbox{tail}\ \brak{ \mbox{li}\ f\ x }}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\lambdacal{c}{c\ \lambdacal{a\ b}{b}}\ \brak{ \mbox{li}\ f\ x }}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\brak{ \mbox{li}\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\mbox{head}\ \brak{\mbox{tail}\ \brak{\mbox{il}\ f\ x}}\hfill\\
+\lambdacal{c}{c\ \lambdacal{a\ b}{a}}\ \brak{\mbox{tail}\ \brak{ \mbox{il}\ f\ x }}\hfill\\
+\brak{\mbox{tail}\ \brak{ \mbox{il}\ f\ x }}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\lambdacal{c}{c\ \lambdacal{a\ b}{b}}\ \brak{ \mbox{il}\ f\ x }}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\brak{ \mbox{il}\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
 \brak{\brak{ \brak{ Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}} }\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\brak{ \lambdacal{f\ x}{\cons\ x \brak{\mbox{li}\ f\ \brak{f\ x}}}\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\cons\ x \brak{\mbox{li}\ f\ \brak{f\ x}} \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\lambdacal{h}{h\ x \brak{\mbox{li}\ f\ \brak{f\ x}}} \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
-\brak{\lambdacal{a\ b}{b}\ x \brak{\mbox{li}\ f\ \brak{f\ x}} }\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\brak{ \lambdacal{f\ x}{\cons\ x \brak{\mbox{il}\ f\ \brak{f\ x}}}\ f\ x } \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\cons\ x \brak{\mbox{il}\ f\ \brak{f\ x}} \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\lambdacal{h}{h\ x \brak{\mbox{il}\ f\ \brak{f\ x}}} \lambdacal{a\ b}{b}}\ \lambdacal{a\ b}{a}\hfill\\
+\brak{\lambdacal{a\ b}{b}\ x \brak{\mbox{il}\ f\ \brak{f\ x}} }\ \lambdacal{a\ b}{a}\hfill\\
 \brak{\brak{ Y\ \lambdacal{g\ f\ x}{\cons\ x \brak{g\ f\ \brak{f\ x}}} }\ f\ \brak{f\ x} }\lambdacal{a\ b}{a}\hfill\\
-\brak{\lambdacal{f\ x}{\cons\ x \brak{\mbox{li}\ f\ \brak{f\ x}}}\ f\ \brak{f\ x} }\lambdacal{a\ b}{a}\hfill\\
-\cons\ \brak{f\ x} \brak{\mbox{li}\ f\ \brak{f\ \brak{f\ x}}}\lambdacal{a\ b}{a}\hfill\\
-\lambdacal{h}{h\ \brak{f\ x} \brak{\mbox{li}\ f\ \brak{f\ \brak{f\ x}}}}\lambdacal{a\ b}{a}\hfill\\
-\lambdacal{a\ b}{a}\ \brak{f\ x} \brak{\mbox{li}\ f\ \brak{f\ \brak{f\ x}}}\hfill\\
+\brak{\lambdacal{f\ x}{\cons\ x \brak{\mbox{il}\ f\ \brak{f\ x}}}\ f\ \brak{f\ x} }\lambdacal{a\ b}{a}\hfill\\
+\cons\ \brak{f\ x} \brak{\mbox{il}\ f\ \brak{f\ \brak{f\ x}}}\lambdacal{a\ b}{a}\hfill\\
+\lambdacal{h}{h\ \brak{f\ x} \brak{\mbox{il}\ f\ \brak{f\ \brak{f\ x}}}}\lambdacal{a\ b}{a}\hfill\\
+\lambdacal{a\ b}{a}\ \brak{f\ x} \brak{\mbox{il}\ f\ \brak{f\ \brak{f\ x}}}\hfill\\
 f\ x\hfill
 \end{eqnarray}
 \item Zie onderstaande expressie: \[
