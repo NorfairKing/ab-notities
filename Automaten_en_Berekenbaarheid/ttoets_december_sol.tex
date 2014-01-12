@@ -154,7 +154,7 @@ f\ x\hfill
 \tikz[baseline]{\node(p1){+};}\ \enctikz{temp}{\hat{y}}\ \lambdacaltikz{x1}{x}{\enctikz{tmp}{\enctikz{tmp}{+\ \hat{y}}}\ \lambdacaltikz{y1}{y}{\lambdacaltikz{x2}{x}{\enctikz{tmp}{+}\ \enctikz{tmp}{(+}\ \enctikzd{y1l1}{y}\ \enctikzd{y1l2}{y}\enctikz{tmp}{)}\ \enctikzd{x1l1}{x}}\ \enctikzd{y1l3}{y}}}\lambdacaltikz{y2}{y}{\enctikz{tmp}{+}\ \enctikzd{y2l1}{y}\ \enctikz{tmp}{\hat{x}}}
  \]
 \begin{tikzpicture}[overlay]
-\foreach \x/\y/\m in {y1l1/y1/left,y1l2/y1/right,x1l1/x1/left,y1l3/y1/right,y2l1/y2/left} {
+\foreach \x/\y/\m in {y1l1/y1/left,y1l2/y1/right,x1l1/x2/left,y1l3/y1/right,y2l1/y2/left} {
   \path[->] (\x) edge [bend \m] (la\y);
 }
 \end{tikzpicture}
