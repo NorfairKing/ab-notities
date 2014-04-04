@@ -1,4 +1,4 @@
 AaC-Exc
 =======
 
-Excercise sessions of "Automata and Computability" (G0P84A).
+Exercise sessions of "Automata and Computability" (G0P84A).
