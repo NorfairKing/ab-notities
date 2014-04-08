@@ -7,7 +7,17 @@ Content
 -------
 Exercise sessions:
 
-  **no exercise sessions yet, booh!**
+  1. `oefz13-1.pdf`
+  2. `oefz13-2.pdf`
+  3. `oefz13-3.pdf`
+  4. `oefz13-4.pdf`
+  5. `oefz13-5.pdf`
+  6. `oefz13-6.pdf`
+
+Tests (with solution):
+
+  1. `toets13-1.pdf` (November 5, 2013; *Dutch*)
+  2. `toets13-2.pdf` (December 12, 2013; *Dutch*)
 
 Tests (with solution):
 
@@ -48,8 +58,10 @@ You can then generate a pdf by running the LaTeX compiler.
 
 In order to make this more convenient, a `Makefile` has been added to the repository. By running the following command in the directory of the repository:
 ```
-make Automata_and_Computability/exercisesn.pdf
+make Automata_and_Computability/<file>.pdf
 ```
+
+Where `<file>` is the file one wants to generate (see list above).
 
 In order to generate all `.pdf` files, run
 ```
