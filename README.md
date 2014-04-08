@@ -71,6 +71,10 @@ Links
  - Information about the course: <http://onderwijsaanbod.kuleuven.be/syllabi/v/e/G0P84AE.htm>
  - Course website: <http://people.cs.kuleuven.be/~bart.demoen/AB/>
 
+Related GitHub repositories with exercises:
+
+ - Fundamentals of Computer Science: <https://github.com/KULeuven-DeptCW/FoCS-Exc>
+
 Contributing
 ------------
 
