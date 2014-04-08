@@ -9,6 +9,11 @@ Exercise sessions:
 
   **no exercise sessions yet, booh!**
 
+Tests (with solution):
+
+  1. `toets13-1.pdf` (November 5, 2013; *Dutch*)
+  2. `toets13-2.pdf` (December 12, 2013; *Dutch*)
+
 Building
 --------
 
