@@ -1,0 +1,87 @@
+\documentclass[ab.tex]{subfiles}
+\begin{document}
+\chapter{Talen en Automaten}
+\begin{de}
+Een \emph{symbool} $s$ is een representatie van een object in de abstractste zin van het woord. 
+\end{de}
+52
+\begin{de}
+Een alfabet $\Sigma$ is een verzameling van symbolen.
+\end{de}
+
+\begin{de}
+Een \emph{string} $s$ over een alfabet $\Sigma$ is een geordende opeenvolging van nul, \'e\'en of meer elementen van $\Sigma$.
+\end{de}
+
+\begin{de}
+$\epsilon$ is de string zonder symbolen en noemen we de \emph{lege string}.
+\end{de}
+
+\begin{de}
+Een \emph{taal} $L$ over een alfabet $\Sigma$ is een verzameling van eindige strings over $\Sigma$.
+\end{de}
+
+\begin{de}
+De \emph{concatenatie} $xy$ van twee strings $x = \{x_1,x_2,\ldots,x_m\}$ en $y = \{y_1,y_2,\ldots,y_n\}$ is de volgende geordende verzameling
+\[
+xy = \{ x_1,x_2,\ldots,x_m,y_1,y_2,\ldots,y_n\}
+\] 
+\end{de}
+
+\begin{ei}
+De concatenatie van strings is associatief:
+\[
+(xy)z = x(yz)
+\]
+\begin{proof}
+\[
+\begin{array}{r l l}
+(xy)z &= \{x_1,x_2,\ldots,x_m,y_1,y_2,\ldots,y_n\}z &\\
+      &= \{x_1,x_2,\ldots,x_m,y_1,y_2,\ldots,y_n,z_1,z_2,\ldots,z_o\} &\\
+      &= x\{y_1,y_2,\ldots,y_n,z_1,z_2,\ldots,z_o\} &= x(yz)
+\end{array}
+\]
+\end{proof}
+\end{ei}
+
+\begin{de}
+De \emph{concatenatie} $L_1L_2$ \emph{van twee talen} $L_1$ en $L_2$ over hetzelfde alfabet $\Sigma$ is de volgende verzameling:
+\[
+L_1L_2 = \{\ xy\ |\ x \in L_1,\ y \in L_2\ \} 
+\]
+\end{de}
+
+\begin{ei}
+De concatenatie van talen is associatief:
+\[
+(L_1L_2)L_3 = L_1(L_2L_3)
+\]
+\begin{proof}
+\[
+\begin{array}{r l l}
+(L_1L_2)L_3 &= \{\ xy\ |\ x \in L_1,\ y \in L_2\ \}L_3 &\\
+            &= \{\ xyz\ |\ x \in L_1,\ y \in L_2\,\ z \in L_3\} &\\
+            &= L_1\{\ yz\ |\ y \in L_2,\ z \in L_3\ \} &= L_1(L_2L_3)
+\end{array}
+\]
+\end{proof}
+\end{ei}
+
+\begin{de}
+De concatenatie van $n$ keer een taal $L$ met zichzelf noteren we als $L^n$.
+$L^0$ bevat enkel de lege string.
+\[
+L^0 = \{\epsilon\}
+\]
+\end{de}
+
+\begin{de}
+De \emph{Kleene ster} $L^*$ van een taal $L$ is de unie van alle concatenaties van $L$ met zichzelf.
+\[
+L^* = \bigcup_{n=0}^{\infty}L^n
+\]
+\end{de}
+
+\begin{de}
+\end{de}
+\end{document}
