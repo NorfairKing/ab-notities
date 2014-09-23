@@ -4,6 +4,7 @@
 \chapter{Talen en Automaten}
 \label{cha:talen-en-automaten}
 
+
 \section{Symbolen en Strings}
 \label{sec:symbolen-en-strings}
 
@@ -12,7 +13,7 @@
 \end{de}
 
 \begin{de}
-  Een alfabet $\Sigma$ is een verzameling van symbolen.
+  Een alfabet $\Sigma$ is een eindige verzameling van symbolen.
 \end{de}
 
 \begin{de}
@@ -21,13 +22,6 @@
 
 \begin{de}
   $\epsilon$ is de string zonder symbolen en noemen we de \emph{lege string}.
-\end{de}
-
-\section{Talen}
-\label{sec:talen}
-
-\begin{de}
-  Een \emph{taal} $L$ over een alfabet $\Sigma$ is een verzameling van eindige strings over $\Sigma$.
 \end{de}
 
 \begin{de}
@@ -53,6 +47,23 @@
   \end{proof}
 \end{ei}
 
+\begin{de} 
+  De verzameling van alle eindige strings over een alfabet $\Sigma$ noteren we als $\Sigma^{*}$.
+  \[ \Sigma^{*} = \{ a_{1}a_{2}\ldots a_{n}\ |\ a_{i}\in \Sigma,\ n,i\in \mathbb{N} \} \]
+\end{de}
+
+\begin{de}
+  De verzameling $\Sigma \cup \{\epsilon\}$ noteren we korter als $\Sigma_{\epsilon}$.
+\end{de}
+ \clarify{dit is niet zomaar een verzameling sybolen, lijkt het? Is $\epsilon$ een symbool of een string?}
+
+\section{Talen}
+\label{sec:talen}
+
+\begin{de}
+  Een \emph{taal} $L$ over een alfabet $\Sigma$ is een verzameling van eindige strings over $\Sigma$.
+\end{de}
+
 \begin{de}
   De \emph{concatenatie} $L_1L_2$ \emph{van twee talen} $L_1$ en $L_2$ over hetzelfde alfabet $\Sigma$ is de volgende verzameling:
   \[
@@ -69,10 +80,17 @@
     \[
     \begin{array}{r l l}
       (L_1L_2)L_3 &= \{\ xy\ |\ x \in L_1,\ y \in L_2\ \}L_3 &\\
-                  &= \{\ xyz\ |\ x \in L_1,\ y \in L_2\,\ z \in L_3\} &\\
-                  &= L_1\{\ yz\ |\ y \in L_2,\ z \in L_3\ \} &= L_1(L_2L_3)
+                 &= \{\ xyz\ |\ x \in L_1,\ y \in L_2\,\ z \in L_3\} &\\
+                 &= L_1\{\ yz\ |\ y \in L_2,\ z \in L_3\ \} &= L_1(L_2L_3)
     \end{array}
     \]
+  \end{proof}
+\end{ei}
+
+\begin{ei}
+  Talen, uitgerust met de unie, de doorsnede, het complement en de concatenatie, vormen een algebra.
+  \begin{proof}
+    Inderdaad, zowel de unie, de doorsnede, het complement als de concatenatie zijn inwendig. 
   \end{proof}
 \end{ei}
 
@@ -80,7 +98,7 @@
   De concatenatie van $n$ keer een taal $L$ met zichzelf noteren we als $L^n$.
   $L^0$ bevat enkel de lege string.
   \[
-  L^0 = \{\epsilon\}
+  L^0 = \{\epsilon\},\quad L^{n} = LL^{n-1}
   \]
 \end{de}
 
@@ -93,6 +111,21 @@
 
 \begin{de}
   $L^{+}$ is de unie van $L$, \'e\'en of meer keer geconcateneerd met zichzelf.
+  \[
+  L^{+} = LL^{*}
+  \]
+\end{de}
+
+\begin{ei}
+  We kunnen een taal ook defini\"eren als een deelverzameling van $\Sigma^{*}$ (of als een element van $\mathcal{P}(\Sigma^{*})$.)
+  \begin{proof}
+    Inderdaad, elke verzameling van eindige strings is een deelverzameling van de verzameling van alle eindige strings, alsook een element van de verzameling van alle deelverzamelingen van de verzameling van alle eindige strings.
+  \end{proof}
+\end{ei}
+
+\begin{de}
+  $L_{\Sigma}$ is de notatie voor \emph{de verzameling van alle talen over $\Sigma$}. 
+  \[ L_{\Sigma} = \mathcal{P}(\Sigma^{*}) \]
 \end{de}
 
 \section{Reguliere expressies en talen}
@@ -111,13 +144,14 @@
 \end{de}
 
 \begin{de}
+  \label{def:taal-bepaald-door-regex}
   De \emph{taal $L_E$ bepaald door een reguliere expressie} over hetzelfde alfabet $\Sigma$ is de volgende.
   \[
   \begin{array}{|c|c|}
     \hline
     E & L_E\\
     \hline
-    a \text{ met } a \in \Sigma & {a}\\
+    a \text{ met } a \in \Sigma & \{a\}\\
     \epsilon & {\epsilon}\\
     \phi & \emptyset\\
     (E_1E_2) & L_{E1}L_{E2}\\
@@ -136,8 +170,60 @@
   $RegLan$ is \emph{verzameling van alle reguliere talen}.
 \end{de}
 
+\begin{ei}
+  $Reglan$ is een subalgebra van $L_{\Sigma}$.
+  \begin{proof}
+    Bewijs in delen.
+    \begin{itemize}
+    \item $RegLan$ is een deelverzameling van $L_{\Sigma}$.
+      \[ RegLan \subseteq L_{\Sigma} \]
+    \item De unie is inwendig in $RegLan$.\\
+      Kies twee willekeurige reguliere talen $L_{E1},\ L_{E2} \in RegLan$.
+      De unie $L_{E1} \cup L_{E2}$ van deze twee talen wordt bepaald door de reguliere expressie $(E_1|E_2)$ en is bijgevolg een reguliere taal.
+      \footnote{Zie de definitie van de taal bepaald door een reguliere expressie. (Definite \ref{def:taal-bepaald-door-regex})}
+    \item De doorsnede is inwendig in $RegLan$.
+      \TODO{Bewijs zonder DFA's te gebruiken.}
+    \item Het complement is inwendig in $RegLan$.
+      \TODO{Bewijs zonder DFA's te gebruiken.}
+    \item De concatenatie is inwendig in $RegLan$.\\
+      Kies twee willekeurige reguliere talen $L_{E1},\ L_{E2} \in RegLan$.
+      De concatenatie $L_{E1}L_{E2}$ van deze twee talen wordt bepaald door de reguliere expressie $E_1E_2$ en is bijgevolg een reguliere taal.
+      \footnote{Zie de definitie van de taal bepaald door een reguliere expressie. (Definite \ref{def:taal-bepaald-door-regex})}
+    \end{itemize}
+  \end{proof}
+\end{ei}
+
+
+\section{Eindige toestandsautomaten}
+\label{sec:eind-toest}
+
 \begin{de}
-  $L_{\Sigma}$ is \emph{de verzameling van alle talen over $\Sigma$}. 
+  Een \emph{niet-deterministische eindige toestandsautomaat} (NFA) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
+  \begin{itemize}
+  \item $Q$ is een eindige verzameling toestanden.
+  \item $\Sigma$ is een alfabet.
+  \item $\delta$ is de overgangsfunctie van de automaat.
+  \[ \delta: Q \times \Sigma_{\epsilon} \rightarrow \mathcal{P}(Q) \]
+  \item $q_{s} \in Q$ is de starttoestand.
+  \item $F \subseteq Q$ is de verzameling aanvaardbare eindtoestanden.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Een \emph{string} $s$ wordt \emph{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s}F)$ als $s$ geschreven kan worden als $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en er een rij toestanden $t_{1}t_{2}\ldots t_{n+1}$ bestaat zodat:
+  \begin{itemize}
+  \item $t_{1} = q_{s}$
+  \item $t_{i+1} \in \delta(t_{i},a_{i})$
+  \item $t_{n+1} \in F$
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  De \emph{taal} $L_{M}$ \emph{bepaald door een NFA} $N$ bevat alle strings die $N$ aanvaardt, en geen andere strings.
+\end{de}
+
+\begin{de}
+  Twee \emph{NFA}'s $N_{1}$ en $N_{2}$ zijn emph{equivalent} als ze dezelfde taal bepalen.
 \end{de}
 
 \end{document}

@@ -3,14 +3,7 @@
 \usepackage[dutch]{babel}
 
 \input{packages}
-
-\theoremstyle{plain}
-\newtheorem{thm}{Theorem}[chapter] %Reset counter elk hoofdstuk
-\theoremstyle{definition}
-\newmdtheoremenv{de}[thm]{Definitie} % Definitie met frame
-\newtheorem{ei}[thm]{Eigenschap}
-\newtheorem{st}[thm]{Stelling}
-\newtheorem{gev}[thm]{Gevolg}
+\input{header}
 
 \begin{document}
 
@@ -18,7 +11,7 @@
 
 \tableofcontents
 \pagebreak
-
+\subfile{voorkennis}
 \subfile{talen-en-automaten}
 
 
