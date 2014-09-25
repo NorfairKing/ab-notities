@@ -24,6 +24,8 @@
   $\epsilon$ is de string zonder symbolen en noemen we de \emph{lege string}.
 \end{de}
 
+\question{ Is $\epsilon$ een string of een symbool? }
+
 \begin{de}
   De \emph{concatenatie} $xy$ van twee strings $x = \{x_1,x_2,\ldots,x_m\}$ en $y =   \{y_1,y_2,\ldots,y_n\}$ is de volgende geordende verzameling  
   \[
@@ -36,6 +38,7 @@
   \[
   (xy)z = x(yz)
   \]
+
   \begin{proof}
     \[
     \begin{array}{r l l}
@@ -76,6 +79,7 @@
   \[
   (L_1L_2)L_3 = L_1(L_2L_3)
   \]
+
   \begin{proof}
     \[
     \begin{array}{r l l}
@@ -118,6 +122,7 @@
 
 \begin{ei}
   We kunnen een taal ook defini\"eren als een deelverzameling van $\Sigma^{*}$ (of als een element van $\mathcal{P}(\Sigma^{*})$.)
+
   \begin{proof}
     Inderdaad, elke verzameling van eindige strings is een deelverzameling van de verzameling van alle eindige strings, alsook een element van de verzameling van alle deelverzamelingen van de verzameling van alle eindige strings.
   \end{proof}
@@ -143,28 +148,96 @@
   \end{itemize}
 \end{de}
 
+\question{ Zijn reguliere expressies altijd eindig? }
+
+\begin{st}
+  De verzameling van alle reguliere expressies over een alfabet $\Sigma$ vormt een taal.
+
+  \begin{proof}
+    Inderdaad, voeg aan $\Sigma$ nog de volgende symbolen toe om $\Sigma'$ te bekomen: $\epsilon$, $\phi$, $($, $)$, $|$ en $^{*}$.
+    Nu vormt de verzameling van alle reguliere expressies een taal over $\Sigma'$.
+
+    Merk op dat deze taal \emph{niet} regulier\footnote{Zie de definitie van reguliere talen (Definitie \ref{de:reguliere-taal}).} is. Er zitten immers haakjes in die moeten samen passen. (Zie verder waarom dit dan geen reguliere taal is (TODO)) 
+    \TODO{ voeg verwijzing toe zodra bewezen is dat $0^{n}1^{n}$ niet regulier is. }
+  \end{proof}
+\end{st}
+
 \begin{de}
   \label{def:taal-bepaald-door-regex}
   De \emph{taal $L_E$ bepaald door een reguliere expressie} over hetzelfde alfabet $\Sigma$ is de volgende.
   \[
   \begin{array}{|c|c|}
     \hline
-    E & L_E\\
+    E                           & L_E\\
     \hline
     a \text{ met } a \in \Sigma & \{a\}\\
-    \epsilon & {\epsilon}\\
-    \phi & \emptyset\\
-    (E_1E_2) & L_{E1}L_{E2}\\
-    (E) & L_E^*\\
-    (E_1|E_2) & L_{E1} \cup L_{E2}\\
+    \epsilon                    & {\epsilon}\\
+    \phi                        & \emptyset\\
+    (E_1E_2)                    & L_{E1}L_{E2}\\
+    (E)^{*}                      & L_E^*\\
+    (E_1|E_2)                   & L_{E1} \cup L_{E2}\\
     \hline
   \end{array}
   \]
 \end{de}
 
 \begin{de}
-  Een \emph{reguliere taal} is een taal die bepaald wordt daar een reguliere expressie.
+  \label{de:reguliere-taal}
+  Een \emph{reguliere taal} is een taal die bepaald wordt door een reguliere expressie.
 \end{de}
+
+\begin{ei}
+  Voor elke reguliere taal bestaat er een reguliere expressie die die taal bepaalt.
+
+  \begin{proof}
+    Inderdaad, anders was het geen reguliere taal! \footnote{Zie de definitie van een reguliere taal (Definitie \ref{de:reguliere-taal}).}
+  \end{proof}
+  \question{ Dit lijkt te simpel? }
+\end{ei}
+
+\begin{st}
+  Als een reguliere expressie $E$ geen ster bevat, dan is de taal $L_{E}$ bepaald door die reguliere expressie eindig.
+  
+  \begin{proof}
+    We tonen eerst de kardinaliteit van van $L_{E}$ afhankelijk van $E$.
+    \[
+    \begin{array}{|c|c|}
+      \hline
+      E                           & |L_E|\\
+      \hline
+      a \text{ met } a \in \Sigma & 1\\
+      \epsilon                    & 1\\
+      \phi                        & 0\\
+      (E_1E_2)                    & |L_{E1}| * |L_{E2}|\\
+      (E)^{*}                      & \infty\\
+      (E_1|E_2)                   & |L_{E1}| + |L_{E2}|\\
+      \hline
+    \end{array}
+    \]
+    Zoals we zien in de tabel blijft de kardinaliteit $L_{E}$ eindig zolang we geen ster gebruiken in $E$.
+    \clarify{ Dit geldt enkel als reguliere expressies altijd eindig zijn, anders kunnen er bij voorbeeld oneindig veel opties opgesomd worden met '$|$'. }
+  \end{proof}
+\end{st}
+
+\begin{st}
+  Als een reguliere expressie $E$ een ster bevat, is $L_{E}$ oneindig.
+  \begin{proof}
+    Inderdaad, als we opnieuw kijken naar de tabel met kardinaliteiten, zien we dat een ster in $E$ een oneindige kardinaliteit geeft voor $|L_{E}|$.
+    Bovendien is er geen manier om een oneindige kardinaliteit in een reguliere expressie weg te werken door samenstelling van reguliere expressies.
+    De kardinaliteit kan enkel oneindig blijven eens er een ster is gebruikt.
+    $L_{E}$ is dus inderdaad oneindig zodra $E$ een ster bevat.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  Zij $E$ en $F$ reguliere expressies. Nu geldt volgende bewering.
+  \[ L_{E} \subseteq L_{(E|F)} \]
+
+  \begin{proof}
+    \[ L_{(E|F)} = L_{E} \cup L_{F}\]
+    \[ L_{E} \subseteq L_{E} \cup L_{F} \]
+  \end{proof}
+\end{st}
 
 \begin{de}
   $RegLan$ is \emph{verzameling van alle reguliere talen}.
@@ -172,6 +245,7 @@
 
 \begin{ei}
   $Reglan$ is een subalgebra van $L_{\Sigma}$.
+
   \begin{proof}
     Bewijs in delen.
     \begin{itemize}
@@ -181,18 +255,71 @@
       Kies twee willekeurige reguliere talen $L_{E1},\ L_{E2} \in RegLan$.
       De unie $L_{E1} \cup L_{E2}$ van deze twee talen wordt bepaald door de reguliere expressie $(E_1|E_2)$ en is bijgevolg een reguliere taal.
       \footnote{Zie de definitie van de taal bepaald door een reguliere expressie. (Definite \ref{def:taal-bepaald-door-regex})}
-    \item De doorsnede is inwendig in $RegLan$.
-      \TODO{Bewijs zonder DFA's te gebruiken.}
-    \item Het complement is inwendig in $RegLan$.
-      \TODO{Bewijs zonder DFA's te gebruiken.}
     \item De concatenatie is inwendig in $RegLan$.\\
       Kies twee willekeurige reguliere talen $L_{E1},\ L_{E2} \in RegLan$.
       De concatenatie $L_{E1}L_{E2}$ van deze twee talen wordt bepaald door de reguliere expressie $E_1E_2$ en is bijgevolg een reguliere taal.
       \footnote{Zie de definitie van de taal bepaald door een reguliere expressie. (Definite \ref{def:taal-bepaald-door-regex})}
+    \item Het complement is inwendig in $RegLan$.
+      \TODO{bewijs zonder DFA's te gebruiken.}
+    \item De doorsnede is inwendig in $RegLan$.
+      \TODO{Bewijs zonder DFA's te gebruiken.}
     \end{itemize}
   \end{proof}
 \end{ei}
 
+\begin{ei}
+  Hier volgen een aantal eigenschappen over $RegLan$.
+  \begin{enumerate}
+  \item $RegLan \subseteq \Sigma$: Onwaar, er wordt hier een verzameling talen met een verzameling symbolen vergeleken.
+  \item $RegLan \subseteq \Sigma^{*}$: Onwaar, er wordt hier een verzameling talen met een verzameling strings vergeleken.
+  \item $RegLan \subseteq \mathcal P(\Sigma)$: Onwaar, er wordt hier een verzameling talen met een verzameling van verzamelingen van symbolen vergeleken.
+  \item $RegLan \subseteq \mathcal P(\Sigma^{*})$: Waar, dit is equivalent met: ``Een reguliere taal is een taal.''.
+  \item $RegLan \subseteq \mathcal P(\mathcal P(\Sigma^{*}))$: Onwaar, er wordt hier een verzameling talen vergeleken met een een verzameling van verzamelingen van talen. Merk op dat, als er '$\in$' stond in plaats van '$\subseteq$', deze stelling wel klopte.
+  \item $(\forall x)(x \in RegLan \Rightarrow x \in \Sigma)$: Onwaar, zie puntje 1.
+  \item $(\forall x)(x \in RegLan \Rightarrow x \in \Sigma^{*})$: Onwaar, zie puntje 2.
+  \item $(\forall x)(x \in RegLan \Rightarrow x \in \mathcal P(\Sigma))$: Onwaar, zie puntje 3.
+  \item $(\forall x)(x \in RegLan \Rightarrow x \in \mathcal P(\Sigma^{*}))$: Waar, zie puntje 4.
+  \item $(\forall x)(x \in RegLan \Rightarrow x \in \mathcal P(\mathcal P(\Sigma^{*})))$: Onwaar, zie puntje 5.
+  \item $(\forall x,y)(x \in RegLan \wedge y \in x \Rightarrow y \in \Sigma)$: Onwaar, $y$ is hier een string terwijl $x$ een taal is. De uitdrukking $y \in \Sigma$ is dus triviaal fout.
+  \item $(\forall x,y)(x \in RegLan \wedge y \in x \Rightarrow y \in \Sigma^{*})$: Waar, dit is equivalent met: ``Een string van een reguliere taal is een string.''.
+  \item $(\forall x,y)(x \in RegLan \wedge y \in x \Rightarrow y \in \mathcal P(\Sigma)$: Onwaar, $y$ is een string, maar $\mathcal P(\Sigma)$ is een verzameling van verzamelingen symbolen. Er is op deze twee geen 'element van' gedefinieerd.
+  \item $(\forall x,y)(x \in RegLan \wedge y \in x \Rightarrow y \in \mathcal P(\Sigma^{*})$: Onwaar, $y$ is een string, maar $\mathcal P(\Sigma^{*})$ is een verzameling talen. Er is op deze twee geen 'element van' gedefinieerd.
+  \item $(\forall x,y)(x \in RegLan \wedge y \in x \Rightarrow y \in \mathcal P(\mathcal P(\Sigma^{*}))$: Onwaar, $y$ is een string, maar $\mathcal P(\mathcal P(\Sigma^{*}))$ is een verzameling van verzamelingen van talen. Er is op deze twee geen 'element van' gedefinieerd.
+  \end{enumerate}
+\end{ei}
+
+\begin{st}
+  Er bestaat een niet-reguliere taal.
+
+  \begin{proof}
+    Elke reguliere expressie bepaalt precies \'e\'en (reguliere) taal.
+    Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg aftelbaar oneindig veel reguliere talen.
+\clarify{ Dit geldt enkel wanneer reguliere expressies eindig zijn. }
+    Er zijn echter overaftelbaar oneindig veel talen. Er moet dus minstens \'e\'en niet-reguliere taal bestaan.
+    (In feite zijn de meeste\footnote{'de meeste' heeft een heel specifieke wiskundige betekenis.} talen niet-regulier.)
+  \end{proof}
+\end{st}
+
+\begin{st}
+  Elke eindige taal $L$ is regulier.
+
+  \begin{proof}
+    We bewijzen dit door de constructie van een reguliere expressie die $L$ bepaalt:\\
+    Zij $n$ het aantal strings in $L$ met $n$ eindig.
+    Voor elke string $s_{i} \in L$, construeren we een reguliere expressie $E_{i}$ die de taal met enkel $s_{i}$ bepaalt door de concatenatie van de opeenvolgende symbolen in $s_{i}$. 
+    Voeg nu al deze reguliere expressies $E_{i}$ samen tot $(E_{1}|E_{2}|\ldots|E_{n})$ om de reguliere expressie te krijgen die $L$ bepaalt.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  Een oneindige reguliere taal is niet noodzakelijk aftelbaar.
+
+  \begin{proof}
+    Neem de alombekende overaftelbare verzameling als voorbeeld: de re\"ele getallen.
+    De taal van de re\"ele getallen is regulier en wordt bepaald door de volgende reguliere expressie over het alfabet $\Sigma = \{ '.','0','1','2','3','4','5','6','7','8','9' \}$
+    \[ E = (0|1|2|3|4|5|6|7|8|9)^{*} . (0|1|2|3|4|5|6|7|8|9)^{*}  \]
+  \end{proof}
+\end{st}
 
 \section{Eindige toestandsautomaten}
 \label{sec:eind-toest}
