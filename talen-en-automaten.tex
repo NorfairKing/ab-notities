@@ -311,13 +311,24 @@
 \end{st}
 
 \begin{st}
-  Een oneindige reguliere taal is niet noodzakelijk aftelbaar.
+  Een oneindige taal is aftelbaar.
 
   \begin{proof}
-    Neem de alombekende overaftelbare verzameling als voorbeeld: de re\"ele getallen.
-    De taal van de re\"ele getallen is regulier en wordt bepaald door de volgende reguliere expressie over het alfabet $\Sigma = \{ '.','0','1','2','3','4','5','6','7','8','9' \}$
-    \[ E = (0|1|2|3|4|5|6|7|8|9)^{*} . (0|1|2|3|4|5|6|7|8|9)^{*}  \]
+    Zij $L$ een willekeurige reguliere  taal over een alfabet $\Sigma$.
+    Beschouw het alfabet $\Sigma$ als de symbolen van een $|\Sigma|$-tallig talstelsel.
+    Elke string $s$ in $L$ komt nu overeen met een getal $n_{s} \in N$.
+    Er bestaat dus een bijectie tussen $\mathbb N$ en $L$. 
+    Nu is $L$ aftelbaar oneindig omdat $N$ aftelbaar oneindig is.
   \end{proof}
+
+% Dit bewijs van het tegengestelde geldt niet: strings moeten eindig zijn.
+%
+%  \begin{proof}
+%    Neem de alombekende overaftelbare verzameling als voorbeeld: de re\"ele getallen.
+%    De taal van de re\"ele getallen is regulier en wordt bepaald door de volgende reguliere expressie over het alfabet $\Sigma = \{ '.','0','1','2','3','4','5','6','7','8','9' \}$
+%    \[ E = (0|1|2|3|4|5|6|7|8|9)^{*} . (0|1|2|3|4|5|6|7|8|9)^{*}  \]
+%  \end{proof}
+
 \end{st}
 
 \section{Eindige toestandsautomaten}
