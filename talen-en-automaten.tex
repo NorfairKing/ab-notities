@@ -4,7 +4,6 @@
 \chapter{Talen en Automaten}
 \label{cha:talen-en-automaten}
 
-
 \section{Symbolen en Strings}
 \label{sec:symbolen-en-strings}
 
@@ -350,7 +349,175 @@
 \end{de}
 
 \begin{de}
-  Twee \emph{NFA}'s $N_{1}$ en $N_{2}$ zijn emph{equivalent} als ze dezelfde taal bepalen.
+  Twee \emph{NFA}'s $N_{1}$ en $N_{2}$ zijn \emph{equivalent} als ze dezelfde taal bepalen.
+  \[ n_{1} \sim n_{2} \]
 \end{de}
+
+\question{ Bestaat er een procedure om na te gaan of twee NFA's equivalent zijn? } 
+
+\begin{st}
+  \label{st:equivalentierelatie-NFA}
+  Het concept van `equivalentie' van NFA's vormt een equivalentierelatie op de verzameling van alle NFA's.
+
+  \begin{proof}
+    Een equivalentie relatie is gedefinieerd as een relatie met drie specifieke eigenschappen.
+    We bewijzen ze elk afzonderlijk.
+    \begin{itemize}
+    \item Reflexiviteit.\\
+      Elke NFA $n$ is equivalent met zichzelf.
+      \[ \forall n: n \sim n \]
+    \item Symmetrie.\\
+      De volgorde van NFA's maakt niet uit voor de equivalentie.
+      \[ \forall n_{1},n_{2}: (n_{1} \sim n_{2} \Leftrightarrow n_{2} \sim n_{1}) \]
+    \item Transitiviteit.
+      Wanneer een NFA equivalent met een tweede, en die tweede met een derde, dan is de eerste ook equivalent met de derde.
+      \[ \forall n_{1}, n_{2}, n_{3}: (n_{1} \sim n_{2} \wedge n_{2} \sim n_{3}) \Rightarrow n_{1} \sim n_{3} \]
+    \end{itemize}
+  \end{proof}
+  Merk op dat dit inhoudt dat er met elke equivalentieklasse precies \'e\'en taal overeen komt.
+\end{st}
+
+\begin{st}
+  \label{st:hoogstens-een-eindtoestand-NFA}
+  Voor elke NFA bestaat er een equivalente NFA met hoogstens \'e\'en aanvaardbare eindtoestand.
+
+  \begin{proof}
+    Kies een willekeurige NFA $n$.
+    We onderscheiden nu drie gevallen op basis van het aantal aanvaardbare eindtoestanden $|F|$ in $n$.
+    \begin{enumerate}
+    \item $|F| = 0 \vee |F| = 1$\\
+      Wanneer $n$ hoogstens aanvaardbare eindtoestand bevat, is de NFA equivalent met een NFA met hoogstens \'e\'en aanvaardbare eindtoestand, namelijk zichzelf.\footnote{De equivalentie van NFA's vormt een equivalentierelatie. (Zie eigenschap \ref{st:equivalentierelatie-NFA}.)}
+    \item $|F| > 1$\\
+      Wanneer $n$ meer dan \'e\'en aanvaardbare toestand bevat, kunnen we een equivalente NFA $n'$ construeren met precies \'e\'en aanvaardbare eindtoestand.
+      Kies willekeurig een aanvaardbare eindtoestand en noem deze $f$. 
+      Voeg nu een $\epsilon$ boog toe van elke andere eindtoestand naar $f$.
+      Verander tenslotte de andere aanvaardbare eindtoestanden in onaanvaardbare eindtoestanden om de NFA $n'$ te bekomen.
+    \end{enumerate}
+  \end{proof}
+\end{st}
+
+\begin{st}
+  Voor elke NFA bestaat er een equivalente NFA waar je nooit in vast komt te zitten.
+
+  \begin{proof}
+    Kies een willekeurige NFA $n$.
+    We construeren nu een equivalente NFA $n'$ waarin je nooit vast kan komen te zitten.
+    Creer een nieuwe onaanvaardbare staat $d$. Ga nu voor elke staat van $n$ na voor welke symbolen er een boog ontbreekt.
+    Maak in elk van die staten een boog van die staat naar $d$ voor elk van die symbolen.
+    Voeg bovendien voor elk symbool in het alfabet een boog van $d$ naar zichzelf toe met dat symbool.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  Een \emph{transititabel} is een tabel die de funtie $\delta$ voorstelt voor een automaat.
+  De tabel heeft drie kolommen. Elke rij vormt een deel van de werking van $\delta$.
+  In de eerste kolom staat een staat, in de tweede een symbool, en in de derde een verzameling van staten.                   
+\end{de}
+
+\section{De algebra van NFA's}
+Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare eindtoestand heeft waaruit bovendien geen pijlen vertrekken, zonder verlies van algemeenheid.\footnote{Zie eigenschap \ref{st:hoogstens-een-eindtoestand-NFA} van NFA's.}
+\label{sec:de-algebra-van-nfas}
+
+\begin{de}
+  De \emph{unie} $n_{1} \cup n_{2}$ van twee NFA's $n_{1}$ en $n_{2}$ is de NFA $n$ die de unie van de talen $L_{n_{1}}$ en $L_{n_{2}}$ aanvaardt.
+\end{de}
+
+\begin{st}
+  \emph{Construtie van de unie van twee NFA's}\\
+  Het is steeds mogelijk om de unie van twee NFA's te construeren.
+
+  \begin{proof}
+    Zij $n_{1} = (Q_{1},\Sigma,\delta_{1},q_{s1},\{q_{f1}\})$ en $n_{2} = (Q_{2},\Sigma,\delta_{2},q_{s2},\{q_{f2}\})$ twee willekeurige NFA's. We construeren nu de unie $n = n_{1} \cup n_{2} = (O,\Sigma,\delta,q,\{q_{f}\})$ van deze NFA's.
+    De informele constructie ziet u in figuur \ref{fig:nfa_unie}.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.5\textwidth]{assets/nfa_unie.png}      
+      \caption{De unie van twee NFA's}
+      \label{fig:nfa_unie}
+    \end{figure}
+    Formeel beschrijven we $n$ als volgt.
+    \begin{itemize}
+    \item $Q = Q_{1} \cup Q_{2} \cup \{ q_{s}, q_{f} \}$ waarbij $q_{s}$ en $q_{f}$ nieuwe toestanden zijn.
+    \item $F = {q_{f}}$
+    \item $\delta$ wordt aangepast als volgt:
+      \begin{itemize}
+      \item $\forall q \in Q_{i}\setminus\{q_{f_{i}}\},\ \forall x \in \Sigma_{\epsilon}:\ \delta(q,x) = \delta_{i}(q,x)$
+      \item $\delta(q_{s},\epsilon) = \{q_{s1},q_{s2}\}$
+      \item $\forall x \in \Sigma:\ \delta(q_{s},x) = \emptyset$
+      \item $\delta(q_{f1},x) = \{q_{f}\}$ en $\delta(q_{f2},x) = \{q_{f}\}$
+      \item $\forall x \in \Sigma:\ \delta(q_{f1},x) = \emptyset$, $\delta(q_{f2},x) = \emptyset$ en $\delta(q_{f},x) = \emptyset$ 
+      \end{itemize}
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  De \emph{concatenatie} $n_{1}n_{2}$ van twee NFA's $n_{1}$ en $n_{2}$ is de NFA $n$ die de concatenatie van de talen $L_{n_{1}}$ en $L_{n_{2}}$ aanvaardt.
+\end{de}
+
+\begin{st}
+  \emph{Construtie van de concatenatie van twee NFA's}\\
+  Het is steeds mogelijk om de concatenatie van twee NFA's te construeren.
+
+  \begin{proof}
+    Zij $n_{1} = (Q_{1},\Sigma,\delta_{1},q_{s1},\{q_{f1}\})$ en $n_{2} = (Q_{2},\Sigma,\delta_{2},q_{s2},\{q_{f2}\})$ twee willekeurige NFA's. We construeren nu de unie $n = n_{1}n_{2} = (O,\Sigma,\delta,q,\{q_{f}\})$ van deze NFA's.
+    De informele constructie ziet u in figuur \ref{fig:nfa_concat}.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.7\textwidth]{assets/nfa_concat.png}      
+      \caption{De concatenatie van twee NFA's}
+      \label{fig:nfa_concat}
+    \end{figure}
+    Formeel beschrijven we $n$ als volgt.
+    \begin{itemize}
+    \item $Q = Q_{1} \cup Q_{2} \cup \{ q_{s}, q_{f} \}$ waarbij $q_{s}$ en $q_{f}$ nieuwe toestanden zijn.
+    \item $F = {q_{f}}$
+    \item $\delta$ wordt aangepast als volgt:
+      \begin{itemize}
+      \item $\forall q \in Q_{i}\setminus\{q_{f_{i}}\},\ \forall x \in \Sigma_{\epsilon}:\ \delta(q,x) = \delta_{i}(q,x)$
+      \item $\delta(q_{s},\epsilon) = \{q_{s1}\}$
+      \item $\forall x \in \Sigma:\ \delta(q_{s},x) = \emptyset$
+      \item $\delta(q_{f1},\epsilon) = \{q_{s2}\}$
+      \item $\delta(q_{s2},\epsilon) = \{q_{f}\}$
+      \item $\forall x \in \Sigma:\ \delta(q_{f1},x) = \emptyset$, $\delta(q_{f2},x) = \emptyset$ en $\delta(q_{f},x) = \emptyset$ 
+      \end{itemize}
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  De \emph{Kleenester} van een NFA $n'$ is de NFA $n$ die de Kleenester van de taal $N_{n'}$ aanvaardt.
+\end{de}
+
+\begin{st}
+  \emph{Construtie van de Kleenester van een NFA}\\
+  Het is steeds mogelijk om de Kleenester van een NFA te construeren.
+
+  \begin{proof}
+    Zij $n' = (Q',\Sigma,\delta',q_{s},\{q_{f}'\})$ een willekeurige NFA. We construeren nu de Kleenester $n = (O,\Sigma,\delta,q,F)$ van deze NFA.
+    De informele constructie ziet u in figuur \ref{fig:nfa_kleene}.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.5\textwidth]{assets/nfa_kleene.png}      
+      \caption{De Kleenester van een NFA}
+      \label{fig:nfa_kleene}
+    \end{figure}
+    Formeel beschrijven we $n$ als volgt.
+    \begin{itemize}
+    \item $Q = Q' \cup \{ q_{s}, q_{f} \}$ waarbij $q_{s}$ en $q_{f}$ nieuwe toestanden zijn.
+    \item $F = {q_{f}'}$
+    \item $\delta$ wordt aangepast als volgt:
+      \begin{itemize}
+      \item $\forall q \in Q'\setminus\{q_{f}'\},\ \forall x \in \Sigma_{\epsilon}:\ \delta(q,x) = \delta_{i}(q,x)$
+      \item $\delta(q_{s},\epsilon) = \{q_{s}'\}$
+      \item $\forall x \in \Sigma:\ \delta(q_{s},x) = \emptyset$
+      \item $\delta(q_{f}',\epsilon) = \{q_{f}\}$
+      \item $\delta(q_{f},\epsilon) = \{q_{s}\}$
+      \item $\delta(q_{s},\epsilon) = \{q_{f}\}$
+      \item $\forall x \in \Sigma:\ \delta(q_{f}',x) = \emptyset$ en $delta(q_{f},x) = \emptyset$
+      \end{itemize}
+    \end{itemize}
+  \end{proof}
+\end{st}
 
 \end{document}
