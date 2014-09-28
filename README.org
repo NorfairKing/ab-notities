@@ -21,5 +21,5 @@ U kan de pdf [[https://www.sharelatex.com/github/repos/NorfairKing/ab-notities/b
 
  - De [[https://github.com/KULeuven-DeptCW/AaC-Exc][GitHub]] repository voor de oefenzittingen en toetsen;
  - een [[http://willemvanonsem.ulyssis.be/posterab.pdf][A0-poster]] die een "samenvatting" vormt van de cursus;
- - [[https://github.com/KommuSoft/publications/tree/posterab/poster_automaten_en_berekenbaarheid]][Broncode]] van de poster; en
- - [[http://people.cs.kuleuven.be/~bart.demoen/AB/]][Thuisbladzijde]]
+ - [[https://github.com/KommuSoft/publications/tree/posterab/poster_automaten_en_berekenbaarheid][Broncode]] van de poster; en
+ - [[http://people.cs.kuleuven.be/~bart.demoen/AB/][Thuisbladzijde]].
