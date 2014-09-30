@@ -145,9 +145,9 @@
   \item $(E)^*$ waarbij $E$ een reguliere expressie is over $\Sigma$
   \item $(E_1|E_2)$ waarbij $E_1$ en $E_2$ reguliere expressies zijn over $\Sigma$
   \end{itemize}
+  Merk op dat, net als strings, reguliere expressies steeds eindig zijn.
 \end{de}
 
-\question{ Zijn reguliere expressies altijd eindig? }
 
 \begin{st}
   De verzameling van alle reguliere expressies over een alfabet $\Sigma$ vormt een taal.
@@ -191,7 +191,6 @@
   \begin{proof}
     Inderdaad, anders was het geen reguliere taal! \footnote{Zie de definitie van een reguliere taal (Definitie \ref{de:reguliere-taal}).}
   \end{proof}
-  \question{ Dit lijkt te simpel? }
 \end{ei}
 
 \begin{st}
@@ -214,7 +213,6 @@
     \end{array}
     \]
     Zoals we zien in de tabel blijft de kardinaliteit $L_{E}$ eindig zolang we geen ster gebruiken in $E$.
-    \clarify{ Dit geldt enkel als reguliere expressies altijd eindig zijn, anders kunnen er bij voorbeeld oneindig veel opties opgesomd worden met '$|$'. }
   \end{proof}
 \end{st}
 
@@ -293,7 +291,6 @@
   \begin{proof}
     Elke reguliere expressie bepaalt precies \'e\'en (reguliere) taal.
     Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg aftelbaar oneindig veel reguliere talen.
-\clarify{ Dit geldt enkel wanneer reguliere expressies eindig zijn. }
     Er zijn echter overaftelbaar oneindig veel talen. Er moet dus minstens \'e\'en niet-reguliere taal bestaan.
     (In feite zijn de meeste\footnote{'de meeste' heeft een heel specifieke wiskundige betekenis.} talen niet-regulier.)
   \end{proof}
