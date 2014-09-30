@@ -145,9 +145,9 @@
   \item $(E)^*$ waarbij $E$ een reguliere expressie is over $\Sigma$
   \item $(E_1|E_2)$ waarbij $E_1$ en $E_2$ reguliere expressies zijn over $\Sigma$
   \end{itemize}
+  Merk op dat, net als strings, reguliere expressies steeds eindig zijn.
 \end{de}
 
-\question{ Zijn reguliere expressies altijd eindig? }
 
 \begin{st}
   De verzameling van alle reguliere expressies over een alfabet $\Sigma$ vormt een taal.
@@ -191,7 +191,6 @@
   \begin{proof}
     Inderdaad, anders was het geen reguliere taal! \footnote{Zie de definitie van een reguliere taal (Definitie \ref{de:reguliere-taal}).}
   \end{proof}
-  \question{ Dit lijkt te simpel? }
 \end{ei}
 
 \begin{st}
@@ -207,14 +206,13 @@
       a \text{ met } a \in \Sigma & 1\\
       \epsilon                    & 1\\
       \phi                        & 0\\
-      (E_1E_2)                    & |L_{E1}| * |L_{E2}|\\
+      (E_1E_2)                    & |L_{E1}| \cdot |L_{E2}|\\
       (E)^{*}                      & \infty\\
-      (E_1|E_2)                   & |L_{E1}| + |L_{E2}|\\
+      (E_1|E_2)                   & |L_{E1}| + |L_{E2}| - |L_{E1} \cap L_{E2}|\\
       \hline
     \end{array}
     \]
     Zoals we zien in de tabel blijft de kardinaliteit $L_{E}$ eindig zolang we geen ster gebruiken in $E$.
-    \clarify{ Dit geldt enkel als reguliere expressies altijd eindig zijn, anders kunnen er bij voorbeeld oneindig veel opties opgesomd worden met '$|$'. }
   \end{proof}
 \end{st}
 
@@ -293,7 +291,6 @@
   \begin{proof}
     Elke reguliere expressie bepaalt precies \'e\'en (reguliere) taal.
     Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg aftelbaar oneindig veel reguliere talen.
-\clarify{ Dit geldt enkel wanneer reguliere expressies eindig zijn. }
     Er zijn echter overaftelbaar oneindig veel talen. Er moet dus minstens \'e\'en niet-reguliere taal bestaan.
     (In feite zijn de meeste\footnote{'de meeste' heeft een heel specifieke wiskundige betekenis.} talen niet-regulier.)
   \end{proof}
@@ -311,13 +308,25 @@
 \end{st}
 
 \begin{st}
-  Een oneindige reguliere taal is niet noodzakelijk aftelbaar.
+  Een oneindige taal is aftelbaar.
 
   \begin{proof}
-    Neem de alombekende overaftelbare verzameling als voorbeeld: de re\"ele getallen.
-    De taal van de re\"ele getallen is regulier en wordt bepaald door de volgende reguliere expressie over het alfabet $\Sigma = \{ '.','0','1','2','3','4','5','6','7','8','9' \}$
-    \[ E = (0|1|2|3|4|5|6|7|8|9)^{*} . (0|1|2|3|4|5|6|7|8|9)^{*}  \]
+    Zij $L$ een willekeurige reguliere taal over een alfabet $\Sigma$.
+    Beschouw het alfabet $\Sigma$ als de symbolen van een $|\Sigma|$-tallig talstelsel.
+    Elke string $s$ in $\Sigma^{*}$ komt nu overeen met een getal $n_{s} \in N$.
+    Er bestaat dus een bijectie tussen $\mathbb N$ en $\Sigma^{*}$. 
+    Nu is $\Sigma^{*}$ aftelbaar oneindig omdat $N$ aftelbaar oneindig is.
+    Omdat $L$ een deelverzameling is van $\Sigma^{*}$, is $L$ aftelbaar oneindig.
   \end{proof}
+
+% Dit bewijs van het tegengestelde geldt niet: strings moeten eindig zijn.
+%
+%  \begin{proof}
+%    Neem de alombekende overaftelbare verzameling als voorbeeld: de re\"ele getallen.
+%    De taal van de re\"ele getallen is regulier en wordt bepaald door de volgende reguliere expressie over het alfabet $\Sigma = \{ '.','0','1','2','3','4','5','6','7','8','9' \}$
+%    \[ E = (0|1|2|3|4|5|6|7|8|9)^{*} . (0|1|2|3|4|5|6|7|8|9)^{*}  \]
+%  \end{proof}
+
 \end{st}
 
 \section{Eindige toestandsautomaten}
