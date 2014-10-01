@@ -551,4 +551,81 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
+\section{Van reguliere expressie naar NFA}
+\label{sec:van-reguliere-expressie-naar-nfa}
+
+\begin{de}
+  Definieer de NFA $NFA_{\epsilon}$ als $(Q, \Sigma, \delta, q_{s}, F)$.
+
+  \begin{itemize}
+  \item $Q = \{q_{s},q_{d}\}$.
+  \item 
+    \[ \forall q \in Q, c \in \Sigma:\ \delta(q,c) = q_{d} \]
+  \item $F = \{q_{s}\}$
+  \end{itemize}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{assets/nfa_epsilon.png}      
+    \caption{De NFA $NFA_{\epsilon}$}
+    \label{fig:nfa_epsilon}
+  \end{figure}
+\end{de}
+
+\begin{de}
+  Definieer de NFA $NFA_{phi}$ als $(Q, \Sigma, \delta, q_{s}, \emptyset)$.
+
+  \begin{itemize}
+  \item $Q = \{q_{s}\}$
+  \item 
+    \[ \forall c \in \Sigma:\ \delta(q,c) = q_{s} \]
+  \end{itemize}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\textwidth]{assets/nfa_phi.png}      
+    \caption{De NFA $NFA_{\phi}$}
+    \label{fig:nfa_phi}
+  \end{figure}
+\end{de}
+
+\begin{de}
+  Definieer de NFA $NFA_{a}$ (met $a$ in $\Sigma$) als $(Q, \Sigma, \delta, q_{s}, F)$.
+
+  \begin{itemize}
+  \item $Q = \{q_{s},q_{f},q_{d}\}$
+  \item $\delta$
+    \[ \delta(q_{s}, a) = q_{f} \]
+    \[ \forall c \in \Sigma\setminus\{a\}:\ \delta(q_{s}, c) = q_{d} \]
+    \[ \forall c \in \Sigma:\ \delta(q_{f}, c) = q_{d}\]
+    \[ \forall c \in \Sigma:\ \delta(q_{d}, c) = q_{d}\]
+  \item $F = \{q_{f}\}$
+  \end{itemize}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{assets/nfa_a.png}      
+    \caption{De NFA $NFA_{a}$}
+    \label{fig:nfa_a}
+  \end{figure}
+\end{de}
+
+\begin{de}
+  Definieer nu \emph{NFA van een reguliere expressie}, samen met de vorige definitie als volgt:
+  \begin{itemize}
+  \item $NFA_{E_{1}E_{2}} = NFA_{E_{1}}NFA_{E_{2}}$
+  \item $NFA_{(E_{1}|E_{2})} = NFA_{E_{1}} \cup NFA_{E_{2}}$
+  \item $NFA_{E_{1}^{*}} = NFA_{E_{1}}^{*}$
+  \end{itemize}
+\end{de}
+
+\begin{st}
+  De NFA van een reguliere expressie behoudt de bepaalde taal.
+  \[ L_{NFA_{E}} = L_{E} \]
+
+  \begin{proof}
+    \TODO{bewijs}
+  \end{proof}
+\end{st}
+
 \end{document}
