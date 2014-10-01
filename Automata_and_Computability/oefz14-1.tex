@@ -1,0 +1,43 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{color}
+\usepackage{../assignment-nl,../brackets}
+
+\title{Automaten en Berekenbaarheid\\Opgave \#1\\\url{http://goo.gl/1RlVG5}}
+\author{prof. B. Demoen\\W. Van Onsem}
+\date{Oktober 2014}
+
+\topmargin -15mm 
+\textwidth 16truecm 
+\textheight 24truecm
+\oddsidemargin 5mm 
+\evensidemargin 5mm
+
+
+\newcommand{\R}{\mathcal{R}}
+
+\begin{document}
+
+\maketitle
+
+\begin{question}
+Voor een string $w = w_1 w_2 \ldots w_n$ duiden we de omgekeerde string $w_n \ldots w_2  w_1$ aan met $w^{\R}$ en voor een taal $L$ schrijven we $L^{\R} = \condset{w^{\R}}{w\in L}$. Als $L$ regulier is, is $L^{\R}$ dan ook regulier?
+\end{question}
+\begin{question}
+Geef voor elk van de volgende talen over het alfabet $\accl{0,1}$ een reguliere expressie die die taal bepaalt. Geef ook een NFA die die taal aanvaardt.
+\begin{enumerate}
+  \item $\condset{w}{\mbox{op elke oneven positie van $w$ staat een $1$}}$
+  \item $\condset{w}{\mbox{$w$ bevat minstens twee $0$'en en hoogstens \'e\'en $1$}}$
+  \item Het complement van $\accl{11,111}$
+  \item $\condset{w}{\mbox{$w$ bevat evenveel maal de substring $01$ als de substring $10$}}$
+\end{enumerate}
+\end{question}
+\begin{question}
+Toon aan dat er voor elke $n \geq 1$ NFA's bestaan die de volgende talen aanvaarden.
+\begin{enumerate}
+  \item $\condset{a^k}{\mbox{$k$ is een veelvoud van $n$}}$ over het alfabet $\accl{a}$.
+  \item $\condset{x}{\mbox{$x$ is de binaire voorstelling van een natuurlijk getal dat een veelvoud is van $n$}}$
+\end{enumerate}
+\end{question}
+
+\end{document}
