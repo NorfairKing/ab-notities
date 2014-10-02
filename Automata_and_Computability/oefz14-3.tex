@@ -1,0 +1,46 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{color,xypic}
+\xyoption{all}
+\usepackage{../assignment-nl,../brackets}
+
+\title{Automaten en Berekenbaarheid\\Opgave \#3\\\url{http://goo.gl/1RlVG5}}
+\author{prof. B. Demoen\\W. Van Onsem}
+\date{Oktober 2014}
+
+\begin{document}
+
+\maketitle
+
+\begin{question}
+Minimaliseer de volgende DFA \\
+\[  \entrymodifiers={++[o][F-]}
+  \SelectTips{cm}{}
+  \xymatrix {
+    *{} \ar[r] &
+    1               \ar[r]_0    \ar[rd]^1                              &
+    *++[o][F=]{2}   \ar[d]_1    \ar `ur_r[dd]  `[dd] `_dl[dd]^0 [dd]     &
+    3               \ar `ur_d[dd] `_l[dd]^1 [dd]   \ar[d]_0                               \\
+    *{} &
+    4               \ar@(lu,ld)[]_1   \ar@/_/[r]_0      &
+    5               \ar[d]_1          \ar@/_/[l]_0      &
+    *++[o][F=]{6}   \ar@(ru,rd)[]_1   \ar[d]_0          \\
+    *{} &
+    7               \ar[u]_1          \ar[ru]_0                     &
+    *++[o][F=]{8}   \ar@(ld,rd)[]^0   \ar@/_/[r]_1                  &
+    9                \ar@/_/[l]_1      \ar `dr_l[ll] `_ur[ll]^0 [ll]  \\
+} \]
+\end{question}
+
+\begin{question}
+Zij $\Sigma_1 = \{0,1\}, \Sigma_2 = \{a\}$ en $\Sigma_3 = \{a,b,c\}$. Toon aan dat de volgende talen niet regulier zijn.
+\begin{enumerate}
+  \item $\{ w \in \Sigma_1^*\ |\ \mbox{$\left|w\right|$ is even en de $1$'en in $w$ komen enkel voor in de laatste helft van $w$}\}$   % Niet uit Sipser. 
+  \item $\{ a^{\left( 2^n \right) } \in \Sigma_2^* \ | \ n \geq 0 \}$                                      % Sipser 1.17 (c)
+  \item $\{ a^n \in \Sigma_2^*\ | \ \mbox{$n$ is een priemgetal} \}$                                       % Niet uit Sipser
+  \item $\{ 0^m1^n \in \Sigma_1^* \ | \ m \neq n \}$                                                       % Sipser 1.23 (c)
+  \item $\{ w \in \Sigma_1^* \ | \ \mbox{$w$ is geen palindroom} \}$                                       % Sipser 1.23 (d)
+  \item $\{ a^ib^jc^k \in \Sigma_3^* \ | \ \mbox{$i,j,k \geq 0$ en als $i = 1$, dan moet $j=k$} \}$        % Sipser 1.37
+\end{enumerate}
+\end{question}
+\end{document}
