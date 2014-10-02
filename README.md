@@ -8,6 +8,13 @@ Content
 Exercise sessions:
 
   1. `oefz14-1.pdf` (October 9, 2014)
+  2. `oefz14-2.pdf` (October 16, 2014)  
+  3. `oefz14-3.pdf` (October 23, 2014)  
+  4. `oefz14-4.pdf` (October 30, 2014)  
+  5. `oefz14-5.pdf` (November 13, 2014)  
+  6. `oefz14-6.pdf` (November 20, 2014)  
+  7. `oefz14-7.pdf` (November 27, 2014)  
+  8. `oefz14-8.pdf` (December 18, 2014)
 
 Previous years:
 
