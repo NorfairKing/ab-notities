@@ -8,7 +8,7 @@
 \label{sec:symbolen-en-strings}
 
 \begin{de}
-  Een \emph{symbool} $s$ is een representatie van een object in de abstractste zin van het woord. 
+  Een \term{symbool} $s$ is een representatie van een object in de abstractste zin van het woord. 
 \end{de}
 
 \begin{de}
@@ -16,18 +16,18 @@
 \end{de}
 
 \begin{de}
-  Een \emph{string} $s$ over een alfabet $\Sigma$ is een geordende opeenvolging van nul, \'e\'en of meer elementen van $\Sigma$. Symbolen zijn dus strings van lengte 1.
+  Een \term{string} $s$ over een alfabet $\Sigma$ is een geordende opeenvolging van nul, \'e\'en of meer elementen van $\Sigma$. Symbolen zijn dus strings van lengte 1.
   \[ s = a_{1}\ldots a_{n} \text{ met } a_{i} \in \Sigma \]
 \end{de}
 
 \begin{de}
-  $\epsilon$ is de \emph{string} zonder symbolen en noemen we de \emph{lege string}.
+  $\epsilon$ is de \term{string} zonder symbolen en noemen we de \term{lege string}.
 \end{de}
 
 \question{ Is $\epsilon$ een string of een symbool? }
 
 \begin{de}
-  De \emph{concatenatie} $xy$ van twee strings $x = \{x_1,x_2,\ldots,x_m\}$ en $y =   \{y_1,y_2,\ldots,y_n\}$ is de volgende geordende verzameling  
+  De \term{concatenatie} $xy$ van twee strings $x = \{x_1,x_2,\ldots,x_m\}$ en $y =   \{y_1,y_2,\ldots,y_n\}$ is de volgende geordende verzameling  
   \[
   xy = \{ x_1,x_2,\ldots,x_m,y_1,y_2,\ldots,y_n\}
   \] 
@@ -61,7 +61,7 @@
 \end{de}
 
 \begin{de}
-  De \emph{omgekeerde string} $s^{R}$ van een string $s$ is de string waarbij de symbolen van $s$ in omgekeerde volgorde staan.
+  De \term{omgekeerde string} $s^{R}$ van een string $s$ is de string waarbij de symbolen van $s$ in omgekeerde volgorde staan.
   \[ s = a_{n}\ldots a_{1} \text{ met } a_{i} \in \Sigma \]
 \end{de}
 
@@ -69,11 +69,11 @@
 \label{sec:talen}
 
 \begin{de}
-  Een \emph{taal} $L$ over een alfabet $\Sigma$ is een verzameling van eindige strings over $\Sigma$.
+  Een \term{taal} $L$ over een alfabet $\Sigma$ is een verzameling van eindige strings over $\Sigma$.
 \end{de}
 
 \begin{de}
-  De \emph{concatenatie} $L_1L_2$ \emph{van twee talen} $L_1$ en $L_2$ over hetzelfde alfabet $\Sigma$ is de volgende verzameling:
+  De \term{concatenatie} $L_1L_2$ \term{van twee talen} $L_1$ en $L_2$ over hetzelfde alfabet $\Sigma$ is de volgende verzameling:
   \[
   L_1L_2 = \{\ xy\ |\ x \in L_1,\ y \in L_2\ \} 
   \]
@@ -112,7 +112,7 @@
 \end{de}
 
 \begin{de}
-  De \emph{Kleene ster} $L^*$ van een taal $L$ is de unie van alle concatenaties van $L$ met zichzelf.
+  De \term{Kleene ster} $L^*$ van een taal $L$ is de unie van alle concatenaties van $L$ met zichzelf.
   \[
   L^* = \bigcup_{n=0}^{\infty}L^n
   \]
@@ -135,7 +135,7 @@
 \end{ei}
 
 \begin{de}
-  $L_{\Sigma}$ is de notatie voor \emph{de verzameling van alle talen over $\Sigma$}. 
+  $L_{\Sigma}$ is de notatie voor \term{de verzameling van alle talen over $\Sigma$}. 
   \[ L_{\Sigma} = \mathcal{P}(\Sigma^{*}) \]
 \end{de}
 
@@ -143,7 +143,7 @@
 \label{sec:reguliere-expressies-en-talen}
 
 \begin{de}
-  Een \emph{reguliere expressie} (RE) wordt inductief gedefinieerd als een expressie van de volgende vorm:
+  Een \term{reguliere expressie} (RE) wordt inductief gedefinieerd als een expressie van de volgende vorm:
   \begin{itemize}
   \item $\epsilon$
   \item $\phi$
@@ -164,14 +164,14 @@
     Inderdaad, voeg aan $\Sigma$ nog de volgende symbolen toe om $\Sigma'$ te bekomen: $\epsilon$, $\phi$, $($, $)$, $|$ en $^{*}$.
     Nu vormt de verzameling van alle reguliere expressies een taal over $\Sigma'$.
 
-    Merk op dat deze taal \emph{niet} regulier\footnote{Zie de definitie van reguliere talen (Definitie \ref{de:reguliere-taal}).} is. Er zitten immers haakjes in die moeten samen passen. (Zie verder waarom dit dan geen reguliere taal is (TODO)) 
+    Merk op dat deze taal \term{niet} regulier\footnote{Zie de definitie van reguliere talen (Definitie \ref{de:reguliere-taal}).} is. Er zitten immers haakjes in die moeten samen passen. (Zie verder waarom dit dan geen reguliere taal is (TODO)) 
     \TODO{ voeg verwijzing toe zodra bewezen is dat $0^{n}1^{n}$ niet regulier is. }
   \end{proof}
 \end{st}
 
 \begin{de}
   \label{def:taal-bepaald-door-regex}
-  De \emph{taal $L_E$ bepaald door een reguliere expressie} over hetzelfde alfabet $\Sigma$ is de volgende.
+  De \term{taal $L_E$ bepaald door een reguliere expressie} over hetzelfde alfabet $\Sigma$ is de volgende.
   \[
   \begin{array}{|c|c|}
     \hline
@@ -190,7 +190,7 @@
 
 \begin{de}
   \label{de:reguliere-taal}
-  Een \emph{reguliere taal} is een taal die bepaald wordt door een reguliere expressie.
+  Een \term{reguliere taal} is een taal die bepaald wordt door een reguliere expressie.
 \end{de}
 
 \begin{ei}
@@ -245,7 +245,7 @@
 \end{st}
 
 \begin{de}
-  $RegLan$ is \emph{verzameling van alle reguliere talen}.
+  $RegLan$ is \term{verzameling van alle reguliere talen}.
 \end{de}
 
 \begin{ei}
@@ -393,7 +393,7 @@
 \label{sec:eind-toest}
 
 \begin{de}
-  Een \emph{niet-deterministische eindige toestandsautomaat} (NFA) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
+  Een \term{niet-deterministische eindige toestandsautomaat} (NFA) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
   \begin{itemize}
   \item $Q$ is een eindige verzameling toestanden.
   \item $\Sigma$ is een alfabet.
@@ -405,7 +405,7 @@
 \end{de}
 
 \begin{de}
-  Een \emph{string} $s$ wordt \emph{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s}F)$ als $s$ geschreven kan worden als $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en er een rij toestanden $t_{1}t_{2}\ldots t_{n+1}$ bestaat zodat:
+  Een \term{string} $s$ wordt \term{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s}F)$ als $s$ geschreven kan worden als $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en er een rij toestanden $t_{1}t_{2}\ldots t_{n+1}$ bestaat zodat:
   \begin{itemize}
   \item $t_{1} = q_{s}$
   \item $t_{i+1} \in \delta(t_{i},a_{i})$
@@ -415,11 +415,11 @@
 \end{de}
 
 \begin{de}
-  De \emph{taal} $L_{M}$ \emph{bepaald door een NFA} $N$ bevat alle strings die $N$ aanvaardt, en geen andere strings.
+  De \term{taal} $L_{M}$ \term{bepaald door een NFA} $N$ bevat alle strings die $N$ aanvaardt, en geen andere strings.
 \end{de}
 
 \begin{de}
-  Twee \emph{NFA}'s $N_{1}$ en $N_{2}$ zijn \emph{equivalent} als ze dezelfde taal bepalen.
+  Twee \term{NFA}'s $N_{1}$ en $N_{2}$ zijn \term{equivalent} als ze dezelfde taal bepalen.
   \[ n_{1} \sim n_{2} \]
 \end{de}
 
@@ -477,7 +477,7 @@
 \end{st}
 
 \begin{de}
-  Een \emph{transititabel} is een tabel die de funtie $\delta$ voorstelt voor een automaat.
+  Een \term{transititabel} is een tabel die de funtie $\delta$ voorstelt voor een automaat.
   De tabel heeft drie kolommen. Elke rij vormt een deel van de werking van $\delta$.
   In de eerste kolom staat een staat, in de tweede een symbool, en in de derde een verzameling van staten.                   
 \end{de}
@@ -487,11 +487,11 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \label{sec:de-algebra-van-nfas}
 
 \begin{de}
-  De \emph{unie} $n_{1} \cup n_{2}$ van twee NFA's $n_{1}$ en $n_{2}$ is de NFA $n$ die de unie van de talen $L_{n_{1}}$ en $L_{n_{2}}$ aanvaardt.
+  De \term{unie} $n_{1} \cup n_{2}$ van twee NFA's $n_{1}$ en $n_{2}$ is de NFA $n$ die de unie van de talen $L_{n_{1}}$ en $L_{n_{2}}$ aanvaardt.
 \end{de}
 
 \begin{st}
-  \emph{Construtie van de unie van twee NFA's}\\
+  \term{Construtie van de unie van twee NFA's}\\
   Het is steeds mogelijk om de unie van twee NFA's te construeren.
 
   \begin{proof}
@@ -520,11 +520,11 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{st}
 
 \begin{de}
-  De \emph{concatenatie} $n_{1}n_{2}$ van twee NFA's $n_{1}$ en $n_{2}$ is de NFA $n$ die de concatenatie van de talen $L_{n_{1}}$ en $L_{n_{2}}$ aanvaardt.
+  De \term{concatenatie} $n_{1}n_{2}$ van twee NFA's $n_{1}$ en $n_{2}$ is de NFA $n$ die de concatenatie van de talen $L_{n_{1}}$ en $L_{n_{2}}$ aanvaardt.
 \end{de}
 
 \begin{st}
-  \emph{Construtie van de concatenatie van twee NFA's}\\
+  \term{Construtie van de concatenatie van twee NFA's}\\
   Het is steeds mogelijk om de concatenatie van twee NFA's te construeren.
 
   \begin{proof}
@@ -554,11 +554,11 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{st}
 
 \begin{de}
-  De \emph{Kleenester} van een NFA $n'$ is de NFA $n$ die de Kleenester van de taal $N_{n'}$ aanvaardt.
+  De \term{Kleenester} van een NFA $n'$ is de NFA $n$ die de Kleenester van de taal $N_{n'}$ aanvaardt.
 \end{de}
 
 \begin{st}
-  \emph{Construtie van de Kleenester van een NFA}\\
+  \term{Construtie van de Kleenester van een NFA}\\
   Het is steeds mogelijk om de Kleenester van een NFA te construeren.
 
   \begin{proof}
@@ -648,7 +648,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{de}
-  Definieer nu \emph{NFA van een reguliere expressie}, samen met de vorige definitie als volgt:
+  Definieer nu \term{NFA van een reguliere expressie}, samen met de vorige definitie als volgt:
   \begin{itemize}
   \item $NFA_{E_{1}E_{2}} = NFA_{E_{1}}NFA_{E_{2}}$
   \item $NFA_{(E_{1}|E_{2})} = NFA_{E_{1}} \cup NFA_{E_{2}}$
