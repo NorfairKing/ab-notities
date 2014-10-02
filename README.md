@@ -3,6 +3,11 @@ AaC-Exc
 
 Exercise sessions of "Automata and Computability" (G0P84A).
 
+Calendar
+--------
+
+<iframe src="https://www.google.com/calendar/embed?src=qrpei1rurr0kbt6u2bu40qgf8o%40group.calendar.google.com&ctz=Europe/Brussels" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
 Content
 -------
 Exercise sessions:
