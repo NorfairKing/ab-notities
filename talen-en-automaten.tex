@@ -112,7 +112,7 @@
 \end{de}
 
 \begin{de}
-  De \term{Kleene ster} $L^*$ van een taal $L$ is de unie van alle concatenaties van $L$ met zichzelf.
+  De \term{Kleene-ster} $L^*$ van een taal $L$ is de unie van alle concatenaties van $L$ met zichzelf.
   \[
   L^* = \bigcup_{n=0}^{\infty}L^n
   \]
@@ -135,7 +135,7 @@
 \end{ei}
 
 \begin{de}
-  $L_{\Sigma}$ is de notatie voor \term{de verzameling van alle talen over $\Sigma$}. 
+  $L_{\Sigma}$ is de notatie voor de verzameling van alle \term{talen over een alfabet} $\Sigma$. 
   \[ L_{\Sigma} = \mathcal{P}(\Sigma^{*}) \]
 \end{de}
 
@@ -164,14 +164,14 @@
     Inderdaad, voeg aan $\Sigma$ nog de volgende symbolen toe om $\Sigma'$ te bekomen: $\epsilon$, $\phi$, $($, $)$, $|$ en $^{*}$.
     Nu vormt de verzameling van alle reguliere expressies een taal over $\Sigma'$.
 
-    Merk op dat deze taal \term{niet} regulier\footnote{Zie de definitie van reguliere talen (Definitie \ref{de:reguliere-taal}).} is. Er zitten immers haakjes in die moeten samen passen. (Zie verder waarom dit dan geen reguliere taal is (TODO)) 
+    Merk op dat deze taal \emph{niet} regulier\footnote{Zie de definitie van reguliere talen (Definitie \ref{de:reguliere-taal}).} is. Er zitten immers haakjes in die moeten samen passen. (Zie verder waarom dit dan geen reguliere taal is (TODO)) 
     \TODO{ voeg verwijzing toe zodra bewezen is dat $0^{n}1^{n}$ niet regulier is. }
   \end{proof}
 \end{st}
 
 \begin{de}
   \label{def:taal-bepaald-door-regex}
-  De \term{taal $L_E$ bepaald door een reguliere expressie} over hetzelfde alfabet $\Sigma$ is de volgende.
+  De \term{taal bepaald door een reguliere expressie} $L_E$ over hetzelfde alfabet $\Sigma$ is de volgende.
   \[
   \begin{array}{|c|c|}
     \hline
@@ -393,7 +393,7 @@
 \label{sec:eind-toest}
 
 \begin{de}
-  Een \term{niet-deterministische eindige toestandsautomaat} (NFA) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
+  Een \niet-deterministische eindige toestandsautomaat (\term{NFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
   \begin{itemize}
   \item $Q$ is een eindige verzameling toestanden.
   \item $\Sigma$ is een alfabet.
@@ -419,7 +419,7 @@
 \end{de}
 
 \begin{de}
-  Twee \term{NFA}'s $N_{1}$ en $N_{2}$ zijn \term{equivalent} als ze dezelfde taal bepalen.
+  Twee \term{equivalente NFA's} $N_{1}$ en $N_{2}$ bepalen dezelfde taal.
   \[ n_{1} \sim n_{2} \]
 \end{de}
 
@@ -491,7 +491,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{st}
-  \term{Construtie van de unie van twee NFA's}\\
+  Constructie van de \term{unie van NFA's}\\
   Het is steeds mogelijk om de unie van twee NFA's te construeren.
 
   \begin{proof}
@@ -524,7 +524,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{st}
-  \term{Construtie van de concatenatie van twee NFA's}\\
+  Constructie van de \term{concatenatie van NFA's}\\
   Het is steeds mogelijk om de concatenatie van twee NFA's te construeren.
 
   \begin{proof}
@@ -554,12 +554,12 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{st}
 
 \begin{de}
-  De \term{Kleenester} van een NFA $n'$ is de NFA $n$ die de Kleenester van de taal $N_{n'}$ aanvaardt.
+  De \term{Kleene-ster} van een NFA $n'$ is de NFA $n$ die de Kleenester van de taal $N_{n'}$ aanvaardt.
 \end{de}
 
 \begin{st}
-  \term{Construtie van de Kleenester van een NFA}\\
-  Het is steeds mogelijk om de Kleenester van een NFA te construeren.
+  Constructie van de \term{Kleene-ster van een NFA}\\
+  Het is steeds mogelijk om de Kleene-ster van een NFA te construeren.
 
   \begin{proof}
     Zij $n' = (Q',\Sigma,\delta',q_{s},\{q_{f}'\})$ een willekeurige NFA. We construeren nu de Kleenester $n = (O,\Sigma,\delta,q,F)$ van deze NFA.
