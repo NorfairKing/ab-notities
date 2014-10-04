@@ -156,9 +156,12 @@
   Deze definitie laat immers geen oneindige reguliere expressies toe.
 \end{de}
 
+\begin{de}
+  De verzameling van alle reguliere expressies over een alfabet $\Sigma$ noteren we als $RegEx_{\Sigma}$ of $RegEx$.
+\end{de}
 
 \begin{st}
-  De verzameling van alle reguliere expressies over een alfabet $\Sigma$ vormt een taal.
+  De verzameling van alle reguliere expressies $RegEx$ over een alfabet $\Sigma$ vormt een taal.
 
   \begin{proof}
     Inderdaad, voeg aan $\Sigma$ nog de volgende symbolen toe om $\Sigma'$ te bekomen: $\epsilon$, $\phi$, $($, $)$, $|$ en $^{*}$.
@@ -657,12 +660,133 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{st}
-  De NFA van een reguliere expressie behoudt de bepaalde taal.
-  \[ L_{NFA_{E}} = L_{E} \]
-
+  We kunnen iedere reguliere expressie omzetten in een NFA die dezelfde taal bepaalt.
+  
   \begin{proof}
-    \TODO{bewijs}
+\TODO{bewijs}  
   \end{proof}
+\end{st}
+
+\section{NFA naar reguliere expressie}
+\begin{de}
+  Een gegeneraliseerde niet-deterministische eindige toestandsautomaat (\term{GNFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s},q_{f}$).
+  \begin{itemize}
+  \item $Q$ is een eindige verzameling toestanden.
+  \item $\Sigma$ is een alfabet.
+  \item $\delta$ is de overgangsfunctie.
+  Merk op dat deze functie twee staten als argument neemt in plaats van een staat en een symbool.
+    \[
+    \delta: Q\setminus\{q_{s}\} \times Q\setminus\{q_{f}\} \rightarrow RegEx_{\Sigma}
+    \]
+  \item $q_{s}$ is de starttoestand.
+  \item $q_{f}$ is de aanvaardbare eindtoestand.
+  \end{itemize}
+  Een GNFA heeft de volgende (informele) eigenschappen.
+  \begin{itemize}
+  \item Er is precies een eindtoestand en die is verschillend van de eindtoestand.
+  \item Er is precies een boog van elke toestend naar de eindetoestand
+  \item Uit de eindtoestand vertrekken geen pijlen.
+  \item Tussen elke twee toestanden (behalve de begin- en eindtoestand) vertrekt precies \'e\'en boog in beide richtingen
+  \item Er is precies \'e\'en boog van elke toestand (behalve de begin- en eindtoestand) naar zichzelf.
+  \item De bogen hebben een reguliere expressie als label.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Een string $s$ wordt aanvaard door een GNFA als er een rij reguliere expressies $E_{1},E_{2},\dotsc,E_{n}$ bestaat zodat $s$ wordt aanvaard door de concatenatie van die rij reguliere expressies en zodat die reguliere expressies een pad $t_{1},t_{2},\dotsc,t_{n+1}$ vormen in de GNFA. 
+  \begin{itemize}
+  \item $t_{1} = q_{s}$
+  \item $\delta(t_{i},t_{i+1}) = E_{i}$
+  \item $t_{n+1} = q_{f}$
+  \end{itemize}
+\end{de}
+
+\begin{st}
+  We kunnen iedere NFA omzetten in een reguliere expressie die dezelfde taal bepaalt.
+  
+\TODO{bewijs}  
+\end{st}
+
+\section{Deterministische eindige toestandsautomaten}
+\begin{de}
+  Een deterministische eindige toestandsautomaat (\term{DFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
+  \begin{itemize}
+  \item $Q$ is een eindige verzameling toestanden.
+  \item $\Sigma$ is een alfabet.
+  \item $\delta$ is de parti\"ele overgangsfunctie van de automaat.
+  \[ \delta: Q \times \Sigma \rightarrow Q \]
+  \item $q_{s} \in Q$ is de starttoestand.
+  \item $F \subseteq Q$ is de verzameling aanvaardbare eindtoestanden.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Een string $s$ wordt aanvaard door een DFA als de opeenvolgende symbolen $s_{1}s_{2}\dotsc s_{n}$ van $s$ een pad $t_{1},t_{2},\dotsc,t_{n}$ vormen in de DFA.
+  \begin{itemize}
+  \item $t_{1} = q_{s}$
+  \item $\delta(t_{i},s_{i}) = t_{i+1}$
+  \item $t_{n+1} \in F$
+  \end{itemize}
+\end{de}
+
+\TODO{taal bepaald door DFA}
+
+\begin{st}
+  Elke NFA kan omgezet worden in een DFA die dezelfde taal bepaalt.
+  
+\TODO{bewijs}
+\end{st}
+
+\begin{de}
+  Voor elke DFA $(Q,\Sigma,\delta,q_{s},F)$ kunnen we $\delta:\ Q \times \Sigma$ uitbreiden naar $\delta^{*}:\ Q\times \Sigma^{*}$.
+  \begin{itemize}
+  \item $\delta^{*}(q,\epsilon) = q$
+  \item $\exists \delta(q,a) \Rightarrow \delta^{*}(q,aw) = \delta^{*}(\delta(q,a),w)$
+  \end{itemize}
+\end{de}
+
+\begin{st}
+  Voor elke DFA $(Q,\Sigma,\delta,q_{s},F)$ met een uitgebreide $\delta$: $\delta^{*}$ geldt de volgende gelijkheid:
+  \[
+  \delta^{*}(q,wa) = \delta(\delta^{*}(q,w),a)
+  \] 
+  
+\TODO{bewijs}
+\end{st}
+
+\section{Minimale DFA}
+\begin{de}
+  Twee toestanden $p$ en $q$ van een DFA $(Q,\Sigma,\delta,q_{s},F)$ zijn \term{$f$-gelijk} als het volgende geldt:
+  \[
+  \forall w \in \Sigma^{*}:\ \delta^{*}(p,w) \in F \Leftrightarrow \delta^{*}(q,w) \in F
+  \]
+\end{de}
+
+\begin{st}
+  Als een DFA $(Q,\Sigma,\delta,q_{s},F)$ geen onbereikbare toestanden heeft, en elke twee toestanden $f$-verschillend zijn, dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt.
+  
+\TODO{bewijs}
+\end{st}
+
+\begin{de}
+  Twee DFA's $(Q_{1},\Sigma,\delta_{1},q_{s1},F_{1})$ en $(Q_{2},\Sigma,\delta_{2},q_{s2},F_{2})$ zijn isomorf als er een bijectie $b:\ Q_{1} \rightarrow Q_{2}$ bestaat zodat de volgende beweringen gelden:
+  \begin{itemize}
+  \item $b(F_{1}) = F_{2}$
+  \item $b(q_{s1}) = q_{s2}$
+  \item $b(\delta_{1}(q,a)) = \delta_{2}(b(q),q)$
+  \end{itemize}   
+\end{de}
+
+\begin{st}
+  Twee isomorfe DFA's bepalen dezelfde taal.
+  
+\TODO{bewijs}
+\end{st}
+
+\begin{st}
+  De minimale DFA van een taal is uniek op isomorfisme na.
+  
+\TODO{bewijs}
 \end{st}
 
 \end{document}
