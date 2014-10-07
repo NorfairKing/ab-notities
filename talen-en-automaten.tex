@@ -663,9 +663,8 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{st}
   We kunnen iedere reguliere expressie omzetten in een NFA die dezelfde taal bepaalt.
   
-  \begin{proof}
 \TODO{bewijs}  
-  \end{proof}
+\question{hoe bewijs je dit en schrijf je het mooi op?}
 \end{st}
 
 \section{NFA naar reguliere expressie}
@@ -685,7 +684,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   Een GNFA heeft de volgende (informele) eigenschappen.
   \begin{itemize}
   \item Er is precies een eindtoestand en die is verschillend van de eindtoestand.
-  \item Er is precies een boog van elke toestend naar de eindetoestand
+  \item Er is precies een boog van elke toestand naar de eindetoestand
   \item Uit de eindtoestand vertrekken geen pijlen.
   \item Tussen elke twee toestanden (behalve de begin- en eindtoestand) vertrekt precies \'e\'en boog in beide richtingen
   \item Er is precies \'e\'en boog van elke toestand (behalve de begin- en eindtoestand) naar zichzelf.
@@ -705,7 +704,31 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{st}
   We kunnen iedere NFA omzetten in een reguliere expressie die dezelfde taal bepaalt.
   
-\TODO{bewijs}  
+  \begin{proof}
+    \begin{enumerate}
+    \item Maak van de NFA een GNFA:\\
+      Voer een nieuwe begintoestand, en een nieuwe unieke eindtoestand.
+      Teken een $\epsilon$-boog van de nieuwe begintoestand naar de oude, alsook een $\epsilon$-boog van de oude eindtoestand naar de nieuwe.
+      Teken alle ontbrekende bogen met een $\phi$ (deze mogen toch niet gevolgd worden).
+    \item Reduceer de GNFA:\\
+      Kies een willekeurige toestand $X$ verschillend van de begin- of eindtoestand.
+      Verwijder $X$ als volgt: Kies toestanden $A$ en $B$ zodat er bogen zijn van $A$ naar $B$ met reguliere expressie $E_{4}$, van $A$ naar $X$ met $E_{1}$, van $X$ naar zichzelf met $E_{2}$ en van $X$ naar $B$ met $E_{3}$.
+      \TODO{tekeningeske}
+      Vervang het label op de boog van $A$ naar $B$ door $(E_{4}|E_{1}E_{2}^{*}E_{3})$.
+      Doe dit voor alle koppels $A$ en $B$ ten opzichte van $X$ en verwijder tenslotte $X$.
+      \TODO{formelere beschrijving}
+      Itereer dit proces tot enkel nog de begin- en eindtoestand overblijven.
+    \item Bepaal de reguliere expressie.\\
+      De overblijvende GNFA heeft nu precies twee toestanden met \'e\'e boog daartussen.
+      De reguliere expressie $E$ van die boog is precies de reguliere expressie die we zochten.
+    \end{enumerate}
+    We bewijzen tenslotte dat $E$ de taal van de originele NFA bepaalt.
+    \begin{itemize}
+    \item Elke string $s$ die voor de reductie aanvaard werd door de NFA wordt ook door $E$ aanvaard.
+    \item Elke string $s$ die voor de reductie niet aanvaard werd door de NFA wordt ook niet door $E$ aanvaard.
+\TODO{bewijs}
+    \end{itemize}
+  \end{proof}
 \end{st}
 
 \section{Deterministische eindige toestandsautomaten}
@@ -738,6 +761,12 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \TODO{bewijs}
 \end{st}
 
+\begin{st}
+  Elke reguliere taal wordt bepaald door een DFA
+  
+\TODO{bewijs}
+\end{st}
+
 \begin{de}
   Voor elke DFA $(Q,\Sigma,\delta,q_{s},F)$ kunnen we $\delta:\ Q \times \Sigma$ uitbreiden naar $\delta^{*}:\ Q\times \Sigma^{*}$.
   \begin{itemize}
@@ -753,6 +782,10 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \] 
   
 \TODO{bewijs}
+\end{st}
+
+\begin{st}
+  Als een DFA $(Q,\Sigma,\delta,q_{s},F)$ een overgangsfunctie heeft die niet totaal is, met andere woorden, niet voor elk symbool is er in elke staat een boog, dan hoeven we hoogstens \'e\'en staat toe te voegen om een equivalente DFA te maken met een totale overgangsfunctie.
 \end{st}
 
 \section{Minimale DFA}
