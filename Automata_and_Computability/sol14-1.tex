@@ -1,7 +1,7 @@
 \documentclass[a4paper]{article}
 \usepackage[dutch]{babel}
 \usepackage{color}
-\usepackage{../assignment-nl,../brackets}
+\usepackage{../assignment-nl,../brackets,../importsreferences-nl,tikz}
 
 \title{Automaten en Berekenbaarheid\\Oplossingen \#1\\\url{http://goo.gl/1RlVG5}}
 \author{prof. B. Demoen\\W. Van Onsem}
@@ -49,10 +49,17 @@ Geef voor elk van de volgende talen over het alfabet $\accl{0,1}$ een reguliere 
 \begin{answer}~~
 \begin{enumerate}
   \item $\brak{1\brak{0|1}}^{\star}\brak{1|\epsilon}$
-  \item $000^{\star}|000^{\star}10^{\star}|0100^{\star}|1000^{\star}$
+  \item $0^{\star}\brak{00|001|010|100}0^{\star}$
   \item $\epsilon|0\brak{0|1}^{\star}|10\brak{0|1}^{\star}|110\brak{0|1}^{\star}|111\brak{0|1}\brak{0|1}^{\star}$
   \item $0^{\star}|1^{\star}|0\brak{0|1}^{\star}0|1\brak{0|1}^{\star}1$
 \end{enumerate}
+\begin{figure}
+\importtikzsubfigure{exc1-dfa1}{}
+\importtikzsubfigure{exc1-dfa2}{}
+\importtikzsubfigure{exc1-dfa3}{}
+\importtikzsubfigure{exc1-dfa4}{}
+\caption{NFA's voor de gegeven talen}
+\end{figure}
 \end{answer}
 \end{question}
 
