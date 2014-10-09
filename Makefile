@@ -6,6 +6,7 @@ all :
 	make "Automata_and_Computability/oefz13-5.pdf"
 	make "Automata_and_Computability/oefz13-6.pdf"
 	make "Automata_and_Computability/oefz14-1.pdf"
+	make "Automata_and_Computability/sol14-1.pdf"
 	make "Automata_and_Computability/oefz14-2.pdf"
 	make "Automata_and_Computability/oefz14-3.pdf"
 	make "Automata_and_Computability/oefz14-4.pdf"
