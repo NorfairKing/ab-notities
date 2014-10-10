@@ -592,6 +592,15 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
+\TODO{ extra: complement van een NFA }
+
+\begin{ei}
+  NFA's, uitgerust met de unie, de doorsnede, het complement en de concatenatie vormen een algebra.
+  \begin{proof}
+    Inderdaad, zowel de unie, de doorsnede, het complement als de concatenatie zijn inwendig.
+  \end{proof}
+\end{ei}
+
 \section{Van reguliere expressie naar NFA}
 \label{sec:van-reguliere-expressie-naar-nfa}
 
@@ -731,6 +740,12 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
+\begin{ei}
+  Er bestaat een isomorfisme tussen de algebra van NFA's en de algebra van Reguliere expressies.
+
+\TODO{bewijs}
+\end{ei}
+
 \section{Deterministische eindige toestandsautomaten}
 \begin{de}
   Een deterministische eindige toestandsautomaat (\term{DFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
@@ -781,11 +796,34 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \delta^{*}(q,wa) = \delta(\delta^{*}(q,w),a)
   \] 
   
-\TODO{bewijs}
+  \begin{proof}
+    We bewijzen dit door inductie op de lengte $n$ van $w$.
+    \begin{itemize}
+    \item De bewering geldt voor $n=0$ ($w$ is dan de lege string.):
+      \[ \delta^{*}(q,wa) = \delta^{*}(q,\epsilon a) = \delta^{*}(q,a\epsilon) = \delta^{*}(\delta(q,a),\epsilon) = \delta(q,a) = \delta(\delta^{*}(q,\epsilon),a) \]
+    \item Stel dat de bewering geldt voor een bepaalde $n=k$.
+    \item Als de bewering geldt voor een bepaalde $n=k$, dan geldt ze ook voor $n=k+1$.
+      Kies een $w$ van lengte $k+1$ en noem het eerste symbool van $w$ $b$.
+      De rest van $w$ noemen we dan $w'$.
+      \[ w = w'b \]
+      Nu kunnen we de bewering rechtstreeks bewijzen voor een willekeurig symbool $a$.
+      \[
+      \begin{array}{rll}
+        \delta^{*}(q,wa) &= \delta^{*}(q,bw'a) &\\
+                         &= \delta^{*}(\delta(q,b),w'a) &\\
+                         &= \delta(\delta^{*}(\delta(q,b),w'),a) &=\delta(\delta^{*}(q,w),a) 
+      \end{array}
+      \]
+    \end{itemize} 
+    Als gevolg van het principe van inductie geldt de bewering voor elke $n\in \mathbb{N}$.
+  \end{proof}
+
 \end{st}
 
 \begin{st}
   Als een DFA $(Q,\Sigma,\delta,q_{s},F)$ een overgangsfunctie heeft die niet totaal is, met andere woorden, niet voor elk symbool is er in elke staat een boog, dan hoeven we hoogstens \'e\'en staat toe te voegen om een equivalente DFA te maken met een totale overgangsfunctie.
+  
+\TODO{bewijs}
 \end{st}
 
 \section{Minimale DFA}
@@ -795,6 +833,8 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \forall w \in \Sigma^{*}:\ \delta^{*}(p,w) \in F \Leftrightarrow \delta^{*}(q,w) \in F
   \]
 \end{de}
+
+\TODO{ opmerking: $f$-gelijkheid geldt ook voor NFA's, maar $f$-verschillend wordt dan moeilijk te definieren.}
 
 \begin{st}
   Als een DFA $(Q,\Sigma,\delta,q_{s},F)$ geen onbereikbare toestanden heeft, en elke twee toestanden $f$-verschillend zijn, dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt.
