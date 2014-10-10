@@ -1,0 +1,94 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{color}
+\usepackage{../assignment-nl,../brackets,../importsreferences-nl,tikz}
+
+\title{Automaten en Berekenbaarheid\\Oplossingen \#1\\\url{http://goo.gl/1RlVG5}}
+\author{prof. B. Demoen\\W. Van Onsem}
+\date{Oktober 2014}
+
+\topmargin -15mm 
+\textwidth 16truecm 
+\textheight 24truecm
+\oddsidemargin 5mm 
+\evensidemargin 5mm
+
+
+\newcommand{\R}{\mathcal{R}}
+
+\begin{document}
+
+\maketitle
+
+\begin{question}
+Voor een string $w = w_1 w_2 \ldots w_n$ duiden we de omgekeerde string $w_n \ldots w_2  w_1$ aan met $w^{\R}$ en voor een taal $L$ schrijven we $L^{\R} = \condset{w^{\R}}{w\in L}$. Als $L$ regulier is, is $L^{\R}$ dan ook regulier?
+\begin{answer}
+Ja. We kunnen dit bewijzen op twee manieren: (1) door een constructie voor te stellen die voor elke reguliere expressie $e$, een reguliere expressie $e^{\R}$ genereert;  (2) een constructie die gegeven een NFA $n$ een NFA $n^{\R}$ genereert.
+\begin{construction}
+Gegeven een NFA $n=\tupl{Q,\Sigma,\delta,q_s,F}$. We beschouwen een toestand $q'$ die niet in de originele toestandsverzameling $Q$. We beschouwen ook een nieuwe transitiefunctie $\delta'$ zodat:
+\begin{equation}
+\forall q_i\in Q,\sigma\in\Sigma_\epsilon:\fun{\delta'}{q_i,\sigma}=\condset{q_j\in Q}{q_i\in\fun{\delta}{q_j,\sigma}}
+\end{equation}
+en
+\begin{equation}
+\fun{\delta'}{q',\epsilon}=F
+\end{equation}
+De geconstrueerde NFA is dan: $n^{\R}=\tupl{Q\cup\accl{q'},\Sigma,\delta',\accl{q'},q_s}$
+\end{construction}
+\end{answer}
+\end{question}
+
+\begin{question}
+Geef voor elk van de volgende talen over het alfabet $\accl{0,1}$ een reguliere expressie die die taal bepaalt. Geef ook een NFA die die taal aanvaardt.
+\begin{enumerate}
+  \item $\condset{w}{\mbox{op elke oneven positie van $w$ staat een $1$}}$
+  \item $\condset{w}{\mbox{$w$ bevat minstens twee $0$'en en hoogstens \'e\'en $1$}}$
+  \item Het complement van $\accl{11,111}$
+  \item $\condset{w}{\mbox{$w$ bevat evenveel maal de substring $01$ als de substring $10$}}$
+\end{enumerate}
+\begin{answer}~~
+\begin{enumerate}
+  \item $\brak{1\brak{0|1}}^{\star}\brak{1|\epsilon}$
+  \item $0^{\star}\brak{00|001|010|100}0^{\star}$
+  \item $\epsilon|0\brak{0|1}^{\star}|10\brak{0|1}^{\star}|110\brak{0|1}^{\star}|111\brak{0|1}\brak{0|1}^{\star}$
+  \item $0^{\star}|1^{\star}|0\brak{0|1}^{\star}0|1\brak{0|1}^{\star}1$
+\end{enumerate}
+\begin{figure}
+\importtikzsubfigure{exc1-dfa1}{}
+\importtikzsubfigure{exc1-dfa2}{}
+\importtikzsubfigure{exc1-dfa3}{}
+\importtikzsubfigure{exc1-dfa4}{}
+\caption{NFA's voor de gegeven talen}
+\end{figure}
+\end{answer}
+\end{question}
+
+\begin{question}
+Toon aan dat er voor elke $n \geq 1$ NFA's bestaan die de volgende talen aanvaarden.
+\begin{enumerate}
+  \item $\condset{a^k}{\mbox{$k$ is een veelvoud van $n$}}$ over het alfabet $\accl{a}$.
+  \item $\condset{x}{\mbox{$x$ is de binaire voorstelling van een natuurlijk getal dat een veelvoud is van $n$}}$
+\end{enumerate}
+\begin{answer}~
+\begin{enumerate}
+ \item Men kan een DFA construeren die deze taal beslist al volgt:
+ \begin{construction}
+  Men beschouwt $n$ toestanden die we nummeren $q_1,q_2,\ldots,q_n$. $s_n$ is de starttoestand en de enige accepterende toestand. De transitiefunctie $\delta$ is gedefinieerd als volgt:
+  \begin{equation}
+   \forall q_i\in Q, j\in\accl{0,1}:\fun{\delta_1}{q_i,a}=\acclguard{q_{i+1}&\xif{i<n}\\q_{1}&\xotherwise}
+  \end{equation}
+  De volledige NFA is dan $\tupl{\accl{q_1,q_2,\ldots,q_n},\accl{a},\delta_1,q_n,\accl{q_n}}$.
+ \end{construction}
+ \item We beschouwen een little-endian automaat: de minst significante bits bevinden zich op het einde van de string. Merk op dat dit geen noodzakelijke vereiste is: we weten immers door vraag~1 dat we door de omgekeerde taal te beschouwen, een big-endian automaat kunnen construeren. Men kan een DFA construeren die deze taal beslist al volgt:
+ \begin{construction}
+  Men beschouwt $n$ toestanden die we nummeren $q_0,q_1,\ldots,q_{n-1}$. $s_0$ is de starttoestand en de enige accepterende toestand. De transitiefunctie $\delta$ is gedefinieerd als volgt:
+  \begin{equation}
+   \forall q_i\in Q, j\in\accl{0,1}:\fun{\delta_2}{q_i,j}=q_k\xwhere k=2\cdot i+j\mod n
+  \end{equation}
+  De volledige NFA is dan $\tupl{\accl{q_0,q_1,\ldots,q_{n-1}},\accl{0,1},\delta_2,q_0,\accl{q_0}}$.
+ \end{construction}
+\end{enumerate}
+\end{answer}
+\end{question}
+
+\end{document}
