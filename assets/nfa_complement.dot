@@ -1,0 +1,30 @@
+digraph finite_state_machine {
+    node [label="", shape=circle];
+    
+    
+
+    subgraph cluster_NFAc {
+        ss1c[style="invis"];
+        start1[label=<q<sub>s</sub>>,shape="doublecircle"];
+        finish1[label=<q<sub>f</sub>>];
+        start1 -> finish1[style="dotted"];
+        ss1c -> start1;
+
+        label = <NFA<sup>c</sup>>;
+    }
+    
+    subgraph cluster_NFA1b {
+        ss1b[style="invis"];
+        start1b[label=<q<sub>s</sub>'>];
+        finish1b[label=<q<sub>f</sub>'>,shape="doublecircle"];
+        start1b -> finish1b[style="dotted"];
+        ss1b -> start1b;
+
+        label = "NFA";
+    }
+
+
+    rankdir="LR";
+
+}
+

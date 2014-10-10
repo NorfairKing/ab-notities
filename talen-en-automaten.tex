@@ -24,7 +24,9 @@
   $\epsilon$ is de \term{string} zonder symbolen en noemen we de \term{lege string}.
 \end{de}
 
-\question{ Is $\epsilon$ een string of een symbool? }
+\begin{opm}
+  Bij twijfel kan elk symbool gezien worden als een string van lengte $1$.
+\end{opm}
 
 \begin{de}
   De \term{concatenatie} $xy$ van twee strings $x = \{x_1,x_2,\ldots,x_m\}$ en $y =   \{y_1,y_2,\ldots,y_n\}$ is de volgende geordende verzameling  
@@ -197,6 +199,7 @@
 \end{de}
 
 \begin{ei}
+  \label{ei:reguliere-taal-expressie}
   Voor elke reguliere taal bestaat er een reguliere expressie die die taal bepaalt.
 
   \begin{proof}
@@ -558,7 +561,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{st}
 
 \begin{de}
-  De \term{Kleene-ster} van een NFA $n'$ is de NFA $n$ die de Kleenester van de taal $N_{n'}$ aanvaardt.
+  De \term{Kleene-ster} van een NFA $n'$ is de NFA $n$ die de Kleenester van de taal $L_{n'}$ aanvaardt.
 \end{de}
 
 \begin{st}
@@ -592,7 +595,30 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
-\TODO{ extra: complement van een NFA }
+\begin{de}
+  Het \term{complement} van een NFA $n$ is de NFA $n^{c}$ die het complement $L_{n}^{c}$ van de taal $L_{n}$ aanvaardt.
+\end{de}
+
+\begin{st}
+  Constructie van het \term{complement van een NFA}\\
+  Het is steeds mogelijk om het complement van een NFA te construeren.
+
+  \begin{proof}
+    Zij $n' = (Q',\Sigma,\delta,q_{s},F)$ een willekeurige NFA. We construeren nu het complement $n = (O,\Sigma,\delta,q_{s},F)$ van deze NFA.
+    De informele constructie ziet u in figuur \ref{fig:nfa_kleene}.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.5\textwidth]{assets/nfa_complement.png}      
+      \caption{Het complement van een NFA}
+      \label{fig:nfa_complement}
+    \end{figure}
+    Formeel beschrijven we $n$ als volgt.
+    \begin{itemize}
+    \item $Q = Q'$.
+    \item $F = Q'\setminus F'$.
+    \end{itemize}
+  \end{proof}
+\end{st}
 
 \begin{ei}
   NFA's, uitgerust met de unie, de doorsnede, het complement en de concatenatie vormen een algebra.
@@ -669,13 +695,6 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{itemize}
 \end{de}
 
-\begin{st}
-  We kunnen iedere reguliere expressie omzetten in een NFA die dezelfde taal bepaalt.
-  
-\TODO{bewijs}  
-\question{hoe bewijs je dit en schrijf je het mooi op?}
-\end{st}
-
 \section{NFA naar reguliere expressie}
 \begin{de}
   Een gegeneraliseerde niet-deterministische eindige toestandsautomaat (\term{GNFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s},q_{f}$).
@@ -711,6 +730,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{st}
+  \label{st:nfa-naar-regex}
   We kunnen iedere NFA omzetten in een reguliere expressie die dezelfde taal bepaalt.
   
   \begin{proof}
@@ -719,31 +739,62 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
       Voer een nieuwe begintoestand, en een nieuwe unieke eindtoestand.
       Teken een $\epsilon$-boog van de nieuwe begintoestand naar de oude, alsook een $\epsilon$-boog van de oude eindtoestand naar de nieuwe.
       Teken alle ontbrekende bogen met een $\phi$ (deze mogen toch niet gevolgd worden).
+      Het is evident dat deze GNFA dezelfde taal bepaalt als de originele NFA.
     \item Reduceer de GNFA:\\
       Kies een willekeurige toestand $X$ verschillend van de begin- of eindtoestand.
       Verwijder $X$ als volgt: Kies toestanden $A$ en $B$ zodat er bogen zijn van $A$ naar $B$ met reguliere expressie $E_{4}$, van $A$ naar $X$ met $E_{1}$, van $X$ naar zichzelf met $E_{2}$ en van $X$ naar $B$ met $E_{3}$.
-      \TODO{tekeningeske}
+      \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.3\textwidth]{assets/nfa-gnfa1.png}
+        \text{\hspace{1cm}wordt\hspace{1cm}}
+        \includegraphics[width=0.3\textwidth]{assets/nfa-gnfa2.png}   
+        \label{fig:nfa-gnfa}
+      \end{figure}
       Vervang het label op de boog van $A$ naar $B$ door $(E_{4}|E_{1}E_{2}^{*}E_{3})$.
       Doe dit voor alle koppels $A$ en $B$ ten opzichte van $X$ en verwijder tenslotte $X$.
-      \TODO{formelere beschrijving}
+      \[
+      \forall a,b,c: ((\delta(a,b)=E_{4})\wedge (\delta(a,x)=E_{1})\wedge (\delta(x,x)=E_{2})\wedge (\delta(x,b)=E_{3})) 
+      \]
+      \[
+      \Rightarrow \delta'(a,b)=(E_{4}|E_{1}E_{2}^{*}E_{3})
+      \]
       Itereer dit proces tot enkel nog de begin- en eindtoestand overblijven.
+      Dit proces verandert de bepaalde taal niet.
+      Noem de machine voor het proces $GNFA_{voor}$ en na het proces $GNFA_{na}$.
+      Kies nu een willekeurige string $s \in \Sigma^{*}$.
+      \begin{itemize}
+      \item
+        Als $s$ aanvaard werd door $GNFA_{voor}$ met een pad dat $X$ niet bevat, dan wordt $s$ door datzelfde pad in $GNFA_{na}$ aanvaard.
+        Als het pad $X$ wel bevat, dan zijn er toestanden $A$ en $B$ zodat $AX^{n}B$ met $n\in \mathbb{N}_{0}$ een opeenvolging is in het pad. De reguliere expressie op de bogen $AX$, $XX$, $XB$ zijn $E_{1}$, $E_{2}$ en $E_{3}$. Bijgevolg kost van $A$ naar $B$ gaan langs $X$ een stukje string dat voldoet aan $E_{1}E_{2}^{*}E_{3}$. Die reguliere expressie staat in $GNFA_{na}$ in de boog $AB$, dus $s$ wordt ook aanvaard door $GNFA_{na}$.
+      \item
+        Als $s$ aanvaard wordt door $GNFA_{na}$ dan bevat het acceptatiepad alleen maar toestanden verschillend van $X$. Op een boog van $A$ naar $B$ staat de reguliere expressie $E_{4}|E_{1}E_{2}^{*}E_{3}$. Die reguliere expressie gebruiken kost een stukje string dat voldoet aan $E_{4}$ of $E_{1}E_{2}^{*}E_{3}$. In $GNFA_{voor}$ komt dat overeen met ofwel boog $AB$ volgen, ofwel $AX$, gevolgd door $n$ keer $XX$ en $XB$. Dit houdt in dat de string ofwel het pad langs $X$ nodig had, ofwel het pad zonder $X$, langs $A$ en $B$. In beide gevallen aanvaardt $GNFA_{voor}$ ook $s$.
+      \end{itemize}
     \item Bepaal de reguliere expressie.\\
       De overblijvende GNFA heeft nu precies twee toestanden met \'e\'e boog daartussen.
       De reguliere expressie $E$ van die boog is precies de reguliere expressie die we zochten.
     \end{enumerate}
-    We bewijzen tenslotte dat $E$ de taal van de originele NFA bepaalt.
-    \begin{itemize}
-    \item Elke string $s$ die voor de reductie aanvaard werd door de NFA wordt ook door $E$ aanvaard.
-    \item Elke string $s$ die voor de reductie niet aanvaard werd door de NFA wordt ook niet door $E$ aanvaard.
-\TODO{bewijs}
-    \end{itemize}
   \end{proof}
 \end{st}
+
+\begin{gev}
+  \label{gev:reguliere-taal-NFA}
+  Elke reguliere taal wordt bepaald door een NFA.
+  
+  \begin{proof}
+    Elke reguliere taal wordt bepaald door een reguliere expressie.\footnote{Zie eigenschap \ref{ei:reguliere-taal-expressie}.}
+    Elke reguliere expressie kan bovendien omgezet worden in een NFA die dezelfde taal bepaalt.\footnote{Zie stelling \ref{st:nfa-naar-regex}.}
+  \end{proof}
+\end{gev}
 
 \begin{ei}
   Er bestaat een isomorfisme tussen de algebra van NFA's en de algebra van Reguliere expressies.
 
-\TODO{bewijs}
+  \begin{proof}
+    Beschouw de vier bewerkingen in de algebra van reguliere expressies: unie $\cup_{R}$, concatenatie $\cdot_{R}$, complement $^{c}_{R}$ en doorsnede $\cap_{R}$.
+    Er bestaan overeenkomstige bewerkingen in de algebra van NFA's: unie $\cup_{N}$, concatenatie $\cdot_{N}$, complement $^{c}_{R}$ en doorsnede $\cap_{N}$.
+    Bovendien bestaat er een functie die een willekeurige reguliere expressie afbeeldt op een reguliere expressie die dezelfde taal bepaalt.\footnote{Zie stelling \ref{st:nfa-naar-regex}.}
+    Er bestaat dus een eenvoudig isomorfisme tussen deze twee algebra's.
+  \end{proof}
 \end{ei}
 
 \section{Deterministische eindige toestandsautomaten}
@@ -768,18 +819,56 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{itemize}
 \end{de}
 
-\TODO{taal bepaald door DFA}
+\begin{de}
+  De \term{taal} $L_{M}$ \term{bepaald door een DFA} $D$ bevat alle strings die $D$ aanvaardt, en geen andere strings.
+\end{de}
+
+\begin{de}
+  Twee DFA's $d_{1}$ en $d_{2}$ zijn equivalent als ze dezelfde taal bepalen.
+  \[ d_{1} \sim d_{2} \]
+\end{de}
 
 \begin{st}
   Elke NFA kan omgezet worden in een DFA die dezelfde taal bepaalt.
   
-\TODO{bewijs}
+  \begin{proof}
+    Zij $N$ een willekeurige NFA.
+    \[ N = (Q_{n},\Sigma,\delta_{n},q_{n},F_{n}) \]
+    We construeren nu een DFA $D$ die dezelfde taal bepaalt.
+    \[ D = (Q_{d},\Sigma,\delta_{d},q_{d},F_{d}\]
+    De toestanden $Q_{d}$ voor de DFA zullen elk overeen komen met een verzameling toestanden uit de NFA.
+    \[ Q_d = \mathcal{P}(Q_{n})\]
+    Een eindtoestand in de DFA komt steeds overeen met een verzameling die een eindtoestand van de NFA bevat.
+    \[ \forall q\in Q_{d}:\ q\in F_{d}\ \Rightarrow \exists q' \in F_{n}: q' \in q\]
+    Nu rest er ons nog $\delta_{d}$ te construeren.
+    \[
+    \delta_{d}:\ (\mathcal{P}(Q_{n}) \times \Sigma) \rightarrow \mathcal{P}(Q_{n})
+    \]
+    We voeren een een afbeelding $eb$ in die elke staat in $Q_{n}$ afbeeldt op al haar epsilon bereikbare toestanden in $Q_{n}$.
+    \[ eb: Q_{n} \rightarrow \mathcal{P}(Q_{n}) \]
+    \begin{itemize}
+    \item $eb(q)$ is de verzameling toestanden die met een aantal $\epsilon$-bogen bereikbaar is vanuit $q$.
+    \item $eb(Q)$ defineren we als volgt:
+      \[ ex(Q) = \bigcup_{q\in Q} eb(q)\]
+    \item $\delta_{n}(Q)$ definieren we als volgt:
+      \[ \delta_{n}(Q) = \bigcup_{q\in Q} \delta(q,a) \]
+    \end{itemize}
+    We construeren nu $\delta_{d}$:
+    \[ \forall Q\in Q_{d}:\ \delta_{d}(Q,a) = eb(\delta_{n}(Q,a)) \]
+    In woorden teken een boog in de DFA van elke verzameling toestanden naar de verzameling toestanden die epsilon-bereikbaar zijn vanuit die verzameling.
+    Tenslotte definieren we nog de begintoestand van $D$.
+    \[ q_{sd} = eb(q_{sn}) \]
+  \end{proof}
 \end{st}
 
 \begin{st}
+  \label{gev:reguliere-taal-DFA}
   Elke reguliere taal wordt bepaald door een DFA
   
-\TODO{bewijs}
+  \begin{proof}
+    Elke reguliere taal wordt bepaald door een NFA\footnote{Zie gevolg \ref{gev:reguliere-taal-NFA}.}
+    Bovendien kan elk NFA omgezet worden in een DFA die dezelfde taal bepaalt.
+  \end{proof}
 \end{st}
 
 \begin{de}
@@ -822,24 +911,46 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 
 \begin{st}
   Als een DFA $(Q,\Sigma,\delta,q_{s},F)$ een overgangsfunctie heeft die niet totaal is, met andere woorden, niet voor elk symbool is er in elke staat een boog, dan hoeven we hoogstens \'e\'en staat toe te voegen om een equivalente DFA te maken met een totale overgangsfunctie.
-  
-\TODO{bewijs}
+
+  \begin{proof}
+   Kies een willekeurige DFA $D = (Q,\Sigma,\delta,q_{s},F)$ met een niet-totale overgangsfunctie.
+   Maak nu een nieuwe, onaanvaardbare staat $q_{t}$, en vervolledig de overgangsfunctie $\delta$ door een koppel $((q,a),q_{t})$ toe te voegen voor elk koppel $(q,a)$ waarvoor $\delta$ onbepaald is om $\delta'$ te bekomen.
+   Voeg bovendien aan $\delta'$ ook nog voor elke symbool $s$ uit het alfabet $\Sigma$ het volgende koppel toe:
+   \[ ((q_{t},s),q_{t}) \]
+   Nu is de overgangsfunctie $\delta'$ totaal.
+   De nieuwe DFA $D' = (Q\cup\{ q_{t} \},\Sigma,\delta',q_{s},F)$ is nu bovendien equivalent met $D$ door hoogstens \'e\'en staat toe te voegen.
+  \end{proof}
 \end{st}
 
 \section{Minimale DFA}
 \begin{de}
-  Twee toestanden $p$ en $q$ van een DFA $(Q,\Sigma,\delta,q_{s},F)$ zijn \term{$f$-gelijk} als het volgende geldt:
+  Twee toestanden $p$ en $q$ van een DFA $(Q,\Sigma,\delta,q_{s},F)$ zijn \term{$f$-gelijk} $p\sim q$ als het volgende geldt:
   \[
   \forall w \in \Sigma^{*}:\ \delta^{*}(p,w) \in F \Leftrightarrow \delta^{*}(q,w) \in F
   \]
+  In woorden: dezelfde strings worden aanvaard vanuit beide toestanden $p$ en $q$.
 \end{de}
 
-\TODO{ opmerking: $f$-gelijkheid geldt ook voor NFA's, maar $f$-verschillend wordt dan moeilijk te definieren.}
+\begin{de}
+  Twee toestanden $p$ en $q$ van een DFA $(Q,\Sigma,\delta,q_{s},F)$ zijn \term{$f$-verschillend} als ze niet $f$-gelijk zijn. 
+\end{de}
+
+\begin{opm}
+  $f$-gelijkheid kunnen we ook definieren voor NFA's, maar dan wordt $f$-verschillend moeilijk te definieren.
+\end{opm}
+
+\begin{ei}
+  $f$-gelijkheid is een equivalentierelatie, en bepaalt dus een partitionering van een verzameling staten $Q$ van een $DFA$.
+
+  \begin{proof}
+    Inderdaad, de relatie ``A is $f$-gelijk met B'' is reflexief, transitief en symmetrisch.
+  \end{proof}
+\end{ei}
 
 \begin{st}
   Als een DFA $(Q,\Sigma,\delta,q_{s},F)$ geen onbereikbare toestanden heeft, en elke twee toestanden $f$-verschillend zijn, dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt.
   
-\TODO{bewijs}
+\TODO{bewijs p34}
 \end{st}
 
 \begin{de}
@@ -848,19 +959,19 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \item $b(F_{1}) = F_{2}$
   \item $b(q_{s1}) = q_{s2}$
   \item $b(\delta_{1}(q,a)) = \delta_{2}(b(q),q)$
-  \end{itemize}   
+  \end{itemize}
+  Twee isomorfe DFA's bepalen bovendien dezelfde taal.
 \end{de}
-
-\begin{st}
-  Twee isomorfe DFA's bepalen dezelfde taal.
-  
-\TODO{bewijs}
-\end{st}
 
 \begin{st}
   De minimale DFA van een taal is uniek op isomorfisme na.
   
 \TODO{bewijs}
 \end{st}
+
+\section{Myhill-Nerode relaties op $\Sigma$}
+\label{sec:myhill-nerode-relaties}
+
+
 
 \end{document}
