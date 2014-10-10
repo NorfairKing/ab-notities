@@ -1,0 +1,3 @@
+[submodule "oefenzittingen"]
+	path = oefenzittingen
+	url = git@github.com:KULeuven-DeptCW/AaC-Exc.git
