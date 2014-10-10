@@ -1,0 +1,44 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\topmargin -15mm 
+\textwidth 16truecm 
+\textheight 24truecm
+\oddsidemargin 5mm 
+\evensidemargin 5mm
+
+\newcommand{\N}{\mathbb{N}}
+
+
+\begin{document}
+\pagestyle{empty}
+
+\section*{Oefenzitting 5}
+
+
+\begin{enumerate}
+   \item Toon aan dat het `overeenkomstprobleem van Post' beslisbaar is over het alfabet $\Sigma = \{ a \}$. (Dat wil zeggen: toon aan dat het voor een verzameling domino's van de vorm $\left[ \frac{a^m}{a^n} \right]$ met $n,m \in \mathbb{N}$, beslisbaar is of er een overeenkomst bestaat.) 
+%\item Zij $PAL_{\rm DFA} = \{ \langle A \rangle \ | \ \text{$A$ is een DFA die minstens \'e\'en palindroom herkent} \}$. Toon aan dat $PAL_{\rm DFA}$ beslisbaar is.
+\item Toon aan dat er een onbeslisbare deelverzameling van $1^*$ bestaat.
+ \item Toon aan dat de vraag of een context-vrije grammatica $G$ alle strings uit $1^*$ kan genereren beslisbaar is.
+ \item Zijn de volgende uitspraken waar of niet? Bewijs je antwoord.
+		   \begin{enumerate}
+			   \item $EQ_{\rm CFG}$ is co-herkenbaar.
+				\item $A_{\rm TM}$ kan gereduceerd worden naar $E_{\rm TM}$.
+				\item Als een taal $L_1$ Turing gereduceerd kan worden naar een reguliere taal $L_2$, dan is $L_1$ ook regulier.
+				\item Een taal is herkenbaar als en slechts als ze gereduceerd kan worden naar $A_{\rm TM}$.
+			\end{enumerate}
+	\item Schrijf de volgende primitief recursieve functies met behulp van compositie, primitieve recursie en de basisfuncties.
+			\begin{enumerate}
+				\item $exp : \N \times \N \to \N : (x,y) \mapsto x^y$
+				\item $pred : \N \to \N : x \mapsto x - 1$ als $x \neq 0$ en $0 \mapsto 0$.
+				\item $dif : \N \times \N \to \N : (x,y) \mapsto | x - y |$
+				\item $sg : \mathbb{N} \to \mathbb{N} : x \mapsto 1 \text{ als $x = 0$ en $x \mapsto 0$ anders}$
+				\item $max : \mathbb{N} \times \mathbb{N} \to \mathbb{N} : (a,b) \mapsto \text{ het maximum van $a$ en $b$}$
+			\end{enumerate}
+   \item Defineer in zuivere lambda calculus de functie $sg$ zodanig dat $sg(c_n) = TRUE$ als $n = 0$ en $sg(c_n) = FALSE$ als $n \neq 0$.
+\end{enumerate}
+
+\end{document}

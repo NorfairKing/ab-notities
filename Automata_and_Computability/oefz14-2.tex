@@ -1,0 +1,50 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{color}
+\usepackage{../assignment-nl,../brackets}
+
+\title{Automaten en Berekenbaarheid\\Opgave \#2\\\url{http://goo.gl/1RlVG5}}
+\author{prof. B. Demoen\\W. Van Onsem}
+\date{Oktober 2014}
+
+\newcommand{\kolom}[1]{ \left[ \begin{array}{c} #1 \end{array} \right] }
+
+\begin{document}
+
+\maketitle
+
+\begin{question}
+Als $L$ een reguliere taal is over een alfabet $\Sigma$, dan is de taal $L^c = \{ w \ | \ \mbox{$w$  is een string over $\Sigma$ en $w \not\in L$} \}$ ook regulier. Bewijs.
+\end{question}
+
+\begin{question}
+Zij $\Sigma_3$ het alfabet 
+{\tiny
+	\[ \left\{ \kolom{ 0 \\ 0 \\ 0}, \kolom{ 0 \\ 0 \\ 1}, \kolom{ 0 \\ 1 \\ 0}, \ldots, \kolom{ 1 \\ 1 \\ 1} \right\}. \]
+}
+Beschouw een string over $\Sigma_3$ als drie rijen van $0$'en en $1$'en, en beschouw elk van die rijen als de binaire representatie van een natuurlijk getal. Zij $L$ de taal 
+\[ \{ w \ | \ \mbox{de onderste rij van $w$ is de som van de twee bovenste rijen} \} \]
+over $\Sigma_3$. {\tiny $\kolom{ 0 \\ 0 \\ 1} \kolom{ 1 \\ 0 \\ 0} \kolom{ 1 \\ 1 \\ 0}$} behoort bijvoorbeeld tot $L$, maar { \tiny $\kolom{ 0 \\0 \\ 1} \kolom{ 1 \\ 0 \\ 1}$} niet. Toon aan dat $L$ regulier is.
+Toon aan dat als $L_1$ en $L_2$ reguliere talen zijn, $L_1 \cap L_2$ dan ook een reguliere taal is. Is $L_1 \setminus L_2$ ook regulier?
+\end{question}
+
+\begin{question}
+Een \emph{all-paths}-NFA $(Q,\Sigma,\delta,q_0,F)$ verschilt van een NFA doordat een string $w$ enkel aanvaard wordt als 
+\begin{itemize}
+  \item voor elke mogelijke schrijfwijze $w = y_1 y_2 \ldots y_m$, $y_i \in \Sigma_{\varepsilon}$ en elke sequentie $r_0, r_1, \ldots, r_m$ van toestanden zodanig dat $r_0 = q_0$ en $r_{i+1} \in \delta(r_i,y_{i+1})$, geldt dat $r_m \in F$;
+  \item er minstens \'e\'en schrijfwijze $w = y_1 y_2 \ldots y_m$, $y_i \in \Sigma_{\varepsilon}$ bestaat zodanig dat er een sequentie $r_0, \ldots, r_m$ van toestanden bestaat met $r_0 = q_0$ en $r_{i+1} \in \delta(r_i,y_{i+1})$.
+\end{itemize}
+\end{question}
+
+\begin{question}
+Toon aan dat een taal $L$ regulier is als en slechts als ze herkend wordt door een all-paths-NFA.
+\end{question}
+
+\begin{question}
+Noem een string $x$ een \emph{prefix} van een string $y$ als er een string $z$ bestaat zodanig dat $y = xz$. Als bovendien $x \neq y$, dan noemen we $x$ een \emph{echte prefix} van $y$. Toon aan dat de klasse van reguliere talen gesloten is onder de volgende operaties.
+\begin{enumerate}
+  \item $\mathrm{NOPREFIX} (L) = \{ w \in L \ | \ \mbox{geen enkele echte prefix van $w$ zit in $L$} \}$
+  \item $\mathrm{NOEXTEND} (L) = \{ w \in L \ | \ \mbox{$w$ is geen echte prefix van een string in $L$} \}$
+\end{enumerate}
+\end{question}
+\end{document}
