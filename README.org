@@ -15,7 +15,7 @@ U kan de pdf [[https://www.sharelatex.com/github/repos/NorfairKing/ab-notities/b
 
 #+CAPTION: pdf build status
 #+NAME:   fig:buildstatus
-[[https://www.sharelatex.com/github/repos/NorfairKing/ab-notities/builds/latest/badge.svg]]
+[[https://www.sharelatex.com/github/repos/NorfairKing/ab-notities/builds/latest/output.pdf][https://www.sharelatex.com/github/repos/NorfairKing/ab-notities/builds/latest/badge.svg]]
 
 ** Externe links
 

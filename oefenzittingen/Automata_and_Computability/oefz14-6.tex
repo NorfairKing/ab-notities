@@ -1,0 +1,39 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{color,xypic,amsmath}
+\xyoption{all}
+\usepackage{../assignment-nl,../brackets}
+
+\title{Automaten en Berekenbaarheid\\Opgave \#6\\\url{http://goo.gl/1RlVG5}}
+\author{prof. B. Demoen\\W. Van Onsem}
+\date{November 2014}
+
+
+\begin{document}
+\maketitle
+
+\begin{question}
+Een \emph{`blijf staan Turing machine'} verschilt van een gewone Turing machine doordat de head naar rechts kan bewegen of kan blijven staan, maar niet naar links kan bewegen. Toon aan dat deze variant van Turing machines niet equivalent is met de originele variant. Welke talen worden herkend door `blijf staan Turing machines'?
+\end{question}
+
+\begin{question}
+Zij $INF_{\rm DFA} = \{ \langle A \rangle \ | \ \text{$A$ is een DFA en $L(A)$ is een oneindige taal} \} $. Toon aan dat $INF_{\rm DFA}$ beslisbaar is.
+\end{question}
+
+\begin{question}
+Is $VIJF_{\rm DFA} = \{ \langle A \rangle \ | \ \text{$A$ is een DFA en $L(A)$ bestaat uit precies 5 strings} \} $ beslisbaar? Bewijs je antwoord.
+\end{question}
+
+\begin{question}
+Toon aan dat de vraag of een context-vrije grammatica minstens \'e\'en string uit $1^*$ kan genereren, beslisbaar is.
+\end{question}
+
+\begin{question}
+Zij $A$ en $B$ twee disjuncte talen die co-Turing-herkenbaar zijn. Toon aan dat er een beslisbare taal $C$ bestaat zodanig dat $A \subseteq C$ en $B \subseteq \overline{C}$.
+\end{question}
+
+\begin{question}
+Een \emph{Turing machine met RESET} verschilt van een gewone Turing machine doordat de head enkel naar rechts kan bewegen of in \'e\'en stap helemaal aan het begin van de tape gezet kan worden. De transitiefunctie van zo een machine is dus van de vorm $\delta : Q \times \Gamma \to Q \times \Gamma \times \{ \text{R}, \text{RESET} \}$. Toon aan dat deze variant van Turing machines equivalent is met de originele variant.
+\end{question}
+
+\end{document}

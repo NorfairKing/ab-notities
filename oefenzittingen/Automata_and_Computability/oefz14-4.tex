@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{color,xypic,amsmath}
+\xyoption{all}
+\usepackage{../assignment-nl,../brackets}
+
+\title{Automaten en Berekenbaarheid\\Opgave \#4\\\url{http://goo.gl/1RlVG5}}
+\author{prof. B. Demoen\\W. Van Onsem}
+\date{Oktober 2014}
+
+\newcommand{\rul}{\rightarrow}
+\newcommand{\gvar}[1]{\langle \text{{#1}} \rangle}
+\newcommand{\gend}[1]{\text{\bf{#1}}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{question}
+Toon aan dat de klasse van context vrije talen gesloten is onder concatenatie en ster.
+\end{question}
+
+\begin{question}
+Bewijs dat de doorsnede van een reguliere taal met een context-vrije taal context-vrij is.
+\end{question}
+
+\begin{question}
+Geef voor elk van de volgende talen over een CFG die die taal genereert.
+\begin{enumerate}
+  \item $\{ w \in \{0,1\}^* \ | \ \text{de lengte van $w$ is oneven en het middelste symbool is een $0$} \}$
+  \item $\{ w \in \{0,1\}^* \ | \ \text{$w$ bevat strikt meer $1$'en dan $0$'en} \}$
+  \item $\{ w \in \{0,1\}^* \ | \ \text{$w$ bevat tweemaal zoveel $1$'en als $0$'en} \}$
+  \item $\{ w_1 \# w_2 \# \ldots \# w_n \ | \ \text{$n \geq 1$, elke $w_i \in \{0,1\}^*$ en er bestaat een $i$ en een $j$ waarvoor $w_i = w_j^\mathcal{R}$} \}$
+\end{enumerate}
+\end{question}
+
+\begin{question}
+Geef voor de eerste twee talen uit $(3)$ een PDA die die taal herkent.
+\end{question}
+
+\begin{question}
+Zij $G$ een CFG in Chomsky normaalvorm die precies $b$ niet-terminalen bevat.
+\begin{enumerate}
+  \item Toon aan dat voor elke $w \in L_G$ met lengte $n \geq 1$, elke afleiding van $w$ uit precies $2n - 1$ stappen bestaat.
+  \item Toon aan dat, als $G$ een string bevat waarvoor elke afleiding meer dan $2^b$ stappen bevat, $L_G$ oneindig moet zijn.
+\end{enumerate}
+\end{question}
+
+\begin{question}
+Toon aan dat $\{ x \# y \ | \ \text{$x,y \in \{0,1\}^*$ en $x \neq y$} \}$ een context-vrije taal is over $\{ 0,1,\# \}$.
+\end{question}
+
+\end{document}

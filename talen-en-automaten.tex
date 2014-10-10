@@ -8,7 +8,7 @@
 \label{sec:symbolen-en-strings}
 
 \begin{de}
-  Een \emph{symbool} $s$ is een representatie van een object in de abstractste zin van het woord. 
+  Een \term{symbool} $s$ is een representatie van een object in de abstractste zin van het woord. 
 \end{de}
 
 \begin{de}
@@ -16,17 +16,18 @@
 \end{de}
 
 \begin{de}
-  Een \emph{string} $s$ over een alfabet $\Sigma$ is een geordende opeenvolging van nul, \'e\'en of   meer elementen van $\Sigma$.
+  Een \term{string} $s$ over een alfabet $\Sigma$ is een geordende opeenvolging van nul, \'e\'en of meer elementen van $\Sigma$. Symbolen zijn dus strings van lengte 1.
+  \[ s = a_{1}\ldots a_{n} \text{ met } a_{i} \in \Sigma \]
 \end{de}
 
 \begin{de}
-  $\epsilon$ is de string zonder symbolen en noemen we de \emph{lege string}.
+  $\epsilon$ is de \term{string} zonder symbolen en noemen we de \term{lege string}.
 \end{de}
 
 \question{ Is $\epsilon$ een string of een symbool? }
 
 \begin{de}
-  De \emph{concatenatie} $xy$ van twee strings $x = \{x_1,x_2,\ldots,x_m\}$ en $y =   \{y_1,y_2,\ldots,y_n\}$ is de volgende geordende verzameling  
+  De \term{concatenatie} $xy$ van twee strings $x = \{x_1,x_2,\ldots,x_m\}$ en $y =   \{y_1,y_2,\ldots,y_n\}$ is de volgende geordende verzameling  
   \[
   xy = \{ x_1,x_2,\ldots,x_m,y_1,y_2,\ldots,y_n\}
   \] 
@@ -56,18 +57,23 @@
 
 \begin{de}
   De verzameling $\Sigma \cup \{\epsilon\}$ noteren we korter als $\Sigma_{\epsilon}$.
+  Merk op dat dit niet zomaar een verzameling symbolen is. $\epsilon$ is namelijk een string.
 \end{de}
- \clarify{dit is niet zomaar een verzameling sybolen, lijkt het? Is $\epsilon$ een symbool of een string?}
+
+\begin{de}
+  De \term{omgekeerde string} $s^{R}$ van een string $s$ is de string waarbij de symbolen van $s$ in omgekeerde volgorde staan.
+  \[ s = a_{n}\ldots a_{1} \text{ met } a_{i} \in \Sigma \]
+\end{de}
 
 \section{Talen}
 \label{sec:talen}
 
 \begin{de}
-  Een \emph{taal} $L$ over een alfabet $\Sigma$ is een verzameling van eindige strings over $\Sigma$.
+  Een \term{taal} $L$ over een alfabet $\Sigma$ is een verzameling van eindige strings over $\Sigma$.
 \end{de}
 
 \begin{de}
-  De \emph{concatenatie} $L_1L_2$ \emph{van twee talen} $L_1$ en $L_2$ over hetzelfde alfabet $\Sigma$ is de volgende verzameling:
+  De \term{concatenatie} $L_1L_2$ \term{van twee talen} $L_1$ en $L_2$ over hetzelfde alfabet $\Sigma$ is de volgende verzameling:
   \[
   L_1L_2 = \{\ xy\ |\ x \in L_1,\ y \in L_2\ \} 
   \]
@@ -106,7 +112,7 @@
 \end{de}
 
 \begin{de}
-  De \emph{Kleene ster} $L^*$ van een taal $L$ is de unie van alle concatenaties van $L$ met zichzelf.
+  De \term{Kleene-ster} $L^*$ van een taal $L$ is de unie van alle concatenaties van $L$ met zichzelf.
   \[
   L^* = \bigcup_{n=0}^{\infty}L^n
   \]
@@ -120,6 +126,7 @@
 \end{de}
 
 \begin{ei}
+  \label{ei:taal-alternatieve-definitie}
   We kunnen een taal ook defini\"eren als een deelverzameling van $\Sigma^{*}$ (of als een element van $\mathcal{P}(\Sigma^{*})$.)
 
   \begin{proof}
@@ -128,7 +135,7 @@
 \end{ei}
 
 \begin{de}
-  $L_{\Sigma}$ is de notatie voor \emph{de verzameling van alle talen over $\Sigma$}. 
+  $L_{\Sigma}$ is de notatie voor de verzameling van alle \term{talen over een alfabet} $\Sigma$. 
   \[ L_{\Sigma} = \mathcal{P}(\Sigma^{*}) \]
 \end{de}
 
@@ -136,7 +143,7 @@
 \label{sec:reguliere-expressies-en-talen}
 
 \begin{de}
-  Een \emph{reguliere expressie} (RE) wordt inductief gedefinieerd als een expressie van de volgende vorm:
+  Een \term{reguliere expressie} (RE) wordt inductief gedefinieerd als een expressie van de volgende vorm:
   \begin{itemize}
   \item $\epsilon$
   \item $\phi$
@@ -146,11 +153,15 @@
   \item $(E_1|E_2)$ waarbij $E_1$ en $E_2$ reguliere expressies zijn over $\Sigma$
   \end{itemize}
   Merk op dat, net als strings, reguliere expressies steeds eindig zijn.
+  Deze definitie laat immers geen oneindige reguliere expressies toe.
 \end{de}
 
+\begin{de}
+  De verzameling van alle reguliere expressies over een alfabet $\Sigma$ noteren we als $RegEx_{\Sigma}$ of $RegEx$.
+\end{de}
 
 \begin{st}
-  De verzameling van alle reguliere expressies over een alfabet $\Sigma$ vormt een taal.
+  De verzameling van alle reguliere expressies $RegEx$ over een alfabet $\Sigma$ vormt een taal.
 
   \begin{proof}
     Inderdaad, voeg aan $\Sigma$ nog de volgende symbolen toe om $\Sigma'$ te bekomen: $\epsilon$, $\phi$, $($, $)$, $|$ en $^{*}$.
@@ -163,7 +174,7 @@
 
 \begin{de}
   \label{def:taal-bepaald-door-regex}
-  De \emph{taal $L_E$ bepaald door een reguliere expressie} over hetzelfde alfabet $\Sigma$ is de volgende.
+  De \term{taal bepaald door een reguliere expressie} $L_E$ over hetzelfde alfabet $\Sigma$ is de volgende.
   \[
   \begin{array}{|c|c|}
     \hline
@@ -182,7 +193,7 @@
 
 \begin{de}
   \label{de:reguliere-taal}
-  Een \emph{reguliere taal} is een taal die bepaald wordt door een reguliere expressie.
+  Een \term{reguliere taal} is een taal die bepaald wordt door een reguliere expressie.
 \end{de}
 
 \begin{ei}
@@ -237,7 +248,7 @@
 \end{st}
 
 \begin{de}
-  $RegLan$ is \emph{verzameling van alle reguliere talen}.
+  $RegLan$ is \term{verzameling van alle reguliere talen}.
 \end{de}
 
 \begin{ei}
@@ -257,9 +268,9 @@
       De concatenatie $L_{E1}L_{E2}$ van deze twee talen wordt bepaald door de reguliere expressie $E_1E_2$ en is bijgevolg een reguliere taal.
       \footnote{Zie de definitie van de taal bepaald door een reguliere expressie. (Definite \ref{def:taal-bepaald-door-regex})}
     \item Het complement is inwendig in $RegLan$.
-      \TODO{bewijs zonder DFA's te gebruiken.}
+      \TODO{Verwijzing naar bewijs (later)}
     \item De doorsnede is inwendig in $RegLan$.
-      \TODO{Bewijs zonder DFA's te gebruiken.}
+      \TODO{Verwijzing naar bewijs (later)}
     \end{itemize}
   \end{proof}
 \end{ei}
@@ -290,7 +301,7 @@
 
   \begin{proof}
     Elke reguliere expressie bepaalt precies \'e\'en (reguliere) taal.
-    Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg aftelbaar oneindig veel reguliere talen.
+    Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg hoogstens aftelbaar oneindig veel reguliere talen.
     Er zijn echter overaftelbaar oneindig veel talen. Er moet dus minstens \'e\'en niet-reguliere taal bestaan.
     (In feite zijn de meeste\footnote{'de meeste' heeft een heel specifieke wiskundige betekenis.} talen niet-regulier.)
   \end{proof}
@@ -308,32 +319,85 @@
 \end{st}
 
 \begin{st}
-  Een oneindige taal is aftelbaar.
+  Zij $L$ een reguliere taal en $s \not \in L$ een string.
+  $L' = L \cup \{s\}$ is regulier.
+  \begin{proof}
+    $L$ is een reguliere taal, dus er bestaat een reguliere expressie $E$ die $L$ bepaalt.\footnote{Zie definitie \ref{de:reguliere-taal}.}
+    \[ L = L_{E} \]
+    Beschouw nu de reguliere expressie $E'$.
+    \[ E' = (E | s) \]
+    $E'$ is nu een reguliere expressie voor $L'$. 
+    $L'$ is dus regulier.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{sigma-ster-aftelbaar}
+  Oneindige talen over een alfabet $\Sigma$ zijn aftelbaar.
 
   \begin{proof}
-    Zij $L$ een willekeurige reguliere taal over een alfabet $\Sigma$.
     Beschouw het alfabet $\Sigma$ als de symbolen van een $|\Sigma|$-tallig talstelsel.
     Elke string $s$ in $\Sigma^{*}$ komt nu overeen met een getal $n_{s} \in N$.
     Er bestaat dus een bijectie tussen $\mathbb N$ en $\Sigma^{*}$. 
     Nu is $\Sigma^{*}$ aftelbaar oneindig omdat $N$ aftelbaar oneindig is.
-    Omdat $L$ een deelverzameling is van $\Sigma^{*}$, is $L$ aftelbaar oneindig.
   \end{proof}
+\end{st}
 
-% Dit bewijs van het tegengestelde geldt niet: strings moeten eindig zijn.
-%
-%  \begin{proof}
-%    Neem de alombekende overaftelbare verzameling als voorbeeld: de re\"ele getallen.
-%    De taal van de re\"ele getallen is regulier en wordt bepaald door de volgende reguliere expressie over het alfabet $\Sigma = \{ '.','0','1','2','3','4','5','6','7','8','9' \}$
-%    \[ E = (0|1|2|3|4|5|6|7|8|9)^{*} . (0|1|2|3|4|5|6|7|8|9)^{*}  \]
-%  \end{proof}
+\begin{st}
+  Elke oneindige reguliere taal $L$ is aftelbaar in aantal elementen.
 
+  \begin{proof}
+    $L$ is een deelverzameling van $\Sigma^{*}$.\footnote{Zie eigenschap \ref{ei:taal-alternatieve-definitie}.}, dus $L$ is hoogstens aftelbaar oneindig.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  Er zijn overaftelbaar veel talen over een alfabet $\Sigma$.
+
+  \begin{proof}
+    De talen $L_{\Sigma}$ over een alfabet zijn allemaal een deelverzameling van $\Sigma^{*}$. \footnote{Zie eigenschap \ref{ei:taal-alternatieve-definitie}.} $L_{\Sigma}$ is dus de machtsverzameling van $\Sigma^{*}$.
+    Bovendien is de machtsverzameling van een aftelbare verzameling\footnote{Zie stelling \ref{sigma-ster-aftelbaar}.} overaftelbaar.
+    Er zijn dus overaftelbaar oneindig veel talen over een alfabet $\Sigma$.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  De omgekeerde taal $L^{R}$ is de waarin alle strings van $L$ omgekeerd zijn is regulier.
+  \[ L^{R} = \{ s^{R}\ |\ s \in L \} \]
+\end{de}
+
+\begin{st}
+  \label{omgekeerde-reguliere-taal-is-regulier}
+  Voor elke reguliere taal $L$ is de omgekeerde taal $L^{R}$ regulier.
+
+  \begin{proof}
+    Zij $L$ een willekeurige reguliere taal, dan bestaat er een reguliere expressie $E$ die $L$ bepaalt.
+    We construeren nu de reguliere expressie $E'$ die $L^{R}$ bepaalt.
+    
+    Voor elke mogelijke vorm van $E$ bestaat er een overeenkomstige $E'$ die recursief geconstrueerd kan worden.
+    \[
+    \begin{array}{|c|c|}
+      \hline
+      E                           & E'\\
+      \hline
+      a \text{ met } a \in \Sigma & a \text{ met } a \in \Sigma\\
+      \epsilon                    & \epsilon\\
+      \phi                        & \phi\\
+      (E_1E_2)                    & (E_{2}E_{1})\\
+      (E)^{*}                      & (E^{*}))\\
+      (E_1|E_2)                   & (E_1|E_2)\\
+      \hline
+    \end{array}
+    \]
+    Zoals we zien wordt eigenlijk enkel het concatenatie geval aangepast. 
+  \end{proof}
 \end{st}
 
 \section{Eindige toestandsautomaten}
 \label{sec:eind-toest}
 
 \begin{de}
-  Een \emph{niet-deterministische eindige toestandsautomaat} (NFA) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
+  Een niet-deterministische eindige toestandsautomaat (\term{NFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
   \begin{itemize}
   \item $Q$ is een eindige verzameling toestanden.
   \item $\Sigma$ is een alfabet.
@@ -345,24 +409,23 @@
 \end{de}
 
 \begin{de}
-  Een \emph{string} $s$ wordt \emph{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s}F)$ als $s$ geschreven kan worden als $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en er een rij toestanden $t_{1}t_{2}\ldots t_{n+1}$ bestaat zodat:
+  Een \term{string} $s$ wordt \term{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s}F)$ als $s$ geschreven kan worden als $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en er een rij toestanden $t_{1}t_{2}\ldots t_{n+1}$ bestaat zodat:
   \begin{itemize}
   \item $t_{1} = q_{s}$
   \item $t_{i+1} \in \delta(t_{i},a_{i})$
   \item $t_{n+1} \in F$
   \end{itemize}
+  Merk op dat we tussen elke twee symbolen een willekeurig aantal keer $\epsilon$ kunnen zetten.
 \end{de}
 
 \begin{de}
-  De \emph{taal} $L_{M}$ \emph{bepaald door een NFA} $N$ bevat alle strings die $N$ aanvaardt, en geen andere strings.
+  De \term{taal} $L_{M}$ \term{bepaald door een NFA} $N$ bevat alle strings die $N$ aanvaardt, en geen andere strings.
 \end{de}
 
 \begin{de}
-  Twee \emph{NFA}'s $N_{1}$ en $N_{2}$ zijn \emph{equivalent} als ze dezelfde taal bepalen.
+  Twee \term{equivalente NFA's} $N_{1}$ en $N_{2}$ bepalen dezelfde taal.
   \[ n_{1} \sim n_{2} \]
 \end{de}
-
-\question{ Bestaat er een procedure om na te gaan of twee NFA's equivalent zijn? } 
 
 \begin{st}
   \label{st:equivalentierelatie-NFA}
@@ -418,7 +481,7 @@
 \end{st}
 
 \begin{de}
-  Een \emph{transititabel} is een tabel die de funtie $\delta$ voorstelt voor een automaat.
+  Een \term{transititabel} is een tabel die de funtie $\delta$ voorstelt voor een automaat.
   De tabel heeft drie kolommen. Elke rij vormt een deel van de werking van $\delta$.
   In de eerste kolom staat een staat, in de tweede een symbool, en in de derde een verzameling van staten.                   
 \end{de}
@@ -428,11 +491,11 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \label{sec:de-algebra-van-nfas}
 
 \begin{de}
-  De \emph{unie} $n_{1} \cup n_{2}$ van twee NFA's $n_{1}$ en $n_{2}$ is de NFA $n$ die de unie van de talen $L_{n_{1}}$ en $L_{n_{2}}$ aanvaardt.
+  De \term{unie} $n_{1} \cup n_{2}$ van twee NFA's $n_{1}$ en $n_{2}$ is de NFA $n$ die de unie van de talen $L_{n_{1}}$ en $L_{n_{2}}$ aanvaardt.
 \end{de}
 
 \begin{st}
-  \emph{Construtie van de unie van twee NFA's}\\
+  Constructie van de \term{unie van NFA's}\\
   Het is steeds mogelijk om de unie van twee NFA's te construeren.
 
   \begin{proof}
@@ -461,11 +524,11 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{st}
 
 \begin{de}
-  De \emph{concatenatie} $n_{1}n_{2}$ van twee NFA's $n_{1}$ en $n_{2}$ is de NFA $n$ die de concatenatie van de talen $L_{n_{1}}$ en $L_{n_{2}}$ aanvaardt.
+  De \term{concatenatie} $n_{1}n_{2}$ van twee NFA's $n_{1}$ en $n_{2}$ is de NFA $n$ die de concatenatie van de talen $L_{n_{1}}$ en $L_{n_{2}}$ aanvaardt.
 \end{de}
 
 \begin{st}
-  \emph{Construtie van de concatenatie van twee NFA's}\\
+  Constructie van de \term{concatenatie van NFA's}\\
   Het is steeds mogelijk om de concatenatie van twee NFA's te construeren.
 
   \begin{proof}
@@ -495,12 +558,12 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{st}
 
 \begin{de}
-  De \emph{Kleenester} van een NFA $n'$ is de NFA $n$ die de Kleenester van de taal $N_{n'}$ aanvaardt.
+  De \term{Kleene-ster} van een NFA $n'$ is de NFA $n$ die de Kleenester van de taal $N_{n'}$ aanvaardt.
 \end{de}
 
 \begin{st}
-  \emph{Construtie van de Kleenester van een NFA}\\
-  Het is steeds mogelijk om de Kleenester van een NFA te construeren.
+  Constructie van de \term{Kleene-ster van een NFA}\\
+  Het is steeds mogelijk om de Kleene-ster van een NFA te construeren.
 
   \begin{proof}
     Zij $n' = (Q',\Sigma,\delta',q_{s},\{q_{f}'\})$ een willekeurige NFA. We construeren nu de Kleenester $n = (O,\Sigma,\delta,q,F)$ van deze NFA.
@@ -527,6 +590,237 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
       \end{itemize}
     \end{itemize}
   \end{proof}
+\end{st}
+
+\section{Van reguliere expressie naar NFA}
+\label{sec:van-reguliere-expressie-naar-nfa}
+
+\begin{de}
+  Definieer de NFA $NFA_{\epsilon}$ als $(Q, \Sigma, \delta, q_{s}, F)$.
+
+  \begin{itemize}
+  \item $Q = \{q_{s},q_{d}\}$.
+  \item 
+    \[ \forall q \in Q, c \in \Sigma:\ \delta(q,c) = q_{d} \]
+  \item $F = \{q_{s}\}$
+  \end{itemize}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{assets/nfa_epsilon.png}      
+    \caption{De NFA $NFA_{\epsilon}$}
+    \label{fig:nfa_epsilon}
+  \end{figure}
+\end{de}
+
+\begin{de}
+  Definieer de NFA $NFA_{phi}$ als $(Q, \Sigma, \delta, q_{s}, \emptyset)$.
+
+  \begin{itemize}
+  \item $Q = \{q_{s}\}$
+  \item 
+    \[ \forall c \in \Sigma:\ \delta(q,c) = q_{s} \]
+  \end{itemize}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\textwidth]{assets/nfa_phi.png}      
+    \caption{De NFA $NFA_{\phi}$}
+    \label{fig:nfa_phi}
+  \end{figure}
+\end{de}
+
+\begin{de}
+  Definieer de NFA $NFA_{a}$ (met $a$ in $\Sigma$) als $(Q, \Sigma, \delta, q_{s}, F)$.
+
+  \begin{itemize}
+  \item $Q = \{q_{s},q_{f},q_{d}\}$
+  \item $\delta$
+    \[ \delta(q_{s}, a) = q_{f} \]
+    \[ \forall c \in \Sigma\setminus\{a\}:\ \delta(q_{s}, c) = q_{d} \]
+    \[ \forall c \in \Sigma:\ \delta(q_{f}, c) = q_{d}\]
+    \[ \forall c \in \Sigma:\ \delta(q_{d}, c) = q_{d}\]
+  \item $F = \{q_{f}\}$
+  \end{itemize}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{assets/nfa_a.png}      
+    \caption{De NFA $NFA_{a}$}
+    \label{fig:nfa_a}
+  \end{figure}
+\end{de}
+
+\begin{de}
+  Definieer nu \term{NFA van een reguliere expressie}, samen met de vorige definitie als volgt:
+  \begin{itemize}
+  \item $NFA_{E_{1}E_{2}} = NFA_{E_{1}}NFA_{E_{2}}$
+  \item $NFA_{(E_{1}|E_{2})} = NFA_{E_{1}} \cup NFA_{E_{2}}$
+  \item $NFA_{E_{1}^{*}} = NFA_{E_{1}}^{*}$
+  \end{itemize}
+\end{de}
+
+\begin{st}
+  We kunnen iedere reguliere expressie omzetten in een NFA die dezelfde taal bepaalt.
+  
+\TODO{bewijs}  
+\question{hoe bewijs je dit en schrijf je het mooi op?}
+\end{st}
+
+\section{NFA naar reguliere expressie}
+\begin{de}
+  Een gegeneraliseerde niet-deterministische eindige toestandsautomaat (\term{GNFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s},q_{f}$).
+  \begin{itemize}
+  \item $Q$ is een eindige verzameling toestanden.
+  \item $\Sigma$ is een alfabet.
+  \item $\delta$ is de overgangsfunctie.
+  Merk op dat deze functie twee staten als argument neemt in plaats van een staat en een symbool.
+    \[
+    \delta: Q\setminus\{q_{s}\} \times Q\setminus\{q_{f}\} \rightarrow RegEx_{\Sigma}
+    \]
+  \item $q_{s}$ is de starttoestand.
+  \item $q_{f}$ is de aanvaardbare eindtoestand.
+  \end{itemize}
+  Een GNFA heeft de volgende (informele) eigenschappen.
+  \begin{itemize}
+  \item Er is precies een eindtoestand en die is verschillend van de eindtoestand.
+  \item Er is precies een boog van elke toestand naar de eindetoestand
+  \item Uit de eindtoestand vertrekken geen pijlen.
+  \item Tussen elke twee toestanden (behalve de begin- en eindtoestand) vertrekt precies \'e\'en boog in beide richtingen
+  \item Er is precies \'e\'en boog van elke toestand (behalve de begin- en eindtoestand) naar zichzelf.
+  \item De bogen hebben een reguliere expressie als label.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Een string $s$ wordt aanvaard door een GNFA als er een rij reguliere expressies $E_{1},E_{2},\dotsc,E_{n}$ bestaat zodat $s$ wordt aanvaard door de concatenatie van die rij reguliere expressies en zodat die reguliere expressies een pad $t_{1},t_{2},\dotsc,t_{n+1}$ vormen in de GNFA. 
+  \begin{itemize}
+  \item $t_{1} = q_{s}$
+  \item $\delta(t_{i},t_{i+1}) = E_{i}$
+  \item $t_{n+1} = q_{f}$
+  \end{itemize}
+\end{de}
+
+\begin{st}
+  We kunnen iedere NFA omzetten in een reguliere expressie die dezelfde taal bepaalt.
+  
+  \begin{proof}
+    \begin{enumerate}
+    \item Maak van de NFA een GNFA:\\
+      Voer een nieuwe begintoestand, en een nieuwe unieke eindtoestand.
+      Teken een $\epsilon$-boog van de nieuwe begintoestand naar de oude, alsook een $\epsilon$-boog van de oude eindtoestand naar de nieuwe.
+      Teken alle ontbrekende bogen met een $\phi$ (deze mogen toch niet gevolgd worden).
+    \item Reduceer de GNFA:\\
+      Kies een willekeurige toestand $X$ verschillend van de begin- of eindtoestand.
+      Verwijder $X$ als volgt: Kies toestanden $A$ en $B$ zodat er bogen zijn van $A$ naar $B$ met reguliere expressie $E_{4}$, van $A$ naar $X$ met $E_{1}$, van $X$ naar zichzelf met $E_{2}$ en van $X$ naar $B$ met $E_{3}$.
+      \TODO{tekeningeske}
+      Vervang het label op de boog van $A$ naar $B$ door $(E_{4}|E_{1}E_{2}^{*}E_{3})$.
+      Doe dit voor alle koppels $A$ en $B$ ten opzichte van $X$ en verwijder tenslotte $X$.
+      \TODO{formelere beschrijving}
+      Itereer dit proces tot enkel nog de begin- en eindtoestand overblijven.
+    \item Bepaal de reguliere expressie.\\
+      De overblijvende GNFA heeft nu precies twee toestanden met \'e\'e boog daartussen.
+      De reguliere expressie $E$ van die boog is precies de reguliere expressie die we zochten.
+    \end{enumerate}
+    We bewijzen tenslotte dat $E$ de taal van de originele NFA bepaalt.
+    \begin{itemize}
+    \item Elke string $s$ die voor de reductie aanvaard werd door de NFA wordt ook door $E$ aanvaard.
+    \item Elke string $s$ die voor de reductie niet aanvaard werd door de NFA wordt ook niet door $E$ aanvaard.
+\TODO{bewijs}
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\section{Deterministische eindige toestandsautomaten}
+\begin{de}
+  Een deterministische eindige toestandsautomaat (\term{DFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
+  \begin{itemize}
+  \item $Q$ is een eindige verzameling toestanden.
+  \item $\Sigma$ is een alfabet.
+  \item $\delta$ is de parti\"ele overgangsfunctie van de automaat.
+  \[ \delta: Q \times \Sigma \rightarrow Q \]
+  \item $q_{s} \in Q$ is de starttoestand.
+  \item $F \subseteq Q$ is de verzameling aanvaardbare eindtoestanden.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Een string $s$ wordt aanvaard door een DFA als de opeenvolgende symbolen $s_{1}s_{2}\dotsc s_{n}$ van $s$ een pad $t_{1},t_{2},\dotsc,t_{n}$ vormen in de DFA.
+  \begin{itemize}
+  \item $t_{1} = q_{s}$
+  \item $\delta(t_{i},s_{i}) = t_{i+1}$
+  \item $t_{n+1} \in F$
+  \end{itemize}
+\end{de}
+
+\TODO{taal bepaald door DFA}
+
+\begin{st}
+  Elke NFA kan omgezet worden in een DFA die dezelfde taal bepaalt.
+  
+\TODO{bewijs}
+\end{st}
+
+\begin{st}
+  Elke reguliere taal wordt bepaald door een DFA
+  
+\TODO{bewijs}
+\end{st}
+
+\begin{de}
+  Voor elke DFA $(Q,\Sigma,\delta,q_{s},F)$ kunnen we $\delta:\ Q \times \Sigma$ uitbreiden naar $\delta^{*}:\ Q\times \Sigma^{*}$.
+  \begin{itemize}
+  \item $\delta^{*}(q,\epsilon) = q$
+  \item $\exists \delta(q,a) \Rightarrow \delta^{*}(q,aw) = \delta^{*}(\delta(q,a),w)$
+  \end{itemize}
+\end{de}
+
+\begin{st}
+  Voor elke DFA $(Q,\Sigma,\delta,q_{s},F)$ met een uitgebreide $\delta$: $\delta^{*}$ geldt de volgende gelijkheid:
+  \[
+  \delta^{*}(q,wa) = \delta(\delta^{*}(q,w),a)
+  \] 
+  
+\TODO{bewijs}
+\end{st}
+
+\begin{st}
+  Als een DFA $(Q,\Sigma,\delta,q_{s},F)$ een overgangsfunctie heeft die niet totaal is, met andere woorden, niet voor elk symbool is er in elke staat een boog, dan hoeven we hoogstens \'e\'en staat toe te voegen om een equivalente DFA te maken met een totale overgangsfunctie.
+\end{st}
+
+\section{Minimale DFA}
+\begin{de}
+  Twee toestanden $p$ en $q$ van een DFA $(Q,\Sigma,\delta,q_{s},F)$ zijn \term{$f$-gelijk} als het volgende geldt:
+  \[
+  \forall w \in \Sigma^{*}:\ \delta^{*}(p,w) \in F \Leftrightarrow \delta^{*}(q,w) \in F
+  \]
+\end{de}
+
+\begin{st}
+  Als een DFA $(Q,\Sigma,\delta,q_{s},F)$ geen onbereikbare toestanden heeft, en elke twee toestanden $f$-verschillend zijn, dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt.
+  
+\TODO{bewijs}
+\end{st}
+
+\begin{de}
+  Twee DFA's $(Q_{1},\Sigma,\delta_{1},q_{s1},F_{1})$ en $(Q_{2},\Sigma,\delta_{2},q_{s2},F_{2})$ zijn isomorf als er een bijectie $b:\ Q_{1} \rightarrow Q_{2}$ bestaat zodat de volgende beweringen gelden:
+  \begin{itemize}
+  \item $b(F_{1}) = F_{2}$
+  \item $b(q_{s1}) = q_{s2}$
+  \item $b(\delta_{1}(q,a)) = \delta_{2}(b(q),q)$
+  \end{itemize}   
+\end{de}
+
+\begin{st}
+  Twee isomorfe DFA's bepalen dezelfde taal.
+  
+\TODO{bewijs}
+\end{st}
+
+\begin{st}
+  De minimale DFA van een taal is uniek op isomorfisme na.
+  
+\TODO{bewijs}
 \end{st}
 
 \end{document}

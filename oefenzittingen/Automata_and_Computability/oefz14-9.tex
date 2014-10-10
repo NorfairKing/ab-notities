@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{color,xypic,amsmath}
+\xyoption{all}
+\usepackage{../assignment-nl,../brackets}
+
+\title{Automaten en Berekenbaarheid\\Opgave \#9\\\url{http://goo.gl/1RlVG5}}
+\author{prof. B. Demoen\\W. Van Onsem}
+\date{December 2014}
+
+\newcommand{\twar}[2]{\left[ { }^{#1}_{#2} \right] }
+\newcommand{\N}{\mathbb{N}}
+
+\begin{document}
+\maketitle
+
+\begin{question}
+Waar of niet waar?
+\begin{enumerate}
+  \item Elke eindige taal is regulier.
+  \item Elke deelverzameling van een niet-reguliere taal is niet-regulier.
+  \item De klasse van beslisbare talen is gesloten onder het nemen van het complement.
+\end{enumerate}
+\end{question}
+
+\begin{question}
+Zij $L$ een reguliere taal over een alfabet $\Sigma$ met minstens 2 tekens. Definieer de afstand $d$ tussen twee strings $s$ en $t$ over van gelijke lengte als het aantal posities waarop $s$ en $t$ verschillen. Met andere woorden, als $s = s_1s_2\ldots s_n$ en $t = t_1t_2\ldots t_n$, dan is $d(s,t) = \#\{ i \mid s_i \neq t_i \}$. Definieer nu de taal
+\[ fout_1(L) = \{s \in \Sigma^* \mid \text{er bestaat een $t \in L$ zodat $|s| == |t|$ en $d(s,t) \leq 1$} \}\]
+Informeel is dat de taal met strings met hoogstens \'e\'en foutje ten opzichte van een string in L. Bewijs dat $fout_1(L)$ regulier is.
+\end{question}
+
+\begin{question}
+Geef voor elk van de volgende talen aan of ze regulier, context-vrij, beslisbaar, Turing-herkenbaar en/of co-Turing-herkenbaar zijn.
+\begin{enumerate}
+  \item $\{ x = y+z \  | \ \text{$x$, $y$ en $z$ zijn natuurlijke getallen in binaire notatie en $x$ is de som van $y$ en $z$.} \}$ over het alfabet $\{0,1,+,=\}$.
+  \item De taal van alle strings $w$ over het alfabet $\left\{ \twar{0}{0}, \twar{0}{1}, \twar{1}{0}, \twar{1}{1} \right\}$ zodanig dat het binair getal gevormd door de onderste rij van $w$ gelijk is aan drie maal het binair getal gevormd door de bovenste rij van $w$. 
+  \item $\{ \langle M \rangle \ | \ \text{$M$ is een TM zodanig dat $L(M)$ precies 1234 strings bevat} \}$ % vraag: is deze taal co-Turing-herkenbaar?
+  \item $\{ a^ib^jc^k \ | \ \text{$i,j,k \geq 0$ en $i \neq j$ of $j \neq k$} \}$ 
+\end{enumerate}
+\end{question}
+
+\begin{question}
+Defineer in zuivere lambda calculus de functie $sg$ zodanig dat $sg(c_n) = TRUE$ als $n = 0$ en $sg(c_n) = FALSE$ als $n \neq 0$.
+\end{question}
+
+\begin{question}
+Schrijf de volgende primitief recursieve functies met behulp van compositie, primitieve recursie en de basisfuncties.
+\begin{enumerate}
+  \item $sg : \mathbb{N} \to \mathbb{N} : x \mapsto 1 \text{ als $x = 0$ en $x \mapsto 0$ anders}$
+  \item $max : \mathbb{N} \times \mathbb{N} \to \mathbb{N} : (a,b) \mapsto \text{ het maximum van $a$ en $b$}$
+\end{enumerate}
+\end{question}
+
+\end{document}

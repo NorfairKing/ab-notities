@@ -1,0 +1,109 @@
+\documentclass[a4paper]{article}
+\usepackage[dutch]{babel}
+\usepackage{amsmath}
+
+\newcommand{\rul}{\rightarrow}
+\newcommand{\gvar}[1]{\langle \text{{#1}} \rangle}
+\newcommand{\gend}[1]{\text{\bf{#1}}}
+
+\topmargin -15mm
+\textwidth 16truecm
+\textheight 24truecm
+\oddsidemargin 5mm
+\evensidemargin 5mm
+
+\usepackage{../assignment-nl}
+\begin{document}
+
+\pagestyle{empty}
+\section*{Oefenzitting 3}
+
+\begin{enumerate}
+\item Zij $\Sigma_1 = \{0,1\}, \Sigma_2 = \{a\}$ en $\Sigma_3 = \{a,b,c\}$. Toon aan dat de volgende talen niet regulier
+zijn.
+      \begin{enumerate}
+         \item $\{ w \in \Sigma_1^*\ |\ \mbox{$\left|w\right|$ is even en de $1$'en in $w$ komen enkel voor in de
+laatste helft van $w$}\}$
+         \item $\{ a^{\left( 2^n \right) } \in \Sigma_2^* \ | \ n \geq 0 \}$
+         \item $\{ a^n \in \Sigma_2^*\ | \ \mbox{$n$ is een priemgetal} \}$
+         \item $\{ 0^m1^n \in \Sigma_1^* \ | \ m \neq n \}$
+         \item $\{ w \in \Sigma_1^* \ | \ \mbox{$w$ is geen palindroom} \}$
+         \item $\{ a^ib^jc^k \in \Sigma_3^* \ | \ \mbox{$i,j,k \geq 0$ en als $i = 1$, dan moet $j=k$} \}$
+         \item $\{ ww \ | \ \mbox{$w\in\Sigma_1^*$ en een palindroom} \}$
+         \item $\{ w\in\Sigma_1^* \ | \ \mbox{$w$ heeft een gelijk aantal 0en en 1en} \}$
+         \item $\{ x=y+z \ | \ \mbox{$x,y,z\in\Sigma_1$ en $x$ is de binaire optelling van $y$ en $z$} \}$
+      \end{enumerate}
+   \item Wat is er mis met volgend ``bewijs'' om aan te tonen dat $L=0^*1^*$ geen reguliere taal is (dit is foutief,
+want $L$ is wel degelijk een reguliere taal).
+\begin{quote}
+Stel dat $0^*1^*$ regulier is, laat $p$ dan de pomplengte zijn voor $L$ volgens het pompend lemma. We kiezen als string
+$s=0^p1^p$, we weten dat $s\in L$ maar we kunnen $s$ niet pompen (zie oefening hierboven). We bekomen dus een
+contradictie en $L$ is niet regulier.
+\end{quote}
+
+   \item Toon aan dat de klasse van context vrije talen gesloten is onder concatenatie en ster.
+	\item Bewijs dat de doorsnede van een reguliere taal met een context-vrije taal context-vrij is.
+   \item Geef voor elk van de volgende talen over een CFG die die taal genereert.
+         \begin{enumerate}
+            \item $\{ w \in \{0,1\}^* \ | \ \text{de lengte van $w$ is oneven en het middelste symbool is een $0$} \}$
+            \item $\{ w \in \{0,1\}^* \ | \ \text{$w$ bevat strikt meer $1$'en dan $0$'en} \}$
+            \item $\{ w \in \{0,1\}^* \ | \ \text{$w$ bevat tweemaal zoveel $1$'en als $0$'en} \}$
+            \item $\{ w_1 \# w_2 \# \ldots \# w_n \ | \ \text{$n \geq 1$, elke $w_i \in \{0,1\}^*$ en er bestaat een $i$ en een $j$ waarvoor $w_i = w_j^\mathcal{R}$} \}$
+         \end{enumerate}
+   \item Geef voor de eerste twee talen uit $(3)$ een PDA die die taal herkent.
+   \item Zij $G$ een CFG in Chomsky normaalvorm die precies $b$ niet-terminalen bevat.
+         \begin{enumerate}
+            \item Toon aan dat voor elke $w \in L_G$ met lengte $n \geq 1$, elke afleiding van $w$ uit precies $2n - 1$ stappen bestaat.
+            \item Toon aan dat, als $G$ een string bevat waarvoor elke afleiding meer dan $2^b$ stappen bevat, $L_G$ oneindig moet zijn.
+         \end{enumerate}
+   \item Toon aan dat $\{ x \# y \ | \ \text{$x,y \in \{0,1\}^*$ en $x \neq y$} \}$ een context-vrije taal is over $\{
+0,1,\# \}$.
+   \item Welke van de volgende talen zijn context-vrij, welke niet? Bewijs je antwoord.
+   % Belangrijk bleek een mooi uitgewerkt voorbeeld in het begin van de oefenzitting te geven.
+      \begin{enumerate}
+			\item $\{ w \in \{0,1\}^* \ | \ \text{$w$ is een palindroom}\}$
+         \item $\{ 0^n\#0^{2n}\#0^{3n} \ | \ n \geq 0 \}$
+         % Goed van moeilijkheid
+         \item $\{ w \in \{a,b,c\}^* \ | \ \text{$w$ bevat een gelijk aantal $a$'s, $b$'s en $c$'s} \}$
+         % Probeer hiervoor een oefening te vinden zodat het resultaat uit oefening 1 echt gebruikt moet worden. Met
+andere woorden, een taal die niet rechtstreeks met het pumping lemma aangepakt kan worden.
+         \item $\{ xy \ | \ \text{$x,y \in \{0,1\}^*$ en $|x| = |y|$, maar $x \neq y$} \}$
+         \item $\{ w \# x \ | \ \text{$w,x \in \{0,1\}^*$ en $w$ is een substring van $x$} \}$
+			\item $\{a^ib^jc^k \ | \ 0 \leq i \leq j \leq k \}$
+      \end{enumerate}
+	\item Een $k$-PDA is een PDA met $k$ stacks. Een $0$-PDA is dus een NFA en een $1$-PDA een gewone PDA.
+   \begin{enumerate}
+      \item Toon aan dat $2$-PDA's strikt sterker zijn dan $1$-PDA's. (Met andere woorden, toon aan dat de klasse van
+talen die met een $1$-PDA te herkennen zijn een strikte deelverzameling is van de klasse van talen die met een $2$-PDA
+te herkennen zijn.)
+      % Gaat redelijk goed vanaf de studenten weten dat ze gewoon een tegenvoorbeeld moeten zoeken.
+      \item Toon aan dat $3$-PDA's even sterk zijn als $2$-PDA's.
+      % Al wat moeilijker. Formeel opschrijven is voor zowat iedereen niet haalbaar.
+   \end{enumerate}
+
+   \item \emph{Donald Knuth} stelt in z'n paper \emph{The Complexity of Songs}\cite{Knuth:1984:CS:358027.358042} dat de
+historische liedjes, lineaire geheugencapaciteit vereisten. Om meer liedjes te kunnen zingen werd de tekst
+gecomprimeerd. Een doorbraak werd gerealiseerd door een zekere \emph{O. MacDonald}, een Schotse
+veeteler\footnote{Verbonden aan het Institute for Donkey and Cow Farmers (IDCF), naar analogie werd later het Institute
+for Electrical and Electronics Engineers (IEEE) opgericht.}. \emph{MacDonald} deed dit door de tekst voor te stellen als
+een context-sensitieve grammatica. In deze vraag zullen we een context-vrije grammatica beschouwen.
+Een publicatie van \emph{MacDonald}\cite{macdonald} stelde de volgende grammatica voor:
+\importgram{macdonald}
+Kan je deze grammatica omzetten in Chomsky normaalvorm? Is de grammatica ambigu? Hoe zie je dat? Bewijs of geef een
+tegenvoorbeeld. Door de context-sensitieve grammatica om te zetten naar een contextvrije vorm, gaat enige semantiek
+verloren. Wat is er onrealistisch aan de taal die we hiermee beschouwen? Kan je een contextvrije en/of
+context-sensitieve grammatica voorstellen die dit oplost? Stel dat er oneindig veel soorten dieren op de boerderij
+rondlopen, waarbij de namen van de soorten bepaald worden door een reguliere expressie, veranderen dan de zaken?
+      \item Welke van de volgende talen zijn context-vrij, welke niet? Bewijs je antwoord.
+      \begin{enumerate}
+			\item $\{ w \in \{0,1\}^* \ | \ \text{$w$ is een palindroom}\}$
+         \item $\{ 0^n\#0^{2n}\#0^{3n} \ | \ n \geq 0 \}$
+         \item $\{ w \in \{a,b,c\}^* \ | \ \text{$w$ bevat een gelijk aantal $a$'s, $b$'s en $c$'s} \}$
+         \item $\{ xy \ | \ \text{$x,y \in \{0,1\}^*$ en $|x| = |y|$, maar $x \neq y$} \}$
+         \item $\{ w \# x \ | \ \text{$w,x \in \{0,1\}^*$ en $w$ is een substring van $x$} \}$
+			\item $\{a^ib^jc^k \ | \ 0 \leq i \leq j \leq k \}$
+      \end{enumerate}
+\end{enumerate}
+\bibliographystyle{alpha}
+\bibliography{biblio}
+\end{document}
