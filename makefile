@@ -1,4 +1,4 @@
-OUTPUT_NAME = abnotities
+OUTPUT_NAME = ab-notities
 MAIN_NAME = main
 
 LATEX = latexmk -pdf
