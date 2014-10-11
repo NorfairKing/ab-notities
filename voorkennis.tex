@@ -39,10 +39,18 @@
 
 \begin{st}
   \label{st:verband-partitie-equivalentierelatie}
-  Elke partitie komt overeen met een Equivalentierelatie.
-\end{st}
+  Elke partitie komt overeen met een Equivalentierelatie. Zij $P$ een partitie van $X$.
+  De volgende verzameling vormt dan een equivalentierelatie op $X$.
+  \[ x \sim y \Leftrightarrow (\exists A \in P:\ x \in A \wedge y \in A )\]
 
-\TODO{verband met equivalentierelatie}
+  \begin{proof}
+    We definieren een relatie $\sim$ als volgt:
+    \[
+    x \sim y \Leftrightarrow \text{ x en y zitten in dezelfde deelverzameling van } P
+    \]
+    Dat deze relatie een equivalentierelatie is volgt meteen uit het feit dat ``dezelfde ... als'' ook een equivalentierelatie is.
+  \end{proof}
+\end{st}
 
 \section{Abstracte algebra}
 \label{sec:abstracte-algebra}
