@@ -24,6 +24,26 @@
   \[ \{v\ |\ v\subset V \}\] 
 \end{de}
 
+\begin{de}
+  \label{de:partitie}
+  Een partitie $P$ van een verzameling $X$ is een deelverzameling van de machtsverzameling $\mathcal {P}(x)$ van $X$ met de volgende eigenschappen:
+  \begin{itemize}
+  \item De verzamelingen zijn niet leeg.
+    \[ \forall A \in P:\ A \neq \emptyset \]
+  \item De verzamelingen zijn onderling disjunct.
+    \[ \forall A,B \in P:\ A \neq B \Rightarrow A \cap B = \emptyset \]
+  \item De verzamelingen samen vormen $X$.
+    \[ \forall x \in X:\ \exists A \in P:\ x \in A \]
+  \end{itemize}
+\end{de}
+
+\begin{st}
+  \label{st:verband-partitie-equivalentierelatie}
+  Elke partitie komt overeen met een Equivalentierelatie.
+\end{st}
+
+\TODO{verband met equivalentierelatie}
+
 \section{Abstracte algebra}
 \label{sec:abstracte-algebra}
 

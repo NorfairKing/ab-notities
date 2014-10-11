@@ -386,9 +386,9 @@
       a \text{ met } a \in \Sigma & a \text{ met } a \in \Sigma\\
       \epsilon                    & \epsilon\\
       \phi                        & \phi\\
-      (E_1E_2)                    & (E_{2}E_{1})\\
-      (E)^{*}                      & (E^{*}))\\
-      (E_1|E_2)                   & (E_1|E_2)\\
+      (E_1E_2)                    & (E_{2}'E_{1}')\\
+      (E)^{*}                      & (E'^{*})\\
+      (E_1|E_2)                   & (E_1'|E_2')\\
       \hline
     \end{array}
     \]
@@ -880,6 +880,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{st}
+  \label{st:delta-ster-identiteit}
   Voor elke DFA $(Q,\Sigma,\delta,q_{s},F)$ met een uitgebreide $\delta$: $\delta^{*}$ geldt de volgende gelijkheid:
   \[
   \delta^{*}(q,wa) = \delta(\delta^{*}(q,w),a)
@@ -910,6 +911,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{st}
 
 \begin{st}
+  \label{st:dfa-totale-overgangsfunctie}
   Als een DFA $(Q,\Sigma,\delta,q_{s},F)$ een overgangsfunctie heeft die niet totaal is, met andere woorden, niet voor elk symbool is er in elke staat een boog, dan hoeven we hoogstens \'e\'en staat toe te voegen om een equivalente DFA te maken met een totale overgangsfunctie.
 
   \begin{proof}
@@ -972,6 +974,139 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \section{Myhill-Nerode relaties op $\Sigma$}
 \label{sec:myhill-nerode-relaties}
 
+\subsection{Partities van $\Sigma^{*}$}
+\label{sec:partities-van-sigma-ster}
 
+\begin{de}
+  Definieer de functie $reach(q)$ van een DFA $(Q,\Sigma,\delta,q_{s},F)$ als alle strings waarvoor de automaat in staat $q$ belandt.
+  \[
+  reach(q) = \{ w \in \Sigma^{*}\ |\ \delta^{*}(q_{s},w) = q \}
+  \]
+\end{de}
+
+\begin{st}
+  De taal $reach(q)$ van een DFA $D = (Q,\Sigma,\delta,q_{s},F)$ is regulier voor elke $q$.
+  
+  \begin{proof}
+    Inderdaad, construeer een nieuwe automaat $D'$ vanuit $D$ waarin enkel $q$ een accepterende eindtoestand is.
+    $reach(q)$ is nu de taal bepaald door $D'$. $D'$ aanvaardt immers enkel de strings waarvoor $D$ (en dus $D'$, want we hebbn $\delta$ niet veranderd) in $q$ zou belanden.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  De verzameling $R$ is een partitie van $\Sigma^{*}$ is een partitie van $\Sigma^{*}$ als elke toestand bereikbaar is.
+  \[ R = \{ reach(q)\ |\ q \in Q \} \]
+
+  \begin{proof}
+    Kies een willekeurige DFA $D = (Q,\Sigma,\delta,q_{s},F)$ en een staat $q\in Q$.
+    We gaan elke eigenschap van een partitie na.\footnote{Zie definitie \ref{de:partitie}.}
+    \begin{itemize}
+    \item $reach(q)$ is niet leeg.\\
+      We moeten er hier van uitgaan dat de overgangsfunctie $\delta$ van $D$ totaal is.
+      Dit kunnen we zonder verlies van algemeenheid.\footnote{Zie stelling \ref{st:dfa-totale-overgangsfunctie}.}
+      Elke string $s\in \Sigma$ die we als invoer kunnen geven aan $D$ belandt zeker in een staat $q'$ zonder dat de automaat vast loopt.
+      Nu geldt dat elke staat bereikt zal worden door minstens \'e\'en string als elke toestand bereikbaar is.
+      $D$ kan immers ook gezien worden als een NFA zonder $\epsilon$ bogen (etc...). Wanneer we die NFA omzetten naar een reguliere expressie via een GNFA krijgen we een reguliere expressie zonder $\phi$'s. Er bestaat dus altijd minstens \'e\'en string die in $q$ belandt voor elke $q$.
+    \item De verzamelingen in $R$ zijn onderling disjunct.
+      Deze uitspraak is equivalent met de volgende: ``De DFA kan slechts in \'e\'en toestand belanden voor elke string $s\in\Sigma^{*}$''. Dit klopt omdat we het over \emph{deterministische} automaten hebben.
+    \item De unie van alle verzamelingen in $R$ vormt $\Sigma^{*}$.
+      Deze uitspraak is equivalent met de volgende: ``Er zijn geen strings $s\in \Sigma^{*}$ waarvoor de DFA $D$ niet in een staat van $Q$ belandt.''
+      Inderdaad, het resultaat de overgangsfunctie $\delta$ blijft steeds binnen $Q$ als ze totaal is.
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\begin{gev}
+  De partitie $R$ bepaalt de Equivalentierelatie ``voor zowel A als B belandt de automaat $D$ in dezelfde staat $q$'': $\sim_{D}$.
+  \[ x \sim_{D} y \Leftrightarrow \delta^{*}(q_{s},x) = \delta^{*}(q_{s},y) \]
+
+  \begin{proof}
+    Inderdaad, $R$ is een partitie en elke partitie bepaalt een equivalentierelatie.\footnote{Zie stelling \ref{st:verband-partitie-equivalentierelatie}.}
+  \end{proof}
+\end{gev}
+
+\begin{de}
+  \label{de:mn-relatie}
+  Een \term{Myhill-Nerode relatie} voor een taal $L$ over een alfabet $\Sigma$ is een relatie $\sim_{DFA}$ op $L$ met de volgende eigenschappen:
+  \[ \sim_{DFA} \subseteq L \times L:\ l_{1} \sim_{DFA} l_{2}\]
+  \[ \sim_{DFA} \text{ is } MN(L) \]
+  \begin{itemize}
+  \item $\sim_{DFA}$ is rechts congruent:
+    \[ \forall x,y \in \Sigma^{*}, a \in \Sigma:\ x \sim_{DFA} y \Rightarrow (xa) \sim_{DFA} (ya) \]
+  \item $\sim_{DFA}$ verfijnt $\sim_{L}$:
+    \[ \forall x,y \in \Sigma^{*}, \forall L\in \mathcal{P}(\Sigma^{*}):\ x \sim_{DFA} y \Rightarrow x \sim_{L} y\]
+    In woorden: ``Als $x \sim_{DFA} y$ zitten ofwel zowel $x$ als $y$ in $L$, ofwel geen van beide.''
+  \item Het aantal equivalentieklassen van $\sim_{DFA}$ is eindig.
+    We zeggen: ``De index van $\sim_{DFA}$ is eindig.''.
+  \end{itemize}
+\end{de}
+
+\begin{st}
+  \label{st:mn-relatie-is-equivalentierelatie}
+  Elke Myhill-Nerode relatie $\sim$ voor een taal $L$ is over een alfabet $\Sigma$ is een equivalentierelatie.
+  \begin{proof}
+    Inderdaad, $\sim$ is reflexief, transitief en symmetrisch.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  Voor elke DFA $D = (Q,\Sigma,\delta,q_{s},F)$ is de relatie $\sim_{D}$ een Myhill-Nerode relatie voor de taal $L_{DFA}$.
+  \begin{proof}
+    We bewijzen elke eigenschap van een Myhill-Nerode relatie achtereenvolgens.\footnote{Zie definitie \ref{de:mn-relatie}.}
+    \begin{itemize}
+    \item $\sim_{D}$ is rechts congruent:\\
+      Kies twee willekeurige strings $x$ en $y$ uit $\Sigma^{*}$ en kies een willekeurig symbool $a\in \Sigma$.
+      Stel nu dat $x \sim_{D} y$ geldt:
+      \[ \delta^{*}(q_{s},x) = \delta^{*}(q_{s},y) \]
+      Nu volgt daar het volgende uit:\footnote{Zie stelling \ref{st:delta-ster-identiteit}.}
+      \[
+      \begin{array}{rll}
+        \delta^{*}(q_{s},(xa)) &= \delta(\delta^{*}(q,x),a) &\\
+                               &= \delta(\delta^{*}(q,y),a) &= \delta^{*}(q_{s},(ya))
+      \end{array}
+      \]
+    \item Inderdaad, als voor twee strings $x \sim_{D} y$ geldt, dan zitten $x$ en $y$ in $L_{DFA}$ als en slechts als de staat $q$ waarin de automaat belandt door $x$ (en $y$) aanvaardbaar is.
+    \item Het aantal equivalentieklassen van $\sim_{D}$ is eindig:\\
+      Het aantal equivalentieklassen van $\sim_{D}$ is precies gelijk aan het aantal staten in $Q$ van de automaat $D$. Omdat $D$ een \emph{eindige} automaat is, is dit dus een eindig aantal.
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  We noteren de equivalentieklasse van $x$ in een Myhill-Nerode relatie $\sim$ als $x_{\sim}$.
+  \[ x_{\sim} = \{ y\ |\ x \sim y \} \]
+\end{de}
+
+\begin{st}
+  Gegeven een taal $L$ over $\Sigma$ en een MN($L$)-relatie $\sim$ op $\Sigma^{*}$, dan is $D = (Q,\Sigma,\delta,q_{s},F)$ een DFA die $L$ bepaalt:
+  \begin{itemize}
+  \item $Q = \{ x_{\sim}\ |\ x \in \Sigma^{*} \}$: Elke equivalentieklasse is een toestand.
+  \item $q_{s} = \epsilon_{\sim}$: De starttoestand bereik je met $\epsilon$.
+    \question{Waarom deze voorwaarde? Is dit niet simpelweg eigen aan DFA's?}
+  \item $F = \{ \delta^{*}(q_{s},x_{\sim})\ |\ x\in L \}$: eindtoestand wordt bereikt door een string in $L$.
+\question{ In het boek staat: $\{ x_{\sim}\ |\ x\in L \}$. Is dit geen notation abuse? een verzameling staten zou een verzameling equivalentieklassen zijn...?}
+\question{ Welk lidwoord? }
+  \item $\gamma:\ \mathcal{P}(\Sigma^{*})\times\Sigma \rightarrow \mathcal{P}(\Sigma^{*}):\ \gamma(x_{\sim},a) = (xa)_{\sim}$ een welbepaalde functie.  
+\question{ Is dit de juiste signatuur? }
+  \end{itemize}
+  \begin{proof}
+    $\gamma$ is goed gedefinieerd vanwege de rechtse conguentie van de relatie $\sim$.\footnote{Zie definitie \ref{de:mn-relatie}.}
+    Zowel $Q$ als $F$ zijn eindig omdat het aantal equivalentieklassen van $\sim$ eindig is.
+    Er rest ons nu nog te bewijzen dat $D$ de taal $L$ bepaalt.
+    \[ \forall s\in L_{DFA}:\ \delta^{*}(e_{\sim},x) \in F \Leftrightarrow x_{\sim} \in F \triangleq x \in L \]
+    \question{Wat betekent dat teken met de driehoek}
+    \TODO{bewijzen nadat vragen zijn beantwoord.} 
+  \end{proof}
+\end{st}
+
+\begin{st}
+  De overgangen van DFA naar MN relatie en van daar naar een DFA zijn elkaars inversen op een DFA-isomorfisme na.
+  \TODO{formeler en bewijs}
+\end{st}
+
+\begin{st}
+  Twee isomorfe DFA's hebben dezelfde $\sim_{DFA}$.
+  \TODO{formeler en bewijs}
+\end{st}
 
 \end{document}
