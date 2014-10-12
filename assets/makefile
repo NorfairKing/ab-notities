@@ -3,9 +3,11 @@ DOT_EXT		= dot
 OUT_FORMAT  = png
 OUT_EXT		= png
 
-ILLUSTRATIONS = nfa_unie.png nfa_concat.png nfa_kleene.png nfa_epsilon.png nfa_phi.png nfa_a.png $(OZ1)
+ILLUSTRATIONS = $(NFAS) $(DFA_MINIMISATIONS)
 
-OZ1	= oz1v2-1.png oz1v2-3.png
+NFAS = nfa_unie.png nfa_concat.png nfa_kleene.png nfa_epsilon.png nfa_phi.png nfa_a.png nfa_complement.png nfa-gnfa1.png nfa-gnfa2.png
+DFA_MINIMISATIONS = dfa_minimalisatie-1.png dfa_minimalisatie-2.png dfa_minimalisatie-3.png dfa_minimalisatie-4.png dfa_minimalisatie-5.png
+
 
 all: graphviz_illustrations
 

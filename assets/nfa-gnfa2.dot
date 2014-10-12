@@ -1,0 +1,10 @@
+digraph finite_state_machine {
+    node [shape=circle];
+    
+    A;
+    B;
+    A -> B[label=<E<sub>4</sub>|E<sub>1</sub>(E<sub>2</sub><sup>*</sup>)E<sub>3</sub>>];
+
+    rankdir="LR";
+}
+

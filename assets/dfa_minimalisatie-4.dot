@@ -1,0 +1,27 @@
+graph finite_state_machine {
+    node [label="", shape=circle];
+ 
+    ss[style="invis"];
+
+    s1[label=<q<sub>1</sub>>];
+    s2[label=<q<sub>2</sub>>];
+    s3[label=<q<sub>3</sub>>];
+    s4[label=<q<sub>4</sub>>,shape="doublecircle"];
+    s5[label=<q<sub>5</sub>>];
+    
+    edge [label="ε"];
+    s1 -- s4;
+    s2 -- s4;
+    s3 -- s4;
+    s5 -- s4;
+    
+    edge [label=""];
+    s1 -- s2[label="c"]; 
+    s1 -- s3[label="c"]; 
+    s1 -- s5[label="a,d"]; 
+    s2 -- s5[label="c,d"]; 
+    s3 -- s5[label="c,d"]; 
+   
+
+    rankdir="LR"
+}

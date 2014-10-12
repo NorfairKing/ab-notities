@@ -1,0 +1,14 @@
+digraph finite_state_machine {
+    node [shape=circle];
+    
+    A;
+    B;
+    X;
+    A -> B[label=<E<sub>4</sub>>];
+    A -> X[label=<E<sub>1</sub>>];
+    X -> X[label=<E<sub>2</sub>>];
+    X -> B[label=<E<sub>3</sub>>];
+
+    rankdir="LR";
+}
+
