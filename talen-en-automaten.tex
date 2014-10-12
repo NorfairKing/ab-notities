@@ -446,7 +446,7 @@
       \[ \forall n_{1},n_{2}: (n_{1} \sim n_{2} \Leftrightarrow n_{2} \sim n_{1}) \]
     \item Transitiviteit.
       Wanneer een NFA equivalent met een tweede, en die tweede met een derde, dan is de eerste ook equivalent met de derde.
-      \[ \forall n_{1}, n_{2}, n_{3}: (n_{1} \sim n_{2} \wedge n_{2} \sim n_{3}) \Rightarrow n_{1} \sim n_{3} \]
+      \[ \forall n_{1}, n_{2}, n_{4}: (n_{1} \sim n_{2} \wedge n_{2} \sim n_{3}) \Rightarrow n_{1} \sim n_{3} \]
     \end{itemize}
   \end{proof}
   Merk op dat dit inhoudt dat er met elke equivalentieklasse precies \'e\'en taal overeen komt.
@@ -811,6 +811,10 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{de}
+  We kunnen $\delta(q,a)$ afkorten als $q_{a}$ wanneer de $\delta$ die bedoeld wordt duidelijk is.  
+\end{de}
+
+\begin{de}
   Een string $s$ wordt aanvaard door een DFA als de opeenvolgende symbolen $s_{1}s_{2}\dotsc s_{n}$ van $s$ een pad $t_{1},t_{2},\dotsc,t_{n}$ vormen in de DFA.
   \begin{itemize}
   \item $t_{1} = q_{s}$
@@ -949,11 +953,181 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{ei}
 
+\begin{al}
+  \label{al:dfa-minimalisatie}
+  \emph{$f$-gelijke toestanden vinden.}\\
+  Gegeven een DFA $(Q,\Sigma,\delta,q_{s},F)$, zoeken we de partitionering van $D$ in verzamelingen van $f$-gelijke toestanden.
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{assets/dfa_minimalisatie-1.png}     
+    \caption{Een niet-minimale DFA}
+    \label{fig:dfa-minimalisatie-1}
+  \end{figure}
+
+  \subsubsection{Pre-init}
+  \textit{
+    Elke staat die niet bereikbaar is vanaf $q_s$ kunnen we zonder meer verwijderen
+  }
+
+  Ga voor elke staat $q\in Q$ na of $q$ bereikbaar is vanaf $q_{s}$, zo nee, verwijder $q$.
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{assets/dfa_minimalisatie-2.png}     
+    \caption{Een niet-minimale DFA zonder nutteloze staten}
+    \label{fig:dfa-minimalisatie-2}
+  \end{figure}
+
+  \subsubsection{Init}
+  \textit{
+    Kies een toestand $p$ die geen eindtoestand is.
+    $p$ is zeker $f$-verschillend van elke eindtoestand.
+    Alle andere paren zijn nog onbeslist.
+  }
+
+  Beschouw de ongerichte graaf $G(Q,E)$ met de toestanden $Q$ als knopen en noem $E$ de bogen van $G$.
+  De graaf heeft bovendien een label voor elke boog.
+  Begin met een lege verzameling $E$.
+  Voeg nu voor elk paar knopen $p$ en $q$ waarvan er precies \'e\'en een aanvaardbare toestand is een boog toe tussen $p$ en $q$.
+  \[ \forall p,q:\ p \in F \oplus q \in F:\ (p,q,\epsilon) \in E \]
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{assets/dfa_minimalisatie-3.png}     
+    \caption{De graaf $V$ na de initialisatie van het minimalisatie algoritme.}
+    \label{fig:dfa-minimalisatie-3}
+  \end{figure}
+
+  \subsubsection{Repeat}
+  \textit{
+    Kies een paar toestanden $p$ en $q$ dat nog onbeslist is.
+    Stel dat er een symbool $a$ bestaat zodat je met dat symbool van $p$ en van $q$ gaat naar twee $f$-verschillende toestanden, dan beslis je dat $p$ en $q$ $f$-verschillend zijn.
+  }
+
+  Als er twee knopen $p$ en $q$ zijn waarvoor het volgende geldt:
+  \begin{itemize}
+  \item Er is geen boog tussen $p$ en $q$.
+    \[ \not\exists (p,q,\_) \in E \]
+  \item Er bestaat een symbool zodat je met dat symbool vanuit $p$ en vanuit $q$ een toestand kan bereiken waartussen een boog is.
+    \[ \exists a \in \Sigma:\ \exists(p_{a},q_{a},\_) \in V \]
+  \end{itemize}
+  Kies een symbool $a$ waarvoor $(p_{a},q_{a},\_)$ al een boog is van $G$ en voeg de boog $(p,q,a)$ toe.
+  \[ (p,q,a) \in E \]
+  Het is hier noodzakelijk om op te merken dat we de overgangsfunctie $\delta$ eigenlijk eerst totaal moeten maken.\footnote{Zie stelling \ref{st:dfa-totale-overgangsfunctie}.}
+
+\question{foutje in boek?: figuur 2.13 tweede prentje. Moet je de (impliciete) trash state meerekenen?}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{assets/dfa_minimalisatie-4.png}     
+    \caption{De graaf $V$ na alle repeat stappn van het minimalisatie algoritme.}
+    \label{fig:dfa-minimalisatie-4}
+  \end{figure}
+
+  \subsubsection{Consolidate}
+  \textit{
+    Voor elk paar toestanden $p$ en $q$ waarvoor je nog niet beslist had, beslis je nu dat $p$ en $q$ $f$-gelijk zijn.
+    Gebruik deze equivalentierelatie om $Q$ te partitioneren.
+  }  
+
+  Bouw nu de complementsgraaf $G^{c}$ van $G$.
+  In $G^{c}$ is er een boog tussen elke twee knopen waartussen in $G$ geen boog was.
+  Elke component van $G^{c}$ stelt nu een verzameling in de partitie van $Q$ voor in $f$-gelijke disjucnte deelverzamelingen.
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{assets/dfa_minimalisatie-5.png}     
+    \caption{De partitionering van Q op het einde van het minimalisatie algoritme.}
+    \label{fig:dfa-minimalisatie-5}
+  \end{figure}
+
+\end{al}
+\begin{st}
+  Bovenstaand algoritme (\ref{al:dfa-minimalisatie}) is eindig en correct.
+  \begin{proof}
+    \begin{itemize}
+    \item Eindigheid.\\
+    Het aantal knopen in $G$ is eindig omdat de DFA een eindig aantal toestanden heeft, en het aantal is dat $\frac{N(N-1)}{2}$ met $N$ het aantal knopen van $G(Q,E)$.
+    Elk van die bogen wordt bovendien een eindig aantal keer overlopen.
+    \item Correctheid.\\
+      We bewijzen volgende bewering voor de graaf $G$ na de ``repeat'' stap:
+      \[ (p,q,\_) \in E \Leftrightarrow p \text{ en } q \text { zijn } f\text{verschillend.}\]
+      \begin{itemize}
+      \item $\Rightarrow$\\
+        Als $(p,q,l)$ een boog is van $G$, dan zijn er twee mogenlijkheden.
+        Ofwel is het een $\epsilon$-boog: $l=\epsilon$, ofwel is het een boog met een symbool als label: $l = a \in \Sigma$.
+        Als het een $\epsilon$-boog is, dan zijn $p$ en $q$ $f$-verschillend omdat de lege string de DFA bijvoorbeeld niet in een zelfde soort toestand zou brengen.
+        \[ \delta^{*}(p,\epsilon) \in F \not\Leftrightarrow \delta^{*}(q,\epsilon) \]
+        Als het geen $\epsilon$-boog is, volg dan bestaat er een string $w$ die de DFA niet in een zelfde soort toestand brengen.
+        \[ \exists w\in \Sigma^{*}:\ \delta^{*}(p,w) \in F \not\Leftrightarrow \delta^{*}(q,w) \]
+        Dit omdat die string $w$ de DFA in respectievelijke toestanden zou brengen waartussen in $G$ een $\epsilon$-boog is.
+        \[ \exists w\in \Sigma^{*}:\  \delta^{*}(p_{w},\epsilon) \in F \not\Leftrightarrow \delta^{*}(q_{w},\epsilon) \]
+      \item $\Leftarrow$\\
+        Als $p$ en $q$ $f$-verschillend zijn, dan bestaat er een string $w\in \Sigma^{*}$ die de DFA vanuit $p$ in een aanvaarbare toestand brengt, maar $q$ niet of omgekeerd.
+        \[ \exists w \in \Sigma^{*}: \delta^{*}(p,w) \in F \not\Leftrightarrow \delta^{*}(q,w) \]
+        Als die string $w$ leeg is, dan bestaat er sinds de initialisatiestap al een boog tussen $q$ en $w$. Als die string niet leeg is, dan kan $w$ geschreven worden als $w = vz$ met $v$ het eerste deel van $w$ en $z$ een symbool.
+        \[ \exists v\in \Sigma^{*}, z \in \Sigma: w = vz \]
+        Nu geldt het volgende:\footnote{Zie stelling \ref{st:delta-ster-identiteit}.}
+        \[ \delta^{*}(p,w) = \delta(\delta^{*}(p,v),z) \text{ en } \delta^{*}(q,w) = \delta(\delta^{*}(q,v),z)\]
+        Er is dus een boog tussen $\delta^{*}(p,v)$ en $\delta^{*}(q,v)$ dankzij de ``repeat'' stap.
+        Dit betekent dat we het laatste symbool weer kunnen schrappen tot we uitkomen op een boog tussen $\delta^{*}(p,\epsilon)$ en $\delta^{*}(q,\epsilon)$.
+\question{Iets meer uitleg hier..?}
+      \end{itemize}
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  Een DFA $D = (Q,\Sigma,\delta,q_{s},F)$ is \emph{minimaal} als er geen DFA $D'$ bestaat met strikt minder toestanden.
+\end{de}
+
 \begin{st}
   Als een DFA $(Q,\Sigma,\delta,q_{s},F)$ geen onbereikbare toestanden heeft, en elke twee toestanden $f$-verschillend zijn, dan bestaat er geen machine met strikt minder toestanden die dezelfde taal bepaalt.
-  
-\TODO{bewijs p34}
+
+  \begin{proof}
+    Bewijs uit het ongerijmde.\\
+    Zij $D = (Q,\Sigma,\delta,q_{s},F)$ een DFA zonder onbereikbare toestanden, waarbij elke twee toestanden $f$-verschillend zijn.
+    Stel nu dat er een DFA $D' = (Q',\Sigma,\delta',q_{s},F')$ bestaat die strikt minder toestanden heeft dan $D$. We bewijzen nu dat er dan minstens \'e\'en string is waarwoor $D$ niet in dezelfde soort toestand eindigt als $D'$.
+    
+    Elke toestand van $D$ is bereikbaar.
+    Er bestaat dus een string voor elke toestand die een pad naar die toestand zou volgen.
+    \[ \forall q\in Q, \exists s\in \Sigma^{*}:\ \delta^{*}(q_{s},s) = q \]
+\question{ op pagine 34 in het boek staat $p_{s}$, wat is dit? }
+    Omdat $D'$ minder toestanden heeft dan $D$ moet er minstens twee van de strings die in $D$ in verschillende toestanden zouden eindigen in dezelfde toestand eindigen.
+    \[ \exists s_{1},s_{2} \in \Sigma: (\delta^{*}(q_{s},s_{1}) \neq \delta^{*}(q_{s},s_{2})) \wedge (\delta'^{*}(q_{s},s_{1}) = \delta'^{*}(q_{s},s_{2})) \]
+    Vermits die toestanden van $D$ $f$-verschillend zijn bestaat er een string $v\in \Sigma^{*}$ die de machine vanuit die toestanden niet in dezelfde soort toestand brengt:
+    Noem die staten $\delta^{*}(q_{s},s_{1}) = q_{1}$ en $\delta^{*}(q_{s},s_{2}) = q_{2}$.
+    \[ (\delta^{*}(q_{1},v) \in F) \oplus (\delta^{*}(q_{2},v) \in F) \]
+    Dit houdt precies het volgende in:
+    \[ (\delta^{*}(q_{s},s_{1}v) \in F) \oplus (\delta^{*}(q_{s},s_{2}v) \in F) \]
+    $D$ accepteert dus precies \'e\'en van de twee strings $s_{1}v$ en $s_{2}v$.
+    We bekijken nu wat $D'$ met deze strings zou doen.
+    \[ \delta'^{*}(q_{s},s_{1}v) = \delta'^{*}(\delta'^{*}(q_{s},s_{1}),v) = \delta'^{*}(\delta'^{*}(q_{s},s_{2}),v) = \delta'^{*}(q_{s},s_{2}v) \]
+    $D'$ zou ofwel zowel $s_{1}v$ als $s_{2}v$ accepteren, ofwel geen van beide.
+    In beide gevallen is dit niet hetzelfde gedrag als $D$.
+    $D$ en $D'$ kunnen dus niet dezelfde taal bepalen.
+  \end{proof}
 \end{st}
+
+\begin{gev}
+  We kunnen de minimale DFA $D = (Q,\Sigma,\delta,q_{s},F)$ van $D' = (Q',\Sigma,\delta',q_{s}',F')$ dus construeren nadat we $Q'$ hebben gepartitioneerd in disjuncte deelverzamelingen van $f$-gelijke toestanden.
+
+  \begin{proof}
+    Bekijk de partitie $P = \{Q_{1},\dotsc,Q_{n}$ van $Q'$ als de nieuwe verzameling staten.
+    \[ Q = P \]
+    De nieuwe overgangsfunctie ziet er nu als volgt uit:
+    \[ \forall a \in \Sigma:\ \delta(Q_{i},a) = Q_{j} \text{ zodat } \exists q \in Q_{j}:\ \delta(q,a) \in Q_{j} \]
+    Het maakt niet uit welke $q\in Q_{j}$ er gekozen werd omdat voor elke keuze van $q$ $\delta(q,a)$ in dezelfde deelverzameling van $P$ zit (anders zouden de toestanden in $Q_{j}$ $f$-verschillend zijn).
+    De nieuwe starttoestand is de verzameling waar $q_{s}$ in zit.
+    \[ q_{s} \in q_{s}'\]
+    $F$ is nu de unie van de verzamelingen van aanvaardbare staten $F$ van $D'$.
+    $D$ bepaalt nu dezelfde taal als $D'$.
+    Dat de staten in elke $Q_{i}$ $f$-gelijk zijn maakt immers net dat het niet uitmaakt in welke van de staten $Q_{i}$ de automaat een string afgaat.
+    Alle toestanden van $D$ zijn nu dus onderling $f$-verschillend.
+    Als de toestanden $Q_{i}$ immers $f$-gelijk waren, dan waren het geen verschillende verzamelingen geworden in het algoritme om $Q$ te partitioneren.
+    Bijgevolg is $D$ minimaal.
+  \end{proof}
+\end{gev}
 
 \begin{de}
   Twee DFA's $(Q_{1},\Sigma,\delta_{1},q_{s1},F_{1})$ en $(Q_{2},\Sigma,\delta_{2},q_{s2},F_{2})$ zijn isomorf als er een bijectie $b:\ Q_{1} \rightarrow Q_{2}$ bestaat zodat de volgende beweringen gelden:
@@ -965,11 +1139,6 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   Twee isomorfe DFA's bepalen bovendien dezelfde taal.
 \end{de}
 
-\begin{st}
-  De minimale DFA van een taal is uniek op isomorfisme na.
-  
-\TODO{bewijs}
-\end{st}
 
 \section{Myhill-Nerode relaties op $\Sigma$}
 \label{sec:myhill-nerode-relaties}
@@ -1126,14 +1295,14 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{st}
   Het supremum van twee $MN(L)$-relaties is ook een $MN(L)$-relatie.
 
-\TODO{bewijs p 40}
+\TODO{bewijs p40}
 \end{st}
 
 \subsection{De minimale DFA}
 \label{sec:de-minimale-dfa}
 
 \begin{st}
-  De minimale DFA voor een taal $L$ is uniek.
+  De minimale DFA voor een taal $L$ is uniek op isomorfismen na.
 
 \TODO{bewijs p 41}
 \end{st}

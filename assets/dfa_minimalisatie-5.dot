@@ -1,0 +1,32 @@
+digraph finite_state_machine {
+    node [label="", shape=circle];
+ 
+    ss[style="invis"];
+
+    subgraph cluster_1 {
+        s1[label=<q<sub>1</sub>>];
+    }
+    subgraph cluster_2 {
+        s2[label=<q<sub>2</sub>>];
+        s3[label=<q<sub>3</sub>>];
+    }
+    subgraph cluster_3 {
+        s4[label=<q<sub>4</sub>>,shape="doublecircle"];
+    }
+    subgraph cluster_4 {  
+        s5[label=<q<sub>5</sub>>];
+    }
+    
+    ss -> s1;
+    
+    s1 -> s2[label="a"];
+    s1 -> s3[label="b"];
+    s1 -> s5[label="c"];
+    s2 -> s4[label="c"];
+    s3 -> s4[label="c"];
+    s5 -> s4[label="d"];
+
+
+    rankdir="LR"
+
+}
