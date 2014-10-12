@@ -1196,7 +1196,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 
 \begin{de}
   \label{de:mn-relatie}
-  Een \term{Myhill-Nerode relatie} voor een taal $L$ over een alfabet $\Sigma$ is een relatie $\sim_{DFA}$ op $L$ met de volgende eigenschappen:
+  Een \term{Myhill-Nerode relatie} voor een taal $L$ over een alfabet $\Sigma$ is een equivalentierelatie $\sim_{DFA}$ op $L$ met de volgende eigenschappen:
   \[ \sim_{DFA} \subseteq L \times L:\ l_{1} \sim_{DFA} l_{2}\]
   \[ \sim_{DFA} \text{ is } MN(L) \]
   \begin{itemize}
@@ -1204,22 +1204,17 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     \[ \forall x,y \in \Sigma^{*}, a \in \Sigma:\ x \sim_{DFA} y \Rightarrow (xa) \sim_{DFA} (ya) \]
   \item $\sim_{DFA}$ verfijnt $\sim_{L}$:
     \[ \forall x,y \in \Sigma^{*}, \forall L\in \mathcal{P}(\Sigma^{*}):\ x \sim_{DFA} y \Rightarrow x \sim_{L} y\]
-    In woorden: ``Als $x \sim_{DFA} y$ zitten ofwel zowel $x$ als $y$ in $L$, ofwel geen van beide.''
+    In woorden: ``Als $x \sim_{DFA} y$ geldt, zitten ofwel zowel $x$ als $y$ in $L$, ofwel geen van beide.''
   \item Het aantal equivalentieklassen van $\sim_{DFA}$ is eindig.
     We zeggen: ``De index van $\sim_{DFA}$ is eindig.''.
   \end{itemize}
 \end{de}
 
 \begin{st}
-  \label{st:mn-relatie-is-equivalentierelatie}
-  Elke Myhill-Nerode relatie $\sim$ voor een taal $L$ is over een alfabet $\Sigma$ is een equivalentierelatie.
-  \begin{proof}
-    Inderdaad, $\sim$ is reflexief, transitief en symmetrisch.
-  \end{proof}
-\end{st}
-
-\begin{st}
   Voor elke DFA $D = (Q,\Sigma,\delta,q_{s},F)$ is de relatie $\sim_{D}$ een Myhill-Nerode relatie voor de taal $L_{DFA}$.
+  \[ x \sim_{D} y \Leftrightarrow \delta^{*}(q_{s},x) = \delta^{*}(q_{s},y) \]
+  In woorden: ``De DFA belandt voor de strings $x$ en $y$ in dezelfde toestand.''
+  \[ x \sim_{D} y \Leftrightarrow reach(x) = reach(y) \]
   \begin{proof}
     We bewijzen elke eigenschap van een Myhill-Nerode relatie achtereenvolgens.\footnote{Zie definitie \ref{de:mn-relatie}.}
     \begin{itemize}
@@ -1242,8 +1237,8 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{st}
 
 \begin{de}
-  We noteren de equivalentieklasse van $x$ in een Myhill-Nerode relatie $\sim$ als $x_{\sim}$.
-  \[ x_{\sim} = \{ y\ |\ x \sim y \} \]
+  We noteren de equivalentieklasse van $x$ in een Myhill-Nerode relatie $\sim_{D}$ als $x_{\sim}$.
+  \[ x_{\sim_{D}} = \{ y\ |\ x \sim_{D} y \} \]
 \end{de}
 
 \begin{st}
@@ -1252,14 +1247,13 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \item $Q = \{ x_{\sim}\ |\ x \in \Sigma^{*} \}$: Elke equivalentieklasse is een toestand.
   \item $q_{s} = \epsilon_{\sim}$: De starttoestand bereik je met $\epsilon$.
     \question{Waarom deze voorwaarde? Is dit niet simpelweg eigen aan DFA's?}
-  \item $F = \{ \delta^{*}(q_{s},x_{\sim})\ |\ x\in L \}$: eindtoestand wordt bereikt door een string in $L$.
-\question{ In het boek staat: $\{ x_{\sim}\ |\ x\in L \}$. Is dit geen notation abuse? een verzameling staten zou een verzameling equivalentieklassen zijn...?}
+  \item $F = \{ x_{\sim}\ |\ x\in L \}$: eindtoestand wordt bereikt door een string in $L$.
 \question{ Welk lidwoord? }
-  \item $\gamma:\ \mathcal{P}(\Sigma^{*})\times\Sigma \rightarrow \mathcal{P}(\Sigma^{*}):\ \gamma(x_{\sim},a) = (xa)_{\sim}$ een welbepaalde functie.  
+  \item $\delta:\ \mathcal{P}(\Sigma^{*})\times\Sigma \rightarrow \mathcal{P}(\Sigma^{*}):\ \delta(x_{\sim},a) = (xa)_{\sim}$.
 \question{ Is dit de juiste signatuur? }
   \end{itemize}
   \begin{proof}
-    $\gamma$ is goed gedefinieerd vanwege de rechtse conguentie van de relatie $\sim$.\footnote{Zie definitie \ref{de:mn-relatie}.}
+    $\delta$ is goed gedefinieerd vanwege de rechtse conguentie van de relatie $\sim$.\footnote{Zie definitie \ref{de:mn-relatie}.}
     Zowel $Q$ als $F$ zijn eindig omdat het aantal equivalentieklassen van $\sim$ eindig is.
     Er rest ons nu nog te bewijzen dat $D$ de taal $L$ bepaalt.
     \[ \forall s\in L_{DFA}:\ \delta^{*}(e_{\sim},x) \in F \Leftrightarrow x_{\sim} \in F \triangleq x \in L \]
@@ -1313,7 +1307,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{st}
   De taal $L= \{ a^{n}b^{n} \ |\ n\in \mathbb{N} \} $ is niet regulier.
 
-\TODO{bewijs p 41}
+\TODO{bewijs met MN relatie p 41} 
 \end{st}
 
 \subsection{De stelling van Myhill-Nerode}
@@ -1328,8 +1322,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \item Definieer $\sim$ op $\Sigma^{*}$ als volgt, dan heeft $\sim$ een eindige index.
     \[ x \sim y \Leftrightarrow \forall s \in \Sigma^{*}:\ (xs \in L \Leftrightarrow ys \in L) \]
   \end{itemize}
-
-\TODO{bewijs p 42}
+  Geen bewijs. Hoeft niet gekend te zijn.
 \end{st}
 
 \section{Het pompend van strings in reguliere talen}
@@ -1345,9 +1338,39 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \item $|xy| \le d$
   \end{itemize}
 
+  \begin{proof}
+    Kies een DFA $D$ die een een reguliere taal $L$ bepaalt.
+    $d$ zal $|Q| + 1$ zijn:
+    Neem een willekeurige string $s\in L = a_{1}a_{2}\ldots a_{n}$ langer dan $d$.
+    Er bestaat dan een opeenvolging van toestanden $X$ die $D$ zou doorlopen om $s$ te accepteren.
+    \[ X = q_{s}q_{1}q_{2}q_{3}\ldots q_{n} \]
+    Deze opeenvolging heeft een lengte $n$ strikt groter dan $n$, dus er zijn bij de eerste $d$ toestanden zeker twee toestanden gelijk.
+    Stel nu dat $q_{i}$ en $q_{j}$ twee gelijke toestanden zijn met $i < j \le d$, dan zijn $x$, $y$ en $z$ als volgt:
+    \[
+    \begin{array}{rl}
+      x &= a_{1}a_{2}\ldots a_{i}\\
+      y &= a_{i+1}a_{i+2}\ldots a_{j}\\
+      z &= a_{j+1}a_{j+2}\ldots a_{n}\\
+    \end{array}
+    \]
+    De lus die $y$ volgt kunnen we inderdaad zoveel keer overlopen als nodig, zodat voor elke x $xy^{x}z$ aanvaardt wordt.
+    De lengte van $y$ is groter dan nul omdat $i < j$ geldt, en $|xy|$ is inderdaad kleiner dan $d$.
+    \question{Waarom is $|xy|$ zeker kleiner dan $d$?}
+  \end{proof}
+
 \TODO{bewijs p 43}
 \question{In het boek staat dit als stelling ipv lemma.}
 \end{lem}
+
+\begin{st}
+  De taal $L= \{ a^{n}b^{n} \ |\ n\in \mathbb{N} \} $ is niet regulier.
+
+\TODO{bewijs p44} 
+\end{st}
+
+\question{ Wat is het verband tussen de minimale pomplengte en de minimale DFA? }
+\question{ Bestaat er een taal waarvan elke string kan gepompt worden die toch niet regulier is? }
+
 
 \section{De algebra van DFA's}
 \label{sec:de-algebra-van-DFAs}
@@ -1384,5 +1407,10 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 
+\question{ Zijn ze bij het maken van jflex nooit op onoplosbare problemen gestoten? Waarom niet? }
 
+\TODO{ transducer }
+\TODO{ b\"uchi automaten }
+
+\TODO{ oefeningen pagina 54 }
 \end{document}
