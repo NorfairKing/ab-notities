@@ -678,8 +678,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
         Nu geldt het volgende:\footnote{Zie stelling \ref{st:delta-ster-identiteit}.}
         \[ \delta^{*}(p,w) = \delta(\delta^{*}(p,v),z) \text{ en } \delta^{*}(q,w) = \delta(\delta^{*}(q,v),z)\]
         Er is dus een boog tussen $\delta^{*}(p,v)$ en $\delta^{*}(q,v)$ dankzij de ``repeat'' stap.
-        Dit betekent dat we het laatste symbool weer kunnen schrappen tot we uitkomen op een boog tussen $\delta^{*}(p,\epsilon)$ en $\delta^{*}(q,\epsilon)$.
-\question{Iets meer uitleg hier..?}
+        Dit betekent dat we het laatste symbool weer kunnen schrappen tot we uitkomen op een boog tussen $\delta^{*}(p,\epsilon)$ en $\delta^{*}(q,\epsilon)$ door van achter naar voor te werken.
       \end{itemize}
     \end{itemize}
   \end{proof}
@@ -695,14 +694,13 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \begin{proof}
     Bewijs uit het ongerijmde.\\
     Zij $D = (Q,\Sigma,\delta,q_{s},F)$ een DFA zonder onbereikbare toestanden, waarbij elke twee toestanden $f$-verschillend zijn.
-    Stel nu dat er een DFA $D' = (Q',\Sigma,\delta',q_{s},F')$ bestaat die strikt minder toestanden heeft dan $D$. We bewijzen nu dat er dan minstens \'e\'en string is waarwoor $D$ niet in dezelfde soort toestand eindigt als $D'$.
+    Stel nu dat er een DFA $D' = (Q',\Sigma,\delta',p_{s},F')$ bestaat die strikt minder toestanden heeft dan $D$. We bewijzen nu dat er dan minstens \'e\'en string is waarwoor $D$ niet in dezelfde soort toestand eindigt als $D'$.
     
     Elke toestand van $D$ is bereikbaar.
     Er bestaat dus een string voor elke toestand die een pad naar die toestand zou volgen.
     \[ \forall q\in Q, \exists s\in \Sigma^{*}:\ \delta^{*}(q_{s},s) = q \]
-\question{ op pagine 34 in het boek staat $p_{s}$, wat is dit? }
     Omdat $D'$ minder toestanden heeft dan $D$ moet er minstens twee van de strings die in $D$ in verschillende toestanden zouden eindigen in dezelfde toestand eindigen.
-    \[ \exists s_{1},s_{2} \in \Sigma: (\delta^{*}(q_{s},s_{1}) \neq \delta^{*}(q_{s},s_{2})) \wedge (\delta'^{*}(q_{s},s_{1}) = \delta'^{*}(q_{s},s_{2})) \]
+    \[ \exists s_{1},s_{2} \in \Sigma: (\delta^{*}(q_{s},s_{1}) \neq \delta^{*}(q_{s},s_{2})) \wedge (\delta'^{*}(p_{s},s_{1}) = \delta'^{*}(p_{s},s_{2})) \]
     Vermits die toestanden van $D$ $f$-verschillend zijn bestaat er een string $v\in \Sigma^{*}$ die de machine vanuit die toestanden niet in dezelfde soort toestand brengt:
     Noem die staten $\delta^{*}(q_{s},s_{1}) = q_{1}$ en $\delta^{*}(q_{s},s_{2}) = q_{2}$.
     \[ (\delta^{*}(q_{1},v) \in F) \oplus (\delta^{*}(q_{2},v) \in F) \]
@@ -710,7 +708,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     \[ (\delta^{*}(q_{s},s_{1}v) \in F) \oplus (\delta^{*}(q_{s},s_{2}v) \in F) \]
     $D$ accepteert dus precies \'e\'en van de twee strings $s_{1}v$ en $s_{2}v$.
     We bekijken nu wat $D'$ met deze strings zou doen.
-    \[ \delta'^{*}(q_{s},s_{1}v) = \delta'^{*}(\delta'^{*}(q_{s},s_{1}),v) = \delta'^{*}(\delta'^{*}(q_{s},s_{2}),v) = \delta'^{*}(q_{s},s_{2}v) \]
+    \[ \delta'^{*}(p_{s},s_{1}v) = \delta'^{*}(\delta'^{*}(p_{s},s_{1}),v) = \delta'^{*}(\delta'^{*}(p_{s},s_{2}),v) = \delta'^{*}(p_{s},s_{2}v) \]
     $D'$ zou ofwel zowel $s_{1}v$ als $s_{2}v$ accepteren, ofwel geen van beide.
     In beide gevallen is dit niet hetzelfde gedrag als $D$.
     $D$ en $D'$ kunnen dus niet dezelfde taal bepalen.
@@ -854,19 +852,20 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \begin{itemize}
   \item $Q = \{ x_{\sim}\ |\ x \in \Sigma^{*} \}$: Elke equivalentieklasse is een toestand.
   \item $q_{s} = \epsilon_{\sim}$: De starttoestand bereik je met $\epsilon$.
-    \question{Waarom deze voorwaarde? Is dit niet simpelweg eigen aan DFA's?}
-  \item $F = \{ x_{\sim}\ |\ x\in L \}$: eindtoestand wordt bereikt door een string in $L$.
-\question{ Welk lidwoord? }
-  \item $\delta:\ \mathcal{P}(\Sigma^{*})\times\Sigma \rightarrow \mathcal{P}(\Sigma^{*}):\ \delta(x_{\sim},a) = (xa)_{\sim}$.
-\question{ Is dit de juiste signatuur? }
+  \item $F = \{ x_{\sim}\ |\ x\in L \}$: Een eindtoestand wordt bereikt door een string in $L$.
+  \item $\delta:\ \mathcal{P}(\Sigma^{*})\times\Sigma   \rightarrow \mathcal{P}(\Sigma^{*}):\ \delta(x_{\sim},a) = (xa)_{\sim}$.
   \end{itemize}
   \begin{proof}
     $\delta$ is goed gedefinieerd vanwege de rechtse conguentie van de relatie $\sim$.\footnote{Zie definitie \ref{de:mn-relatie}.}
     Zowel $Q$ als $F$ zijn eindig omdat het aantal equivalentieklassen van $\sim$ eindig is.
     Er rest ons nu nog te bewijzen dat $D$ de taal $L$ bepaalt.
-    \[ \forall s\in L_{DFA}:\ \delta^{*}(e_{\sim},x) \in F \Leftrightarrow x_{\sim} \in F \triangleq x \in L \]
-    \question{Wat betekent dat teken met de driehoek}
-    \TODO{bewijzen nadat vragen zijn beantwoord.} 
+    \[ \forall x\in \Sigma^{*}:\ \delta^{*}(e_{\sim},x) \in F \Leftrightarrow x_{\sim} \in F\]
+    We bewijzen dit met inductie op de lengte van een willekeurige string $x$.
+    Als de lengte van $x$ $0$ is, geldt de bewering:
+    \[ \delta^{*}(e_{\sim},x) = \delta^{*}(e_{\sim},\epsilon) = e_{\sim} \in F \Leftrightarrow \epsilon_{\sim} \in F \]
+    Stel dat de bewering geldt voor een bepaalde lengte van $x$, dan geldt ze ook voor $xa$ met $a$ een symbool:
+    \[ \delta^{*}(e_{\sim},xa) = \delta(x_{\sim},a) = (xa)_{\sim} \in F \Leftrightarrow (xa)_{\sim} \in F \] 
+    \clarify{Dit kan beter!}
   \end{proof}
 \end{st}
 
@@ -962,12 +961,8 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     \end{array}
     \]
     De lus die $y$ volgt kunnen we inderdaad zoveel keer overlopen als nodig, zodat voor elke x $xy^{x}z$ aanvaardt wordt.
-    De lengte van $y$ is groter dan nul omdat $i < j$ geldt, en $|xy|$ is inderdaad kleiner dan $d$.
-    \question{Waarom is $|xy|$ zeker kleiner dan $d$?}
+    De lengte van $y$ is groter dan nul omdat $i < j$ geldt, en we hebben $|xy|$ kleiner dan $d$ gekozen.
   \end{proof}
-
-\TODO{bewijs p 43}
-\question{In het boek staat dit als stelling ipv lemma.}
 \end{lem}
 
 \begin{st}
@@ -987,10 +982,8 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   De \term{product DFA} $D = (Q,\Sigma, \delta, q_{s},F)$ van twee DFA's $D_{1} = (Q_{1},\Sigma, \delta_{1}, q_{s1},F_{1})$ en $D_{2} = (Q_{2},\Sigma, \delta_{2}, q_{s2},F_{2})$ definieren we als volgt:
   \begin{itemize}
   \item $Q = Q_{1}\times Q_{2}$
-  \item $\delta(p\times q,x) = \delta_{1}(p,x) \times \delta_{2}(q,x)$
-\question{Een product van twee staten?}
-  \item $q_{s} = q_{s1} \times q_{s2}$
-\question{Een product van twee staten?}
+  \item $\delta((p, q),x) = \delta_{1}(p,x) \times \delta_{2}(q,x)$
+  \item $q_{s} = (q_{s1}, q_{s2})$
   \end{itemize}
 \end{de}
 
@@ -1005,9 +998,10 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{de}
-  Het \term{complement van ees DFA} $D$ is de DFA $D^{c}$ die het complement bepaalt van de taal bepaald door $D$.
+  Het \term{complement van een DFA} $D$ is de DFA $D^{c}$ die het complement bepaalt van de taal bepaald door $D$.
   \[ D_{1} \times D_{2} \text{ met } F = F_{1} \times (Q_{2}\setminus F_{2}) \]
 \end{de}
+\TODO{dit kan veel eenvoudiger.} 
 
 \begin{de}
   Het \term{symmetrisch verschil van DFA's} $D_{1}$ en $D_{2}$ is de DFA $D$ die het symmetrisch verschil bepaalt van de talen bepaald door $D_{1}$ en $D_{2}$.
