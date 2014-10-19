@@ -84,15 +84,75 @@
 
   \begin{proof}
     Constructief bewijs.\\
-    Kies een willekeurige CFG $c = (V,\Sigma,R,S)$, dan construeren we nu een equivalente CFG $c' = (V',\Sigma,R',S')$ in Chomsky Normaal Vorm.
+    Kies een willekeurige CFG $c = (V,\Sigma,R,S)$, dan construeren we nu een equivalente CFG $c' = (V',\Sigma,R',S)$ in Chomsky Normaal Vorm.
 
     \begin{itemize}
     \item Om te beginnen zorgen we ervoor dat in $c'$ het startsymbool enkel links in een regel voorkomt.
       Vervang overal in de regels van $R$ $S$ door een nieuw niet-eindsymbool $X$ en voeg een regel $S\rightarrow X$ toe.
-    \item 
-\TODO{bewijs afmaken}
+    \item Vervolgens zorgen we dat $\epsilon$ enkel rechtstreeks volgt uit $S$.
+
+      Stel dat we twee regels $\mathcal{Q} = A \rightarrow \epsilon$ en $\mathcal{R} = B \rightarrow \gamma$ kunnen vinden in $R$ waarbij $A$ voorkomt in $\gamma$.
+\question{ wat wordt bedoeld met ``combinaties van voorkomens? p 61 waarom niet meteen alle A's schrappen? Hier kan een voorbeeld misschien helpen.}
+      Definieer een verzameling regels $V(\mathcal{Q},\mathcal{R})$ als de verzameling van de regels van de vorm $B\rightarrow \eta$ waarbij $\eta$ verkregen wordt door in $\gamma$ een combinatie van de voorkomens van $A$ te schrappen.
+
+      Pas $c$ nu iteratief aan door elk paar regels $\mathcal{Q}$ en $\mathcal{R}$ te vinden en $V(\mathcal{Q},\mathcal{R})$ toe te voegen aan $R$.
+      Deze iteratie is eindig omdat zowel elke opeenvolging van symbolen in een regel eindig is als het aantal regels.
+      Verwijder vervolgens alle regels van de vorm $A\rightarrow \epsilon$
+      
+      De bekomen grammatica bepaalt nog steeds dezelfde taal.
+      \clarify{waarom?}
+
+    \item Nu zorgen we ervoor dat er steeds vooruitgang zit in de regels.
+      Alle regels van de vorm $A\rightarrow B$ moeten dus weg.
+
+      Stel dat we twee regels $\mathcal{Q} = A \rightarrow B$ en $\mathcal{R} = B \rightarrow \gamma$ kunnen vinden in $R$.
+      Defineer een regel $U(\mathcal{Q},\mathcal{R}) = A \rightarrow \gamma$.
+
+      Pas $c$ nu iteratief aan door elk paar regels $\mathcal{Q}$ en $\mathcal{R}$ te vinden en $U(\mathcal{Q},\mathcal{R})$ toe te voegen aan $R$.
+      Deze iteratie is eindig omdat het aantal regels in $R$ eindig is.
+      Verwijder vervolgens alle regels van de vorm $A\rightarrow B$.
+
+      De bekomen grammatica bepaalt nog steeds dezelfde taal.
+      \clarify{waarom?}
+
+    \item Er zijn nu nog $4$ soorten regels te behandelen:
+      \begin{itemize}
+      \item $A\rightarrow BC$ met $B$ en $C$ twee niet-eindsymbolen.
+        Deze laten we voor wat ze zijn.
+      \item $A\rightarrow \gamma$ waarin $\gamma$ bestaat uit minstens twee symbolen.
+        Vervang elk eindsymbool $a$ door een nieuw niet-eindsymbool $A_{a}$ en voeg de regel $A_{a} \rightarrow a$ toe.
+
+        Deze procedure is eindig omdat zowel elke opeenvolging van symbolen in een regel eindig is als het aantal regels.
+
+        De bekomen grammatica bepaalt nog steeds dezelfde taal.
+        \clarify{waarom?}
+
+      \item $S\rightarrow \epsilon$.
+        Deze laten we voor wat ze zijn.
+      \item $A\rightarrow c$ met $c$ een eindsymbool.
+        Deze laten we ook voor wat ze zijn.
+      \end{itemize}
+    
+    \item Tenslotte maken we nog komaf met de regels van de vorm $A \rightarrow X_{1}\dotsc X_{n}$ met $n > 2$.
+      Vervang elke regel van deze vorm door $n$ nieuwe regels:
+      \[ A \rightarrow X_{1}Y_{1} \]
+      \[ \forall i:\ Y_{i} \rightarrow X_{i+1}Y_{i+1} \]
+
+      Deze procedure is eindig omdat zowel elke opeenvolging van symbolen in een regel eindig is als het aantal regels.
+
+      De bekomen grammatica bepaalt nog steeds dezelfde taal.
+      \clarify{waarom?}
+
+
+    \item Wat er van $R$ overblijft noemen we nu $R'$ en $V'$ is hoogstwaarschijnlijk ook uitgebreid.
     \end{itemize}
   \end{proof}
+\end{st}
+
+\begin{st}
+  Een afleiding van een string van lengte $n>0$ uit het startsymbool van een contextvrije grammatica in Chomsky normaalvorm heeft lengte $2n-1$.
+ 
+\TODO{bewijs}
 \end{st}
 
 \begin{de}
@@ -108,6 +168,13 @@
  
 \TODO{bewijs}
 \end{st}
+
+\begin{st}
+  Een afleiding van een string van lengte $n>0$ uit het startsymbool van een contextvrije grammatica in Breibach normaalvorm heeft lengte $n$.
+ 
+\TODO{bewijs}
+\end{st}
+
 
 \section{Push-down automaten}
 \label{sec:push-down-automaten}
