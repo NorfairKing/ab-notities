@@ -1,0 +1,188 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\chapter{Contextvrije talen en hun gramatica}
+\label{cha:contextvrije-talen}
+
+\section{Contextvrije Grammatica}
+\label{sec:contextvrije-grammatica}
+
+
+\begin{de}
+  Een \term{contextvrije grammatica} (\term{CFG}) is een $4$-tal $(V,\Sigma,R,S)$:
+  \begin{itemize}
+  \item $V$: een eindige verzameling niet-eindsymbolen. (variabelen of non-terminals)
+  \item $\Sigma$: een eindig alfabet van eindsymbolen, disjunct met $V$. (terminals)
+  \item $R$: een eindige verzameling regels (producties).\\
+    Een regel is een koppel van \'e\'en niet-eindsymbool en een string van elementen uit $V \cup \Sigma_{\epsilon}$. We schrijven deze vaak met een $\rightarrow$ ertussen.
+  \item $S\in V$: het startsymbool.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Zij $c = (V,\Sigma,R,S)$ een CFG.
+  Een string $f$ over $V \cup \Sigma_{\epsilon}$ wordt afgeleid uit een string $b$ over $V \cup \Sigma_{\epsilon}$ met behulp van $c$ als er een eindige rijk strings $s_{0},\dotsc,s_{n}$ bestaat zodat het volgende geldt:
+  \begin{itemize}
+  \item $s_{0} = b$
+  \item $s_{n} = f$
+  \item $s_{i+1}$ wordt verkregen door in $s_{i}$ een niet-eindsymbool $x$ te vervangen door het overeenkomstige eindsymbool in een regel uit $R$.
+    We noteren dit proces als volgt.
+    \[ \forall i: s_{i} \rightarrowtail s \]
+  \end{itemize}
+  \[ b \leadsto f \]
+\end{de}
+
+\begin{de}
+  De taal $L_{c}$ bepaald door een CFG $c = (V,\Sigma,R,S)$ is de verzameling strings over $\Sigma$ die kunnen afgeleid worden van het startsymbool $S$.
+  \[ L_{c} = \{ s \in \Sigma^{*}\ |\ S \leadsto s \}
+\]
+\end{de}
+
+\begin{de}
+  Een taal $L$ is \term{contextvrij} als er een CFG bestaat zodat die CFG die taal bepaalt.
+  \[ \exists L:\ L = L_{CFG} \]
+\end{de}
+
+\begin{de}
+  Zij $c = (V,\Sigma,R,S)$ een CFG en $s$ een string die afgeleid kan worden uit $S$.
+  De string $s$ is \term{ambigu} als de meest-linke afleiding van $s$ uit $S$ niet uniek is. 
+\end{de}
+
+\begin{de}
+  Twee contextvrije grammatica's $c_{1}$ en $c_{2}$ zijn \text{equivalent} als ze dezelfde taal bepalen.
+  \[ L_{c_{1}} = L_{c_{2}} \]
+\end{de}
+
+\begin{st}
+  De equivalentie van contextvrije gramatica's is een equivalentierelatie.
+
+  \begin{proof}
+    Inderdaad, de gelijkheid van talen is reflexief, transitief en symmetrisch.
+\question{Wat moet hier evt nog bij?}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  We noemen een CFG $c = (V,\Sigma,R,S)$ \text{niet ambigu} als er in de taal bepaald door $c$ geen ambigue strings zitten.
+\end{de}
+
+\begin{de}
+  Een taal noemen we \term{inherent ambigu} als er geen niet-ambigue CFG bestaat die deze taal bepaalt.
+\end{de}
+
+\begin{de}
+  Een CFG $c = (V,\Sigma,R,S)$ heeft de \term{Chomsky Normaal Vorm} als elke regel \'e\'en vor de volgende vormen heeft:
+  \begin{itemize}
+  \item $A \rightarrow BC$ met $A$, $B$ en $C$ niet-eindsymbolen en $B$ en $C$ verschillend van $S$.
+  \item $A \rightarrow a$ met $A$ een niet-eindsymbool en $a$ een eindsymbool.
+  \item $S \rightarrow \epsilon$
+  \end{itemize}
+\end{de}
+
+\begin{st}
+  Voor elke CFG $c = (V,\Sigma,R,S)$ bestaat er een equivalente contextvrije grammatica in Chomsky Normaal Vorm.
+
+  \begin{proof}
+    Constructief bewijs.\\
+    Kies een willekeurige CFG $c = (V,\Sigma,R,S)$, dan construeren we nu een equivalente CFG $c' = (V',\Sigma,R',S')$ in Chomsky Normaal Vorm.
+
+    \begin{itemize}
+    \item Om te beginnen zorgen we ervoor dat in $c'$ het startsymbool enkel links in een regel voorkomt.
+      Vervang overal in de regels van $R$ $S$ door een nieuw niet-eindsymbool $X$ en voeg een regel $S\rightarrow X$ toe.
+    \item 
+\TODO{bewijs afmaken}
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  Een CFG $c = (V,\Sigma,R,S)$ heeft de \term{Greibach Normaal Vorm} als elke regel \'e\'en vor de volgende vormen heeft:
+  \begin{itemize}
+  \item $A \rightarrow aX$ met $A$ een niet-eindsymbool, $X$ een (mogelijk lege) sequentie von niet-eindsymbolen en $a$ een eindsymbool.
+  \item $S \rightarrow \epsilon$
+  \end{itemize}
+\end{de}
+
+\begin{st}
+  Voor elke CFG $c = (V,\Sigma,R,S)$ bestaat er een equivalente contextvrije grammatica in Breibach Normaal Vorm.
+ 
+\TODO{bewijs}
+\end{st}
+
+\section{Push-down automaten}
+\label{sec:push-down-automaten}
+
+\begin{de}
+  Een \term{push-down automaat} (\term{PDA}) is een $6$-tal $(Q,\Sigma,\Gamma,\delta,q_{s},F)$:
+  \begin{itemize}
+  \item $Q$: een eindige verzameling toestanden.
+  \item $\Sigma$: een eindig input alfabet.
+  \item $\Gamma$: een eindig stapelalfabet.
+  \item $\delta:\ Q\times \Sigma_{\epsilon} \times \Gamma_{\epsilon} \rightarrow \mathcal{P}(Q\times \Gamma_{\epsilon})$: een overgangsfunctie.
+  \item $q_{s}$: de starttoestand
+  \item $F\subseteq Q$: een verzameling aanvaardbare eindtoestanden.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Een string $s$ wordt aanvaardt door een PDA $p = (Q,\Sigma,\Gamma,\delta,q_{s},F)$ als $s$ kan worden opgesplitst in $m$ delen $w_{i}$ zodat er $m+1$ toestanden $q_{j}$ bestaan en $m+1$ stacks $stack_{k}$ zodat het volgende geldt:
+  \begin{itemize}
+  \item $stack_{0} = \epsilon$: De stack is leeg aan het begin.
+  \item $q_{0} = q_{s}$: De automaat start in de begintoestand.
+  \item $q_{m} \in F$: De laatste toestand is een aanvaardbare toestand.
+  \item $(q_{i+1}, y) \in \delta(q_{i}, w_{i+1}, x)$ waarbij $stack_{i} = xt$ en $stack_{i+1} = yt$ gelden met $t\in \Gamma^{*}$: De overgangen gebeuren volgens $\delta$.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  De taal $L$ bepaald door een PDA bestaat uit alle strings die door de PDA aanvaard worden.
+\end{de}
+
+\begin{lem}
+  \label{lem:cfg-naar-pda}
+  Vanuit elke CFG kunnen we een PDA construeren die dezelfde taal bepaalt.
+\TODO{bewijs}
+\end{lem}
+
+\begin{opm}
+  Het inputalfabet van een PDA komt overeen met de eindsymbolen van een CFG.
+  Het stapelalfabet komt overeen met de unie van de niet-eindsymbolen en de eindsymbolen.
+\end{opm}
+
+\begin{lem}
+  \label{lem:pda-naar-cfg}
+ Vanuit elke PDA kunnen we een CFG construeren die dezelfde taal bepaalt. 
+\TODO{bewijs}
+\end{lem}
+
+\begin{gev}
+  \label{taal-pda-contextvrij}
+  Als een taal bepaald wordt door een PDA is die taal contextvrij.
+\TODO{bewijs}
+\end{gev}
+
+\begin{gev}
+  Elke reguliere taal is contextvrij.\\\\
+  We kunnen dit op twee manieren bewijzen
+  \begin{itemize}
+  \item Via een PDA:
+    \begin{proof}
+      Kies een reguliere taal $L$. Er bestaat dan een NFA $n$ die $L$ bepaalt.\footnote{Zie gevolg \ref{gev:reguliere-taal-NFA}.}
+      Beschouw nu de PDA $p$ die $n$ `uitbreidt' door zijn stapel te negeren.
+      $p$ bepaalt nu dezelfde taal als $n$, dus $L$ is contextvrij.\footnote{Zie stelling \ref{taal-pda-contextvrij}.}
+\clarify{ formeler? }
+    \end{proof}
+  \item Door rechtstreeks een CFG op te stellen voor een reguliere taal.
+\TODO{bewijs}
+  \end{itemize}
+\end{gev}
+
+\begin{st}
+  Elke PDA bepaalt een contextvrije taal en elke contextvrije taal wordt bepaald door een PDA.
+ 
+  \begin{proof}
+    Inderdaad!\footnote{Zie lemma \ref{lem:cfg-naar-pda}.}\footnote{Zie lemma \ref{lem:pda-naar-cfg}.}
+  \end{proof}
+\end{st}
+
+\end{document}
