@@ -21,7 +21,7 @@
 
 \begin{de}
   Zij $c = (V,\Sigma,R,S)$ een CFG.
-  Een string $f$ over $V \cup \Sigma_{\epsilon}$ wordt afgeleid uit een string $b$ over $V \cup \Sigma_{\epsilon}$ met behulp van $c$ als er een eindige rijk strings $s_{0},\dotsc,s_{n}$ bestaat zodat het volgende geldt:
+  Een string $f$ over $V \cup \Sigma_{\epsilon}$ wordt afgeleid uit een string $b$ over $V \cup \Sigma_{\epsilon}$ met behulp van $c$ als er een eindige rij strings $s_{0},\dotsc,s_{n}$ bestaat zodat het volgende geldt:
   \begin{itemize}
   \item $s_{0} = b$
   \item $s_{n} = f$
@@ -151,14 +151,19 @@
 
 \begin{st}
   Een afleiding van een string van lengte $n>0$ uit het startsymbool van een contextvrije grammatica in Chomsky normaalvorm heeft lengte $2n-1$.
- 
-\TODO{bewijs}
+  \begin{proof}
+    Om een string van lengte $n$ af te leiden moet er voor elk symbool $a$ een regel van de vorm $A \rightarrow a$ gevolgd worden.
+    Dit zijn dus als $n$ stappen van de afleiding.
+    Elk van die $A$ moeten bovendien verkregen zijn door $S$ te `splitsen' in twee.
+    Om $S$ te `splitsen' in $n$ stukken door telkens in $2$ te `splitsen' zijn er $n-1$ `splitsingen' nodig.
+    De lengte van de afleiding is dus $n + n - 1 = 2n-1$.
+  \end{proof}
 \end{st}
 
 \begin{de}
   Een CFG $c = (V,\Sigma,R,S)$ heeft de \term{Greibach Normaal Vorm} als elke regel \'e\'en vor de volgende vormen heeft:
   \begin{itemize}
-  \item $A \rightarrow aX$ met $A$ een niet-eindsymbool, $X$ een (mogelijk lege) sequentie von niet-eindsymbolen en $a$ een eindsymbool.
+  \item $A \rightarrow aX$ met $A$ een niet-eindsymbool, $X$ een (mogelijk lege) sequentie van niet-eindsymbolen en $a$ een eindsymbool.
   \item $S \rightarrow \epsilon$
   \end{itemize}
 \end{de}
@@ -172,7 +177,11 @@
 \begin{st}
   Een afleiding van een string van lengte $n>0$ uit het startsymbool van een contextvrije grammatica in Breibach normaalvorm heeft lengte $n$.
  
-\TODO{bewijs}
+  \begin{proof}
+    Om een string van lengte $n$ af te leiden moeten er $n$ eindsymbolen te voorschijn komen door het toepassen van de regels van de grammatica.
+    In elke stap van de vorm $A \rightarrow aX$ komt er precies \'e\'en eindsymbool te voorschijn.
+    Er zijn zo dus $n$ stappen nodig. Bijgevolg is de lengte van de afleiding van een string van lengte $n$ van lengte $n$.
+  \end{proof}
 \end{st}
 
 
