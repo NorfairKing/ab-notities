@@ -718,7 +718,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   We kunnen de minimale DFA $D = (Q,\Sigma,\delta,q_{s},F)$ van $D' = (Q',\Sigma,\delta',q_{s}',F')$ dus construeren nadat we $Q'$ hebben gepartitioneerd in disjuncte deelverzamelingen van $f$-gelijke toestanden.
 
   \begin{proof}
-    Bekijk de partitie $P = \{Q_{1},\dotsc,Q_{n}$ van $Q'$ als de nieuwe verzameling staten.
+    Bekijk de partitie $P = \{Q_{1},\dotsc,Q_{n}\}$ van $Q'$ als de nieuwe verzameling staten.
     \[ Q = P \]
     De nieuwe overgangsfunctie ziet er nu als volgt uit:
     \[ \forall a \in \Sigma:\ \delta(Q_{i},a) = Q_{j} \text{ zodat } \exists q \in Q_{j}:\ \delta(q,a) \in Q_{j} \]

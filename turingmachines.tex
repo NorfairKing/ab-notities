@@ -1,0 +1,100 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\chapter{Turingmachines en beslisbaarheid}
+\label{cha:turingmachines-en-beslisbaarheid}
+
+
+\begin{de}
+  Een \term{Turingmachine} is een $7$-tal $(Q,\Sigma,\Gamma, \delta, q_{s}, q_{a}, q_{r})$:
+  \begin{itemize}
+  \item $Q$ is een eindige verzameling toestanden
+  \item $\Sigma$ is een eindig invoeralfabet dat $\#$ niet bevat.
+  \item $\Gamma$ is een eindig bandalfabet dat $\#$ bevat, alsook $\Sigma$.
+  \item $q_{s}$ is de starttoestand.
+  \item $q_{a}$ is de aanvaardende toestand.
+  \item $q_{r}$ is de verwerpende toestand.
+  \item $\delta$ is de overgangsfunctie.
+  \[ \delta:\ Q \times \Gamma \rightarrow Q \times \Gamma \times \{L,R,S\} \]
+  \end{itemize}
+  Een Turingmachine beschikt over een strook geheugen die aan twee kanten onbegrensd is.
+  Deze strook is ingedeeld in vakjes die precies \'e\'en symbool bevatten.
+  De Turingmachine beschikt bovendien over een lees- en schrijfeenheid die zich over een vakje bevindt dat de machine bijgevolg kan lezen en waarnaar de machine kan schrijven.
+  De Turingmachine bevindt zich op elk moment in precies \'e\'en toestand.
+\end{de}
+
+\begin{de}
+  De \term{werking van een Turingmachine} definieren we aan de hand van een Turingmachine $M = (Q,\Sigma,\Gamma, \delta, q_{s}, q_{a}, q_{r})$ en een invoerstring $s$.
+  \begin{itemize}
+  \item \textbf{Initialisatie}\\
+    De geheugenstrook wordt eerst ge\"initialiseerd zodat ze enkel het symbool $\#$ bevat in op elk vakje.
+    Vervolgens wordt vanaf een willekeurig vakje opeenvolgend de invoerstring in de vakjes op de band gezet.
+    De lees- en schrijfeenheid wordt op het vakje gezet waar de string begint.
+    De machine bevindt zich aan het begin in de begintoestand $q_{s}$.
+  \item \textbf{Uitvoering}\\
+    De Turingmachine $M$ voert achtereenvolgens de volgende stappen uit.
+    \begin{itemize}
+    \item De machine leest het symbool dat onder de lees- en schrijfeenheid staat.
+    \item Op basis van de staat $q$ waarin de machine zich bevindt en het symbool $a$ onder de eenheid beslist de machine wat hij zal doen aan de hand van de overgangsfunctie.
+      \[ \delta(q,a) = (q',a',r) \]
+      De machine zal het symbool $a'$ schrijven, naar staat $q'$ overgaan en zicht in de richting $r$ verplaatsen.
+    \end{itemize}
+  \item \textbf{Beslissing}\\
+    Zodra de machine zich ofwel in $q_{a}$ ofwel in $q_{r}$ bevindt stopt hij.
+    Als de machine zich op het einde in $q_{a}$ bevindt zeggen we dat $M$ de string $s$ aanvaardt.
+    Als de machine zich op het einde in $q_{r}$ bevindt zeggen we dat $M$ de string $s$ verwerpt.
+    Merk op dat het ook kan voorvallen dat de machine bij een gegeven string $s$ niet ophoudt met werken.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Elke turingmachine $M$ bepaalt een verdeling van $\Sigma^{*}$ in drie stukken:
+  \begin{itemize}
+  \item De strings die door $M$ worden geaccepteerd: $L_{M}$.
+  \item De strings waarvoor $M$ in een oneindige lus belandt: $\infty_{M}$.
+  \item De strings die door $M$ worden verworpen.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Een turingmachine $M$ herkent $L_{M}$.
+\end{de}
+
+\begin{de}
+  Een taal $L$ is \term{Turing-herkenbaar} als er een Turingmachine $M$ bestaat die $L$ herkent.
+\end{de}
+
+\begin{de}
+  Een turingmachine $M$ beslist een taal $L$ als $M$ $L$ herkent en $\infty_{M}$ leeg is.
+\end{de}
+
+\begin{de}
+  Een taal $L$ is \term{Turing-beslisbaar} als er een Turingmachine $M$ bestaat die $L$ beslist.
+\end{de}
+
+\begin{de}
+  Een taal $L$ is \term{co-herkenbaar} als $\bar{L}$ herkenbaar is.
+\end{de}
+
+\begin{de}
+  Een taal $L$ is \term{co-beslisbaar} als $\bar{L}$ beslisbaar is.
+\end{de}
+
+\begin{st}
+  Als een taal $L$ zowel herkenbaar als co-herkenbaar is, dan is $L$ beslisbaar (en co-beslisbaar).
+  \TODO{ bewijs p 85 }
+\end{st}
+
+\begin{st}
+  Er bestaat een taal die niet herkenbaar is.
+  \TODO{ bewijs p 85 }
+\end{st}
+
+\begin{de}
+  Zij $M = (Q,\Sigma,\Gamma, \delta, q_{s}, q_{a}, q_{r})$ een Turingmachine die zich in een staat $q$ bevindt tijdens de uitvoering. 
+  Zij $\alpha$ de niet-$\#$ symbolen links van de schrijfeenheid en $\beta$ de niet-$\#$ symbolen onder en rechts van de schrijfeenheid.
+  We noteren dan deze \term{configuratie} van $M$ als volgt.
+  \[ \alpha q \beta \]
+\end{de}
+
+\end{document}

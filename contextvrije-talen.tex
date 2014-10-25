@@ -27,19 +27,19 @@
   \item $s_{n} = f$
   \item $s_{i+1}$ wordt verkregen door in $s_{i}$ een niet-eindsymbool $x$ te vervangen door het overeenkomstige eindsymbool in een regel uit $R$.
     We noteren dit proces als volgt.
-    \[ \forall i: s_{i} \rightarrowtail s \]
+    \[ \forall i: s_{i} \leadsto s \]
   \end{itemize}
-  \[ b \leadsto f \]
+  \[ b \leadsto^{*} f \]
 \end{de}
 
 \begin{de}
   De taal $L_{c}$ bepaald door een CFG $c = (V,\Sigma,R,S)$ is de verzameling strings over $\Sigma$ die kunnen afgeleid worden van het startsymbool $S$.
-  \[ L_{c} = \{ s \in \Sigma^{*}\ |\ S \leadsto s \}
+  \[ L_{c} = \{ s \in \Sigma^{*}\ |\ S \leadsto^{*} s \}
 \]
 \end{de}
 
 \begin{de}
-  Een taal $L$ is \term{contextvrij} als er een CFG bestaat zodat die CFG die taal bepaalt.
+  Een taal $L$ is \term{contextvrij} (een \term{CFL}) als er een CFG bestaat zodat die CFG die taal bepaalt.
   \[ \exists L:\ L = L_{CFG} \]
 \end{de}
 
@@ -260,5 +260,135 @@
     Inderdaad!\footnote{Zie lemma \ref{lem:cfg-naar-pda}.}\footnote{Zie lemma \ref{lem:pda-naar-cfg}.}
   \end{proof}
 \end{st}
+
+\section{Pompend lemma voor contextvrije talen}
+
+\begin{st}
+  Voor een contextvrije taal $L$ bestaat een getal $p$ (de pomplengte) zodat elke string $s$ van $L$ met lengte minstens $p$ kan opgedeeld worden in   vijf stukken $u$, $v$, $x$, $y$ en $z$ uit $\Sigma^{*}$
+  \[ s = uvxyz \]
+  \begin{enumerate}
+    \item $\forall i \in \mathbb{N}:\ uv^{i}xy^{i}z \in L$
+    \item $|vy| > 0$
+    \item $|vxy| < p$
+  \end{enumerate}
+  \TODO{bewijs p 72}
+\end{st}
+
+\section{Een algebra van contextvrije talen?}
+
+\begin{de}
+  De unie $c_{1} \cup c_{2}$ van twee CFG's $c_{1}$ en $c_{2}$ is de CFG die de unie van $L_{c_{1}}$ en $L_{c_{2}}$ bepaalt.
+\end{de}
+
+\begin{st}
+  De unie $c_{1} \cup c_{2}$ van twee CFG's $c_{1}$ en $c_{2}$ valt steeds eenvoudig te construeren.
+  
+  \begin{proof}
+    Noem $S_{1}$ en $S_{2}$ de startsymbolen van respectievelijk $c_{1}$ en $c_{2}$.
+    De unie van $c_{1}$ en $c_{2}$ heeft nu als symbolen de unie van de symbolen van $c_{1}$ en $c_{2}$.
+    De unie heeft als regels de unie van de regels van $c_{1}$ en $c_{2}$.
+    Merk op dat de symbolen van $c_{2}$ eerst moeten hernoemd worden zodat ze niet overeenkomen met de symbolen van $c_{1}$
+    Voeg nu een nieuw symbool $S$ toe alsook de regels $S\rightarrow S_{1}$ en $S\rightarrow S_{2}$ om de unie van $c_{1}$ en $c_{2}$ te vervolledigen.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  De doosnede $c_{1} \cap c_{2}$ van twee CFG's $c_{1}$ en $c_{2}$ is de CFG die de doorsnede van $L_{c_{1}}$ en $L_{c_{2}}$ bepaalt.
+\end{de}
+
+\begin{st}
+  De doorsnede van twee CFG's bestaat niet noodzakelijk.
+  De doorsnede van twee contextvrije talen is immers niet steeds contextvrij.
+  \TODO{bewijs p 74}
+\end{st}
+
+\begin{de}
+  Het complement $\bar{c}$ van een CFG $c$ is de CFG die het complement $\bar{L_{c}}$ van $L_{c}$ bepaalt.
+\end{de}
+
+\begin{st}
+  Het complement van een CFG bestaat niet noodzakelijk.
+  Het complement van een contextvrije taal is immers niet steeds contextvrij.
+  \TODO{bewijs p 74}
+\end{st}
+
+\question{is de doorsnede van een CFL en een reguliere taal een CFL?}
+
+\section{Ambigu\"iteit en determinisme}
+
+\begin{de}
+  Een contextvrije taal $L$ noemen we \term{deterministisch} als er een deterministische push-down automaat bestaat die $L$ bepaalt.
+\end{de}
+
+\begin{de}
+  We noteren de verzameling van deterministische contextvrije talen als $DCFL$.
+\end{de}
+
+\begin{st}
+  Een taal $L$ is deterministisch als $L$ niet inherent ambigu is.
+  \begin{proof}
+    Inderdaad, een ambigue taal kan onmogelijk deterministisch zijn.
+    \clarify{waarom?}
+  \end{proof}
+\end{st}
+
+\begin{opm}
+  Er zijn wel niet-ambigue talen die niet-deterministisch zijn.
+\end{opm}
+
+
+\section{Contextsensitieve Grammatica}
+
+\begin{de}
+  Een \term{contextsensitieve grammatica} (\term{CSG}) is een $4$-tal $(V,\Sigma,R,S)$:
+  \begin{itemize}
+  \item $V$: een eindige verzameling niet-eindsymbolen. (variabelen of non-terminals)
+  \item $\Sigma$: een eindig alfabet van eindsymbolen, disjunct met $V$. (terminals)
+  \item $R$: een eindige verzameling regels (producties).\\
+    Een regel is een koppel van twee strings van symbolen uit $V \cup \Sigma_{\epsilon}$.
+  \item $S\in V$: het startsymbool.
+  \end{itemize}
+\end{de}
+
+
+\begin{de}
+  Zij $c = (V,\Sigma,R,S)$ een CSG.
+  Een string $f$ over $V \cup \Sigma_{\epsilon}$ wordt afgeleid uit een string $b$ over $V \cup \Sigma_{\epsilon}$ met behulp van $c$ als er een eindige rij strings $s_{0},\dotsc,s_{n}$ bestaat zodat het volgende geldt:
+  \begin{itemize}
+  \item $s_{0} = b$
+  \item $s_{n} = f$
+  \item $s_{i+1}$ wordt verkregen door in $s_{i}$ een substring $x$ te vervangen door een overeenkomstige substring $y$ van een regel uit $R$.
+    We noteren dit proces als volgt.
+    \[ \forall i: s_{i} \leadsto s \]
+  \end{itemize}
+  \[ b \leadsto^{*} f \]
+\end{de}
+
+\begin{de}
+  De taal $L_{c}$ bepaald door een CSG $c = (V,\Sigma,R,S)$ is de verzameling strings over $\Sigma$ die kunnen afgeleid worden van het startsymbool $S$.
+  \[ L_{c} = \{ s \in \Sigma^{*}\ |\ S \leadsto^{*} s \}
+\]
+\end{de}
+
+\begin{de}
+  Een taal $L$ is \term{contextsensitief} (een \term{CSL}) als er een CSG bestaat zodat die CSG die taal bepaalt.
+  \[ \exists L:\ L = L_{CSG} \]
+\end{de}
+
+\begin{de}
+  Een CSG $c = (V,\Sigma,R,S)$ heeft de \term{Kuroda Normaal Vorm} als elke regel \'e\'en van de volgende vormen heeft.
+  Zij $A$, $B$, $C$ en $D$ niet-eindsymbolen en $a$ een eindsymbool.
+  \begin{itemize}
+  \item $AB \rightarrow CD$
+  \item $A \rightarrow BC$
+  \item $A \rightarrow B$
+  \item $A \rightarrow a$
+  \end{itemize}
+\end{de}
+
+\TODO{ een lineair begrensde automaat LBA }
+\question{ p 80: laatste restrictie: welke? }
+
+
 
 \end{document}
