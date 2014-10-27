@@ -39,6 +39,7 @@
 \end{de}
 
 \begin{de}
+  \label{de:contextvrije-taal}
   Een taal $L$ is \term{contextvrij} (een \term{CFL}) als er een CFG bestaat zodat die CFG die taal bepaalt.
   \[ \exists L:\ L = L_{CFG} \]
 \end{de}
@@ -70,6 +71,7 @@
 \end{de}
 
 \begin{de}
+  \label{de:chomsky-normaal-vorm}
   Een CFG $c = (V,\Sigma,R,S)$ heeft de \term{Chomsky Normaal Vorm} als elke regel \'e\'en vor de volgende vormen heeft:
   \begin{itemize}
   \item $A \rightarrow BC$ met $A$, $B$ en $C$ niet-eindsymbolen en $B$ en $C$ verschillend van $S$.
@@ -79,6 +81,7 @@
 \end{de}
 
 \begin{st}
+  \label{st:constructie-chomsky-normaalvorm}
   Voor elke CFG $c = (V,\Sigma,R,S)$ bestaat er een equivalente contextvrije grammatica in Chomsky Normaal Vorm.
 
   \begin{proof}
@@ -289,7 +292,55 @@
     \item $|vy| > 0$
     \item $|vxy| < p$
   \end{enumerate}
-  \TODO{bewijs p 72}
+  \begin{proof}
+    Kies een willekeurige contextvrije taal $L$, en bestaat dan een contextvrije grammatica $c'$ die $L$ bepaalt.\footnote{Zie definitie \ref{de:contextvrije-taal}.}
+    $c'$ kan nu steeds omgezet worden naar een CFG $c = (V,\Sigma,R,S)$ in Chomsky normaalvorm.\footnote{Zie stelling \ref{st:constructie-chomsky-normaalvorm}.}
+    Elke regel heeft nu ofwel precies twee niet-eindsymbolen ofwel geen enkel niet-eindsymbool aan de rechterkant staan.\footnote{Zie definitie \ref{de:chomsky-normaal-vorm}.}
+    Noem het aantal niet-eindsymbolen in $c$ $|V| = n$.
+
+    Voor elke string $s$ in $L$ bestaat er nu door $c$ een afleidingsboom. Zie figuur \ref{fig:afleidingsboom}.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.5\textwidth]{assets/pompend-lemma-parsetree.png}      
+      \caption{De afleidingsboom}
+      \label{fig:afleidingsboom}
+    \end{figure}
+    Omdat de CFG in Chomsky normaalvorm staat kunnen we de onderste takken van de afleidingsboom snoeien om een binaire boom te bekomen. Zie figuur \ref{fig:afleidingsboom-gesnoeid}.
+    Deze boom heeft een hoogte van hoogte minstens gelijk aan $\log_{2}(|s|)$.
+    Het langste enkelvoudig pad van de wortel van die boom bevat dus $\log_{2}(|s|)+1$ knopen.
+    Als we $s$ lang genoeg kiezen
+    \question{ mogen we $s$ zomaar kiezen? }
+    is $\log_{2}(|s|) + 1$ groter dan $n$.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.5\textwidth]{assets/pompend-lemma-parsetree-gesnoeid.png}      
+      \caption{De gesnoeide afleidingsboom}
+      \label{fig:afleidingsboom-gesnoeid}
+    \end{figure}
+    Op dat pad moet er dan minstens \'e\'en niet-eindsymbool, noem het $X$, herhaald worden.
+    Noem de laagste $X$ op dat pad $X_{1}$ en zijn dichtste herhaling $X_{2}$. 
+    Zie figuur \ref{fig:afleidingsboom-compact}.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.8\textwidth]{assets/pompend-lemma-herhaling.png}      
+      \caption{De situatie, compact voorgesteld.}
+      \label{fig:afleidingsboom-compact}
+    \end{figure}
+    We kunnen nu de afleiding construeren van $s$ uit $S$ in stukken:
+    \[ S \leadsto^{*} uX_{2}z \leadsto^{*} xvX_{1}yz \leadsto^{*} uvxyz \]
+    De stukken $u$, $v$, $x$, $y$ en $z$ zijn strings over $\Sigma$.
+    $v$ en $y$ kunnen bovendien niet tegelijkertijd leeg zijn, want dan zou $X$ uit zichzelf afgeleidt kunnen worden en dat kan in een Chomsky normaalvorm niet.
+    De volgende afleidingen zijn nu ook geldig:
+    \clarify{waarom?}      
+    \[ S \leadsto^{*} uX_{2}z \leadsto^{*} xvX_{1}yz \leadsto^{*} uxz \]
+    \[ \forall i \in \mathbb{N}:\ S \leadsto^{*} uX_{2}z \leadsto^{*} xvX_{1}yz \leadsto^{*} xv^{i}X_{1}y^{i}z \]
+    Bovenstaande redenering kunnen we opbouwen voor elke string langer dan $2^{(n-1)}$.
+    Dit wordt dus de pomplengte $p$.
+    \[ p = 2^{(n-1)} \]
+    We besluiten nu nog dat $|vxy|$ kleiner is dan $p$.
+    De string $vxy$ wordt immers afgeleidt uit $X$ met een afleidingsboom die kleiner is dan $n$ (in hoogte) en bijgevolg hoogstens $2^{n-1}$ bladeren heeft.
+    Elk van deze bladeren komt overeen met precies \'e\'en symbool in $vxy$, dus $|vxy| < p$ geldt.
+  \end{proof}
 \end{st}
 
 \section{Een algebra van contextvrije talen?}

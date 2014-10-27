@@ -1,0 +1,29 @@
+digraph cfg_parsetree {
+
+    node [label="", shape=circle];
+ 
+    s[label="S"]; 
+    
+    s -> s1a;   
+    s -> s1b;
+    
+    s1a -> s2a;
+    s1a -> c
+
+    s1b -> s3a;
+    s1b -> s3b;
+
+    node [style="invis"];
+    edge [style="dashed"];
+       
+    s2a -> s4a;
+    s2a -> s4b;
+
+    s3a -> s6a;
+    s3a -> s6b;
+
+    s3b -> s7a;
+    s3b -> s7b;
+
+}
+
