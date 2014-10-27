@@ -304,17 +304,6 @@
 \end{ei}
 
 \begin{st}
-  Er bestaat een niet-reguliere taal.
-
-  \begin{proof}
-    Elke reguliere expressie bepaalt precies \'e\'en (reguliere) taal.
-    Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg hoogstens aftelbaar oneindig veel reguliere talen.
-    Er zijn echter overaftelbaar oneindig veel talen. Er moet dus minstens \'e\'en niet-reguliere taal bestaan.
-    (In feite zijn de meeste\footnote{'de meeste' heeft een heel specifieke wiskundige betekenis.} talen niet-regulier.)
-  \end{proof}
-\end{st}
-
-\begin{st}
   Elke eindige taal $L$ is regulier.
 
   \begin{proof}
@@ -359,12 +348,25 @@
 \end{st}
 
 \begin{st}
+  \label{st:overaftelbaar-veel-talen}
   Er zijn overaftelbaar veel talen over een alfabet $\Sigma$.
 
   \begin{proof}
     De talen $L_{\Sigma}$ over een alfabet zijn allemaal een deelverzameling van $\Sigma^{*}$. \footnote{Zie eigenschap \ref{ei:taal-alternatieve-definitie}.} $L_{\Sigma}$ is dus de machtsverzameling van $\Sigma^{*}$.
     Bovendien is de machtsverzameling van een aftelbare verzameling\footnote{Zie stelling \ref{sigma-ster-aftelbaar}.} overaftelbaar.
     Er zijn dus overaftelbaar oneindig veel talen over een alfabet $\Sigma$.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  Er bestaat een niet-reguliere taal.
+
+  \begin{proof}
+    Elke reguliere expressie bepaalt precies \'e\'en (reguliere) taal.
+    Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg hoogstens aftelbaar oneindig veel reguliere talen.
+    Er zijn echter overaftelbaar oneindig veel talen.\footnote{Zie stelling \ref{st:overaftelbaar-veel-talen}.}
+    Er moet dus minstens \'e\'en niet-reguliere taal bestaan.
+    (In feite zijn de meeste\footnote{'de meeste' heeft een heel specifieke wiskundige betekenis.} talen niet-regulier.)
   \end{proof}
 \end{st}
 

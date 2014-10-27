@@ -82,12 +82,30 @@
 
 \begin{st}
   Als een taal $L$ zowel herkenbaar als co-herkenbaar is, dan is $L$ beslisbaar (en co-beslisbaar).
-  \TODO{ bewijs p 85 }
+  \begin{proof}
+    Kies een willekeurige herkenbare en co-herkenbare taal $L$.
+    Er bestaat dan een Turingmachine $m$ die $L$ herkent en een Turingmachine $m'$ die $\bar{L}$ herkent.
+    Construeer vanuit $m$ en $m'$ nu een machine $M$ die $L$ beslist.
+    $M$ bestaat erin $m$ en $m'$ simultaan te laten lopen op de invoerstring $s$
+    Zodra $m$ $s$ aanvaardt, aanvaardt $m$ $s$ en zodra $m'$ $s$ aanvaardt, verwerpt $m$ $s$.
+    Voor elke mogelijke invoerstring stopt minstens \'en\'en van de machines $m$ en $m'$.
+    $M$ zal dus altijd stoppen.
+    \clarify{Dit kan formeler}
+    \question{Hoe maken we dit formeler?}
+  \end{proof}
 \end{st}
 
 \begin{st}
   Er bestaat een taal die niet herkenbaar is.
-  \TODO{ bewijs p 85 }
+  \begin{proof}
+    Het aantal Turingmachines is aftelbaar oneindig.
+    \clarify{waarom?}
+    Elke Turingmachine herkent bovendien precies \'e\'en taal.
+    Het aantal talen over een gegeven alfabet is overaftelbaar oneindig.\footnote{Zie stelling \ref{st:overaftelbaar-veel-talen}.}
+    Er bestaat dus minstens \'e\'en taal waarvoor er geen Turingmachine bestaat die die taal herkent.
+    Die taal is niet herkenbaar.
+    Sterker nog: ``De meeste\footnote{``De meeste'' heeft een heel specifieke wiskundige betekenis.} talen zijn niet herkenbaar.''
+  \end{proof}
 \end{st}
 
 \begin{de}
