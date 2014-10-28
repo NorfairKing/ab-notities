@@ -308,9 +308,7 @@
     Omdat de CFG in Chomsky normaalvorm staat kunnen we de onderste takken van de afleidingsboom snoeien om een binaire boom te bekomen. Zie figuur \ref{fig:afleidingsboom-gesnoeid}.
     Deze boom heeft een hoogte van hoogte minstens gelijk aan $\log_{2}(|s|)$.
     Het langste enkelvoudig pad van de wortel van die boom bevat dus $\log_{2}(|s|)+1$ knopen.
-    Als we $s$ lang genoeg kiezen
-    \question{ mogen we $s$ zomaar kiezen? }
-    is $\log_{2}(|s|) + 1$ groter dan $n$.
+    Als $s$ lang genoeg is, is $\log_{2}(|s|) + 1$ groter dan $n$.
     \begin{figure}[H]
       \centering
       \includegraphics[width=0.5\textwidth]{assets/pompend-lemma-parsetree-gesnoeid.png}      
@@ -318,6 +316,7 @@
       \label{fig:afleidingsboom-gesnoeid}
     \end{figure}
     Op dat pad moet er dan minstens \'e\'en niet-eindsymbool, noem het $X$, herhaald worden.
+    $X$ is zeker niet $S$, want dan kon $\epsilon$ uit $X$ afgeleid worden, en in de Chomsky normaalvorm kan dat niet.
     Noem de laagste $X$ op dat pad $X_{1}$ en zijn dichtste herhaling $X_{2}$. 
     Zie figuur \ref{fig:afleidingsboom-compact}.
     \begin{figure}[H]
@@ -456,7 +455,6 @@
 \end{de}
 
 \TODO{ een lineair begrensde automaat LBA }
-\question{ p 80: laatste restrictie: welke? }
 
 
 
