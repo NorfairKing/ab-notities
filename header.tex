@@ -16,8 +16,5 @@
 \newcommand{\clarify}[1]{\todo[color=yellow,inline,size=\small]{CLARIFY: #1}}
 \newcommand{\question}[1]{\todo[color=green,inline,size=\small]{QUESTION: #1}}
 
-% Nuttigere emph
-\let\oldemph\emph
-\renewcommand\emph[1]{{\textbf{\oldemph{#1}}}}
 
-\newcommand{\term}[1]{\index{#1}\emph{#1}}
+\newcommand{\term}[1]{\index{#1}\textbf{#1}}
