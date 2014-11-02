@@ -30,7 +30,7 @@
 \end{de}
 
 \begin{de}
-  De \term{taal} $L_{M}$ \term{bepaald door een NFA} $N$ bevat alle strings die $N$ aanvaardt, en geen andere strings.
+  De \term{taal} $L_{M}$ \term{bepaald door een NFA} $N$ bevat alle strings die $N$ aanvaardt, \textit{en geen andere strings}.
 \end{de}
 
 \begin{de}
@@ -303,6 +303,14 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{itemize}
 \end{de}
 
+\begin{st}
+  \label{st:regex-naar-NFA}
+  Voor elke reguliere expressie bestaat er een NFA die dezelfde taal bepaalt.
+\TODO{bewijs}
+\end{st}
+
+\clarify{ de NFA van een reguliere expressie bepaalt dezelfde taal. }
+
 \section{NFA naar reguliere expressie}
 \begin{de}
   Een gegeneraliseerde niet-deterministische eindige toestandsautomaat (\term{GNFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s},q_{f}$).
@@ -317,6 +325,8 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \item $q_{s}$ is de starttoestand.
   \item $q_{f}$ is de aanvaardbare eindtoestand.
   \end{itemize}
+\end{de}
+\begin{opm}
   Een GNFA heeft de volgende (informele) eigenschappen.
   \begin{itemize}
   \item Er is precies een eindtoestand en die is verschillend van de eindtoestand.
@@ -326,7 +336,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \item Er is precies \'e\'en boog van elke toestand (behalve de begin- en eindtoestand) naar zichzelf.
   \item De bogen hebben een reguliere expressie als label.
   \end{itemize}
-\end{de}
+\end{opm} 
 
 \begin{de}
   Een string $s$ wordt aanvaard door een GNFA als er een rij reguliere expressies $E_{1},E_{2},\dotsc,E_{n}$ bestaat zodat $s$ wordt aanvaard door de concatenatie van die rij reguliere expressies en zodat die reguliere expressies een pad $t_{1},t_{2},\dotsc,t_{n+1}$ vormen in de GNFA. 
@@ -400,7 +410,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \begin{proof}
     Beschouw de vier bewerkingen in de algebra van reguliere expressies: unie $\cup_{R}$, concatenatie $\cdot_{R}$, complement $^{c}_{R}$ en doorsnede $\cap_{R}$.
     Er bestaan overeenkomstige bewerkingen in de algebra van NFA's: unie $\cup_{N}$, concatenatie $\cdot_{N}$, complement $^{c}_{R}$ en doorsnede $\cap_{N}$.
-    Bovendien bestaat er een functie die een willekeurige reguliere expressie afbeeldt op een reguliere expressie die dezelfde taal bepaalt.\footnote{Zie stelling \ref{st:nfa-naar-regex}.}
+    Bovendien bestaat er een functie die een willekeurige reguliere expressie afbeeldt op een reguliere expressie die dezelfde taal bepaalt en omgekeerd.\footnote{Zie stelling \ref{st:nfa-naar-regex}.}\footnote{Zie stelling \ref{st:regex-naar-NFA}.}
     Er bestaat dus een eenvoudig isomorfisme tussen deze twee algebra's.
   \end{proof}
 \end{ei}
@@ -447,7 +457,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     Zij $N$ een willekeurige NFA.
     \[ N = (Q_{n},\Sigma,\delta_{n},q_{n},F_{n}) \]
     We construeren nu een DFA $D$ die dezelfde taal bepaalt.
-    \[ D = (Q_{d},\Sigma,\delta_{d},q_{d},F_{d}\]
+    \[ D = (Q_{d},\Sigma,\delta_{d},q_{d},F_{d}) \]
     De toestanden $Q_{d}$ voor de DFA zullen elk overeen komen met een verzameling toestanden uit de NFA.
     \[ Q_d = \mathcal{P}(Q_{n})\]
     Een eindtoestand in de DFA komt steeds overeen met een verzameling die een eindtoestand van de NFA bevat.
@@ -810,6 +820,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \item $\sim_{DFA}$ verfijnt $\sim_{L}$:
     \[ \forall x,y \in \Sigma^{*}, \forall L\in \mathcal{P}(\Sigma^{*}):\ x \sim_{DFA} y \Rightarrow x \sim_{L} y\]
     In woorden: ``Als $x \sim_{DFA} y$ geldt, zitten ofwel zowel $x$ als $y$ in $L$, ofwel geen van beide.''
+    Of nog: ``De partitie bepaald door $\sim_{DFA}$ is fijner dan de partitie bepaald door $\sim_{L}$.''
   \item Het aantal equivalentieklassen van $\sim_{DFA}$ is eindig.
     We zeggen: ``De index van $\sim_{DFA}$ is eindig.''.
   \end{itemize}
