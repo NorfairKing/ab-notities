@@ -115,4 +115,432 @@
   \[ \alpha q \beta \]
 \end{de}
 
+\begin{opm}
+  Merk op dat er links en rechts van de schrijfeenheid altijd een aantal vakjes bestaan waarna alle vakjes een $\#$-symbool bevatten.
+  Dit betekent echter niet dat alle symbolen tot dat niet-$\#$-symbolen zijn.
+  In de bovenstaande definitie bedoelen we dus met $\alpha$/$\beta$ de symbolen voor het oneindig aantal vakjes met $\#$-symbolen begint.
+\end{opm}
+
+\begin{opm}
+  De beginconfiguratie van een Turingmachine is altijd van de volgende vorm:
+  \[ q_{s}\alpha \]
+\end{opm}
+
+\begin{opm}
+  De eindconfiguratie van een Turingmachine is altijd van de volgende vorm:
+  \[ \alpha q_{a} \beta \]
+\end{opm}
+
+\begin{opm}
+  Tijdens de uitvoering van een TM zijn twee opeenvolgende configuraties verbonden door $\delta$ op \'e\'en van de volgende manieren, afhankelijk van of de turingmachine naar links gaat, naar rechts gaat, of terplaatse blijft na het schrijven.
+
+  \begin{figure}[H]
+    \centering
+    \[
+    \begin{array}{c|ccc}
+      \delta & &\text{overgang}&\\
+      \hline
+      \delta(q,b) = (p,c,S) & \alpha q b \beta &\rightarrow& \alpha p a c \beta\\
+      \delta(q,b) = (p,c,L) & \alpha a q b \beta &\rightarrow& \alpha p a c \beta\\ 
+      \delta(q,b) = (p,c,R) & \alpha q b \beta &\rightarrow& \alpha c p \beta
+    \end{array}
+    \]
+    \caption{Overgang van TM configuraties}
+    \label{overgang-tm-configuraties}
+  \end{figure}
+\end{opm}
+
+\begin{st}
+  De berekeningskracht van prolog is gelijk aan die van een turingmachine.
+\TODO{bewijs}
+\end{st}
+
+\TODO{Turingmachine als subroutine oproepen}
+\TODO{Turingmachines samenstellen p 91}
+
+\begin{de}
+  Een functie $f$ is Turing-berekenbaar als er een Turingmachine $T$ bestaat die, gegeven een argument $a$, het beeld van $a$ onder $f$ op de band kan zetten.
+\end{de}
+\question{is dit de juiste formulering?}
+
+\section{Encoderingen}
+\label{sec:encoderingen}
+
+\begin{de}
+  Een encodering van een verzameling $A$ over een alfabet $\Sigma$ is een bijectieve afbeelding $e: A \rightarrow \Sigma^{*}$ die elk element afbeeldt op een string.
+\end{de}
+
+\begin{opm}
+  Idealiter introduceert een encodering geen extra informatie.
+\end{opm}
+
+\begin{de}
+  Twee encoderingen $e_{1}$ en $e_{2}$ zijn equivalent als de omzetting van de ene naar de andere codering Turing-berekenbaar is.
+  \[ e_{1} \sim e_{2} \Leftrightarrow e_{2} \circ e_{1}^{-1} \text{ en } e_{1} \circ e_{2}^{-1} \text{ zijn Turing-berekenbaar.}\]
+\end{de}
+
+\begin{de}
+  De encodering van een object $a$ noteren we als $<a>$.
+\end{de}
+
+\section{Universele Turingmachines}
+\label{sec:univ-turingm}
+
+\begin{de}
+  Een \term{universele Turingmachine} is een Turingmachine die een willekeurige ge\"encodeerde Turingmachine kan simuleren.
+\end{de}
+\TODO{wat moet hier nog bij??}
+
+\section{Algemene problemen}
+\label{sec:algemene-problemen}
+
+\begin{de}
+  Acceptatie\\
+  Zij $\phi$ een verzameling machines, dan is $A_{\phi}$ de taal van alle koppels $(M,s)$ waarbij $M\in \phi$ een machine is die $s$ aanvaardt.
+  \[ A_{\phi} = \{ <M,s> \ |\ M\in \phi \wedge s \in L_{M} \} \]
+\end{de}
+
+\begin{de}
+  Stopt\\
+  Zij $\phi$ een verzameling machines, dan is $H_{\phi}$ de taal van alle koppels $(M,s)$ waarbij $M\in \phi$ een machine is die stopt bij input $s$.
+  \[ H_{\phi} = \{ <M,s> \ |\ M \in \phi \wedge M \text{ stopt bij input } s \} \]
+\end{de}
+
+\begin{de}
+  Leegheid\\
+  Zij $\phi$ een verzameling machines, dan is $E_{\phi}$ de taal van alle machines $M$ die de lege taal bepalen.
+  \[ E_{\phi} = \{ <M,s>\ |\ M \in \phi \wedge L_{M} = \emptyset \} \]
+\end{de}
+
+\begin{de}
+  Gelijkheid\\
+  Zij $\phi$ een verzameling machines, dan is $EQ_{\phi}$ de taal van alle koppels $M_{1},M_{2}$ waarbij $M_{1}$ en $M_{2}$ dezelfde taal bepalen.
+  \[ EQ_{\phi} = \{ <M_{1},M_{2}> \ |\ M_{1},M_{2} \in \phi \wedge L_{M_{1}} = L_{M_{2}} \} \]
+\end{de}
+
+\begin{de}
+  Lege string\\
+  Zij $\phi$ een verzameling machines, dan is $ES_{\phi}$ de taal van alle machines $M$ die de lege string aanvaarden.
+  \[ ES_{\phi} = \{ <M> \ |\ M\in \phi \wedge \epsilon \in L_{M}\} \]
+\end{de}
+
+\begin{de}
+  Regulier\\
+  Zij $\phi$ een verzameling machines, dan is $REGULAR_{\phi}$ de taal van alle machines $M$ die een reguliere taal bepalen.
+\end{de}
+
+\begin{de}
+  Zij $\phi$ een verzameling machines, dan is $ALL_{\phi}$ de taal van alle machines $M$ die alle strings aanvaarden.
+\end{de}
+
+\section{Het Halting probleem}
+\label{sec:het-halting-probleem}
+
+\begin{de}
+  $A_{TM}$ is de taal van koppels $(M,s)$ waarbij $M$ een Turingmachine is die $s$ aanvaardt.
+  \[ A_{TM} = \{ <M,s> \ |\ M \text{ is een Turingmachine en } s \in L_{M} \} \]
+\end{de}
+
+\begin{st}
+  $A_{TM}$ is herkenbaar.
+\TODO{bewijs p 97}
+\end{st}
+
+\begin{st}
+  $A_{TM}$ is niet co-herkenbaar.
+\TODO{bewijs p 96}
+\end{st}
+
+\begin{gev}
+  $A_{TM}$ is niet beslisbaar.
+\TODO{bewijs}
+\end{gev}
+
+\begin{de}
+  $H_{TM}$ is de taal van koppels $(M,s)$ waarbij $M$ een Turingmachine is die stopt bij input $s$.
+  \[ H_{TM} = \{ <M,s> \ |\ M \text{ is een Turinmgmachine en } M \text{ stopt bij input } s \} \]
+\end{de}
+
+\begin{st}
+  $H_{TM}$ is herkenbaar.
+\TODO{bewijs p 97}
+\end{st}
+
+\begin{st}
+  $H_{TM}$ is niet co-herkenbaar.
+\TODO{bewijs}
+\end{st}
+
+\begin{gev}
+  $H_{TM}$ is niet beslisbaar.
+
+\TODO{bewijs p 97}
+\end{gev}
+
+\section{De enumeratormachine}
+\label{sec:de-enumeratormachine}
+
+\begin{de}
+  Een \term{enumeratormachine} is een is een $7$-tal $(Q,\Sigma,\Gamma, \delta, q_{s}, q_{a}, q_{r})$, gelijkaardig aan een Turingmachine.
+  De overgangsfunctie heeft voor een enumeratormachine een andere signatuur:
+  \[ \delta:\ Q \times \Gamma \rightarrow Q \times \Gamma \times \Gamma_{\epsilon}\times \{L,R,S\} \]
+  Een enumeratormachine heeft bovendien een enumeratortoestand $q_{e}$, een outputband (naast de inputband) en een outputmarker.
+  Wanneer de enumeratormachine in een stap afrondt, schrijft hij ook nog een symbool weg naar de outputband en gaat daar ook steeds naar rechts. Wanneer de machine in toestand $q_{e}$ belandt, schrijft hij de outputmarker naar de outputband, en gaat terug over in de begintoestand $q_{s}$.
+\end{de}
+
+\begin{de}
+  De taal bepaald door een enumeratormachine is de verzameling van strings die volledig op de outputband belanden, gescheiden door de outputmarker.
+\end{de}
+
+\begin{de}
+  We noemen een taal \term{enumereerbaar} als er een enumeratormachine bestaat die die taal bepaalt.
+\end{de}
+
+\begin{st}
+  De taal bepaald door een enumerator $E$ is herkenbaar.
+\TODO{bewijs p 99}
+\end{st}
+
+\begin{st}
+  Elke herkenbare is enumereerbaar.
+\TODO{bewijs p 99}
+\end{st}
+
+\section{Beslisbare talen}
+\label{sec:beslisbare-talen}
+
+\subsection{In verband met reguliere talen}
+\label{sec:verb-met-regul}
+
+\begin{de}
+  $A_{RE}$ is de taal van koppels $(R,s)$ waarbij $R$ een reguliere expressie is die $s$ genereert.
+  \[ A_{RE} = \{ <N,s> \ |\ N \text{ is een NFA en } s \in L_{N} \} \]
+\end{de}
+
+\begin{st}
+  $A_{RE}$ is beslisbaar.
+\TODO{bewijs p 100}
+\end{st}
+
+\begin{de}
+  $A_{DFA}$ is de taal van koppels $(D,s)$ waarbij $D$ een DFA is die $s$ aanvaardt.
+  \[ A_{DFA} = \{ <D,s> \ |\ D \text{ is een DFA en } s \in L_{D} \} \]
+\end{de}
+
+\begin{st}
+  $A_{DFA}$ is beslisbaar.
+\TODO{bewijs p 100}
+\end{st}
+
+\begin{de}
+  $A_{SFA}$ is de taal van koppels $(N,s)$ waarbij $N$ een NFA is die $s$ aanvaardt.
+  \[ A_{NFA} = \{ <N,s> \ |\ N \text{ is een NFA en } s \in L_{N} \} \]
+\end{de}
+
+\begin{st}
+  $A_{NFA}$ is beslisbaar.
+\TODO{bewijs p 100}
+\end{st}
+
+\question{welk verschil p 100?}
+
+\begin{de}
+  $E_{DFA}$ is de taal van alle machines $D$ die de lege taal bepalen.
+  \[ E_{DFA} = \{ <D,s>\ |\ D \text{ is een DFA en } L_{D} = \emptyset \} \]
+\end{de}
+
+\begin{st}
+  $E_{DFA}$ is beslisbaar.
+\TODO{bewijs p 100}
+\end{st}
+
+\begin{de}
+  $EQ_{DFA}$ is de taal van alle koppels DFA's die dezelfde taal bepalen.
+  \[ EQ_{DFA} = \{ <D_{1},D_{2}> \ |\ D_{1},D_{2} \text{ zijn DFA's en } L_{D_{1}} = L_{D_{2}} \} \]  
+\end{de}
+
+\begin{st}
+  $EQ_{DFA}$ is beslisbaar.
+\TODO{bewijs p 100}
+\end{st}
+
+\subsection{In verband met contextvrije talen}
+\label{sec:verb-met-cont}
+
+\begin{de}
+  $A_{CFG}$ is de taal van koppels $(C,s)$ waarbij $C$ een contextvrije grammatica is die $s$ genereert.
+  \[ A_{CFG} = \{ <G,s> \ |\ G \text{ is een CFG en } s \in L_{C} \} \]
+\end{de}
+
+\begin{st}
+  $A_{CFG}$ is beslisbaar.
+\TODO{bewijs p 102}
+\end{st}
+
+\begin{de}
+  $E_{CFG}$ is de taal van CFG's $C$ die de lege taal bepalen.
+  \[ E_{CFG} = \{ <C,s>\ |\ D \text{ is een CFG en } L_{C} = \emptyset \} \]
+\end{de}
+
+\begin{st}
+  $E_{CFG}$ is beslisbaar.
+\TODO{bewijs p 102}
+\end{st}
+
+\begin{de}
+  $ES_{CFG}$ is de taal van alle CFG's die de lege string aanvaarden.
+  \[ ES_{CFG} = \{ <C> \ |\ C \text{ is een CFG en } \epsilon \in L_{C}\} \]
+\end{de}
+
+\begin{st}
+  $ES_{CFG}$ is beslisbaar.
+\TODO{bewijs p 103}
+\end{st}
+
+\begin{st}
+  Een contextvrije taal $L$ is beslisbaar.
+\end{st}
+
+\begin{st}
+  $EQ_{CFG}$ is niet herkenbaar.
+\TODO{bewijs intuitief p 103}
+\end{st}
+
+\begin{st}
+  $EQ_{CFG}$ is co-herkenbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{gev}
+  $EQ_{CFG}$ is niet beslisbaar.
+\TODO{bewijs}
+\end{gev}
+
+\section{Niet-beslisbare talen}
+\label{sec:niet-besl-talen}
+
+\begin{de}
+  $E_{TM}$ is de taal van alle Turingmachines die geen enkele string aanvaardt.
+  \[ E_{TM} = \{ <M,s>\ |\ M \text{ is een Turingmachine en } L_{M} = \phi \} \]
+\end{de}
+
+\begin{st}
+  $E_{TM}$ is niet beslisbaar.
+\TODO{bewijs p 104}
+\end{st}
+
+\begin{de}
+  $REGULAR_{TM}$ is de taal van alle Turingmachines die een reguliere taal bepaalt.
+\end{de}
+
+\begin{st}
+  $REGULAR_{TM}$ is niet beslisbaar.
+\TODO{bewijs p 105}
+\end{st}
+
+\begin{de}
+  $EQ_{TM}$ is de taal van alle koppels Turingmachines die dezelfde taal herkennen/beslissen.
+\clarify{herkennen of beslissen?}
+\TODO{bewijs p 105}
+\end{de}
+
+\begin{de}
+  Een \term{lineair begrensde automaat} (LBA) is een Turingmachine die niet leest of schrijft buiten een deel van de geheugenstrook dat een constante factor groter is dan de invoerstring.
+\end{de}
+
+\begin{st}
+  De taal die alle Turingmachines bevat die ook een LBA zijn is niet beslisbaar.
+\extra{bewijs p 106}
+\end{st}
+
+\begin{de}
+  $A_{LBA}$ is de taal van alle koppels $(L,s)$ waarbij $L$ een LBA is die $s$ aanvaardt.
+  \[ A_{LBA} = \{ <L,s> \ |\ L \text{ is een LBA en } s \in L_{L}\} \]
+\end{de}
+
+\begin{st}
+  $A_{LBA}$ is beslisbaar.
+\TODO{bewijs p 106}
+\end{st}
+
+\begin{de}
+  $E_{LBA}$ is de taal van alle LBA's die geen enkele string aanvaarden.
+  \[ E_{LBA} = \{ <L> \ |\ L \text{ is een LBA en } L_{L} = \emptyset \} \]
+\end{de}
+
+\begin{st}
+  $E_{LBA}$ is niet herkenbaar.
+\TODO{bewijs p 107}
+\end{st}
+
+\begin{st}
+  $E_{LBA}$ is co-herkenbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{gev}
+  $E_{LBA}$ is beslisbaar.
+\TODO{bewijs}
+\end{gev}
+
+\extra{p 108 acceptance, halting en leegheid van LBA,PDA en TM}
+
+\begin{st}
+  $ALL_{CFG}$ is niet herkenbaar.
+  \begin{proof}
+    Het bewijs wordt niet gezijn.
+    \extra{verwijzing naar een bewijs}
+  \end{proof}
+\end{st}
+
+\begin{st}
+  $ALL_{CFG}$ is co-herkenbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{gev}
+  $ALL_{CFG}$ is niet beslisbaar.
+\TODO{bewijs}
+\end{gev}
+
+\extra{$ALL_{RegExp}$ is beslisbaar: bewijs}
+
+\section{Weetjes}
+\label{sec:weetjes}
+
+\begin{st}
+  \[ RegLan \subsetneq DCFL \subsetneq CFL \subsetneq Besl \subsetneq Herk \subsetneq \mathcal{P}(\Sigma^{*}) \]
+  \extra{bewijs}
+\end{st}
+
+\begin{st}
+  $RegLan$ is gesloten onder de unie, doorsnede, complement.
+\extra{bewijs}
+\end{st}
+
+\begin{st}
+  $DCFL$ is gesloten onder complement, maar $CFL$ niet. 
+\extra{bewijs}
+\end{st}
+
+\begin{st}
+  $Besl$ is gesloten onder de unie en het complement.
+\extra{bewijs}
+\end{st}
+
+\begin{st}
+  $Herk$ is gesloten onder de unie.
+\extra{bewijs}
+\end{st}
+
+\begin{st}
+  $RegLan$, $CFL$ en $Herk$ zijn gesloten onder de omkering.
+\extra{bewijs}
+\end{st}
+
+\begin{st}
+  $DCFL$ is niet gesloten onder de omkering.
+\extra{bewijs zie p 109 voor vb}
+\end{st}
+
 \end{document}
