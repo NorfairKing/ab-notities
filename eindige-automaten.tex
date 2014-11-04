@@ -127,7 +127,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
       \item $\forall q \in Q_{i}\setminus\{q_{f_{i}}\},\ \forall x \in \Sigma_{\epsilon}:\ \delta(q,x) = \delta_{i}(q,x)$
       \item $\delta(q_{s},\epsilon) = \{q_{s1},q_{s2}\}$
       \item $\forall x \in \Sigma:\ \delta(q_{s},x) = \emptyset$
-      \item $\delta(q_{f1},x) = \{q_{f}\}$ en $\delta(q_{f2},x) = \{q_{f}\}$
+      \item $\delta(q_{f1},\epsilon) = \{q_{f}\}$ en $\delta(q_{f2},\epsilon) = \{q_{f}\}$
       \item $\forall x \in \Sigma:\ \delta(q_{f1},x) = \emptyset$, $\delta(q_{f2},x) = \emptyset$ en $\delta(q_{f},x) = \emptyset$ 
       \end{itemize}
     \end{itemize}
@@ -161,7 +161,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
       \item $\delta(q_{s},\epsilon) = \{q_{s1}\}$
       \item $\forall x \in \Sigma:\ \delta(q_{s},x) = \emptyset$
       \item $\delta(q_{f1},\epsilon) = \{q_{s2}\}$
-      \item $\delta(q_{s2},\epsilon) = \{q_{f}\}$
+      \item $\delta(q_{f2},\epsilon) = \{q_{f}\}$
       \item $\forall x \in \Sigma:\ \delta(q_{f1},x) = \emptyset$, $\delta(q_{f2},x) = \emptyset$ en $\delta(q_{f},x) = \emptyset$ 
       \end{itemize}
     \end{itemize}
@@ -188,7 +188,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     Formeel beschrijven we $n$ als volgt.
     \begin{itemize}
     \item $Q = Q' \cup \{ q_{s}, q_{f} \}$ waarbij $q_{s}$ en $q_{f}$ nieuwe toestanden zijn.
-    \item $F = {q_{f}'}$
+    \item $F = {q_{f}}$
     \item $\delta$ wordt aangepast als volgt:
       \begin{itemize}
       \item $\forall q \in Q'\setminus\{q_{f}'\},\ \forall x \in \Sigma_{\epsilon}:\ \delta(q,x) = \delta_{i}(q,x)$
