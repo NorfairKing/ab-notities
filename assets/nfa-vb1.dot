@@ -1,0 +1,14 @@
+digraph finite_state_machine {
+    node [label="", shape=circle];
+    
+    qs[label=<q<sub>s</sub>>];
+    qp[label=<q'>];
+    qf[label=<q<sub>f</sub>>,shape="doublecircle"];    
+
+    qs -> qp[label="0"];
+    qp -> qf[label="0"];
+    qp -> qp[label="0"];
+
+    rankdir="LR";
+}
+

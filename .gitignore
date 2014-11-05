@@ -10,6 +10,8 @@ auto/
 *.out
 *.toc
 
+_region_.tex
+
 ## Intermediate documents:
 *.dvi
 *-converted-to.*

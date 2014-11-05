@@ -581,6 +581,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 
 \section{Minimale DFA}
 \begin{de}
+  \label{de:f-gelijk}
   Twee toestanden $p$ en $q$ van een DFA $(Q,\Sigma,\delta,q_{s},F)$ zijn \term{$f$-gelijk} $p\sim q$ als het volgende geldt:
   \[
   \forall w \in \Sigma^{*}:\ \delta^{*}(p,w) \in F \Leftrightarrow \delta^{*}(q,w) \in F
