@@ -797,7 +797,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \label{sec:partities-van-sigma-ster}
 
 \begin{de}
-  Definieer de functie $reach(q)$ van een DFA $(Q,\Sigma,\delta,q_{s},F)$ als alle strings waarvoor de automaat in staat $q$ belandt.
+  Definieer de functie $reach(q)$ van een DFA $(Q,\Sigma,\delta,q_{s},F)$ als alle strings waarvoor de automaat in staat $q\in Q$ belandt.
   \[
   reach(q) = \{ w \in \Sigma^{*}\ |\ \delta^{*}(q_{s},w) = q \}
   \]
@@ -818,11 +818,11 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 
   \begin{proof}
     Kies een willekeurige DFA $D = (Q,\Sigma,\delta,q_{s},F)$ en een staat $q\in Q$.
-    We gaan elke eigenschap van een partitie na.\footnote{Zie definitie \ref{de:partitie}.}
+    We gaan elke eigenschap van een partitie na.\deref{de:partitie}
     \begin{itemize}
     \item $reach(q)$ is niet leeg.\\
       We moeten er hier van uitgaan dat de overgangsfunctie $\delta$ van $D$ totaal is.
-      Dit kunnen we zonder verlies van algemeenheid.\footnote{Zie stelling \ref{st:dfa-totale-overgangsfunctie}.}
+      Dit kunnen we zonder verlies van algemeenheid.\stref{st:dfa-totale-overgangsfunctie}
       Elke string $s\in \Sigma$ die we als invoer kunnen geven aan $D$ belandt zeker in een staat $q'$ zonder dat de automaat vast loopt.
       Nu geldt dat elke staat bereikt zal worden door minstens \'e\'en string als elke toestand bereikbaar is.
       $D$ kan immers ook gezien worden als een NFA zonder $\epsilon$ bogen (etc...). Wanneer we die NFA omzetten naar een reguliere expressie via een GNFA krijgen we een reguliere expressie zonder $\phi$'s. Er bestaat dus altijd minstens \'e\'en string die in $q$ belandt voor elke $q$.
@@ -844,55 +844,79 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{gev}
 
+\begin{opm}
+  De functie $reach(q)$ valt ook te definieren voor NFA's, maar dan vormt $R = \{ reach(q)\ |\ q \in Q \}$ geen partitie.
+  Deze functie is dan niet echt interessant.
+\end{opm}
+
+\begin{ei}
+  \label{ei:sim-dfa-rechts-congruent}
+  De equivalentierelatie $\sim_{D}$ door bepaald door $R = \{ reach(q)\ |\ q \in Q \}$ bij een DFA $(Q,\Sigma,\delta,q_{s},F)$ is rechts congruent:
+  \[ \forall x,y \in \Sigma^{*},\ a \in \Sigma:\ (x \sim_{D} y) \Rightarrow (xa \sim_{D} ya) \]
+  \begin{proof}
+    $x \sim_{D} y$ betekent dat de automaat $D$ bij input string $x$ en $y$ in dezelfde staat belandt.
+    \[ \delta^{*}(q_{s},x) = \delta^{*}(q_{s},y) \]
+    Omdat de automaat $D$ deterministisch is, zal de automaat bij input string $xa$ en $ya$ dan ook in dezelfde (maar mogelijk een andere dan voorheen) staat belanden.\stref{st:delta-ster-identiteit}
+    \[
+    \begin{array}{rll}
+      \delta^{*}(q_{s},(xa)) &= \delta(\delta^{*}(q,x),a) &\\
+      &= \delta(\delta^{*}(q,y),a) &= \delta^{*}(q_{s},(ya))
+    \end{array}
+    \]
+  \end{proof}
+\end{ei}
+
+\begin{ei}
+  \label{ei:sim-dfa-verfijnt-sim-l}
+  De partitie $R = \{ reach(q)\ |\ q \in Q \}$ bij een DFA $(Q,\Sigma,\delta,q_{s},F)$ verfijnt $\sim_{L}$.
+  \[ \forall x,y \in \Sigma^{*}, \forall L\in \mathcal{P}(\Sigma^{*}):\ x \sim_{DFA} y \Rightarrow x \sim_{L} y\]
+  \begin{proof}
+    Inderdaad, als voor twee strings $x \sim_{D} y$ geldt, dan zitten $x$ en $y$ in $L_{DFA}$ als en slechts als de staat $q$ waarin de automaat belandt door $x$ (en $y$) aanvaardbaar is.
+  \end{proof}
+\end{ei}
+
+\begin{ei}
+  \label{ei:sim-dfa-eindig-aantal-equivalentieklassen}
+  De equivalentierelatie $\sim_{D}$ door bepaald door $R = \{ reach(q)\ |\ q \in Q \}$ bij een DFA $(Q,\Sigma,\delta,q_{s},F)$ heeft een eindig aantal equivalentieklassen.
+  \begin{proof}
+    Het aantal equivalentieklassen van $\sim_{D}$ is precies gelijk aan het aantal staten in $Q$ van de automaat $D$. Omdat $D$ een \emph{eindige} automaat is, is dit dus een eindig aantal.
+  \end{proof}
+\end{ei}
+
 \begin{de}
   \label{de:mn-relatie}
-  Een \term{Myhill-Nerode relatie} voor een taal $L$ over een alfabet $\Sigma$ is een equivalentierelatie $\sim_{DFA}$ op $L$ met de volgende eigenschappen:
-  \[ \sim_{DFA} \subseteq L \times L:\ l_{1} \sim_{DFA} l_{2}\]
-  \[ \sim_{DFA} \text{ is } MN(L) \]
+  Een \term{Myhill-Nerode relatie} voor een taal $L$ over een alfabet $\Sigma$ is een equivalentierelatie $\sim$ op $L$ met de volgende eigenschappen:
+  \[ \sim \subseteq L \times L:\ l_{1} \sim_{DFA} l_{2}\]
+  \[ \sim \text{ is } MN(L) \]
   \begin{itemize}
-  \item $\sim_{DFA}$ is rechts congruent:
-    \[ \forall x,y \in \Sigma^{*}, a \in \Sigma:\ x \sim_{DFA} y \Rightarrow (xa) \sim_{DFA} (ya) \]
-  \item $\sim_{DFA}$ verfijnt $\sim_{L}$:
-    \[ \forall x,y \in \Sigma^{*}, \forall L\in \mathcal{P}(\Sigma^{*}):\ x \sim_{DFA} y \Rightarrow x \sim_{L} y\]
-    In woorden: ``Als $x \sim_{DFA} y$ geldt, zitten ofwel zowel $x$ als $y$ in $L$, ofwel geen van beide.''
-    Of nog: ``De partitie bepaald door $\sim_{DFA}$ is fijner dan de partitie bepaald door $\sim_{L}$.''
-  \item Het aantal equivalentieklassen van $\sim_{DFA}$ is eindig.
-    We zeggen: ``De index van $\sim_{DFA}$ is eindig.''.
+  \item $\sim$ is rechts congruent:
+    \[ \forall x,y \in \Sigma^{*}, a \in \Sigma:\ x \sim y \Rightarrow (xa) \sim (ya) \]
+  \item $\sim$ verfijnt $\sim_{L}$:
+    \[ \forall x,y \in \Sigma^{*}, \forall L\in \mathcal{P}(\Sigma^{*}):\ x \sim y \Rightarrow x \sim_{L} y\]
+    In woorden: ``Als $x \sim y$ geldt, zitten ofwel zowel $x$ als $y$ in $L$, ofwel geen van beide.''
+    Of nog: ``De partitie bepaald door $\sim$ is fijner dan de partitie bepaald door $\sim_{L}$.''
+  \item Het aantal equivalentieklassen van $\sim$ is eindig.
+    We zeggen: ``De index van $\sim$ is eindig.''.
   \end{itemize}
 \end{de}
 
 \begin{st}
-  Voor elke DFA $D = (Q,\Sigma,\delta,q_{s},F)$ is de relatie $\sim_{D}$ een Myhill-Nerode relatie voor de taal $L_{DFA}$.
-  \[ x \sim_{D} y \Leftrightarrow \delta^{*}(q_{s},x) = \delta^{*}(q_{s},y) \]
+  \label{st:dfa-naar-mn-relatie}
+  Gegeven een DFA $D = (Q,\Sigma,\delta,q_{s},F)$ bestaat er een $MN(L_{D})$ relatie $\sim$ over $L$:
+  \[ \forall x,y \in \Sigma^{*}: x \sim_{D} y \Leftrightarrow \delta^{*}(q_{s},x) = \delta^{*}(q_{s},y) \Leftrightarrow reacht(x) = reach(y) \]
   In woorden: ``De DFA belandt voor de strings $x$ en $y$ in dezelfde toestand.''
-  \[ x \sim_{D} y \Leftrightarrow reach(x) = reach(y) \]
   \begin{proof}
-    We bewijzen elke eigenschap van een Myhill-Nerode relatie achtereenvolgens.\footnote{Zie definitie \ref{de:mn-relatie}.}
-    \begin{itemize}
-    \item $\sim_{D}$ is rechts congruent:\\
-      Kies twee willekeurige strings $x$ en $y$ uit $\Sigma^{*}$ en kies een willekeurig symbool $a\in \Sigma$.
-      Stel nu dat $x \sim_{D} y$ geldt:
-      \[ \delta^{*}(q_{s},x) = \delta^{*}(q_{s},y) \]
-      Nu volgt daar het volgende uit:\footnote{Zie stelling \ref{st:delta-ster-identiteit}.}
-      \[
-      \begin{array}{rll}
-        \delta^{*}(q_{s},(xa)) &= \delta(\delta^{*}(q,x),a) &\\
-                               &= \delta(\delta^{*}(q,y),a) &= \delta^{*}(q_{s},(ya))
-      \end{array}
-      \]
-    \item Inderdaad, als voor twee strings $x \sim_{D} y$ geldt, dan zitten $x$ en $y$ in $L_{DFA}$ als en slechts als de staat $q$ waarin de automaat belandt door $x$ (en $y$) aanvaardbaar is.
-    \item Het aantal equivalentieklassen van $\sim_{D}$ is eindig:\\
-      Het aantal equivalentieklassen van $\sim_{D}$ is precies gelijk aan het aantal staten in $Q$ van de automaat $D$. Omdat $D$ een \emph{eindige} automaat is, is dit dus een eindig aantal.
-    \end{itemize}
+    Inderdaad, deze relatie is rechts-congruent\eiref{ei:sim-dfa-rechts-congruent}, verfijnt $\sim_{L}$\eiref{ei:sim-dfa-verfijnt-sim-l} en heeft een eindig aantal equivalentieklassen\eiref{ei:sim-dfa-eindig-aantal-equivalentieklassen}.
   \end{proof}
 \end{st}
 
 \begin{de}
-  We noteren de equivalentieklasse van $x$ in een Myhill-Nerode relatie $\sim_{D}$ als $x_{\sim}$.
-  \[ x_{\sim_{D}} = \{ y\ |\ x \sim_{D} y \} \]
+  We noteren de equivalentieklasse van $x$ in een Myhill-Nerode relatie $\sim$ als $x_{\sim}$.
+  \[ x_{\sim} = \{ y\ |\ x \sim y \} \]
 \end{de}
 
 \begin{st}
+  \label{st:mn-relatie-naar-dfa}
   Gegeven een taal $L$ over $\Sigma$ en een MN($L$)-relatie $\sim$ op $\Sigma^{*}$, dan is $D = (Q,\Sigma,\delta,q_{s},F)$ een DFA die $L$ bepaalt:
   \begin{itemize}
   \item $Q = \{ x_{\sim}\ |\ x \in \Sigma^{*} \}$: Elke equivalentieklasse is een toestand.
@@ -901,7 +925,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \item $\delta:\ \mathcal{P}(\Sigma^{*})\times\Sigma   \rightarrow \mathcal{P}(\Sigma^{*}):\ \delta(x_{\sim},a) = (xa)_{\sim}$.
   \end{itemize}
   \begin{proof}
-    $\delta$ is goed gedefinieerd vanwege de rechtse conguentie van de relatie $\sim$.\footnote{Zie definitie \ref{de:mn-relatie}.}
+    $\delta$ is goed gedefinieerd vanwege de rechtse conguentie van de relatie $\sim$.\deref{de:mn-relatie}
     Zowel $Q$ als $F$ zijn eindig omdat het aantal equivalentieklassen van $\sim$ eindig is.
     Er rest ons nu nog te bewijzen dat $D$ de taal $L$ bepaalt.
     \[ \forall x\in \Sigma^{*}:\ \delta^{*}(e_{\sim},x) \in F \Leftrightarrow x_{\sim} \in F\]
@@ -909,47 +933,85 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     Als de lengte van $x$ $0$ is, geldt de bewering:
     \[ \delta^{*}(e_{\sim},x) = \delta^{*}(e_{\sim},\epsilon) = e_{\sim} \in F \Leftrightarrow \epsilon_{\sim} \in F \]
     Stel dat de bewering geldt voor een bepaalde lengte van $x$, dan geldt ze ook voor $xa$ met $a$ een symbool:
-    \[ \delta^{*}(e_{\sim},xa) = \delta(x_{\sim},a) = (xa)_{\sim} \in F \Leftrightarrow (xa)_{\sim} \in F \] 
-    \clarify{Dit kan beter!}
+    \[ \delta^{*}(e_{\sim},xa) = \delta(x_{\sim},a) = (xa)_{\sim} \in F \Leftrightarrow (xa)_{\sim} \in F \]
   \end{proof}
 \end{st}
 
 \begin{st}
-  De overgangen van DFA naar MN relatie en van daar naar een DFA zijn elkaars inversen op een DFA-isomorfisme na.
-  \TODO{formeler en bewijs}
+  De overgangen van DFA naar MN relatie\stref{st:dfa-naar-mn-relatie} en van daar naar een DFA\stref{st:mn-relatie-naar-dfa} zijn elkaars inversen op een DFA-isomorfisme na.
+  \extra{formeler en bewijs}
 \end{st}
 
 \begin{st}
   Twee DFA's zijn isomorf als en slechts als ze dezelfde $\sim_{DFA}$ hebben.
-  \TODO{formeler en bewijs}
+  \extra{formeler en bewijs}
 \end{st}
 
 \begin{st}
-  Er bestaat oneindig veel niet-isomorfe DFA's die een taal $L$ aanvaarden.
-\question{ is dit wel zo? telt het om gewoon extra staten toe te voegen die er niet toe doen? }
+  \label{st:oneindig-veel-dfas-voor-een-taal}
+  Er bestaat oneindig veel niet-isomorfe DFA's die een reguliere taal $L$ aanvaarden.
 
-\TODO{bewijs}
+  \begin{proof}
+    Inderdaad, voor een reguliere taal $L$ bestaat er steeds een DFA\gevref{gev:reguliere-taal-DFA}.
+    Voeg nu aan die DFA een staat toe en voeg aan $\delta$ een boog toe van de `trash'-staat naar de nieuwe staat.
+    De bogen in de originele automaat van de `trash'-staat naar zichzelf moeten mogelijks verwijderd worden.
+    De nieuwe DFA is nu niet isomorf met de originele DFA, maar bepaalt wel dezelfde taal.
+    Deze redenering kan men bovendien herhalen tot in het oneindige.
+  \end{proof}
 \end{st}
 
 \subsection{Het supremum van twee $MN(L)$ relaties}
 \label{sec:het-supremum-van}
 
 \begin{de}
-  $x\sim_{sup} y$ is de transitieve sluiting van $(x \sim_{1} y) \vee (x \sim_{2} y)$.
+  Het supremum $\sim_{sup}$ van twee $MN(L)$ relaties $\sim_{1}$ en $\sim_{2}$ is de transitieve sluiting van $x \sim_{1 \vee 2} y \Leftrightarrow (x \sim_{1} y) \vee (x \sim_{2} y)$.
+  \[ x\sim_{sup}y \Leftrightarrow \exists z_{1},\dotsc,z_{n-1}:\ x\sim_{1 \vee 2}z_{1} \wedge z_{1}\sim_{1 \vee 2}z_{2} \wedge \dotsb \wedge z_{n-1} \sim_{1 \vee 2} y \]
 \end{de}
 
 \begin{st}
   Het supremum van twee $MN(L)$-relaties is ook een $MN(L)$-relatie.
 
-\TODO{bewijs p40}
+  \begin{proof}
+    We gaan elke eigenschap van een $MN(L)$-relatie na.
+    \begin{itemize}
+    \item $\sim_{sup}$ is rechts congruent:\\
+      \[
+      \begin{array}{l}
+      x\sim_{sup}y\\
+      \Leftrightarrow \exists z_{1},\dotsc,z_{n-1}:\ x\sim_{1 \vee 2}z_{1} \wedge \dotsb \wedge z_{n-1} \sim_{1 \vee 2} y\\
+      \Leftrightarrow \exists z_{1},\dotsc,z_{n-1}:\ ((x \sim_{1} z_{1}) \vee (x \sim_{2} z_{1})) \wedge \dotsb \wedge ((z_{n-1} \sim_{1} y) \vee (z_{n-1} \sim_{2} y))\\
+      \Rightarrow \exists x_{1},\dotsc,x_{n-1}:\ \forall a \in \Sigma:\ ((xa \sim_{1} z_{1}a) \vee (xa \sim_{2} z_{1}a)) \wedge \dotsb \wedge ((z_{n-1}a \sim_{1} ya) \vee (z_{n-1}a \sim_{2} ya))\\
+      \Leftrightarrow \exists z_{1},\dotsc,z_{n-1}:\ \forall a \in \Sigma:\ xa\sim_{1 \vee 2}z_{1}a \wedge \dotsb \wedge z_{n-1}a \sim_{1 \vee 2} ya\\
+      \Leftrightarrow \forall a \in \Sigma:\ xa \sim_{sup} ya\\
+      \end{array}
+      \]
+    \item $\sim_{sup}$ verfijnt $\sim_{L}$:\\
+      Zij $x$ een string in $L$ en $x\sim_{sup}y$:
+      \[
+      \begin{array}{l}
+        x\sim_{sup}y\\
+        \Leftrightarrow \exists z_{1},\dotsc,z_{n-1}:\ x\sim_{1 \vee 2}z_{1} \wedge \dotsb \wedge z_{n-1} \sim_{1 \vee 2} y\\
+        \Leftrightarrow \exists z_{1},\dotsc,z_{n-1}:\ ((x \sim_{1} z_{1}) \vee (x \sim_{2} z_{1})) \wedge \dotsb \wedge ((z_{n-1} \sim_{1} y) \vee (z_{n-1} \sim_{2} y))\\
+        \Rightarrow (z_{1} \in L) \wedge \exists z_{2},\dotsc,z_{n-1}:\ ((z_{1} \sim_{1} z_{2}) \vee (z_{1} \sim_{2} z_{2})) \wedge \dotsb \wedge ((z_{n-1} \sim_{1} y) \vee (z_{n-1} \sim_{2} y))\\
+        \Rightarrow (z_{2} \in L) \wedge \exists z_{3},\dotsc,z_{n-1}:\ ((z_{2} \sim_{1} z_{3}) \vee (z_{2} \sim_{2} z_{3})) \wedge \dotsb \wedge ((z_{n-1} \sim_{1} y) \vee (z_{n-1} \sim_{2} y))\\
+        \vdots\\
+        \Rightarrow (z_{n-2} \in L) \wedge \exists z_{n-1}:\ ((z_{n-2} \sim_{1} z_{n-1}) \vee (z_{n-2} \sim_{2} z_{n-1})) \wedge ((z_{n-1} \sim_{1} y) \vee (z_{n-1} \sim_{2} y))\\
+        \Rightarrow (z_{n-1} \in L) \wedge ((z_{n-1} \sim_{1} y) \vee (z_{n-1} \sim_{2} y))\\
+        \Rightarrow y \in L
+      \end{array}
+      \]
+    \item Het aantal equivalentieklassen van $\sim_{sup}$ is eindig want dat aantal is hoogstens zo groot als het aantal equivalentieklassen van $\sim_{1}$ en $\sim_{2}$.
+    \end{itemize}
+  \end{proof}
 \end{st}
 
 \subsection{De minimale DFA}
 \label{sec:de-minimale-dfa}
 
 \begin{st}
-  De minimale DFA voor een taal $L$ is uniek op isomorfismen na.
-
+  \label{st:minimale-dfa-uniek}
+  De minimale DFA voor een taal $L$ is uniek op isomorfisme na.
+  
 \TODO{bewijs p 41}
 \end{st}
 
