@@ -170,7 +170,7 @@
     Inderdaad, voeg aan $\Sigma$ nog de volgende symbolen toe om $\Sigma'$ te bekomen: $\epsilon$, $\phi$, $($, $)$, $|$ en $^{*}$.
     Nu vormt de verzameling van alle reguliere expressies een taal over $\Sigma'$.
 
-    Merk op dat deze taal \emph{niet} regulier\footnote{Zie de definitie van reguliere talen (Definitie \ref{de:reguliere-taal}).} is. Er zitten immers haakjes in die moeten samen passen. (Zie verder waarom dit dan geen reguliere taal is (TODO)) 
+    Merk op dat deze taal \emph{niet} regulier\deref{de:reguliere-taal} is. Er zitten immers haakjes in die moeten samen passen. (Zie verder waarom dit dan geen reguliere taal is (TODO)) 
     \TODO{ voeg verwijzing toe zodra bewezen is dat $0^{n}1^{n}$ niet regulier is. }
   \end{proof}
 \end{st}
@@ -204,7 +204,7 @@
   Voor elke reguliere taal bestaat er een reguliere expressie die die taal bepaalt.
 
   \begin{proof}
-    Inderdaad, anders was het geen reguliere taal! \footnote{Zie de definitie van een reguliere taal (Definitie \ref{de:reguliere-taal}).}
+    Inderdaad, anders was het geen reguliere taal! \deref{de:reguliere-taal}
   \end{proof}
 \end{ei}
 
@@ -271,11 +271,11 @@
     \item De unie is inwendig in $RegLan$.\\
       Kies twee willekeurige reguliere talen $L_{E1},\ L_{E2} \in RegLan$.
       De unie $L_{E1} \cup L_{E2}$ van deze twee talen wordt bepaald door de reguliere expressie $(E_1|E_2)$ en is bijgevolg een reguliere taal.
-      \footnote{Zie de definitie van de taal bepaald door een reguliere expressie. (Definite \ref{def:taal-bepaald-door-regex})}
+      \deref{def:taal-bepaald-door-regex}
     \item De concatenatie is inwendig in $RegLan$.\\
       Kies twee willekeurige reguliere talen $L_{E1},\ L_{E2} \in RegLan$.
       De concatenatie $L_{E1}L_{E2}$ van deze twee talen wordt bepaald door de reguliere expressie $E_1E_2$ en is bijgevolg een reguliere taal.
-      \footnote{Zie de definitie van de taal bepaald door een reguliere expressie. (Definite \ref{def:taal-bepaald-door-regex})}
+      \deref{def:taal-bepaald-door-regex}
     \item Het complement is inwendig in $RegLan$.
       \TODO{Verwijzing naar bewijs (later)}
     \item De doorsnede is inwendig in $RegLan$.
@@ -322,7 +322,7 @@
   Zij $L$ een reguliere taal en $s \not \in L$ een string.
   $L' = L \cup \{s\}$ is regulier.
   \begin{proof}
-    $L$ is een reguliere taal, dus er bestaat een reguliere expressie $E$ die $L$ bepaalt.\footnote{Zie definitie \ref{de:reguliere-taal}.}
+    $L$ is een reguliere taal, dus er bestaat een reguliere expressie $E$ die $L$ bepaalt.\deref{de:reguliere-taal}
     \[ L = L_{E} \]
     Beschouw nu de reguliere expressie $E'$.
     \[ E' = (E | s) \]
@@ -347,7 +347,7 @@
   Elke oneindige reguliere taal $L$ is aftelbaar in aantal elementen.
 
   \begin{proof}
-    $L$ is een deelverzameling van $\Sigma^{*}$\footnote{Zie eigenschap \ref{ei:taal-alternatieve-definitie}.}, dus $L$ is hoogstens aftelbaar oneindig.
+    $L$ is een deelverzameling van $\Sigma^{*}$\eiref{ei:taal-alternatieve-definitie}, dus $L$ is hoogstens aftelbaar oneindig.
   \end{proof}
 \end{st}
 
@@ -356,8 +356,8 @@
   Er zijn overaftelbaar veel talen over een alfabet $\Sigma$.
 
   \begin{proof}
-    De talen $L_{\Sigma}$ over een alfabet zijn allemaal een deelverzameling van $\Sigma^{*}$. \footnote{Zie eigenschap \ref{ei:taal-alternatieve-definitie}.} $L_{\Sigma}$ is dus de machtsverzameling van $\Sigma^{*}$.
-    Bovendien is de machtsverzameling van een aftelbare verzameling\footnote{Zie stelling \ref{sigma-ster-aftelbaar}.} overaftelbaar.
+    De talen $L_{\Sigma}$ over een alfabet zijn allemaal een deelverzameling van $\Sigma^{*}$. \eiref{ei:taal-alternatieve-definitie} $L_{\Sigma}$ is dus de machtsverzameling van $\Sigma^{*}$.
+    Bovendien is de machtsverzameling van een aftelbare verzameling\stref{sigma-ster-aftelbaar} overaftelbaar.
     Er zijn dus overaftelbaar oneindig veel talen over een alfabet $\Sigma$.
   \end{proof}
 \end{st}
@@ -368,7 +368,7 @@
   \begin{proof}
     Elke reguliere expressie bepaalt precies \'e\'en (reguliere) taal.
     Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg hoogstens aftelbaar oneindig veel reguliere talen.
-    Er zijn echter overaftelbaar oneindig veel talen.\footnote{Zie stelling \ref{st:overaftelbaar-veel-talen}.}
+    Er zijn echter overaftelbaar oneindig veel talen.\stref{st:overaftelbaar-veel-talen}
     Er moet dus minstens \'e\'en niet-reguliere taal bestaan.
     (In feite zijn de meeste\footnote{'de meeste' heeft een heel specifieke wiskundige betekenis.} talen niet-regulier.)
   \end{proof}

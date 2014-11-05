@@ -8,7 +8,7 @@
 \label{sec:niet-deterministische-eindige-automaten}
 
 \begin{de}
-  Een niet-deterministische eindige toestandsautomaat (\term{NFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
+  Een niet-deterministische eindige toestandsautomaat (\term{NFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$.
   \begin{itemize}
   \item $Q$ is een eindige verzameling toestanden.
   \item $\Sigma$ is een alfabet.
@@ -20,7 +20,12 @@
 \end{de}
 
 \begin{de}
-  Een \term{string} $s$ wordt \term{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s}F)$ als $s$ geschreven kan worden als $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en er een rij toestanden $t_{1}t_{2}\ldots t_{n+1}$ bestaat zodat:
+  De verzameling van alle NFA's wordt genoteerd als $NFA$.
+  De verzameling van alle NFA's over een alfabet $\Sigma$ wordt genoteerd als $NFA_{\Sigma}$.
+\end{de}
+
+\begin{de}
+  Een \term{string} $s$ wordt \term{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s}F)$ als $s$ geschreven kan worden als een opeenvolging $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en er een opeenvolging toestanden $t_{1}t_{2}\ldots t_{n+1}$ bestaat zodat:
   \begin{itemize}
   \item $t_{1} = q_{s}$
   \item $t_{i+1} \in \delta(t_{i},a_{i})$
@@ -30,12 +35,12 @@
 \end{de}
 
 \begin{de}
-  De \term{taal} $L_{M}$ \term{bepaald door een NFA} $N$ bevat alle strings die $N$ aanvaardt, \textit{en geen andere strings}.
+  De \term{taal} $L_{N}$ \term{bepaald door een NFA} $N$ bevat alle strings die $N$ aanvaardt, \textit{en geen andere strings}.
 \end{de}
 
 \begin{de}
   Twee \term{equivalente NFA's} $N_{1}$ en $N_{2}$ bepalen dezelfde taal.
-  \[ n_{1} \sim n_{2} \]
+  \[ n_{1} \sim n_{2} \Leftrightarrow L_{N_{1}} = L_{N_{2}} \]
 \end{de}
 
 \begin{st}
@@ -43,22 +48,13 @@
   Het concept van `equivalentie' van NFA's vormt een equivalentierelatie op de verzameling van alle NFA's.
 
   \begin{proof}
-    Een equivalentie relatie is gedefinieerd as een relatie met drie specifieke eigenschappen.
-    We bewijzen ze elk afzonderlijk.
-    \begin{itemize}
-    \item Reflexiviteit.\\
-      Elke NFA $n$ is equivalent met zichzelf.
-      \[ \forall n: n \sim n \]
-    \item Symmetrie.\\
-      De volgorde van NFA's maakt niet uit voor de equivalentie.
-      \[ \forall n_{1},n_{2}: (n_{1} \sim n_{2} \Leftrightarrow n_{2} \sim n_{1}) \]
-    \item Transitiviteit.
-      Wanneer een NFA equivalent met een tweede, en die tweede met een derde, dan is de eerste ook equivalent met de derde.
-      \[ \forall n_{1}, n_{2}, n_{4}: (n_{1} \sim n_{2} \wedge n_{2} \sim n_{3}) \Rightarrow n_{1} \sim n_{3} \]
-    \end{itemize}
+    Inderdaad, de gelijkheid \textit{van talen} vormt een equivalentierelatie.
   \end{proof}
-  Merk op dat dit inhoudt dat er met elke equivalentieklasse precies \'e\'en taal overeen komt.
 \end{st}
+
+\begin{opm}
+  Met elke equivalentieklasse van NFA's ten opzichte van de equivalentie van NFA's komt dus precies \'e\'en taal overeen.
+\end{opm}
 
 \begin{st}
   \label{st:hoogstens-een-eindtoestand-NFA}
@@ -69,7 +65,7 @@
     We onderscheiden nu drie gevallen op basis van het aantal aanvaardbare eindtoestanden $|F|$ in $n$.
     \begin{enumerate}
     \item $|F| = 0 \vee |F| = 1$\\
-      Wanneer $n$ hoogstens aanvaardbare eindtoestand bevat, is de NFA equivalent met een NFA met hoogstens \'e\'en aanvaardbare eindtoestand, namelijk zichzelf.\footnote{De equivalentie van NFA's vormt een equivalentierelatie. (Zie eigenschap \ref{st:equivalentierelatie-NFA}.)}
+      Wanneer $n$ hoogstens aanvaardbare eindtoestand bevat, is de NFA equivalent met een NFA met hoogstens \'e\'en aanvaardbare eindtoestand, namelijk zichzelf.\eiref{st:equivalentierelatie-NFA}.
     \item $|F| > 1$\\
       Wanneer $n$ meer dan \'e\'en aanvaardbare toestand bevat, kunnen we een equivalente NFA $n'$ construeren met precies \'e\'en aanvaardbare eindtoestand.
       Kies willekeurig een aanvaardbare eindtoestand en noem deze $f$. 
@@ -88,6 +84,7 @@
     Creer een nieuwe onaanvaardbare staat $d$. Ga nu voor elke staat van $n$ na voor welke symbolen er een boog ontbreekt.
     Maak in elk van die staten een boog van die staat naar $d$ voor elk van die symbolen.
     Voeg bovendien voor elk symbool in het alfabet een boog van $d$ naar zichzelf toe met dat symbool.
+    De overgangsfunctie $\delta$ van $n$ is nu een totale functie, dus in $n'$ kom je nooit vast te zitten.
   \end{proof}
 \end{st}
 
@@ -98,7 +95,7 @@
 \end{de}
 
 \section{De algebra van NFA's}
-Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare eindtoestand heeft waaruit bovendien geen pijlen vertrekken, zonder verlies van algemeenheid.\footnote{Zie eigenschap \ref{st:hoogstens-een-eindtoestand-NFA} van NFA's.}
+Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare eindtoestand heeft waaruit bovendien geen pijlen vertrekken, zonder verlies van algemeenheid.\eiref{st:hoogstens-een-eindtoestand-NFA}
 \label{sec:de-algebra-van-nfas}
 
 \begin{de}
@@ -106,6 +103,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{st}
+  \label{st:unie-nfas}
   Constructie van de \term{unie van NFA's}\\
   Het is steeds mogelijk om de unie van twee NFA's te construeren.
 
@@ -139,11 +137,12 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{st}
+  \label{st:concatenatie-nfas}
   Constructie van de \term{concatenatie van NFA's}\\
   Het is steeds mogelijk om de concatenatie van twee NFA's te construeren.
 
   \begin{proof}
-    Zij $n_{1} = (Q_{1},\Sigma,\delta_{1},q_{s1},\{q_{f1}\})$ en $n_{2} = (Q_{2},\Sigma,\delta_{2},q_{s2},\{q_{f2}\})$ twee willekeurige NFA's. We construeren nu de unie $n = n_{1}n_{2} = (O,\Sigma,\delta,q,\{q_{f}\})$ van deze NFA's.
+    Zij $n_{1} = (Q_{1},\Sigma,\delta_{1},q_{s1},\{q_{f1}\})$ en $n_{2} = (Q_{2},\Sigma,\delta_{2},q_{s2},\{q_{f2}\})$ twee willekeurige NFA's. We construeren nu de concatenatie $n = n_{1}n_{2} = (O,\Sigma,\delta,q,\{q_{f}\})$ van deze NFA's.
     De informele constructie ziet u in figuur \ref{fig:nfa_concat}.
     \begin{figure}[H]
       \centering
@@ -173,11 +172,12 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{st}
+  \label{st:ster-nfa}
   Constructie van de \term{Kleene-ster van een NFA}\\
   Het is steeds mogelijk om de Kleene-ster van een NFA te construeren.
 
   \begin{proof}
-    Zij $n' = (Q',\Sigma,\delta',q_{s},\{q_{f}'\})$ een willekeurige NFA. We construeren nu de Kleenester $n = (O,\Sigma,\delta,q,F)$ van deze NFA.
+    Zij $n' = (Q',\Sigma,\delta',q_{s},\{q_{f}'\})$ een willekeurige NFA. We construeren nu de Kleene-ster $n = (O,\Sigma,\delta,q,F)$ van deze NFA.
     De informele constructie ziet u in figuur \ref{fig:nfa_kleene}.
     \begin{figure}[H]
       \centering
@@ -197,7 +197,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
       \item $\delta(q_{f}',\epsilon) = \{q_{f}\}$
       \item $\delta(q_{f},\epsilon) = \{q_{s}\}$
       \item $\delta(q_{s},\epsilon) = \{q_{f}\}$
-      \item $\forall x \in \Sigma:\ \delta(q_{f}',x) = \emptyset$ en $delta(q_{f},x) = \emptyset$
+      \item $\forall x \in \Sigma:\ \delta(q_{f}',x) = \emptyset$ en $\delta(q_{f},x) = \emptyset$
       \end{itemize}
     \end{itemize}
   \end{proof}
@@ -208,6 +208,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{st}
+  \label{st:complement-nfa}
   Constructie van het \term{complement van een NFA}\\
   Het is steeds mogelijk om het complement van een NFA te construeren.
 
@@ -231,7 +232,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{ei}
   NFA's, uitgerust met de unie, de doorsnede, het complement en de concatenatie vormen een algebra.
   \begin{proof}
-    Inderdaad, zowel de unie, de doorsnede, het complement als de concatenatie zijn inwendig.
+    Inderdaad, zowel de unie\stref{st:unie-nfas}, de doorsnede, het complement\stref{st:complement-nfa} als de concatenatie\stref{st:concatenatie-nfas} zijn inwendig.
   \end{proof}
 \end{ei}
 
@@ -256,8 +257,14 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{figure}
 \end{de}
 
+\begin{ei}
+  \label{ei:nfa-epsilon}
+  De NFA $NFA_{\epsilon}$ bepaalt de taal $\{ \epsilon \}$.
+\extra{bewijs}
+\end{ei}
+
 \begin{de}
-  Definieer de NFA $NFA_{phi}$ als $(Q, \Sigma, \delta, q_{s}, \emptyset)$.
+  Definieer de NFA $NFA_{\phi}$ als $(Q, \Sigma, \delta, q_{s}, \emptyset)$.
 
   \begin{itemize}
   \item $Q = \{q_{s}\}$
@@ -272,6 +279,12 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     \label{fig:nfa_phi}
   \end{figure}
 \end{de}
+
+\begin{ei}
+  \label{ei:nfa-phi}
+  De NFA $NFA_{\phi}$ bepaalt de lege taal $\emptyset$.
+\extra{bewijs}
+\end{ei}
 
 \begin{de}
   Definieer de NFA $NFA_{a}$ (met $a$ in $\Sigma$) als $(Q, \Sigma, \delta, q_{s}, F)$.
@@ -294,22 +307,35 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{figure}
 \end{de}
 
+\begin{ei}
+  \label{ei:nfa-a}
+  Voor elk symbool $a$ van het alfabet $\Sigma$ bepaalt de NFA $NFA_{a}$ de taal $\{ a \}$.
+\extra{bewijs}
+\end{ei}
+
 \begin{de}
   Definieer nu \term{NFA van een reguliere expressie}, samen met de vorige definitie als volgt:
-  \begin{itemize}
-  \item $NFA_{E_{1}E_{2}} = NFA_{E_{1}}NFA_{E_{2}}$
-  \item $NFA_{(E_{1}|E_{2})} = NFA_{E_{1}} \cup NFA_{E_{2}}$
-  \item $NFA_{E_{1}^{*}} = NFA_{E_{1}}^{*}$
-  \end{itemize}
+  \[
+  \begin{array}{r|ll}
+    E & NFA_{E}\\
+    \hline
+    \epsilon & NFA_{\epsilon}\\
+    \phi & NFA_{\phi}\\
+    E_{1}E_{2} & NFA_{E_{1}E_{2}} &= NFA_{E_{1}}NFA_{E_{2}}\\
+    E_{1}|E_{2} & NFA_{(E_{1}|E_{2})} &= NFA_{E_{1}} \cup NFA_{E_{2}}\\
+    E^{*} & NFA_{E^{*}} &= NFA_{E}^{*}\\
+  \end{array}
+  \]
 \end{de}
 
 \begin{st}
   \label{st:regex-naar-NFA}
   Voor elke reguliere expressie bestaat er een NFA die dezelfde taal bepaalt.
-\TODO{bewijs}
-\end{st}
 
-\clarify{ de NFA van een reguliere expressie bepaalt dezelfde taal. }
+  \begin{proof}
+    De NFA van een reguliere expressie bepaalt dezelfde taal als de reguliere expressie. \eiref{ei:nfa-epsilon} \eiref{ei:nfa-phi} \eiref{ei:nfa-a} \stref{st:unie-nfas} \stref{st:concatenatie-nfas} \stref{st:ster-nfa} 
+  \end{proof}
+\end{st}
 
 \section{NFA naar reguliere expressie}
 \begin{de}
@@ -339,7 +365,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{opm} 
 
 \begin{de}
-  Een string $s$ wordt aanvaard door een GNFA als er een rij reguliere expressies $E_{1},E_{2},\dotsc,E_{n}$ bestaat zodat $s$ wordt aanvaard door de concatenatie van die rij reguliere expressies en zodat die reguliere expressies een pad $t_{1},t_{2},\dotsc,t_{n+1}$ vormen in de GNFA. 
+  Een string $s$ wordt aanvaard door een GNFA als er een opeenvolging reguliere expressies $E_{1},E_{2},\dotsc,E_{n}$ bestaat zodat $s$ wordt aanvaard door de concatenatie van die opeenvolging reguliere expressies en zodat die reguliere expressies een pad $t_{1},t_{2},\dotsc,t_{n+1}$ vormen in de GNFA. 
   \begin{itemize}
   \item $t_{1} = q_{s}$
   \item $\delta(t_{i},t_{i+1}) = E_{i}$
@@ -399,8 +425,8 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   Elke reguliere taal wordt bepaald door een NFA.
   
   \begin{proof}
-    Elke reguliere taal wordt bepaald door een reguliere expressie.\footnote{Zie eigenschap \ref{ei:reguliere-taal-expressie}.}
-    Elke reguliere expressie kan bovendien omgezet worden in een NFA die dezelfde taal bepaalt.\footnote{Zie stelling \ref{st:nfa-naar-regex}.}
+    Elke reguliere taal wordt bepaald door een reguliere expressie.\eiref{ei:reguliere-taal-expressie}
+    Elke reguliere expressie kan bovendien omgezet worden in een NFA die dezelfde taal bepaalt.\stref{st:nfa-naar-regex}
   \end{proof}
 \end{gev}
 
@@ -410,7 +436,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \begin{proof}
     Beschouw de vier bewerkingen in de algebra van reguliere expressies: unie $\cup_{R}$, concatenatie $\cdot_{R}$, complement $^{c}_{R}$ en doorsnede $\cap_{R}$.
     Er bestaan overeenkomstige bewerkingen in de algebra van NFA's: unie $\cup_{N}$, concatenatie $\cdot_{N}$, complement $^{c}_{R}$ en doorsnede $\cap_{N}$.
-    Bovendien bestaat er een functie die een willekeurige reguliere expressie afbeeldt op een reguliere expressie die dezelfde taal bepaalt en omgekeerd.\footnote{Zie stelling \ref{st:nfa-naar-regex}.}\footnote{Zie stelling \ref{st:regex-naar-NFA}.}
+    Bovendien bestaat er een functie die een willekeurige reguliere expressie afbeeldt op een reguliere expressie die dezelfde taal bepaalt en omgekeerd.\stref{st:nfa-naar-regex} \stref{st:regex-naar-NFA}
     Er bestaat dus een eenvoudig isomorfisme tussen deze twee algebra's.
   \end{proof}
 \end{ei}
@@ -429,11 +455,16 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{de}
+  De verzameling van alle DFA's wordt genoteerd als $DFA$.
+  De verzameling van alle DFA's over een alfabet $\Sigma$ wordt genoteerd als $DFA_{\Sigma}$.
+\end{de}
+
+\begin{de}
   We kunnen $\delta(q,a)$ afkorten als $q_{a}$ wanneer de $\delta$ die bedoeld wordt duidelijk is.  
 \end{de}
 
 \begin{de}
-  Een string $s$ wordt aanvaard door een DFA als de opeenvolgende symbolen $s_{1}s_{2}\dotsc s_{n}$ van $s$ een pad $t_{1},t_{2},\dotsc,t_{n}$ vormen in de DFA.
+  Een string $s$ wordt aanvaard door een DFA $D$ als er een opeenvolging van symbolen $s_{1}s_{2}\dotsc s_{n}$ en een opeenvolging staten van $D$ $t_{1},t_{2},\dotsc,t_{n}$ bestaat zodat het volgende geldt.
   \begin{itemize}
   \item $t_{1} = q_{s}$
   \item $\delta(t_{i},s_{i}) = t_{i+1}$
@@ -442,15 +473,16 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 \begin{de}
-  De \term{taal} $L_{M}$ \term{bepaald door een DFA} $D$ bevat alle strings die $D$ aanvaardt, en geen andere strings.
+  De \term{taal} $L_{D}$ \term{bepaald door een DFA} $D$ bevat alle strings die $D$ aanvaardt, \textit{en geen andere strings}.
 \end{de}
 
 \begin{de}
   Twee DFA's $d_{1}$ en $d_{2}$ zijn equivalent als ze dezelfde taal bepalen.
-  \[ d_{1} \sim d_{2} \]
+  \[ d_{1} \sim d_{2} \Leftrightarrow L_{D_{1}} = L_{D_{2}} \]
 \end{de}
 
 \begin{st}
+  \label{st:nfa-naar-dfa}
   Elke NFA kan omgezet worden in een DFA die dezelfde taal bepaalt.
   
   \begin{proof}
@@ -459,7 +491,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     We construeren nu een DFA $D$ die dezelfde taal bepaalt.
     \[ D = (Q_{d},\Sigma,\delta_{d},q_{d},F_{d}) \]
     De toestanden $Q_{d}$ voor de DFA zullen elk overeen komen met een verzameling toestanden uit de NFA.
-    \[ Q_d = \mathcal{P}(Q_{n})\]
+    \[ Q_d \subseteq \mathcal{P}(Q_{n})\]
     Een eindtoestand in de DFA komt steeds overeen met een verzameling die een eindtoestand van de NFA bevat.
     \[ \forall q\in Q_{d}:\ q\in F_{d}\ \Rightarrow \exists q' \in F_{n}: q' \in q\]
     Nu rest er ons nog $\delta_{d}$ te construeren.
@@ -470,6 +502,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     \[ eb: Q_{n} \rightarrow \mathcal{P}(Q_{n}) \]
     \begin{itemize}
     \item $eb(q)$ is de verzameling toestanden die met een aantal $\epsilon$-bogen bereikbaar is vanuit $q$.
+      \[ eb(q) = \left\{ q'\ |\ (\delta(q,\epsilon) = q' \vee (\exists q'':\ \delta(q'',\epsilon) = q' \wedge q'' \in eb(q) )) \right\} \]
     \item $eb(Q)$ defineren we als volgt:
       \[ ex(Q) = \bigcup_{q\in Q} eb(q)\]
     \item $\delta_{n}(Q)$ definieren we als volgt:
@@ -488,8 +521,8 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   Elke reguliere taal wordt bepaald door een DFA
   
   \begin{proof}
-    Elke reguliere taal wordt bepaald door een NFA\footnote{Zie gevolg \ref{gev:reguliere-taal-NFA}.}
-    Bovendien kan elk NFA omgezet worden in een DFA die dezelfde taal bepaalt.
+    Elke reguliere taal wordt bepaald door een NFA\gevref{gev:reguliere-taal-NFA}.
+    Bovendien kan elk NFA omgezet worden in een DFA die dezelfde taal bepaalt\stref{st:nfa-naar-dfa}.
   \end{proof}
 \end{st}
 
@@ -662,6 +695,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{st}
   Bovenstaand algoritme (\ref{al:dfa-minimalisatie}) is eindig en correct.
   \begin{proof}
+    Merk op dat we niet spreken over de tijds- of ruimtecomlexiteit van dit algoritme.
     \begin{itemize}
     \item Eindigheid.\\
     Het aantal knopen in $G$ is eindig omdat de DFA een eindig aantal toestanden heeft, en het aantal is dat $\frac{N(N-1)}{2}$ met $N$ het aantal knopen van $G(Q,E)$.
@@ -670,7 +704,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
       We bewijzen volgende bewering voor de graaf $G$ na de ``repeat'' stap:
       \[ (p,q,\_) \in E \Leftrightarrow p \text{ en } q \text { zijn } f\text{verschillend.}\]
       \begin{itemize}
-      \item $\Rightarrow$\\
+      \item \framebox{$\Rightarrow$}\\
         Als $(p,q,l)$ een boog is van $G$, dan zijn er twee mogenlijkheden.
         Ofwel is het een $\epsilon$-boog: $l=\epsilon$, ofwel is het een boog met een symbool als label: $l = a \in \Sigma$.
         Als het een $\epsilon$-boog is, dan zijn $p$ en $q$ $f$-verschillend omdat de lege string de DFA bijvoorbeeld niet in een zelfde soort toestand zou brengen.
@@ -679,7 +713,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
         \[ \exists w\in \Sigma^{*}:\ \delta^{*}(p,w) \in F \not\Leftrightarrow \delta^{*}(q,w) \]
         Dit omdat die string $w$ de DFA in respectievelijke toestanden zou brengen waartussen in $G$ een $\epsilon$-boog is.
         \[ \exists w\in \Sigma^{*}:\  \delta^{*}(p_{w},\epsilon) \in F \not\Leftrightarrow \delta^{*}(q_{w},\epsilon) \]
-      \item $\Leftarrow$\\
+      \item \framebox{$\Leftarrow$}\\
         Als $p$ en $q$ $f$-verschillend zijn, dan bestaat er een string $w\in \Sigma^{*}$ die de DFA vanuit $p$ in een aanvaarbare toestand brengt, maar $q$ niet of omgekeerd.
         \[ \exists w \in \Sigma^{*}: \delta^{*}(p,w) \in F \not\Leftrightarrow \delta^{*}(q,w) \]
         Als die string $w$ leeg is, dan bestaat er sinds de initialisatiestap al een boog tussen $q$ en $w$. Als die string niet leeg is, dan kan $w$ geschreven worden als $w = vz$ met $v$ het eerste deel van $w$ en $z$ een symbool.
@@ -694,7 +728,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{st}
 
 \begin{de}
-  Een DFA $D = (Q,\Sigma,\delta,q_{s},F)$ is \emph{minimaal} als er geen DFA $D'$ bestaat met strikt minder toestanden.
+  Een DFA $D = (Q,\Sigma,\delta,q_{s},F)$ is \emph{minimaal} als er geen DFA $D'$ bestaat met \textit{strikt} minder toestanden.
 \end{de}
 
 \begin{st}
@@ -703,7 +737,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \begin{proof}
     Bewijs uit het ongerijmde.\\
     Zij $D = (Q,\Sigma,\delta,q_{s},F)$ een DFA zonder onbereikbare toestanden, waarbij elke twee toestanden $f$-verschillend zijn.
-    Stel nu dat er een DFA $D' = (Q',\Sigma,\delta',p_{s},F')$ bestaat die strikt minder toestanden heeft dan $D$. We bewijzen nu dat er dan minstens \'e\'en string is waarwoor $D$ niet in dezelfde soort toestand eindigt als $D'$.
+    Stel nu dat er een DFA $D' = (Q',\Sigma,\delta',p_{s},F')$ bestaat die strikt minder toestanden heeft dan $D$. We bewijzen nu dat er dan minstens \'e\'en string is waarwoor $D$ niet in dezelfde soort toestand eindigt als in $D'$.
     
     Elke toestand van $D$ is bereikbaar.
     Er bestaat dus een string voor elke toestand die een pad naar die toestand zou volgen.
