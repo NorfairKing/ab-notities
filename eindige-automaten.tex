@@ -1001,6 +1001,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
       \end{array}
       \]
     \item Het aantal equivalentieklassen van $\sim_{sup}$ is eindig want dat aantal is hoogstens zo groot als het aantal equivalentieklassen van $\sim_{1}$ en $\sim_{2}$.
+      \clarify{waarom?}
     \end{itemize}
   \end{proof}
 \end{st}
@@ -1008,12 +1009,27 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \subsection{De minimale DFA}
 \label{sec:de-minimale-dfa}
 
+\begin{de}
+  \label{de:supremum-dfas}
+  Het supremum $D_{sup}$ van twee DFA's $D_{1}$ en $D_{2}$ is de DFA waarvoor de $MN(L)$-relatie het supremum is van de $MN(L)$-relaties van $D_{1}$ en $D_{2}$.
+\end{de}
+
 \begin{st}
   \label{st:minimale-dfa-uniek}
   De minimale DFA voor een taal $L$ is uniek op isomorfisme na.
   
-\TODO{bewijs p 41}
+  \begin{proof}
+    Bewijs uit het ongerijmde.\\
+    Stel dat er twee verschillende, niet isomorfe minimale DFA's bestaan die dezelfde taal $L$ bepalen, dan hebben die hetzelfde aantal elementen.
+    Zij $N$ het aantal staten van de twee DFA's.
+    Neem nu het supremum $D_{sup}$ van de twee DFA's.
+    Je krijgt een DFA met opnieuw $N$ toestanden.
+    Meer kan niet, want anders zou het niet het supremum zijn, maar minder kan ook niet, want dan zouden de originele DFA's niet minimaal zijn.
+    De drie $MN(L)$ relaties zijn dus identiek, wat betekent dat de DFA's isomorf zijn.
+  \end{proof}
 \end{st}
+
+\extra{bewijs p 41 net boven 13.5.}
 
 \subsection{$MN(L)$ gebruiken om te bewijzen dat een taal niet regulier is}
 \label{sec:mnl-gebruiken-om}
@@ -1021,7 +1037,13 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{st}
   De taal $L= \{ a^{n}b^{n} \ |\ n\in \mathbb{N} \} $ is niet regulier.
 
-\TODO{bewijs met MN relatie p 41} 
+  \begin{proof}
+    Stel dat er een equivalentierelatie $\sim$ bestaat voor $L$ die zowel rechts-congruent is als $\sim_{L}$ verfijnt en afkomstig is van de minimale DFA van $L$, dan bewijzen we nu dat deze equivalentierelatie een oneindig aantal equivalentieklassen heeft en bijgevolg geen $MN(L)$-relatie kan zijn.
+    De taal $L$ is dan zeker niet regulier.
+    Beschouw de equivalentieklassen van $\sim$.
+    Voor elke $n\in \mathbb{N}$ moet de string $a^{n}$ in een andere klasse zitten, want voor elke $n$ is er een ander aantal $b$'s dat de automaat in $F$ brengt.
+    Er zijn dus oneindig veel equivalentieklassen.
+  \end{proof}
 \end{st}
 
 \subsection{De stelling van Myhill-Nerode}
@@ -1036,10 +1058,10 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \item Definieer $\sim$ op $\Sigma^{*}$ als volgt, dan heeft $\sim$ een eindige index.
     \[ x \sim y \Leftrightarrow \forall s \in \Sigma^{*}:\ (xs \in L \Leftrightarrow ys \in L) \]
   \end{itemize}
-  Geen bewijs. Hoeft niet gekend te zijn.
+  \extra{bewijs}
 \end{st}
 
-\section{Het pompend van strings in reguliere talen}
+\section{Het pompen van strings in reguliere talen}
 \label{sec:het-pompend-van}
 
 \begin{lem}
@@ -1075,7 +1097,21 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{st}
   De taal $L= \{ a^{n}b^{n} \ |\ n\in \mathbb{N} \} $ is niet regulier.
 
-\TODO{bewijs p44} 
+  \begin{proof}
+    Stel dat $L$ regulier is, dan bestaat er een pomplengte $d$.
+    Beschouw nu een string $s$ langer dan $d$: $a^{d}b^{d}$.
+    Neem een willekeurige opdeling van $s$ in stukken $xyz$ met $|y| > 0$.
+    Er zijn nu drie mogelijkheden:
+    \begin{enumerate}
+    \item $y$ bevat enkel $a$'s.\\
+      $xyyz$ bevat dan meer $a$'s dan $b$'s en zit bijgevolg niet in $L$.
+    \item $y$ bevat zowel $a$'s als $b$'s.\\
+      In $xyyz$ staan dan niet alle $a$'s voor de $b$'s, dus $xyyz$ zit niet in $L$.
+    \item $y$ bevat enkel $b$'s\\
+      $xy^{0}z = xz$ bevat dan meer $a$'s dan $b$'s en zit dus ook niet in $L$.
+    \end{enumerate}
+    Eigenlijk konden we de laatste twee mogelijkheden meteen schrappen want in die gevallen zou $xy$ kleiner zijn dan $d$.
+  \end{proof}
 \end{st}
 
 \question{ Wat is het verband tussen de minimale pomplengte en de minimale DFA? }
