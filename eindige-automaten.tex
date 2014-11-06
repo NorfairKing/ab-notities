@@ -1135,24 +1135,27 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \[ D_{1} \times D_{2} \text{ met } F = F_{1} \times F_{2} \]
 \end{de}
 
+\extra{ De doornsede van twee DFA's bepaalt de doorsnede van de talen. bewijs}
+
 \begin{de}
   De \term{unie van DFA's} $D_{1}$ en $D_{2}$ is de DFA $D$ die de unie bepaalt van de talen bepaald door $D_{1}$ en $D_{2}$.
   \[ D_{1} \times D_{2} \text{ met } F = (F_{1}\times Q_{2}) \times (F_{2} \times Q_{1}) \]
 \end{de}
 
+\extra{ De unie van twee DFA's bepaalt de unie van de talen. bewijs}
+
 \begin{de}
-  Het \term{complement van een DFA} $D$ is de DFA $D^{c}$ die het complement bepaalt van de taal bepaald door $D$.
-  \[ D_{1} \times D_{2} \text{ met } F = F_{1} \times (Q_{2}\setminus F_{2}) \]
+  Het \term{complement van een DFA} $D = (Q,\Sigma, \delta, q_{s},F)$ is de DFA $D^{c} = (Q,\Sigma, \delta, q_{s},Q\setminus F)$ die het complement bepaalt van de taal bepaald door $D$.
 \end{de}
-\TODO{dit kan veel eenvoudiger.} 
+
+\extra{bewijs}
 
 \begin{de}
   Het \term{symmetrisch verschil van DFA's} $D_{1}$ en $D_{2}$ is de DFA $D$ die het symmetrisch verschil bepaalt van de talen bepaald door $D_{1}$ en $D_{2}$.
   \[ D_{1} \times D_{2} \text{ met } F = (Q_{1}\setminus F_{1}) \times (Q_{2}\setminus F_{2}) \]
 \end{de}
 
-
-\question{ Zijn ze bij het maken van jflex nooit op onoplosbare problemen gestoten? Waarom niet? }
+\extra{bewijs}
 
 \TODO{ transducer }
 \TODO{ b\"uchi automaten }

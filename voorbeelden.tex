@@ -125,6 +125,123 @@
 \TODO{DFA naar NFA}
 \TODO{DFA minimalisatie}
 \TODO{bewijzen dat een taal niet regulier is met het pompend lemma.}
+
+\section{Pompend lemma voor reguliere talen}
+\label{sec:pompend-lemma-voor-reguliere-talen}
+
+\begin{lem}
+  Het \term{pompend lemma} voor reguliere talen\\
+  Voor een \underline{reguliere} taal $L$ \underline{bestaat} er een pomplengte $d$ zodat er voor \underline{elke} string $s$ van $L$ met lengte \underline{minstens} $p$ een opdeling van $s$ \underline{bestaat} in drie stukken $x$, $y$ en $z$.
+  \[ s = xyz \]
+  \begin{itemize}
+  \item $\forall i \in \mathbb{N}_{0}:\ xy^{i}z \in L$
+  \item $|y| > 0$
+  \item $|xy| \le d$
+  \end{itemize}
+\end{lem}
+Op een iets minder formele logische manier: (Als het zo duidelijker is, kan je dit gebruiken.)
+\[
+\begin{array}{rrrrl}
+  (\forall L\in \mathcal{P}(\Sigma^{*})) (&\\
+               & Regulier(L) \Rightarrow (&\\
+               &                             & (\exists p\in \mathbb{N})(&\\
+               &                             &                           &(\forall s \in \Sigma^{*})(&\\
+               &                             &                           &                           & (|s| \ge p)\\
+               &                             &                           &                           & \Rightarrow\\
+               &                             &                           &                           & (s = xyz \wedge xy^{i}z \in L)\\
+               &                             &                           &                           & \text{met}\\
+               &                             &                           &                           & |y| > 0 \text{ en } |xy| < p\\
+               &                             &                           &                          )&\\
+               &                             &                          )&\\
+               &                            )&\\
+              )&\\ 
+\end{array}
+\]
+
+\subsection{Het pompend lemma gebruiken om te bewijzen dat een taal regulier is}
+Laat dit voor eens en voor altijd duidelijk zijn:
+\begin{center}
+  We kunnen het pompend lemma \underline{niet} gebruiken om te bewijzen dat een taal regulier is.
+\end{center}
+Er bestaan immers talen met een pomplengte die niet regulier is.
+Met andere woorden, het omgekeerde van het pompend lemma is niet waar:
+\[ 
+\begin{array}{c}
+  L = \{ uvwxy\ |\ u,y \in \{0,1,2,3\}^{*}, v,w,x\in \{0,1,2,3\} \wedge (v=w \vee v=x \vee x=w)\}\\
+  \bigcup \{ s \in \{0,1,2,3\}\ |\ \text{ precies } \frac{1}{7} \text{-de van de symbolen in } s \text{ zijn } 3 \}  
+\end{array}
+\]
+In woorden: $L$ bevat alle strings over het alfabet $\{0,1,2,3\}$ met een substring van lengte $3$ waar een duplicaat character in zit alsook alle strings waarbij precies \'e\'en zevende van de symbolen $3$-en zijn.
+
+\subsection{Het pompend lemma gebruiken om te bewijzen dat een taal regulier is}
+We kunnen het pompend lemma \underline{wel} gebruiken om te bewijzen dat een taal \underline{niet regulier} is.
+We doen dit doorgaans met een bewijs uit het ongerijmde.
+
+Zij $L$ de taal waarvan we willen bewijzen dat hij niet regulier is.
+\begin{enumerate}
+\item We gaan \underline{ervan uit} dat $L$ \underline{wel} regulier is.
+\item Er zou dan zeker een pomlengte $p\in \mathbb{N}$ bestaan.
+\item We \underline{kiezen} \emph{heel bewust} een string $s$ langer dan $p$.
+\item We tonen aan dat er \underline{geen enkele} opdeling van $s$ bestaat die aan de voorwaarden voldoet
+\end{enumerate}
+We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat die \underline{niet} gepompt kan worden, dus is de taal $L$ niet regulier.
+
+\begin{vb}
+  Bewijs dat $0^{n}1^{n}$ \underline{niet} regulier is.
+  \begin{proof}
+    Bewijs uit het ongerijmde.
+    \begin{enumerate}
+    \item Stel dat $0^{n}1^{n}$ wel regulier is.
+    \item Er bestaat dan zeker een pomlengte vanwege het pompend lemma.
+      Noem die pomplengte $p$.
+    \item We kiezen nu een string $s$ langer dan $p$:
+      \[ s = 0^{p}1^{p} \]
+    \item Er bestaat nu geen enkele opdeling van $s$ die aan de voorwaarden van een opdeling in het pompend lemma voldoet.
+      Stel immers dat $s$ wel opgedeeld kan worden in drie stukken $xyz$, dan zijn daar drie mogelijkheden voor:
+      \begin{enumerate}
+      \item $y$ bevat enkel nullen.\\
+        De string $xz$ bevat dan meer enen dan nullen en zit bijgevolg niet in $L$.
+      \item $y$ bevat zowel nullen als enen.\\
+        In de string $xyyz$ staan dan niet alle nullen voor alle enen. $xyyz$ zit dus niet in $L$. 
+      \item $y$ bevat enkel enen.\\
+        De string $xz$ bevat dan meer nullen dan enen en zit bijgevolg niet in $L$.
+      \end{enumerate}
+      Merk op dat de laatste twee mogelijkheden eigenlijk meteen geschrapt konden worden als we in rekening namen dat $xy$ korter dan $p$ moet zijn.
+    \end{enumerate}
+  \end{proof}
+\end{vb}
+
+\section{Pompend lemma voor contextvrije talen}
+\label{sec:pompend-lemma-voor-contextvrije-talen}
+
+\begin{lem}
+  Voor een \underline{contextvrije} taal $L$ \underline{bestaat} er een pomplengte $p$  zodat er voor \underline{elke} string $s$ van $L$ met lengte \underline{minstens} $p$ een opdeling van $p$ \underline{bestaat} in vijf stukken $u$, $v$, $x$, $y$ en $z$.
+  \[ s = uvxyz \]
+  \begin{enumerate}
+    \item $\forall i \in \mathbb{N}:\ uv^{i}xy^{i}z \in L$
+    \item $|vy| > 0$
+    \item $|vxy| < p$
+  \end{enumerate}
+\end{lem}
+Op een iets minder formele logische manier: (Als het zo duidelijker is, kan je dit gebruiken.)
+\[
+\begin{array}{rrrrl}
+  (\forall L\in \mathcal{P}(\Sigma^{*})) (&\\
+               & Contextvrij(L) \Rightarrow (&\\
+               &                             & (\exists p\in \mathbb{N})(&\\
+               &                             &                           &(\forall s \in \Sigma^{*})(&\\
+               &                             &                           &                           & (|s| \ge p)\\
+               &                             &                           &                           & \Rightarrow\\
+               &                             &                           &                           & (s = uvxyz \wedge uv^{i}xy^{i}z \in L)\\
+               &                             &                           &                           & \text{met}\\
+               &                             &                           &                           & |vy| > 0 \text{ en } |vxy| < p\\
+               &                             &                           &                          )&\\
+               &                             &                          )&\\
+               &                            )&\\
+              )&\\ 
+\end{array}
+\]
+
 \TODO{encoderingen}
 
 \end{document}
