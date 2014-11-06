@@ -187,7 +187,7 @@ Zij $L$ de taal waarvan we willen bewijzen dat hij niet regulier is.
 We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat die \underline{niet} gepompt kan worden, dus is de taal $L$ niet regulier.
 
 \begin{vb}
-  Bewijs dat $0^{n}1^{n}$ \underline{niet} regulier is.
+  Bewijs dat $L = 0^{n}1^{n}$ \underline{niet} regulier is.
   \begin{proof}
     Bewijs uit het ongerijmde.
     \begin{enumerate}
@@ -240,7 +240,61 @@ Op een iets minder formele logische manier: (Als het zo duidelijker is, kan je d
                &                            )&\\
               )&\\ 
 \end{array}
-\]
+ \]
+
+\subsection{Het pompend lemma gebruiken om te bewijzen dat een taal contextvrij is}
+Laat dit ook voor eens en voor altijd duidelijk zijn:
+\begin{center}
+  We kunnen het pompend lemma \underline{niet} gebruiken om te bewijzen dat een taal contextvrij is.
+\end{center}
+Er bestaan immers talen met een pomplengte die niet contextvrij is.
+\extra{tegenvoorbeeld voor het omgekeerde van het pompend lemma voor contextvrije talen}
+
+\subsection{Het pompend lemma gebruiken om te bewijzen dat een taal contextvrij is}
+We kunnen het pompend lemma \underline{wel} gebruiken om te bewijzen dat een taal \underline{niet contextvrij} is.
+We doen dit doorgaans ook met een bewijs uit het ongerijmde.
+
+Zij $L$ de taal waarvan we willen bewijzen dat hij niet contextvrij is.
+\begin{enumerate}
+\item We gaan \underline{ervan uit} dat $L$ \underline{wel} contextvrij is.
+\item Er zou dan zeker een pomlengte $p\in \mathbb{N}$ bestaan.
+\item We \underline{kiezen} \emph{heel bewust} een string $s$ langer dan $p$.
+\item We tonen aan dat er \underline{geen enkele} opdeling van $s$ bestaat die aan de voorwaarden voldoet
+\end{enumerate}
+We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat die \underline{niet} gepompt kan worden, dus is de taal $L$ niet contextvrij.
+
+\begin{vb}
+  Bewijs dat $0^{n}1^{n}2^{n}$ \underline{niet} contextvrij is.
+  \begin{proof}
+    Bewijs uit het ongerijmde.
+    \begin{enumerate}
+    \item Stel dat $L = 0^{n}1^{n}2^{n}$ wel contextvrij is.
+    \item Er bestaat dan zeker een pomplengte vanwege het pompend lemma.
+      Noem die pomplengte $p$.
+    \item We kiezen nu een string $s$ langer dan $p$:
+      \[ s = 0^{p}1^{p}2^{p} \]
+    \item Er bestaat nu geen enkele opdeling van $s$ die aan de voorwaarden voldoet.
+      Stel immers dat $uvxyz$ wel een geldige opdeling van $s$ is met $|vy| > 0$ en $|vxy| < p$.
+      Er zijn dan twee mogelijkheden:
+      \begin{enumerate}
+      \item $v$ en $y$ bevatten elk hoogstens \'e\'en verschillend symbool.
+        $v$ is dan van de vorm $\alpha^{k}$ en $y$ is van de vorm $\beta^{l}$ waarbij $\alpha$ en $\beta$ beide $0$ $1$ of $2$ zijn. 
+        $k+l$ is bovendien groter dan nul want $|vy| > 0$ moet gelden.
+        De string $uv^{2}xy^{2}z$ kan dan al niet bestaan uit een gelijk aantal nullen, enen en twe\"en.
+        $uv^{2}xy^{2}z$ zit dan dus niet in $L$.
+      \item $v$ of $y$ bevat meer dan \'e\'en verschillend symbool.
+        In de string $uv^{2}xy^{2}z$ staan de symbolen in $v^{2}$ of in $y^{2}$ dan niet in de juiste volgorde.
+        $uv^{2}xy^{2}z$ zit dan bijgevolg niet in $L$.
+      \end{enumerate}
+    \end{enumerate}
+  \end{proof}
+\end{vb}
+
+
+
+
+
+
 
 \TODO{encoderingen}
 
