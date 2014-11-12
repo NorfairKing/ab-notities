@@ -5,7 +5,10 @@ MAIN_NAME = main
 
 LATEX = ./makepdf
 
-all: assets oefenzittingen full_text
+all:
+	make assets
+	make text
+	make exercises
 
 text: $(OUTPUT_NAME).pdf
 
