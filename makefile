@@ -1,18 +1,18 @@
+.PHONY: assets
+
 OUTPUT_NAME = ab-notities
 MAIN_NAME = main
 
-LATEX = latexmk -pdf
+LATEX = ./makepdf
 
 all: assets oefenzittingen full_text
 
-assets: 
-	echo placeholder
+text: $(OUTPUT_NAME).pdf
 
-full_text: $(OUTPUT_NAME).pdf
-
-oefenzittingen:
+exercises:
 	bash compile_oz.sh
 
 $(OUTPUT_NAME).pdf:
-	$(LATEX) $(MAIN_NAME).tex -jobname="$(OUTPUT_NAME)"
+	$(LATEX) $(MAIN_NAME).tex
+	cp $(MAIN_NAME).tex $(OUTPUT_NAME).pdf
 
