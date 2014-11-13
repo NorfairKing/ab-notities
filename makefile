@@ -3,7 +3,7 @@
 OUTPUT_NAME = ab-notities
 MAIN_NAME = main
 
-LATEX = ./makepdf
+LATEX = ./makepdf.sh
 
 all:
 	make assets
