@@ -13,4 +13,5 @@ pdflatex --shell-escape --interaction nonstopmode $basename  || true
 bibtex "$filename"  || true
 pdflatex --shell-escape --interaction nonstopmode $basename  || true
 pdflatex --shell-escape --interaction nonstopmode $basename  || true
+cp $filename.pdf $2
 rm -f *.aux *.out *.log *.bbl *.blg *.lst *.idx *~ *.*~* *.backup *.nav *.snm *.toc *.xwm

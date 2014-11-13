@@ -16,6 +16,5 @@ exercises:
 	bash compile_oz.sh
 
 $(OUTPUT_NAME).pdf:
-	$(LATEX) $(MAIN_NAME).tex
-	cp $(MAIN_NAME).tex $(OUTPUT_NAME).pdf
+	$(LATEX) $(MAIN_NAME).tex $(OUTPUT_NAME).pdf
 
