@@ -503,7 +503,16 @@
 \extra{bewijs zie p 109 voor vb}
 \end{st}
 
+\section{Aftelbaar}
+\label{sec:aftelbaar}
 
+\begin{de}
+  Een verzameling $V$ is \term{aftelbaar} als er een bijectie bestaat tussen $V$ en (een deel van) $\mathbb{N}$.
+\end{de}
+
+\begin{de}
+  Een verzameling $V$ is \term{effectief aftelbaar} of \term{opsombaar} als en een TM bestaat die alle elementen uit $v$ (eventueel geencodeerd) \'e\'en voor \'e\'en genereert.
+\end{de}
 
 \section{Algemene problemen}
 \label{sec:algemene-problemen}
@@ -564,4 +573,35 @@
   \caption{Algemene problemen}
   \label{fig:algemene-problemen}
 \end{figure}
+
+
+\section{De stelling van Rice}
+\label{sec:de-stelling-van}
+
+\begin{de}
+  Een \term{eigenschap} $P$ van een $\phi$-machine is een predicaat dat de verzameling van $\phi$-machines in twee verdeelt: $Pos_{P}$, de verzameling van $\phi$-machines die $P$ bezitten en $Neg_{P}$, de verzameling van $\phi$-machines die $P$ niet bezitten.
+  \[ Pos_{P} = \{ \phi \ |\ P(\phi) \} \quad\text{ en }\quad Neg_{P} = \{ \phi \ |\ \neg P(\phi) \} \]
+\extra{mooiere beschrijving van $\phi$?}
+\end{de}
+
+\begin{de}
+  Een \term{niet-triviale eigenschap} is een eigenschap waarvoor zowel $Pos_{P}$ als $Neg_{P}$ niet leeg is.
+\end{de}
+
+\begin{de}
+  Een \term{taal-invariante eigenschap} van een machine $phi$ is een eigenschap die enkel afhankelijk is van de taal die $\phi$ bepaalt.
+  \[ \forall M_{1},M_{2}:\ L_{M_{1}} = L_{M_{2}} \Rightarrow (P(M_{1}) \Leftrightarrow P(M_{2})) \]
+\end{de}
+
+\begin{st}
+  \label{st:eerste-stelling-van-rice}
+  Eerste \term{stelling van Rice}\\
+  Voor elke niet-triviale, taal-invariante eigenschap $P$ van Turingmachines is noch $Pos_{P}$ noch $Neg_{P}$ beslisbaar.
+
+\TODO{bewijs p 112}
+\end{st}
+
+
+
+
 \end{document}
