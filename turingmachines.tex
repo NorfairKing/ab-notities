@@ -190,52 +190,11 @@
 \end{de}
 \TODO{wat moet hier nog bij??}
 
-\section{Algemene problemen}
-\label{sec:algemene-problemen}
-
-\begin{de}
-  Acceptatie\\
-  Zij $\phi$ een verzameling machines, dan is $A_{\phi}$ de taal van alle koppels $(M,s)$ waarbij $M\in \phi$ een machine is die $s$ aanvaardt.
-  \[ A_{\phi} = \{ <M,s> \ |\ M\in \phi \wedge s \in L_{M} \} \]
-\end{de}
-
-\begin{de}
-  Stopt\\
-  Zij $\phi$ een verzameling machines, dan is $H_{\phi}$ de taal van alle koppels $(M,s)$ waarbij $M\in \phi$ een machine is die stopt bij input $s$.
-  \[ H_{\phi} = \{ <M,s> \ |\ M \in \phi \wedge M \text{ stopt bij input } s \} \]
-\end{de}
-
-\begin{de}
-  Leegheid\\
-  Zij $\phi$ een verzameling machines, dan is $E_{\phi}$ de taal van alle machines $M$ die de lege taal bepalen.
-  \[ E_{\phi} = \{ <M,s>\ |\ M \in \phi \wedge L_{M} = \emptyset \} \]
-\end{de}
-
-\begin{de}
-  Gelijkheid\\
-  Zij $\phi$ een verzameling machines, dan is $EQ_{\phi}$ de taal van alle koppels $M_{1},M_{2}$ waarbij $M_{1}$ en $M_{2}$ dezelfde taal bepalen.
-  \[ EQ_{\phi} = \{ <M_{1},M_{2}> \ |\ M_{1},M_{2} \in \phi \wedge L_{M_{1}} = L_{M_{2}} \} \]
-\end{de}
-
-\begin{de}
-  Lege string\\
-  Zij $\phi$ een verzameling machines, dan is $ES_{\phi}$ de taal van alle machines $M$ die de lege string aanvaarden.
-  \[ ES_{\phi} = \{ <M> \ |\ M\in \phi \wedge \epsilon \in L_{M}\} \]
-\end{de}
-
-\begin{de}
-  Regulier\\
-  Zij $\phi$ een verzameling machines, dan is $REGULAR_{\phi}$ de taal van alle machines $M$ die een reguliere taal bepalen.
-\end{de}
-
-\begin{de}
-  Zij $\phi$ een verzameling machines, dan is $ALL_{\phi}$ de taal van alle machines $M$ die alle strings aanvaarden.
-\end{de}
-
 \section{Het Halting probleem}
 \label{sec:het-halting-probleem}
 
 \begin{de}
+  \label{de:a-tm}
   $A_{TM}$ is de taal van koppels $(M,s)$ waarbij $M$ een Turingmachine is die $s$ aanvaardt.
   \[ A_{TM} = \{ <M,s> \ |\ M \text{ is een Turingmachine en } s \in L_{M} \} \]
 \end{de}
@@ -312,6 +271,7 @@
 \label{sec:verb-met-regul}
 
 \begin{de}
+  \label{de:a-re}
   $A_{RE}$ is de taal van koppels $(R,s)$ waarbij $R$ een reguliere expressie is die $s$ genereert.
   \[ A_{RE} = \{ <N,s> \ |\ N \text{ is een NFA en } s \in L_{N} \} \]
 \end{de}
@@ -367,6 +327,7 @@
 \label{sec:verb-met-cont}
 
 \begin{de}
+  \label{de:a-cfg}
   $A_{CFG}$ is de taal van koppels $(C,s)$ waarbij $C$ een contextvrije grammatica is die $s$ genereert.
   \[ A_{CFG} = \{ <G,s> \ |\ G \text{ is een CFG en } s \in L_{C} \} \]
 \end{de}
@@ -542,4 +503,65 @@
 \extra{bewijs zie p 109 voor vb}
 \end{st}
 
+
+
+\section{Algemene problemen}
+\label{sec:algemene-problemen}
+
+\begin{de}
+  Acceptatie\\
+  Zij $\phi$ een verzameling machines, dan is $A_{\phi}$ de taal van alle koppels $(M,s)$ waarbij $M\in \phi$ een machine is die $s$ aanvaardt.
+  \[ A_{\phi} = \{ <M,s> \ |\ M\in \phi \wedge s \in L_{M} \} \]
+\end{de}
+
+\begin{de}
+  Stopt\\
+  Zij $\phi$ een verzameling machines, dan is $H_{\phi}$ de taal van alle koppels $(M,s)$ waarbij $M\in \phi$ een machine is die stopt bij input $s$.
+  \[ H_{\phi} = \{ <M,s> \ |\ M \in \phi \wedge M \text{ stopt bij input } s \} \]
+\end{de}
+
+\begin{de}
+  Leegheid\\
+  Zij $\phi$ een verzameling machines, dan is $E_{\phi}$ de taal van alle machines $M$ die de lege taal bepalen.
+  \[ E_{\phi} = \{ <M,s>\ |\ M \in \phi \wedge L_{M} = \emptyset \} \]
+\end{de}
+
+\begin{de}
+  Gelijkheid\\
+  Zij $\phi$ een verzameling machines, dan is $EQ_{\phi}$ de taal van alle koppels $M_{1},M_{2}$ waarbij $M_{1}$ en $M_{2}$ dezelfde taal bepalen.
+  \[ EQ_{\phi} = \{ <M_{1},M_{2}> \ |\ M_{1},M_{2} \in \phi \wedge L_{M_{1}} = L_{M_{2}} \} \]
+\end{de}
+
+\begin{de}
+  Lege string\\
+  Zij $\phi$ een verzameling machines, dan is $ES_{\phi}$ de taal van alle machines $M$ die de lege string aanvaarden.
+  \[ ES_{\phi} = \{ <M> \ |\ M\in \phi \wedge \epsilon \in L_{M}\} \]
+\end{de}
+
+\begin{de}
+  Regulier\\
+  Zij $\phi$ een verzameling machines, dan is $REGULAR_{\phi}$ de taal van alle machines $M$ die een reguliere taal bepalen.
+\end{de}
+
+\begin{de}
+  Zij $\phi$ een verzameling machines, dan is $ALL_{\phi}$ de taal van alle machines $M$ die alle strings aanvaarden.
+\end{de}
+
+\begin{figure}[!p]  
+  \centering
+  \begin{tabular}[H]{cc}
+    \pvak{\footnotesize{Herkenbaar}}{\footnotesize{Niet Co-herkenbaar}}{H} & \pvak{\footnotesize{Niet Herkenbaar}}{\footnotesize{Co-herkenbaar}}{C}
+  \end{tabular}
+  \begin{tabular}[H]{cccc}
+    \pvak{\ref{de:a-re}}{$A_{RE}$}{B} & \pvak{\ref{de:a-cfg}}{$A_{CFG}$}{B} & \pvak{\ref{de:a-csg}}{$A_{CSG}$}{B} & \pvak{\ref{de:a-tm}}{$A_{TM}$}{H}\\
+    \pvak{\ref{de:h-re}}{$H_{RE}$}{B} & \pvak{\ref{de:h-cfg}}{$H_{CFG}$}{B} & \pvak{\ref{de:h-csg}}{$H_{CSG}$}{B} & \pvak{\ref{de:h-tm}}{$H_{TM}$}{H}\\
+    \pvak{\ref{de:e-re}}{$E_{RE}$}{B} & \pvak{\ref{de:e-cfg}}{$E_{CFG}$}{B} & \pvak{\ref{de:e-csg}}{$E_{CSG}$}{H} & \pvak{\ref{de:e-tm}}{$E_{TM}$}{C}\\
+    \pvak{\ref{de:eq-re}}{$EQ_{RE}$}{B} & \pvak{\ref{de:eq-cfg}}{$EQ_{CFG}$}{H} & \pvak{\ref{de:eq-csg}}{$EQ_{CSG}$}{H} & \pvak{\ref{de:eq-tm}}{$EQ_{TM}$}{N}\\
+    \pvak{\ref{de:es-re}}{$ES_{RE}$}{B} & \pvak{\ref{de:es-cfg}}{$ES_{CFG}$}{B} & \pvak{\ref{de:es-csg}}{$ES_{CSG}$}{B} & \pvak{\ref{de:es-tm}}{$ES_{TM}$}{H}\\
+    \pvak{\ref{de:regular-re}}{$REGULAR_{RE}$}{B} & \pvak{\ref{de:regular-cfg}}{$REGULAR_{CFG}$}{N} & \pvak{\ref{de:regular-csg}}{$REGULAR_{CSG}$}{N} & \pvak{\ref{de:regular-tm}}{$REGULAR_{TM}$}{N}\\
+    \pvak{\ref{de:all-re}}{$ALL_{RE}$}{B} & \pvak{\ref{de:all-cfg}}{$ALL_{CFG}$}{H} & \pvak{\ref{de:all-csg}}{$ALL_{CSG}$}{H} & \pvak{\ref{de:all-tm}}{$ALL_{TM}$}{N}\\
+  \end{tabular}
+  \caption{Algemene problemen}
+  \label{fig:algemene-problemen}
+\end{figure}
 \end{document}
