@@ -316,13 +316,28 @@
 \end{de}
 
 \begin{st}
+  \label{st:enumer-is-herk}
   De taal bepaald door een enumerator $E$ is herkenbaar.
-\TODO{bewijs p 99}
+  \begin{proof}
+    We beschrijven een herkenner $H$ voor de taal $L$ bepaald door een enumerator $E$.
+    Gegeven een string $s$ als input doet $H$ het volgende.
+    $H$ laat $E$ lopen tot $E$ een string $s'$ heeft afgemaakt.
+    Vervolgens kijkt $H$ of $s$ en $s'$ gelijk zijn.
+    Zo ja, accepteert $H$ $s$.
+  \end{proof}
 \end{st}
 
 \begin{st}
+  \label{st:herk-is-enumer}
   Elke herkenbare is enumereerbaar.
-\TODO{bewijs p 99}
+  \begin{proof}
+    Zij $M$ een $TM$ die een taal $L$ bepaalt.
+    $L$ is dus herkenbaar.
+    We construeren nu de enumerator $E$ die $L$ enumereert.
+    Eerst construeren we een $TM$ $gen$ die, gegeven een input $n$, de eerste $n$ strings van $\Sigma^{*}$ op de band zet.
+    Vervolgens construeren we een $TM$ $M_{n}$ die, gegeven een input $n$, de eerste $n$ stappen van $M$ uitvoert.
+    Tenslotte construeren we de enumerator $E$ die de opeenvolgende natuurlijke getallen genereert, en na elk getal eerst $gen$ uitvoert, dan $M_{n}$ uitvoert, en elke string op de band zet die $M_{n}$ accepteert.
+  \end{proof}
 \end{st}
 
 \section{Beslisbare talen}
