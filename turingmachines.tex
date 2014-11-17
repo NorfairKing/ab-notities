@@ -347,34 +347,50 @@
 \label{sec:verb-met-regul}
 
 \begin{de}
-  \label{de:a-re}
-  $A_{RE}$ is de taal van koppels $(R,s)$ waarbij $R$ een reguliere expressie is die $s$ genereert.
-  \[ A_{RE} = \{ <N,s> \ |\ N \text{ is een NFA en } s \in L_{N} \} \]
-\end{de}
-
-\begin{st}
-  $A_{RE}$ is beslisbaar.
-\TODO{bewijs p 100}
-\end{st}
-
-\begin{de}
+  \label{de:a-dfa}
   $A_{DFA}$ is de taal van koppels $(D,s)$ waarbij $D$ een DFA is die $s$ aanvaardt.
   \[ A_{DFA} = \{ <D,s> \ |\ D \text{ is een DFA en } s \in L_{D} \} \]
 \end{de}
 
 \begin{st}
+  \label{st:a-dfa-besl}
   $A_{DFA}$ is beslisbaar.
-\TODO{bewijs p 100}
+
+  \begin{proof}
+    Een beslisser $B$ voor $A_{DFA}$ krijgt als input $<D,s>$ met $D$ een $DFA$.
+    De beslisser simuleert $D$, en accepteert $s$ als en slechts als $D$ $s$ accepteert.
+\clarify{waarom kan een TM een DFA simuleren, hoe?}
+  \end{proof}
 \end{st}
 
 \begin{de}
-  $A_{SFA}$ is de taal van koppels $(N,s)$ waarbij $N$ een NFA is die $s$ aanvaardt.
+  \label{de:a-re}
+  $A_{RE}$ is de taal van koppels $(R,s)$ waarbij $R$ een reguliere expressie is die $s$ genereert.
+  \[ A_{RE} = \{ <R,s> \ |\ R \text{ is een reguliere expressie en } s \in L_{R} \} \]
+\end{de}
+
+\begin{st}
+  \label{st:a-re-besl}
+  $A_{RE}$ is beslisbaar.
+
+  \begin{proof}
+    Een beslisser $B$ voor $A_{RE}$ krijgt als input een reguliere expressie $R$ en een string $s$ als $<R,s>$.
+    De beslisser construeert dan een DFA voor $R$\gevref{gev:reguliere-taal-DFA} en roept daarna een beslisser voor $A_{DFA}$ op.\stref{st:a-dfa-besl}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  $A_{NFA}$ is de taal van koppels $(N,s)$ waarbij $N$ een NFA is die $s$ aanvaardt.
   \[ A_{NFA} = \{ <N,s> \ |\ N \text{ is een NFA en } s \in L_{N} \} \]
 \end{de}
 
 \begin{st}
   $A_{NFA}$ is beslisbaar.
-\TODO{bewijs p 100}
+
+  \begin{proof}
+    Een beslisser $B$ voor $A_{NFA}$ krijgt als input $<N,s>$.
+    $B$ zet $N$ eerst om naar een DFA\stref{st:nfa-naar-dfa} en roept daarna een beslisser voor $A_{DFA}$ op.\stref{st:a-dfa-besl}
+  \end{proof}
 \end{st}
 
 \question{welk verschil p 100?}
@@ -677,7 +693,8 @@
 \TODO{bewijs p 112}
 \end{st}
 
-
+\extra{tweede stelling van rice}
+\extra{voor welke vorige stellingen kunnen we de stelling van rice gebruiken?}jaO
 
 
 \end{document}
