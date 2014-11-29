@@ -694,7 +694,288 @@
 \end{st}
 
 \extra{tweede stelling van rice}
-\extra{voor welke vorige stellingen kunnen we de stelling van rice gebruiken?}jaO
+\extra{voor welke vorige stellingen kunnen we de stelling van rice gebruiken?}
 
+\section{Post Correspondence}
+\label{sec:post-correspondence}
+
+\begin{de}
+  Een \term{(domino)steen} over een alfabet $\Sigma$ is een koppel strings $(a,b)$ over $\Sigma$.
+  Het eerste deel van het koppel noemen we de bovenkant en het tweede deel de onderkant.
+\end{de}
+
+\begin{de}
+  \label{post:correspondence}
+  Een \term{Post correspondence} spel.\\
+  Gegeven een eindige verzameling stenen $S$ is de vraag:
+  \begin{center}
+    Bestaat er een opeenvolging van stenen uit $S$, zodat de string in de bovenkanten samen gelijk is aan de string in de onderkanten samen.
+  \end{center}
+\end{de}
+
+\begin{st}
+  \label{st:pc-is-turing-compleet}
+  Het Post correspondence spel is Turing-compleet.
+\extra{bewijs, bekijk vb in cursus p 114}
+\end{st}
+
+\begin{gev}
+  Het Post correspondence spel is onbeslisbaar voor verzamelingen stenen over een alfabet groter dan $1$ symbool.
+\extra{bewijs}
+\end{gev}
+
+\extra{2-tag systems}
+
+\section{Reductie}
+\label{sec:reductie}
+
+\begin{de}
+  Een functie $f$ is \term{Turing-berekenbaar} als er een Turingmachine bestaat die voor elke $s$ in het domein van $f$, $f(s)$ op de band zet.
+\end{de}
+
+\begin{de}
+  We korten Turing-berekenbaar vaak af tot berekenbaar.
+\end{de}
+
+\begin{de}
+  We zeggen dat een taal $L_1$ (over $\Sigma_1$) gereduceert kan worden naar $L_2$ (over $\Sigma_2$) als er een afbeelding $f$ als volgt:
+  \[  f:\ \Sigma_1\rightarrow \Sigma_1  \]
+  \begin{itemize}
+    \item $f(L_1) \subseteq L_2$
+    \item $f(\overline{L_1}) \subseteq \overline{L_2}$
+    \item $f$ is Turing-berekenbaar
+  \end{itemize}
+  \[ L_1\le_m L_2 \]
+\end{de}
+
+\begin{st}
+  Zij $L_1$ en $L_2$ talen over, respectievelijk, $\Sigma_1$ en $\Sigma_2$.
+  \[ L_1\le_m L_2 \Rightarrow (L_1 \text{ is beslisbaar } \Rightarrow L_2 \text{ is beslisbaar }) \]
+\extra{bewijs}
+\end{st}
+
+
+\begin{st}
+  Zij $L_1$ en $L_2$ talen over, respectievelijk, $\Sigma_1$ en $\Sigma_2$.
+  \[ L_1\le_m L_2 \Rightarrow (L_1 \text{ is herkenbaar } \Rightarrow L_2 \text{ is herkenbaar }) \]
+\extra{bewijs}
+\end{st}
+
+
+\begin{st}
+  $EQ_{TM}$ is niet beslisbaar.
+
+  \begin{proof}
+    We weten dat $E_{TM}$ niet beslisbaar is.
+    We reduceren $E_{TM}$ naar $EQ_{TM}$ met de functie $f$:
+    \[
+    <M> \mapsto <M,M_{\phi}>
+    \]
+    $f$ is duidelijk Turing-berekenbaar.
+\waarom
+  \end{proof}
+\end{st}
+
+\begin{st}
+  Zij $A$ en $B$ twee talen.
+  \[ A \le_m B \Rightarrow \overline{a} \le_m \overline{b} \]
+\end{st}
+
+\begin{st}
+  $EQ_{TM}$ is niet herkenbaar en ook niet co-herkenbaar.
+
+\TODO{bewijs p 119}
+\end{st}
+
+\section{Orakelmachines}
+\label{sec:orakelmachines}
+
+\begin{de}
+  Een orakel voor een taal $L$ is een machine die in een eindige hoeveelheid tijd kan beslissen of een string tot $L$ behoort.
+\end{de}
+
+\begin{de}
+  Een orakelmachine $O^{L}$ is een machine die als subroutine een orakel voor de taal $L$ kan aanroepen.
+\end{de}
+
+\begin{st}
+  Er bestaat een orakelmachine $O^{A_{TM}}$ die $E_{TM}$ beslist.
+\TODO{bewijs p 120}
+\end{st}
+
+\begin{de}
+  Een taal $A$ is \term{Turingreduceerbaar} naar een taal $B$ als $A$ beslisbaar is ten opzichte van $B$.
+  Dit betekent dat er een orakelmachine $O^{B}$ bestaat die $A$ beslist.
+  \[ A \le_{T} B \]
+\end{de}
+
+\begin{st}
+  Als $A$ Turingreduceerbaar is ten opzichte van $B$ en $B$ beslisbaar, dan is $A$ beslisbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{st}
+  Als $A$ reduceerbaar is naar $B$, dan is $A$ ook Turingreduceerbaar naar $B$.
+\end{st}
+
+\begin{gev}
+  $\le_{m}$ is dus fijner dan $\le_{r}$.
+\extra{bewijs}
+\end{gev}
+
+\section{Recursieve functies}
+\label{sec:recursieve-functies}
+
+\subsection{Primitief recursieve functies}
+\label{sec:prim-recurs-funct}
+
+\subsubsection{Basisfuncties}
+\label{sec:basisfuncties}
+
+\begin{de}
+  De \term{nulfunctie} is een functie die elk natuurlijk getal afbeeldt op nul.
+  \[ nul:\ \mathbb{N} \rightarrow \mathbb{N}:\ x \mapsto 0 \]
+\end{de}
+
+\begin{de}
+  De \term{successorfunctie} is een functie die elk natuurlijk getal afbeeldt op het volgende natuurlijk getal.
+  \[ succ: \mathbb{N} \rightarrow \mathbb{N}:\ x \mapsto x+1 \]
+\end{de}
+
+\begin{de}
+  De $i$-de \term{projectie} van een $n$-tal is een functie die een $n$-tal afbeeldt op het $i$-de element uit dat $n$-tal.
+  \[ p_{i}^{n}: \mathbb{N}^{n} \rightarrow \mathbb{N}:\ (x_{1},x_{2}, \dotsc, x_{n}) \mapsto x_{i} \]
+\end{de}
+
+\subsubsection{Compositie}
+\label{sec:compositie}
+
+\begin{de}
+  De \term{compositiefunctie} $Cn$ is een functie die een functie $f$ 'evalueert', gegeven zijn argumenten.
+  Gegeven de volgende elementen:
+  \begin{itemize}
+  \item 
+    $m$ functies $g_{i}$: $g_{1},g_{2},\dotsc,g_{m}$ met elk $k$ argumenten.
+    \[ g_{i}:\ \mathbb{N}^{k} \rightarrow \mathbb{N} \]
+  \item 
+    $f$, een functie met $m$ argumenten.
+    \[ f:\ \mathbb{N}^{m} \rightarrow \mathbb{N} \]
+  \end{itemize}
+  We kunnen dan een $h$ construeren als volgt:\footnote{$\bar{x} = (x_{1},x_{2},\dotsc,x_{k})$}
+  \[ h:\ \mathbb{N}^{k} \rightarrow \mathbb{N}:\ h(\bar{x}) = f(g_{1}(\bar{x}),g_{2}(\bar{x}),\dotsc,g_{m}(\bar{x})) \]
+  We noteren $h$ als volgt:
+  \[ h = Cn(f,g_{1},\dotsc,g_{m}) \]
+\end{de}
+
+\subsubsection{Primitieve recursie}
+\label{sec:primitieve-recursie}
+
+\begin{de}
+  De \term{primitieve recursiefunctie} is een functie die toelaat om functies recursief samen te stellen.
+  Gegeven de volgende elementen...
+  \begin{itemize}
+  \item Een functie $f$ die een $k$-tal natuurlijke getallen afbeeldt op een natuurlijk getal.
+    \[ f: \mathbb{N}^{k} \rightarrow \mathbb{N} \]
+  \item Een functie $g$ die een $k+2$-tal natuurlijke getallen afbeeldt op een natuurlijk getal.
+    \[ f: \mathbb{N}^{k+2} \rightarrow \mathbb{N} \]
+  \end{itemize}
+  ... kunnen we een functie $h$ construeren die recursief te werk gaat.
+  \[ 
+  h:\ \mathbb{N}^{k+1} \rightarrow \mathbb{N}:\ 
+  \left\{
+    \begin{array}{ll}
+      h(\bar{x},0) &= f(\bar{x})\\
+      h(\bar{x},y+1) &= g(\bar{x}, y, h(\bar{x},y))\\
+    \end{array}
+  \right.
+  \]
+  We noteren $h$ tenslotte als volgt:
+  \[ h = Pr(f,g) \]
+\end{de}
+
+\begin{de}
+  Een \term{primitief recursieve functie} is een functie die je kan maken door functies samen te stellen met behulp van de compositie en primitieve recursie.
+\end{de}
+
+\subsection{Een niet-primitief recursieve functie}
+\label{sec:een-niet-primitief}
+
+\begin{de}
+  De \term{Ackerman functie} is als volgt gedefinieerd:
+  \[ 
+  Ack:\ \mathbb{N}^{2} \rightarrow \mathbb{N}:\ 
+  \left\{
+    \begin{array}{llll}
+      Ack(0,y)   &= y+1\\
+      Ack(x,0)   &= Ack(x-1,1)\\
+      Ack(x,y)   &= Ack(x-1,Ack(x,y-1))\\
+    \end{array}
+  \right.
+  \]
+\end{de}
+
+\begin{st}
+  De Ackerman functie is niet primitief recursief.
+\extra{bewijs}
+\end{st}
+
+\begin{de}
+  De \term{onbegrensde minimisatie} functie is een proces dat voor een gegeven functie de minimale nulpunten vindt.\\
+  Gegeven een functie $f: \mathbb{N}^{k+1} \rightarrow \mathbb{N}$ construeren we de onbegrensde minimisatie als volgt:
+  \[
+  g:\ \mathbb{N}^{k} \rightarrow \mathbb{N}:\ g(\bar{x}) = y
+  \Leftrightarrow
+  \left\{
+    \begin{array}{rl}
+      f(\bar{x},y) &= 0\\
+      \forall z \in \mathbb{N}: z < y &\Rightarrow  f(\bar{x},z) \neq 0
+    \end{array}
+  \right.
+  \]
+  We noteren $g$ als volgt:
+  \[ g = Mn(f) \]
+\end{de}
+
+\begin{opm}
+  Een eenvoudigere manier om je $Mn$ voor te stellen ziet er als volgt uit:
+  \begin{verbatim}
+    y = 0;
+    while (f(x,y) != 0)
+      y++;
+    return y;
+  \end{verbatim}
+\end{opm}
+
+\begin{de}
+  Een \term{recursieve functie} is een functie die je verkrijgt door het samenstellen van de basisfuncties, de primitieve recursie, de samenstelling en de onbegrensde minimisatie.
+\end{de}
+
+\begin{st}
+  Elke recursieve functie is Turing-berekenbaar en omgekeerd.
+\extra{bewijs}
+\end{st}
+
+
+\section{De busy beaver functie}
+\label{sec:de-busy-beaver}
+
+\begin{de}
+  Een \term{busy beaver} Turingmachine is de Turingmachine (over het alfabet $\{0,1\}$) die bij een lege input het meeste enen op de band zet van alle Turingmachines met $n$ toestanden en toch stopt.
+\end{de}
+
+\begin{de}
+  Het aantal enen op de band gezet door een busy beaver Turingmachine met $n$ toestanden noteren we als $\Sigma(n)$.
+  \[ \Sigma:\ \mathbb{N} \rightarrow \mathbb{N}  \]
+\end{de}
+
+\begin{st}
+  $\Sigma$ is niet Turingberekenbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{st}
+  $\Sigma$ is de snelst stijgende functie.
+\extra{bewijs}
+\end{st}
 
 \end{document}
