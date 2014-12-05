@@ -380,11 +380,13 @@
 \end{st}
 
 \begin{de}
+  \label{de:a-nfa}
   $A_{NFA}$ is de taal van koppels $(N,s)$ waarbij $N$ een NFA is die $s$ aanvaardt.
   \[ A_{NFA} = \{ <N,s> \ |\ N \text{ is een NFA en } s \in L_{N} \} \]
 \end{de}
 
 \begin{st}
+  \label{st-a-nfa-besl}
   $A_{NFA}$ is beslisbaar.
 
   \begin{proof}
@@ -396,21 +398,33 @@
 \question{welk verschil p 100?}
 
 \begin{de}
+  \label{de:e-dfa}
   $E_{DFA}$ is de taal van alle machines $D$ die de lege taal bepalen.
   \[ E_{DFA} = \{ <D,s>\ |\ D \text{ is een DFA en } L_{D} = \emptyset \} \]
 \end{de}
 
 \begin{st}
+  \label{st:e-dfa-besl}
   $E_{DFA}$ is beslisbaar.
-\TODO{bewijs p 100}
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $E_{DFA}$.
+    De beslisser krijg (de encodering van) een DFA $D$ als invoer.
+    De beslisser vormt $D$ om tot een minimale DFA $D'$.\alref{al:dfa-minimalisatie}
+    Als $D$ (en dus ook $D'$) de lege taal bepaalt, is $D'$ isomorf met de $NFA_{\phi}$ \figref{fig:nfa_phi}.
+    Dat is eenvoudig beslisbaar.
+\waarom
+  \end{proof}
 \end{st}
 
 \begin{de}
+  \label{de:eq-dfa}
   $EQ_{DFA}$ is de taal van alle koppels DFA's die dezelfde taal bepalen.
   \[ EQ_{DFA} = \{ <D_{1},D_{2}> \ |\ D_{1},D_{2} \text{ zijn DFA's en } L_{D_{1}} = L_{D_{2}} \} \]  
 \end{de}
 
 \begin{st}
+  \label{st:eq-dfa-besl}
   $EQ_{DFA}$ is beslisbaar.
 \TODO{bewijs p 100}
 \end{st}
@@ -476,6 +490,7 @@
 \label{sec:niet-besl-talen}
 
 \begin{de}
+  \label{de:e-tm}
   $E_{TM}$ is de taal van alle Turingmachines die geen enkele string aanvaardt.
   \[ E_{TM} = \{ <M,s>\ |\ M \text{ is een Turingmachine en } L_{M} = \phi \} \]
 \end{de}
@@ -486,6 +501,7 @@
 \end{st}
 
 \begin{de}
+  \label{de:regular-tm}
   $REGULAR_{TM}$ is de taal van alle Turingmachines die een reguliere taal bepaalt.
 \end{de}
 
@@ -495,6 +511,7 @@
 \end{st}
 
 \begin{de}
+  \label{de:eq-tm}
   $EQ_{TM}$ is de taal van alle koppels Turingmachines die dezelfde taal herkennen/beslissen.
 \clarify{herkennen of beslissen?}
 \TODO{bewijs p 105}
@@ -510,6 +527,7 @@
 \end{st}
 
 \begin{de}
+  \label{de:a-lba}
   $A_{LBA}$ is de taal van alle koppels $(L,s)$ waarbij $L$ een LBA is die $s$ aanvaardt.
   \[ A_{LBA} = \{ <L,s> \ |\ L \text{ is een LBA en } s \in L_{L}\} \]
 \end{de}
@@ -520,6 +538,7 @@
 \end{st}
 
 \begin{de}
+  \label{de:e-lba}
   $E_{LBA}$ is de taal van alle LBA's die geen enkele string aanvaarden.
   \[ E_{LBA} = \{ <L> \ |\ L \text{ is een LBA en } L_{L} = \emptyset \} \]
 \end{de}
