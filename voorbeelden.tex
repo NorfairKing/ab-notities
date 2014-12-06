@@ -291,13 +291,85 @@ We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat 
 \end{vb}
 
 
-
-
-
-
-
 \TODO{encoderingen}
 \TODO{aftelbaar en opsombaar}
+
+\section{Recursieve functies}
+\label{sec:recursieve-functies}
+
+\begin{vb}
+  $Cn(succ,nul)$ is de constante functie $1$.
+
+  \begin{proof}
+    Merk op dat de $k$ in de definitie van de compositiefunctie hier $1$ is omdat $nul$ precies \'e\'en argument nodig heeft (ookal doet dat argument er niet toe).
+    De $m$ is ook $1$ omdat $succ$ ook \'e\'en argument nodig heeft.
+    \[ Cn(succ,nul):\ \mathbb{N} \rightarrow \mathbb{N}:\ x \mapsto succ(nul(x)) = succ(0) = 1\]
+    \[ 1:\ \mathbb{N} \rightarrow \mathbb{N}:\ x \mapsto 1 \]
+  \end{proof}
+\end{vb}
+
+\begin{vb}
+  $Cn(succ,Cn(succ,Cn(succ,nul)))$ is de constante functie $3$.
+  
+  \begin{proof}
+    We weten al dat $Cn(succ,nul)$ de constante functie $1$ is.
+    \[ Cn(succ,Cn(succ,Cn(succ,nul))) =  Cn(succ,Cn(succ,1)) \]
+    We werken eerst $Cn(succ,1)$ uit.
+    \[ Cn(succ,1):\ \mathbb{N} \rightarrow \mathbb{N}:\ x \mapsto succ(1(x)) = succ(1) = 2 \]
+    $Cn(succ,1)$ is dus de constante functie $2$.
+    \[ 2:\ \mathbb{N} \rightarrow \mathbb{N}:\ x \mapsto 2 \]
+    \[ Cn(succ,Cn(succ,1)) = Cn(succ,2)\]
+    \[ Cn(succ,2):\ \mathbb{N} \rightarrow \mathbb{N}:\ x \mapsto succ(2(x)) = succ(2) = 3 \]
+  \end{proof}
+\end{vb}
+
+\begin{vb}
+  $sum = Pr(p_{1}^{1},Cn(succ,p_{3}^{3}))$ is de functie die de som van twee invoergetallen berekent.
+  \[ Pr(p_{1}^{1},Cn(succ,p_{3}^{3})):\ \mathbb{N}^{2} \rightarrow \mathbb{N}:\ (x,y) \mapsto x+y \]
+
+  \begin{proof}
+    We werken allereerst $Cn(succ,p_{3}^{3})$ uit.
+    Merk op dat de $k$ uit de definitie van de compositiefunctie $Cn$ hier $3$ is en de $m$ $1$.
+    \[ Cn(succ,p_{3}^{3}):\ \mathbb{N}^{3} \rightarrow \mathbb{N}:\ (x,y,z) \mapsto succ(p_{3}^{3}(x,y,z)) = succ(z) = z+1 \]
+    Vervolgens werken we $Pr(p_{1}^{1},Cn(succ,p_{3}^{3}))$ uit.
+    Merk op dat de $k$ uit de definitie van de primitieve recursiefunctie $Pr$ in dit geval $1$ is, omdat $p_{1}^{1}$ een functie is van $\mathbb{N}$ naar $\mathbb{N}$.
+    \[ Pr(p_{1}^{1},Cn(succ,p_{3}^{3})):\ \mathbb{N}^{2} \rightarrow \mathbb{N}:\ (x,y) \mapsto h(x,y) \]
+    \[
+    \text{ met }
+    \left\{
+      \begin{array}{rll}
+        h(x,0) &= p_{1}^{1}(x) &= x\\
+        h(x,y) &= Cn(succ,p_{3}^{3})(x,y-1,h(x,y-1)) &= h(x,y-1) + 1\\
+      \end{array}
+    \right.
+    \]
+  \end{proof}
+\end{vb}
+
+\begin{vb}
+  $product = Pr(nul(Cn(sum,p_{1}^{3},p_{3}^{3}))$ is het de functie die het product van twee invoergetallen berekent.
+  \[ Pr(nul,Cn(sum,p_{1}^{3},p_{3}^{3})):\ \mathbb{N}^{2} \rightarrow \mathbb{N}:\ (x,y) \mapsto x\cdot y \]
+
+  \begin{proof}
+    Allereerst werken we $Cn(som,p_{1}^{3},p_{3}^{3})$ uit.
+    Merk op dat de $k$ uit de definitie van de compositiefunctie $Cn$ hier $3$ is omdat $p_{3}^{3}$ en $p_{1}^{3}$ elk $3$ argumenten verwachten.
+    De $m$ is $2$ omdat $sum$ twee argumenten verwacht.
+    \[ Cn(sum,p_{1}^{3},p_{3}^{3}):\ \mathbb{N}^{3} \rightarrow \mathbb{N}:\ (x,y,z) \mapsto sum(p_{1}^{3}(x,y,z),p_{3}^{3}(x,y,z)) = sum(x,z) = x + z \]
+    Vervolgens kunnen we $Pr(nul(Cn(sum,p_{1}^{3},p_{3}^{3}))$ verder uitwerken.
+    Merk wel eerst op dat de $k$ uit de definitie van de primitieve recursiefunctie $Pr$ in dit geval $1$ is, omdat $nul$ een functie is van $\mathbb{N}$ naar $\mathbb{N}$.
+    \[ Pr(nul,Cn(sum,p_{1}^{3},p_{3}^{3})):\ \mathbb{N}^{2} \rightarrow \mathbb{N}:\ (x,y) \mapsto h(x,y) \]
+    \[
+    \text{ met } 
+    \left\{
+      \begin{array}{rll}
+        h(x,0) &= nul(x) &= 0\\
+        h(x,y) &= Cn(sum,p_{1}^{3},p_{3}^{3})(x,y-1,h(x,y-1)) &= x + h(x,y-1)
+      \end{array}
+    \right.
+    \]
+  \end{proof}
+\end{vb}
+
 
 \end{document}
 
