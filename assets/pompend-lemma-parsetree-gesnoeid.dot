@@ -8,13 +8,13 @@ digraph cfg_parsetree {
     s -> s1b;
     
     s1a -> s2a;
-    s1a -> c
 
     s1b -> s3a;
     s1b -> s3b;
 
     node [style="invis"];
     edge [style="dashed"];
+    s1a -> c
        
     s2a -> s4a;
     s2a -> s4b;

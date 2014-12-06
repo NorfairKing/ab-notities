@@ -8,7 +8,7 @@
 \label{sec:niet-deterministische-eindige-automaten}
 
 \begin{de}
-  Een niet-deterministische eindige toestandsautomaat (\term{NFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$.
+  Een \term{niet-deterministische eindige toestandsautomaat} (\term{NFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$.
   \begin{itemize}
   \item $Q$ is een eindige verzameling toestanden.
   \item $\Sigma$ is een alfabet.
@@ -25,7 +25,7 @@
 \end{de}
 
 \begin{de}
-  Een \term{string} $s$ wordt \term{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s}F)$ als $s$ geschreven kan worden als een opeenvolging $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en er een opeenvolging toestanden $t_{1}t_{2}\ldots t_{n+1}$ bestaat zodat:
+  Een \term{string} $s$ wordt \term{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s}F)$ als $s$ geschreven kan worden als een opeenvolging $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en een opeenvolging toestanden $t_{1}t_{2}\ldots t_{n+1}$ zodat:
   \begin{itemize}
   \item $t_{1} = q_{s}$
   \item $t_{i+1} \in \delta(t_{i},a_{i})$
@@ -260,7 +260,11 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{ei}
   \label{ei:nfa-epsilon}
   De NFA $NFA_{\epsilon}$ bepaalt de taal $\{ \epsilon \}$.
-\extra{bewijs}
+
+  \begin{proof}
+    Aangezien de starttoestand van $NFA_{\epsilon}$ aanvaardbaar is accepteert $NFA_{\epsilon}$ zeker $\epsilon$.
+    Elke string van meer dan $0$ symbolen wordt bovendien verworpen, want dan eindigt de NFA in toestand $q_{d}$.
+  \end{proof}
 \end{ei}
 
 \begin{de}
@@ -283,7 +287,10 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{ei}
   \label{ei:nfa-phi}
   De NFA $NFA_{\phi}$ bepaalt de lege taal $\emptyset$.
-\extra{bewijs}
+
+  \begin{proof}
+    Er zijn geen aanvaarbare toestanden in $NFA_{\phi}$, dus $NFA_{\phi}$ kan geen enkele string aanvaarden.
+  \end{proof}
 \end{ei}
 
 \begin{de}
@@ -310,7 +317,12 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{ei}
   \label{ei:nfa-a}
   Voor elk symbool $a$ van het alfabet $\Sigma$ bepaalt de NFA $NFA_{a}$ de taal $\{ a \}$.
-\extra{bewijs}
+
+  \begin{proof}
+    $NFA_{a}$ aanvaardt de lege string niet omdat de starttoestand niet aanvaardbaar is.
+    $NFA_{a}$ zal in $q_{f}$ belanden voor de string $a$, en voor elke andere string in $q_{d}$.
+    $NFA_{a}$ bepaalt dus de taal $\{ a \}$.
+  \end{proof}
 \end{ei}
 
 \begin{de}
@@ -339,7 +351,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 
 \section{NFA naar reguliere expressie}
 \begin{de}
-  Een gegeneraliseerde niet-deterministische eindige toestandsautomaat (\term{GNFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s},q_{f}$).
+  Een \term{gegeneraliseerde niet-deterministische eindige toestandsautomaat} (\term{GNFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s},q_{f}$).
   \begin{itemize}
   \item $Q$ is een eindige verzameling toestanden.
   \item $\Sigma$ is een alfabet.
@@ -355,8 +367,8 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{opm}
   Een GNFA heeft de volgende (informele) eigenschappen.
   \begin{itemize}
-  \item Er is precies een eindtoestand en die is verschillend van de eindtoestand.
-  \item Er is precies een boog van elke toestand naar de eindetoestand
+  \item Er is precies \'e\'en eindtoestand en die is verschillend van de eindtoestand.
+  \item Er is precies \'e\'en boog van elke toestand naar de eindtoestand
   \item Uit de eindtoestand vertrekken geen pijlen.
   \item Tussen elke twee toestanden (behalve de begin- en eindtoestand) vertrekt precies \'e\'en boog in beide richtingen
   \item Er is precies \'e\'en boog van elke toestand (behalve de begin- en eindtoestand) naar zichzelf.
@@ -378,6 +390,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   We kunnen iedere NFA omzetten in een reguliere expressie die dezelfde taal bepaalt.
   
   \begin{proof}
+    We zetten constructief een willekeurige NFA $n$ om naar een GNFA $g$.
     \begin{enumerate}
     \item Maak van de NFA een GNFA:\\
       Voer een nieuwe begintoestand, en een nieuwe unieke eindtoestand.
@@ -443,7 +456,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 
 \section{Deterministische eindige toestandsautomaten}
 \begin{de}
-  Een deterministische eindige toestandsautomaat (\term{DFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
+  Een \term{deterministische eindige toestandsautomaat} (\term{DFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
   \begin{itemize}
   \item $Q$ is een eindige verzameling toestanden.
   \item $\Sigma$ is een alfabet.
@@ -937,15 +950,15 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
-\begin{st}
-  De overgangen van DFA naar MN relatie\stref{st:dfa-naar-mn-relatie} en van daar naar een DFA\stref{st:mn-relatie-naar-dfa} zijn elkaars inversen op een DFA-isomorfisme na.
-  \extra{formeler en bewijs}
-\end{st}
+%\begin{st}
+%  De overgangen van DFA naar MN relatie\stref{st:dfa-naar-mn-relatie} en van daar naar een DFA\stref{st:mn-relatie-naar-dfa} zijn elkaars inversen op een DFA-isomorfisme na.
+%  \extra{formeler en bewijs}
+%\end{st}
 
-\begin{st}
-  Twee DFA's zijn isomorf als en slechts als ze dezelfde $\sim_{DFA}$ hebben.
-  \extra{formeler en bewijs}
-\end{st}
+%\begin{st}
+%  Twee DFA's zijn isomorf als en slechts als ze dezelfde $\sim_{DFA}$ hebben.
+%  \extra{formeler en bewijs}
+%\end{st}
 
 \begin{st}
   \label{st:oneindig-veel-dfas-voor-een-taal}
@@ -1001,7 +1014,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
       \end{array}
       \]
     \item Het aantal equivalentieklassen van $\sim_{sup}$ is eindig want dat aantal is hoogstens zo groot als het aantal equivalentieklassen van $\sim_{1}$ en $\sim_{2}$.
-      \clarify{waarom?}
+      %\clarify{waarom?}
     \end{itemize}
   \end{proof}
 \end{st}
@@ -1028,8 +1041,6 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     De drie $MN(L)$ relaties zijn dus identiek, wat betekent dat de DFA's isomorf zijn.
   \end{proof}
 \end{st}
-
-\extra{bewijs p 41 net boven 13.5.}
 
 \subsection{$MN(L)$ gebruiken om te bewijzen dat een taal niet regulier is}
 \label{sec:mnl-gebruiken-om}
@@ -1058,7 +1069,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \item Definieer $\sim$ op $\Sigma^{*}$ als volgt, dan heeft $\sim$ een eindige index.
     \[ x \sim y \Leftrightarrow \forall s \in \Sigma^{*}:\ (xs \in L \Leftrightarrow ys \in L) \]
   \end{itemize}
-  \extra{bewijs}
+  \zb
 \end{st}
 
 \section{Het pompen van strings in reguliere talen}
@@ -1113,10 +1124,6 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     Eigenlijk konden we de laatste twee mogelijkheden meteen schrappen want in die gevallen zou $xy$ kleiner zijn dan $d$.
   \end{proof}
 \end{st}
-
-\question{ Wat is het verband tussen de minimale pomplengte en de minimale DFA? }
-\question{ Bestaat er een taal waarvan elke string kan gepompt worden die toch niet regulier is? }
-
 
 \section{De algebra van DFA's}
 \label{sec:de-algebra-van-DFAs}
