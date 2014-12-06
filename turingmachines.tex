@@ -178,6 +178,21 @@
 \question{Is dit wel juist?}
 \end{de}
 
+\begin{st}
+  Het aantal Turing-machines is aftelbaar oneindig (op isomorfisme na).
+
+  \begin{proof}
+    Een Turing-machine wordt gekaracteriseerd door zijn overgangsfunctie $\delta$.
+    \[ \delta:\ Q \times \Gamma \rightarrow Q \times \Gamma \times \{L,R,S\} \]
+    In het voorschrift van $\delta$ is staan $Q,\Gamma$ en $\{L,R,S\}$. 
+    Dit zijn alledrie eindige verzamelingen. 
+    Voor een gegeven grootte van $\Gamma$ en $Q$ zijn er dus maar een eindig aantal Turingmachines.
+    Beginnende bij $\Gamma = \{\#,a\}$ en $|Q|=1$ kunnen we dus alle Turringmachines opschrijven in volgorde volgens hun $(|Q|\cdot|\Gamma|)$-getal.
+    Dit betekent dat we de Turingmachines kunnen nummeren.
+    Er bestaat dus een bijectie tussen $\mathbb{N}$ en $TM$.
+  \end{proof}
+\end{st}
+
 \extra{NDTMs?}
 
 \section{Encoderingen}
