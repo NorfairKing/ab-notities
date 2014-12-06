@@ -298,6 +298,7 @@ We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat 
 \label{sec:recursieve-functies}
 
 \begin{vb}
+  \label{vb:recursie-const-1}
   $Cn(succ,nul)$ is de constante functie $1$.
 
   \begin{proof}
@@ -347,7 +348,7 @@ We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat 
 \end{vb}
 
 \begin{vb}
-  $product = Pr(nul(Cn(sum,p_{1}^{3},p_{3}^{3}))$ is het de functie die het product van twee invoergetallen berekent.
+  $prod = Pr(nul(Cn(sum,p_{1}^{3},p_{3}^{3}))$ is het de functie die het product van twee invoergetallen berekent.
   \[ Pr(nul,Cn(sum,p_{1}^{3},p_{3}^{3})):\ \mathbb{N}^{2} \rightarrow \mathbb{N}:\ (x,y) \mapsto x\cdot y \]
 
   \begin{proof}
@@ -370,6 +371,89 @@ We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat 
   \end{proof}
 \end{vb}
 
+\begin{vb}
+  \[ exp = Pr(Cn(succ,nul),(Cn(prod,p_{1}^{3},p_{3}^{3})):\ \mathbb{N}^{2}\rightarrow \mathbb{N}:\ (x,y) \mapsto x^{y} \]
+\end{vb}
+
+
+\begin{vb}
+  \[ pred = Cn(Pr(nul,p_{2}^{3}),nul,p_{1}^{1}):\ \mathbb{N}\rightarrow \mathbb{N}:\ x \mapsto p(x) \]
+  \[
+  \text{ met }
+  \left\{
+    \begin{array}{rl}
+      p(0) &= 0\\
+      p(x) &= x-1\\
+    \end{array}
+  \right.
+  \]
+\end{vb}
+
+\begin{vb}
+  \[ diff = Pr(nul,Cn(pred,p_{3}^{3})):\ \mathbb{N}^{2} \rightarrow \mathbb{N}:\ (x,y) \mapsto |x-y| \]
+\end{vb}
+
+\begin{vb}
+  Stel dat we de faculteitsfunctie $fac$ willen schrijven als samenstelling van de basisfuncties, de compositiefunctie en de primitieve recursiefunctie, dan gaan we als volgt te werk.
+  \begin{itemize}
+  \item Stel het gewenste functievoorschrift op:
+    \[ fac:\ \mathbb{N} \rightarrow \mathbb{N}:\ x \mapsto x! \]
+  \item Schrijf de functie als een recursieve functie, zoals u die zou programmeren.
+    \[
+    \left\{
+      \begin{array}{rll}
+        fac(1) &= 1\\
+        fac(n) &= n \cdot fac(n-1)
+      \end{array}
+    \right.
+    \]
+  \item Schrijf de functie recursief in de vorm van primitieve recursie.
+    \[
+    \left\{
+      \begin{array}{rll}
+        h(x,0) &= 1\\
+        h(x,y) &= y \cdot h(x,y-1)\\
+      \end{array}
+    \right.
+    \]
+  \item Construeer de primitief recursieve functie die u zoekt.
+    Merk op dat u er hier nog mag van uitgaan dat u beschikking hebt over functies die u nog niet heeft gedefinieer, die definieert u later dan nog.\\
+    Kijk terug naar de recursieve functie hierboven.
+    We gaan ervan uit dat we over een functie $1$ beschikken.
+    \[ 1:\ \mathbb{N} \rightarrow \mathbb{N}:\ x \mapsto 1 \]
+    (Toevallig hebben we die al gedefinieerd.\vbref{vb:recursie-const-1})
+    Aangezien $1$ (het basisgeval uit de recursie) \'e\'en argument verwacht, kiezen we voor $k$ $1$.
+    We hebben nu nog een functie $g$ nodig die $k+2=3$ argumenten verwacht en daarvan de laatste twee vermenigvuldigd (maar het eerste eerst ophoogt): 
+    \[ g:\ \mathbb{N}^{3} \rightarrow \mathbb{N}:\ (x,y,z) \mapsto y+1 \cdot z \]
+    We gaan er even van uit dat we ook over $g$ beschikken, dan kunnen we al een $h$ definieren als aanloop naar $fac$.
+    \[ h = Pr(1,g):\ \mathbb{N} \rightarrow \mathbb{N}:\ x \mapsto h(x) \]
+    \[
+    \text{ met } 
+    \left\{
+      \begin{array}{rll}
+        h(x,0) &= 1(x) &= 1\\
+        h(x,y) &= g(x,y-1,h(x,y-1)) &= y \cdot h(x,y-1)\\
+      \end{array}
+    \right.
+    \]
+    We zitten nu nog met twee deelproblemen.
+    Het eerste is dat we $g$ nog niet gedefinieerd hebben, en het tweede is dat $h$ twee argumenten verwacht in plaats van \'e\'en (ookal doet het eerste er niet echt toe.).
+    \begin{enumerate}
+    \item De functie $a$ die $y$ afbeeldt op $y+1$ is eenvoudigweg de successorfunctie, maar $y$ moet eerst uit het drietal gehaald worden met $p_{2}^{3}$.
+      \[ a = Cn(succ,p_{2}^{3}):\ \mathbb{N}^{3} \rightarrow \mathbb{N}:\ (x,y,z) \mapsto succ(p_{2}^{3}(x,y,z)) = succ(y) = y+1 \]
+      De functie $g$ kunnen we dan definieren als $Cn(prod,a,p_{3}^{3})$:
+      \[ g:\ \mathbb{N}^{3} \rightarrow \mathbb{N}:\ (x,y,z) \mapsto prod(a(x,y,z),p_{3}^{3}(x,y,z)) = (y+1) \cdot z\]
+    \item Precies omdat het eerste argument van $h$ er niet toe doet kunnen we eenvoudigweg de nulfunctie $nul$ gebruiken.
+      \[ fac = Cn(h,nul,p_{1}^{1}) \]
+    \end{enumerate}
+    Helemaal uitgeschreven krijgen we dan de volgende definitie van $fac$
+    \[ fac = Cn\left(Pr\left(Cn\left(succ,nul\right),Cn\left(prod,Cn\left(succ,p_{2}^{3}\right)\right),p_{3}^{3}\right),nul,p_{1}^{1}\right)\]
+    Merk op dat deze definitie equivalent is met de volgende:
+    \[ fac = Cn\left(Pr\left(p_{1}^{1},Cn\left(prod,Cn\left(succ,p_{2}^{3}\right)\right),p_{3}^{3}\right),Cn\left(succ,nul\right),p_{1}^{1}\right)\]
+
+      
+  \end{itemize}
+\end{vb}
 
 \end{document}
 
