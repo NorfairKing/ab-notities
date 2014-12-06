@@ -57,7 +57,7 @@
 \end{de}
 
 \begin{de}
-  Een turingmachine $M$ herkent $L_{M}$.
+  Een turingmachine $M$ \term{herkent} $L_{M}$.
 \end{de}
 
 \begin{de}
@@ -65,7 +65,7 @@
 \end{de}
 
 \begin{de}
-  Een turingmachine $M$ beslist een taal $L$ als $M$ $L$ herkent en $\infty_{M}$ leeg is.
+  Een turingmachine $M$ \term{beslist} een taal $L$ als $M$ $L$ herkent en $\infty_{M}$ leeg is.
 \end{de}
 
 \begin{de}
@@ -163,8 +163,7 @@
     \item Een Prologprogramma kan een Turingmachine simuleren.\\
       Het is heel eenvoudig in te zien dat een Turingmachine gesimuleerd kan worden met een Prologprogramma.
       Er zijn veel bestaande implementaties van zo'n programma.
-      Er is zelfs een \verb|turing.pl| bestand binnen SWI Prolog.
-\extra{referentie?}
+      Er is zelfs een \verb|turing.pl| bestand binnen SWI Prolog.\cite{prolog-tm}
     \end{itemize}
   \end{proof}
 \end{st}
@@ -304,7 +303,7 @@
   De overgangsfunctie heeft voor een enumeratormachine een andere signatuur:
   \[ \delta:\ Q \times \Gamma \rightarrow Q \times \Gamma \times \Gamma_{\epsilon}\times \{L,R,S\} \]
   Een enumeratormachine heeft bovendien een enumeratortoestand $q_{e}$, een outputband (naast de inputband) en een outputmarker.
-  Wanneer de enumeratormachine in een stap afrondt, schrijft hij ook nog een symbool weg naar de outputband en gaat daar ook steeds naar rechts. Wanneer de machine in toestand $q_{e}$ belandt, schrijft hij de outputmarker naar de outputband, en gaat terug over in de begintoestand $q_{s}$.
+  Wanneer de enumeratormachine een stap afrondt, schrijft hij ook nog een symbool weg naar de outputband en gaat daar ook steeds naar rechts. Wanneer de machine in toestand $q_{e}$ belandt, schrijft hij de outputmarker naar de outputband, en gaat terug over in de begintoestand $q_{s}$.
 \end{de}
 
 \begin{de}
