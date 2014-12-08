@@ -440,7 +440,13 @@
 \begin{st}
   \label{st:eq-dfa-besl}
   $EQ_{DFA}$ is beslisbaar.
-\TODO{bewijs p 100}
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $EQ_{DFA}$ als volgt:
+    $B$ krijgt als input $<D_{1},D_{2}>$ en construeert vervolgens de DFA $D$ die het symmetrisch verschil bepaalt van $L_{D_{1}}$ en $L_{D_{2}}$.
+    Vervolgens beslist $B$ of $D$ de lege taal bepaalt.\stref{st:e-dfa-besl}
+\clarify{waarom kan dit zomaar? verwijs naar stuk over die constructie bij dfa's}
+  \end{proof}
 \end{st}
 
 \begin{de}
@@ -457,32 +463,66 @@
 \end{de}
 
 \begin{st}
+  \label{st:a-cfg-besl}
   $A_{CFG}$ is beslisbaar.
-\TODO{bewijs p 102}
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $A_{CFG}$.
+    $B$ krijgt als input een string $<G,s>$ en converteert eerst $G$ naar Chomsky Normaal Vorm.
+    Vervolgens genereert $G$ alle mogelijke strings afleidingslengte $2|s| - 1$.
+    Dat zijn er eindig veel.
+    Als $s$ erbij zit, genereert $G$ $s$.\stref{st:chomsky-normaalvorm-afleidingslengte}
+    $B$ accepteert $<G,s>$ dan, anders niet.
+  \end{proof}
 \end{st}
 
 \begin{de}
+  \label{de:e-cfg}
   $E_{CFG}$ is de taal van CFG's $C$ die de lege taal bepalen.
   \[ E_{CFG} = \{ <C,s>\ |\ D \text{ is een CFG en } L_{C} = \emptyset \} \]
 \end{de}
 
 \begin{st}
+  \label{st:e-cfg-besl}
   $E_{CFG}$ is beslisbaar.
-\TODO{bewijs p 102}
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $E_{CFG}$.
+    $B$ krijgt als input een string $<G,s>$ en gaat als volgt te werk:
+    $B$ verwijdert algoritmisch regels uit $G$ zodat de resulterende CFG equivalent is, maar $B$ makkelijker een beslissing laat maken.
+    Voor alle regels $A \rightarrow \alpha$ waarbij $\alpha$ enkel bestaat uit eindsymbolen verwijdert $B$ alle regels waarin $A$ aan de linkerkant voorkomt en vervangt $B$ $A$ door $alpha$ in alle regels waar $A$ aan de rechterkant voorkomt.
+    Als het startsymbool verwijderd wordt verwerppt $B$ $<G,s>$, want dan kon uit $S$ een string afgeleid worden.
+    Wanneer er geen regels meer zijn van de beschreven vorm accepteert $B$ $<G,s>$.
+\clarify{dit kan mooier, denk ik?}
+  \end{proof}
 \end{st}
 
 \begin{de}
+  \label{de:es-cfg}
   $ES_{CFG}$ is de taal van alle CFG's die de lege string aanvaarden.
   \[ ES_{CFG} = \{ <C> \ |\ C \text{ is een CFG en } \epsilon \in L_{C}\} \]
 \end{de}
 
 \begin{st}
+  \label{st:es-cfg-besl}
   $ES_{CFG}$ is beslisbaar.
-\TODO{bewijs p 103}
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $ES_{CFG}$.
+    $B$ krijgt als input een string $<G,s>$ en gaat als volgt te werk:
+    $B$ transformeert $G$ naar zijn Chomsky Normaal Vorm en kijkt na of er een regel van de vorm $S \rightarrow \epsilon$ overblijft.
+    Zo ja accepteert $B$, anders verwerpt $B$.
+  \end{proof}
+
+  \begin{proof}
+    Een beslisser voor $ES_{CFG}$ roept een beslisser voor $A_{CFG}$ op met als invoer de gegeven CFG en de lege string.\stref{st:a-cfg-besl}
+  \end{proof}
 \end{st}
 
 \begin{st}
   Een contextvrije taal $L$ is beslisbaar.
+
+\extra{bewijs}
 \end{st}
 
 \begin{st}
