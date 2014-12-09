@@ -596,18 +596,33 @@
 
 \begin{de}
   \label{de:eq-tm}
-  $EQ_{TM}$ is de taal van alle koppels Turingmachines die dezelfde taal herkennen/beslissen.
-\clarify{herkennen of beslissen?}
-\TODO{bewijs p 105}
-\end{de}
-
-\begin{de}
-  Een \term{lineair begrensde automaat} (LBA) is een Turingmachine die niet leest of schrijft buiten een deel van de geheugenstrook dat een constante factor groter is dan de invoerstring.
+  $EQ_{TM}$ is de taal van alle koppels Turingmachines die dezelfde taal herkennen.
 \end{de}
 
 \begin{st}
+  \label{st:eq-tm-besl}
+  $EQ_{TM}$ is niet beslisbaar.
+
+  \begin{proof}
+    Het is niet beslisbaar of een TM geen enkele string aanvaardt.
+    't Is te zeggen of de taal herkend door een TM gelijk is aan de lege taal.
+    Het is dus zeker niet beslisbaar of twee TM's dezelfde taal herkennen.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:linear-begrensde-automaat}
+  Een \term{lineair begrensde automaat} (\term{LBA}) is een Turingmachine die niet leest of schrijft buiten een deel van de geheugenstrook dat de initiele invoer bevat.
+\end{de}
+
+\begin{st}
+  In een equivalente definitie leest of schrijft een LBA niet buiten een deel van de band dat een constante factor groter is dan de invoer.
+\zb
+\end{st}
+
+\begin{st}
   De taal die alle Turingmachines bevat die ook een LBA zijn is niet beslisbaar.
-\extra{bewijs p 106}
+\extra{bewijs}
 \end{st}
 
 \begin{de}
@@ -617,8 +632,29 @@
 \end{de}
 
 \begin{st}
+  \label{st:a-lba-is-besl}
   $A_{LBA}$ is beslisbaar.
-\TODO{bewijs p 106}
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $A_{LBA}$.
+    $B$ verwacht een string van de vorm $<L,s>$.
+    We definieren eerst een paar getallen:
+    \begin{itemize}
+    \item $n$: de lengte van de invoerstring.
+    \item $q$: het aantal toestanden van $L$.
+    \item $b$: het aantal elementen van het bandalfabet van $L$.
+    \end{itemize}
+    Merk nu op dat het aantal strings dat mogelijk op de band kan staan tijdens de uitvoering van $L$ kleiner of gelijk is aan $b^{n}$.
+    De leeseenheid kan bovendien hoogstens bij elk van de symbolen staan en de machine kan zich hoogstens in elk van zijn toestanden bevinden tijdens zijn uitvoering.
+    Het aantal mogelijke configuraties van $L$ tijdens zijn uitvoering is dus kleiner of gelijk aan $qnb^{n}$ (eindig!).
+    De beslisser $B$ voor $A_{LBA}$ gaat als volgt te work:
+    \begin{itemize}
+    \item $B$ berekent $m = qnb^{n}$.
+    \item $B$ laat $M$ lopen op $s$ voor maximaal $m$ stappen.
+    \item $B$ accepteert $s$ als en slechts als $M$ de string $s$ accepteerde binnen de $m$ stappen.
+    \end{itemize}
+    Als $M$ de string $s$ nog niet geaccepteerd had binnen de $m$ stappen betekent dat dat $M$ in een lus terecht was gekomen en dan zou $M$ $s$ ook niet accepteren.
+  \end{proof}
 \end{st}
 
 \begin{de}
@@ -628,11 +664,13 @@
 \end{de}
 
 \begin{st}
+  \label{st:e-lba-niet-herk}
   $E_{LBA}$ is niet herkenbaar.
 \TODO{bewijs p 107}
 \end{st}
 
 \begin{st}
+  \label{st:e-lba-coherk}
   $E_{LBA}$ is co-herkenbaar.
 \extra{bewijs}
 \end{st}
@@ -645,21 +683,23 @@
 \extra{p 108 acceptance, halting en leegheid van LBA,PDA en TM}
 
 \begin{st}
-  $ALL_{CFG}$ is niet herkenbaar.
-  \begin{proof}
-    Het bewijs wordt niet gezienn.
-    \extra{verwijzing naar een bewijs}
-  \end{proof}
+  \label{st:all-cfg-niet-herk}
+  $ALL_{CFG}$ is niet herkenbaar. \zb
 \end{st}
 
 \begin{st}
+  \label{st:all-cfg-coherk}
   $ALL_{CFG}$ is co-herkenbaar.
 \extra{bewijs}
 \end{st}
 
 \begin{gev}
+  \label{gev:all-cfg-niet-besl}
   $ALL_{CFG}$ is niet beslisbaar.
-\TODO{bewijs}
+
+  \begin{proof}
+    $ALL_{CFG}$ is niet herkenbaar, dus zeker niet beslisbaar.
+  \end{proof}
 \end{gev}
 
 \extra{$ALL_{RegExp}$ is beslisbaar: bewijs}
@@ -670,11 +710,6 @@
 \begin{st}
   \[ RegLan \subsetneq DCFL \subsetneq CFL \subsetneq Besl \subsetneq Herk \subsetneq \mathcal{P}(\Sigma^{*}) \]
   \extra{bewijs}
-\end{st}
-
-\begin{st}
-  $RegLan$ is gesloten onder de unie, doorsnede, complement.
-\extra{bewijs}
 \end{st}
 
 \begin{st}
@@ -749,7 +784,8 @@
 \end{de}
 
 \begin{de}
-   $FINITE_{\phi}$ is de taal van alle $\phi$ $M$ die een eindig aantal strings aanvaarden.
+  Eindigheid\\
+  $FINITE_{\phi}$ is de taal van alle $\phi$ $M$ die een eindig aantal strings aanvaarden.
 \end{de}
 
 \begin{figure}[!p]  
@@ -776,9 +812,8 @@
 \label{sec:de-stelling-van}
 
 \begin{de}
-  Een \term{eigenschap} $P$ van een $\phi$-machine is een predicaat dat de verzameling van $\phi$-machines in twee verdeelt: $Pos_{P}$, de verzameling van $\phi$-machines die $P$ bezitten en $Neg_{P}$, de verzameling van $\phi$-machines die $P$ niet bezitten.
+  Een \term{eigenschap} $P$ van een $\phi$is een predicaat dat de verzameling van $\phi$s in twee verdeelt: $Pos_{P}$, de verzameling van $\phi$ die $P$ bezitten en $Neg_{P}$, de verzameling van $\phi$ die $P$ niet bezitten.
   \[ Pos_{P} = \{ \phi \ |\ P(\phi) \} \quad\text{ en }\quad Neg_{P} = \{ \phi \ |\ \neg P(\phi) \} \]
-\extra{mooiere beschrijving van $\phi$?}
 \end{de}
 
 \begin{de}
@@ -816,6 +851,11 @@
   \begin{center}
     Bestaat er een opeenvolging van stenen uit $S$, zodat de string in de bovenkanten samen gelijk is aan de string in de onderkanten samen.
   \end{center}
+\end{de}
+
+\begin{de}
+  \label{de:turing-compleet}
+  Een formalisme is \term{Turing-compleet} als het de berekeningen van een Turingmachine kan nabootsen.
 \end{de}
 
 \begin{st}
