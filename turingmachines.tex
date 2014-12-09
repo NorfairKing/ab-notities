@@ -173,11 +173,6 @@
 \extra{Hoe formaliseren we dit?}
 \end{de}
 
-\begin{de}
-  Een functie $f$ is Turing-berekenbaar als er een Turingmachine $T$ bestaat die, gegeven een argument $a$, het beeld van $a$ onder $f$ op de band kan zetten.
-\question{Is dit wel juist?}
-\end{de}
-
 \begin{st}
   Het aantal Turing-machines is aftelbaar oneindig (op isomorfisme na).
 
@@ -243,7 +238,7 @@
 \end{st}
 
 \begin{st}
-  \label{gev:a-tm-niet-besl}
+  \label{st:a-tm-niet-besl}
   $A_{TM}$ is niet beslisbaar.
 
   \begin{proof}
@@ -375,7 +370,6 @@
   \begin{proof}
     Een beslisser $B$ voor $A_{DFA}$ krijgt als input $<D,s>$ met $D$ een $DFA$.
     De beslisser simuleert $D$, en accepteert $s$ als en slechts als $D$ $s$ accepteert.
-\clarify{waarom kan een TM een DFA simuleren, hoe?}
   \end{proof}
 \end{st}
 
@@ -411,8 +405,6 @@
   \end{proof}
 \end{st}
 
-\question{welk verschil p 100?}
-
 \begin{de}
   \label{de:e-dfa}
   $E_{DFA}$ is de taal van alle machines $D$ die de lege taal bepalen.
@@ -428,8 +420,7 @@
     De beslisser krijg (de encodering van) een DFA $D$ als invoer.
     De beslisser vormt $D$ om tot een minimale DFA $D'$.\alref{al:dfa-minimalisatie}
     Als $D$ (en dus ook $D'$) de lege taal bepaalt, is $D'$ isomorf met de $NFA_{\phi}$ \figref{fig:nfa_phi}.
-    Dat is eenvoudig beslisbaar.
-\waarom
+    Dat is eenvoudig beslisbaar. $B$ moet immers maar een eindig aantal mogelijke bijecties afgaan.
   \end{proof}
 \end{st}
 
@@ -445,16 +436,11 @@
 
   \begin{proof}
     We construeren een beslisser $B$ voor $EQ_{DFA}$ als volgt:
-    $B$ krijgt als input $<D_{1},D_{2}>$ en construeert vervolgens de DFA $D$ die het symmetrisch verschil bepaalt van $L_{D_{1}}$ en $L_{D_{2}}$.
+    $B$ krijgt als input $<D_{1},D_{2}>$ en construeert vervolgens de DFA $D$ die het symmetrisch verschil bepaalt van $L_{D_{1}}$ en $L_{D_{2}}$.\deref{de:symmetrisch-verschil-dfas}
     Vervolgens beslist $B$ of $D$ de lege taal bepaalt.\stref{st:e-dfa-besl}
-\clarify{waarom kan dit zomaar? verwijs naar stuk over die constructie bij dfa's}
   \end{proof}
 \end{st}
 
-\begin{de}
-  Een formalisme is \term{Turing compleet} als er de berekeningen van een Turingmachine mee nagebootst kan worden.
-\extra{zet dit op een betere plaats?}
-\end{de}
 \subsection{In verband met contextvrije talen}
 \label{sec:verb-met-cont}
 
@@ -492,10 +478,9 @@
     We construeren een beslisser $B$ voor $E_{CFG}$.
     $B$ krijgt als input een string $<G,s>$ en gaat als volgt te werk:
     $B$ verwijdert algoritmisch regels uit $G$ zodat de resulterende CFG equivalent is, maar $B$ makkelijker een beslissing laat maken.
-    Voor alle regels $A \rightarrow \alpha$ waarbij $\alpha$ enkel bestaat uit eindsymbolen verwijdert $B$ alle regels waarin $A$ aan de linkerkant voorkomt en vervangt $B$ $A$ door $alpha$ in alle regels waar $A$ aan de rechterkant voorkomt.
-    Als het startsymbool verwijderd wordt verwerppt $B$ $<G,s>$, want dan kon uit $S$ een string afgeleid worden.
+    Voor alle regels $A \rightarrow \alpha$ waarbij $\alpha$ enkel bestaat uit eindsymbolen verwijdert $B$ alle regels waarin $A$ aan de linkerkant voorkomt en vervangt $B$ $A$ door $\alpha$ in alle regels waar $A$ aan de rechterkant voorkomt.
+    Als het startsymbool verwijderd wordt verwerpt $B$ $<G,s>$, want dan kon uit $S$ een string afgeleid worden.
     Wanneer er geen regels meer zijn van de beschreven vorm accepteert $B$ $<G,s>$.
-\clarify{dit kan mooier, denk ik?}
   \end{proof}
 \end{st}
 
@@ -522,24 +507,31 @@
 \end{st}
 
 \begin{st}
+  \label{st:contextvrije-taal-besl}
   Een contextvrije taal $L$ is beslisbaar.
 
 \extra{bewijs}
 \end{st}
 
 \begin{st}
+  \label{st:eq-cfg-niet-herk}
   $EQ_{CFG}$ is niet herkenbaar.
 \TODO{bewijs intuitief p 103}
 \end{st}
 
 \begin{st}
+  \label{st:eq-cfg-coherk}
   $EQ_{CFG}$ is co-herkenbaar.
 \extra{bewijs}
 \end{st}
 
 \begin{gev}
+  \label{gev:eq-cfg-niet-besl}
   $EQ_{CFG}$ is niet beslisbaar.
-\TODO{bewijs}
+
+  \begin{proof}
+    $EQ_{CFG}$ is niet herkenbaar, dus zeker niet beslisbaar.
+  \end{proof}
 \end{gev}
 
 \section{Niet-beslisbare talen}
@@ -552,8 +544,24 @@
 \end{de}
 
 \begin{st}
+  \label{st:e-tm-niet-besl}
   $E_{TM}$ is niet beslisbaar.
-\TODO{bewijs p 104}
+
+  \begin{proof}
+    Bewijs uit het ongerijmde\\
+    Stel dat $E_{TM}$ beslisbaar is, dan bestaat er een beslisser $E$ voor $E_{TM}$.
+    Vanuit $E$ construeren we nu een beslisser $B$ voor $A_{TM}$ als volgt:
+    $B$ krijgt als invoer een string van de vorm $<M,s>$ en moet beslissen of $M$ de string $s$ aanvaardt.
+    \begin{itemize}
+    \item $B$ construeert een machine $M_{s}$ die voor invoer $w$ $w$ verwerpt wanneer $w$ verschillend is van $s$ en $M$ laat lopen op $w$ als $w$ gelijk is aan $s$ en het resultaat terug geeft.
+    \item $B$ laat $E$ lopen op $<M_{s}>$
+      \begin{itemize}
+      \item Als $E$ $<M_{s}>$ accepteert, dan verwerpt $B$ $<M,s>$, want dan accepteert $M_{s}$ geen enkele string (ook niet $s$).
+      \item Als $E$ $<M_{s}>$ accepteert, dan verwerpt $B$ $<M,s>$ want dan accepteert $M_{s}$ minstens \'e\'en string (enkel $s$).
+      \end{itemize}
+    \end{itemize}
+    Omdat $A_{TM}$ niet beslisbaar is\stref{st:a-tm-niet-besl}, kan $E_{TM}$ ook niet beslisbaar zijn.
+  \end{proof}
 \end{st}
 
 \begin{de}
@@ -562,8 +570,28 @@
 \end{de}
 
 \begin{st}
+  \label{st:regular-tm-niet-besl}
   $REGULAR_{TM}$ is niet beslisbaar.
-\TODO{bewijs p 105}
+
+  \begin{proof}
+    Bewijs uit het ongerijmde\\
+    Stel dat $REGULAR_{TM}$ beslisbaar is, dan bestaat er een beslisser $R$ voor $REGULAR_{TM}$.
+    Vanuit $R$ construeren we nu een beslisser $B$ voor $A_{TM}$ als volgt:
+    $B$ krijgt als invoer een string van de vorm $<M,s>$ en moet beslissen of $M$ de string $s$ aanvaardt.
+    \begin{itemize}
+    \item $B$ construeert een hulpmachine $H_{s}$ die bij invoer $x$ het volgende doet:
+      \begin{itemize}
+      \item Als $x$ van de vorm $0^{n}1^{n}$ is, dan accepteert $H_{s}$ $x$.
+      \item Als $x$ niet van de vorm $0^{n}1^{n}$ is, dan laat $H$ $M$ lopen op $s$ en geeft het resultaat terug.
+      \end{itemize}
+    \item $B$ laat $R$ lopen op $<H_{s}>$ en geeft het resultaat terug.
+    \end{itemize}
+    Merk op dat $H_{s}$ ofwel $0^{n}1^{n}$ (niet-regulier\vbref{vb:0n-1n-niet-regulier}) accepteert (wanneer $M$ $s$ niet accepteert), ofwel heel $\Sigma^{*}$ (regulier) accepteert (wanneer $M$ $s$ accepteert).
+    $B$ accepteert $<M,s>$ als en slechts als $R$ $<H_{s}>$ accepteert.
+    Dit is precies wanneer $H_{s}$ heel $\Sigma^{*}$ accepteert en $M$ dus $s$ accepteert.
+    $B$ is bijgevolg een beslisser voor $A_{TM}$.
+    Omdat $A_{TM}$ niet beslisbaar is\stref{st:a-tm-niet-besl}, kan $E_{TM}$ ook niet beslisbaar zijn.
+  \end{proof}
 \end{st}
 
 \begin{de}
@@ -619,7 +647,7 @@
 \begin{st}
   $ALL_{CFG}$ is niet herkenbaar.
   \begin{proof}
-    Het bewijs wordt niet gezijn.
+    Het bewijs wordt niet gezienn.
     \extra{verwijzing naar een bewijs}
   \end{proof}
 \end{st}
@@ -683,41 +711,45 @@
 
 \begin{de}
   Acceptatie\\
-  Zij $\phi$ een verzameling machines, dan is $A_{\phi}$ de taal van alle koppels $(M,s)$ waarbij $M\in \phi$ een machine is die $s$ aanvaardt.
+  $A_{\phi}$ is de taal van alle $\phi$ $(M,s)$ waarbij $M\in \phi$ een machine is die $s$ aanvaardt.
   \[ A_{\phi} = \{ <M,s> \ |\ M\in \phi \wedge s \in L_{M} \} \]
 \end{de}
 
 \begin{de}
   Stopt\\
-  Zij $\phi$ een verzameling machines, dan is $H_{\phi}$ de taal van alle koppels $(M,s)$ waarbij $M\in \phi$ een machine is die stopt bij input $s$.
+  $H_{\phi}$ is de taal van alle $\phi$ $(M,s)$ waarbij $M\in \phi$ een machine is die stopt bij input $s$.
   \[ H_{\phi} = \{ <M,s> \ |\ M \in \phi \wedge M \text{ stopt bij input } s \} \]
 \end{de}
 
 \begin{de}
   Leegheid\\
-  Zij $\phi$ een verzameling machines, dan is $E_{\phi}$ de taal van alle machines $M$ die de lege taal bepalen.
+  $E_{\phi}$ is de taal van alle $\phi$ $M$ die de lege taal bepalen.
   \[ E_{\phi} = \{ <M,s>\ |\ M \in \phi \wedge L_{M} = \emptyset \} \]
 \end{de}
 
 \begin{de}
   Gelijkheid\\
-  Zij $\phi$ een verzameling machines, dan is $EQ_{\phi}$ de taal van alle koppels $M_{1},M_{2}$ waarbij $M_{1}$ en $M_{2}$ dezelfde taal bepalen.
+  $EQ_{\phi}$ is de taal van alle $\phi$ $M_{1},M_{2}$ waarbij $M_{1}$ en $M_{2}$ dezelfde taal bepalen.
   \[ EQ_{\phi} = \{ <M_{1},M_{2}> \ |\ M_{1},M_{2} \in \phi \wedge L_{M_{1}} = L_{M_{2}} \} \]
 \end{de}
 
 \begin{de}
   Lege string\\
-  Zij $\phi$ een verzameling machines, dan is $ES_{\phi}$ de taal van alle machines $M$ die de lege string aanvaarden.
+  $ES_{\phi}$ is de taal van alle $\phi$ $M$ die de lege string aanvaarden.
   \[ ES_{\phi} = \{ <M> \ |\ M\in \phi \wedge \epsilon \in L_{M}\} \]
 \end{de}
 
 \begin{de}
   Regulier\\
-  Zij $\phi$ een verzameling machines, dan is $REGULAR_{\phi}$ de taal van alle machines $M$ die een reguliere taal bepalen.
+  $REGULAR_{\phi}$ is de taal van alle $\phi$ $M$ die een reguliere taal bepalen.
 \end{de}
 
 \begin{de}
-  Zij $\phi$ een verzameling machines, dan is $ALL_{\phi}$ de taal van alle machines $M$ die alle strings aanvaarden.
+  $ALL_{\phi}$ is de taal van alle $\phi$ $M$ die alle strings aanvaarden.
+\end{de}
+
+\begin{de}
+   $FINITE_{\phi}$ is de taal van alle $\phi$ $M$ die een eindig aantal strings aanvaarden.
 \end{de}
 
 \begin{figure}[!p]  
@@ -733,6 +765,7 @@
     \pvak{\ref{de:es-re}}{$ES_{RE}$}{B} & \pvak{\ref{de:es-cfg}}{$ES_{CFG}$}{B} & \pvak{\ref{de:es-csg}}{$ES_{CSG}$}{B} & \pvak{\ref{de:es-tm}}{$ES_{TM}$}{H}\\
     \pvak{\ref{de:regular-re}}{$REGULAR_{RE}$}{B} & \pvak{\ref{de:regular-cfg}}{$REGULAR_{CFG}$}{N} & \pvak{\ref{de:regular-csg}}{$REGULAR_{CSG}$}{N} & \pvak{\ref{de:regular-tm}}{$REGULAR_{TM}$}{N}\\
     \pvak{\ref{de:all-re}}{$ALL_{RE}$}{B} & \pvak{\ref{de:all-cfg}}{$ALL_{CFG}$}{H} & \pvak{\ref{de:all-csg}}{$ALL_{CSG}$}{H} & \pvak{\ref{de:all-tm}}{$ALL_{TM}$}{N}\\
+    \pvak{\ref{de:finite-re}}{$FINITE_{RE}$}{B} & \pvak{\ref{de:finite-cfg}}{$FINITE_{CFG}$}{B} & \pvak{\ref{de:finite-csg}}{$FINITE_{CSG}$}{N} & \pvak{\ref{de:finite-tm}}{$FINITE_{TM}$}{N}\\
   \end{tabular}
   \caption{Algemene problemen}
   \label{fig:algemene-problemen}
@@ -807,6 +840,7 @@
 
 \begin{de}
   We korten Turing-berekenbaar vaak af tot berekenbaar.
+\waarom
 \end{de}
 
 \begin{de}
