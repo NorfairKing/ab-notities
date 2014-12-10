@@ -159,6 +159,52 @@
   \end{proof}
 \end{st}
 
+
+\section{Orakelmachines}
+\label{sec:orakelmachines}
+
+\begin{de}
+  Een orakel voor een taal $L$ is een machine die in een eindige hoeveelheid tijd kan beslissen of een string tot $L$ behoort.
+\end{de}
+
+\begin{de}
+  Een orakelmachine $O^{L}$ is een machine die als subroutine een orakel voor de taal $L$ kan aanroepen.
+\end{de}
+
+\begin{st}
+  Er bestaat een orakelmachine $O^{A_{TM}}$ die $E_{TM}$ beslist.
+
+  \begin{proof}
+    Bij invoer $<M>$ gaat $O^{A_{TM}}$ als volgt te werk.
+    \begin{itemize}
+    \item Constreert een Turingmachine $P$ die $M$ laat lopen op elke string en enkel zijn invoer aanvaardt als $M$ minstens \'e\'en string aanvaardt.
+    \item $O^{A_{TM}}$ vraagt aan het orakel voor $A_{TM}$ of $<P,x>$ tot $A_{TM}$ behoort (voor een willekeurige $x$) en geeft het tegengestelde terug.
+    \end{itemize}
+    $O^{A_{TM}}$ beslist op deze manier of een machine $M$ al dan niet de lege taal bepaalt.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  Een taal $A$ is \term{Turingreduceerbaar} naar een taal $B$ als $A$ beslisbaar is ten opzichte van $B$.
+  Dit betekent dat er een orakelmachine $O^{B}$ bestaat die $A$ beslist.
+  \[ A \le_{T} B \]
+\end{de}
+
+\begin{st}
+  Als $A$ Turingreduceerbaar is ten opzichte van $B$ en $B$ beslisbaar, dan is $A$ beslisbaar.
+
+\extra{bewijs}
+\end{st}
+
+\begin{st}
+  Als $A$ reduceerbaar is naar $B$, dan is $A$ ook Turingreduceerbaar naar $B$.
+\end{st}
+
+\begin{gev}
+  $\le_{m}$ is dus fijner dan $\le_{T}$.
+\extra{bewijs}
+\end{gev}
+
 \section{... in verband met reguliere talen}
 \label{sec:verb-met-regul}
 
@@ -245,6 +291,14 @@
     Vervolgens beslist $B$ of $D$ de lege taal bepaalt.\stref{st:e-dfa-besl}
   \end{proof}
 \end{st}
+
+\extra{$H_{DFA}$}
+\extra{$E_{RE}$}
+\extra{$EQ_{RE}$}
+\extra{$ES_{RE}$}
+\extra{$REGULAR_{RE}$}
+\extra{$ALL_{RE}$}
+\extra{$FINITE_{RE}$}
 
 \section{... in verband met contextvrije talen}
 \label{sec:verb-met-cont}
@@ -339,213 +393,33 @@
   \end{proof}
 \end{gev}
 
+\begin{st}
+  \label{st:all-cfg-niet-herk}
+  $ALL_{CFG}$ is niet herkenbaar. \zb
+\end{st}
+
+\begin{st}
+  \label{st:all-cfg-coherk}
+  $ALL_{CFG}$ is co-herkenbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{gev}
+  \label{gev:all-cfg-niet-besl}
+  $ALL_{CFG}$ is niet beslisbaar.
+
+  \begin{proof}
+    $ALL_{CFG}$ is niet herkenbaar, dus zeker niet beslisbaar.
+  \end{proof}
+\end{gev}
+
+\extra{$H_{CFG}$}
+\extra{$REGULAR_{CFG}$}
+\extra{$FINITE_{CFG}$}
+
 \section{... in verband met contextsensitieve talen}
 \label{sec:-verb-met-csls}
 
-\section{...  in verband met Turing machines}
-\label{sec:verb-met-tms}
-
-\begin{st}
-  \label{st:eq-tm-niet-herk}
-  $EQ_{TM}$ is niet herkenbaar.
-
-  \begin{proof}
-    We construeren een reductie $f$ van $A_{TM}$ naar $\overline{EQ_{TM}}$.
-    Vermits $\overline{A_{TM}}$ niet herkenbaar is, is $EQ_{TM}$ ook niet herkenbaar.\stref{st:reduceerbaarheid-taal-complement}
-    Definieer $M_{s}$ als een machine die elke string accepteert als $M$ de string $s$ accepteert en $M_{\phi}$ als de Turingmachine die de lege taal bepaalt.
-    \[ f: <M,s> \mapsto <M_{s},M_{\phi}> \]
-    \begin{itemize}
-    \item $f$ is Turing-berekenbaar. \clarify{waarom? Hoe constreren we de encodering van $M_{s}$ en $M_{\phi}$??}
-    \item Als $M$ de string $s$ accepteert, dan zijn $M_{s}$ en $M_{\phi}$ verschillend.
-      $M_{s}$ accepteert elke string wanneer $M$ $s$ accepteert terwijl $M_{\phi}$ geen enkele string accepteert.
-    \item Als $m$ de string $s$ niet accepteert, dan zijn $M_{s}$ en $M_{\phi}$ gelijk.
-      Als $M$ $s$ accepteert accepteren $M_{s}$ en $M_{\phi}$ beide geen enkele string.
-    \end{itemize}
-  \end{proof}
-\end{st}
-
-\begin{st}
-  \label{st:eq-tm-niet-coherk}
-  $EQ_{TM}$ is niet co-herkenbaar.
-
-  \begin{proof}
-    We constreren een reductie $f$ van $A_{TM}$ naar $EQ_{TM}$.
-    Vermits $\overline{A_{TM}}$ niet herkenbaar is, is $\overline{EQ_{TM}}$ ook niet herkenbaar.\stref{st:reduceerbaarheid-taal-complement}
-    Definieer $M_{s}$ als een machine die elke string accepteert als $M$ de string $s$ accepteert en $M_{\Sigma^{*}}$ als de Turingmachine die elke string aanvaardt.
-    \[ f:\ <M,s> \mapsto <M_{s},M_{\Sigma^{*}}> \]
-    \begin{itemize}
-    \item $f$ is Turing-berekenbaar. \clarify{waarom? Hoe constreren we de encodering van $M_{s}$ en $M_{\Sigma^{*}}$??}
-    \item Als $M$ $s$ accepteert, dan zijn $M_{s}$ en $M_{\Sigma^{*}}$ gelijk.
-      $M_{s}$ en $M_{\Sigma^{*}}$ accepteren dan beide elke string.
-    \item Als $M$ $s$ niet accepteert, dan zijn $M_{s}$ en $M_{\Sigma^{*}}$ verschillend.
-      Als $M$ $s$ niet accepteert, accepteert $M_{s}$ immers geen enkele string terwijl $M_{\Sigma^{*}}$ elke string accepteert.
-    \end{itemize}
-  \end{proof}
-\end{st}
-
-
-\subsection{Het acceptatie probleem}
-\label{sec:het-acceptatie-probleem}
-
-\begin{de}
-  \label{de:a-tm}
-  $A_{TM}$ is de taal van koppels $(M,s)$ waarbij $M$ een Turingmachine is die $s$ aanvaardt.
-  \[ A_{TM} = \{ <M,s> \ |\ M \text{ is een Turingmachine en } s \in L_{M} \} \]
-\end{de}
-
-\begin{st}
-  \label{st:a-tm-herk}
-  $A_{TM}$ is herkenbaar.
-  \begin{proof}
-    De herkenner $H$ voor $A_{TM}$ laat bij input $<M,s>$ $M$ lopen op $s$.
-    Als $M$ $s$ accepteert, dan accepteert $H$ $<M,s>$.
-  \end{proof}
-\end{st}
-
-\begin{st}
-  \label{st:a-tm-niet-besl}
-  $A_{TM}$ is niet beslisbaar.
-
-  \begin{proof}
-    Bewijs uit het ongerijmde.\\
-    Stel dat er een beslisser $B$ bestaat voor $A_{TM}$.
-    Dit betekent dat de TM $B$ de string $<M,s>$ accepteert als $M$ bij input $s$ zou stoppen in een accepterende toestand.
-    $B$ zou bovendien de string $<M,s>$ verwerpen als $M$ bij input $s$ zou stoppen in een onaanvaardbare toestand, of niet zou stoppen.
-    We construeren nu een machine (TM) $C$ die voor een contradictie moet zorgen.
-    $C$ accepteert een string $<M>$ (met $M$ een $TM$) als $B$ $<M,<M>>$ niet accepteert.
-    $C$ verwerpt een string $<M>$ als $B$ $<M,<M>>$ verwerpt.
-    We beschouwen nu wat $C$ doet met de string $<C>$.
-    Stel dat $C$ $<C>$ zou accepteren, dan betekent dat dat $B$ $<C<C>>$ accepteert (volgens de definitie van $B$), want $C$ is een machine die de string $<C>$ accepteert.
-    Het betekent echter dat $C$ $<C>$ moet verwerpen(, volgens de definitie van $C$).
-    \[ C \text{ accepteert } <C> \quad\Rightarrow\quad B \text{ accepteert } <C<C>> \quad\Rightarrow\quad C \text{ verwerpt } <C> \]
-    Stel omgekeerd dat $C$ $<C>$ zou verwerpen, dan betekent dat dat $B$ $<C<C>>$ verwerpt (volgens de definitie van $B$), want $C$ is een machine die de string $<C>$ accepteert.
-    Dat zou betekenen dat $C$ $<C<C>>$ moet accepteren(, volgens de definitie van $C$).
-    \[ C \text{ verwerpt } <C> \quad\Rightarrow\quad B \text{ verwerpt } <C<C>> \quad\Rightarrow\quad C \text{ accepteert } <C> \]
-    Bijgevolg kan $B$ niet bestaan.
-    Contradictie.
-  \end{proof}
-\end{st}
-
-\begin{gev}
-  \label{gev:a-tm-niet-coherk}
-  $A_{TM}$ is niet co-herkenbaar.
-  \begin{proof}
-    $A_{TM}$ is herkenbaar, maar niet beslisbaar, dus $A_{TM}$ is niet co-herkenbaar.\stref{st:herk-plus-coherk-is-besl}
-  \end{proof}
-\end{gev}
-
-\subsection{Het Halting probleem}
-\label{sec:het-halting-probleem}
-
-\begin{de}
-  \label{de:h-tm}
-  $H_{TM}$ is de taal van koppels $(M,s)$ waarbij $M$ een Turingmachine is die stopt bij input $s$.
-  \[ H_{TM} = \{ <M,s> \ |\ M \text{ is een Turinmgmachine en } M \text{ stopt bij input } s \} \]
-\end{de}
-
-\begin{st}
-  \label{st:h-tm-herk}
-  $H_{TM}$ is herkenbaar.
-  \begin{proof}
-    De herkenner $H$ voor $H_{TM}$ laat bij input $<M,s>$ $M$ lopen op $s$.
-    Als $M$ $s$ stopt, dan accepteert $H$ $<M,s>$.
-  \end{proof}
-\end{st}
-
-\begin{st}
-  \label{st:h-tm-niet-besl}
-  $H_{TM}$ is niet beslisbaar.
-
-  \begin{proof}
-    Stel dat $H_{TM}$ beslisbaar is door een beslisser $H$.
-    We construeren nu een beslisser $B$ voor $A_{TM}$ vanuit $H$.
-    Bij input $<M,s>$ doet laat $B$ eerst $H$ lopen op $<M,s>$.
-    Als $H$ accepteert(, dus $M$ stopt bij input $s$) laat $B$ $M$ lopen op $s$ en geeft als resultaat het resultaat van $M$.
-    Als $H$ niet accepteert(, dus $M$ stopt niet bij input $s$) verwerpt $B$ ook.
-    Vermits er geen beslisser bestaat voor $A_{TM}$, kan $H$ niet bestaan en is $H_{TM}$ dus ook niet beslisbaar.
-  \end{proof}
-\end{st}
-
-\begin{gev}
-  \label{gev:h-tm-niet-coherk}
-  $H_{TM}$ is niet co-herkenbaar.
-  \begin{proof}
-    $H_{TM}$ is herkenbaar, maar niet beslisbaar, dus $H_{TM}$ is niet co-herkenbaar.\stref{st:herk-plus-coherk-is-besl}
-  \end{proof}
-\end{gev}
-
-\begin{de}
-  \label{de:e-tm}
-  $E_{TM}$ is de taal van alle Turingmachines die geen enkele string aanvaardt.
-  \[ E_{TM} = \{ <M,s>\ |\ M \text{ is een Turingmachine en } L_{M} = \phi \} \]
-\end{de}
-
-\begin{st}
-  \label{st:e-tm-niet-besl}
-  $E_{TM}$ is niet beslisbaar.
-
-  \begin{proof}
-    Bewijs uit het ongerijmde\\
-    Stel dat $E_{TM}$ beslisbaar is, dan bestaat er een beslisser $E$ voor $E_{TM}$.
-    Vanuit $E$ construeren we nu een beslisser $B$ voor $A_{TM}$ als volgt:
-    $B$ krijgt als invoer een string van de vorm $<M,s>$ en moet beslissen of $M$ de string $s$ aanvaardt.
-    \begin{itemize}
-    \item $B$ construeert een machine $M_{s}$ die voor invoer $w$ $w$ verwerpt wanneer $w$ verschillend is van $s$ en $M$ laat lopen op $w$ als $w$ gelijk is aan $s$ en het resultaat terug geeft.
-    \item $B$ laat $E$ lopen op $<M_{s}>$
-      \begin{itemize}
-      \item Als $E$ $<M_{s}>$ accepteert, dan verwerpt $B$ $<M,s>$, want dan accepteert $M_{s}$ geen enkele string (ook niet $s$).
-      \item Als $E$ $<M_{s}>$ accepteert, dan verwerpt $B$ $<M,s>$ want dan accepteert $M_{s}$ minstens \'e\'en string (enkel $s$).
-      \end{itemize}
-    \end{itemize}
-    Omdat $A_{TM}$ niet beslisbaar is\stref{st:a-tm-niet-besl}, kan $E_{TM}$ ook niet beslisbaar zijn.
-  \end{proof}
-\end{st}
-
-\begin{de}
-  \label{de:regular-tm}
-  $REGULAR_{TM}$ is de taal van alle Turingmachines die een reguliere taal bepaalt.
-\end{de}
-
-\begin{st}
-  \label{st:regular-tm-niet-besl}
-  $REGULAR_{TM}$ is niet beslisbaar.
-
-  \begin{proof}
-    Bewijs uit het ongerijmde\\
-    Stel dat $REGULAR_{TM}$ beslisbaar is, dan bestaat er een beslisser $R$ voor $REGULAR_{TM}$.
-    Vanuit $R$ construeren we nu een beslisser $B$ voor $A_{TM}$ als volgt:
-    $B$ krijgt als invoer een string van de vorm $<M,s>$ en moet beslissen of $M$ de string $s$ aanvaardt.
-    \begin{itemize}
-    \item $B$ construeert een hulpmachine $H_{s}$ die bij invoer $x$ het volgende doet:
-      \begin{itemize}
-      \item Als $x$ van de vorm $0^{n}1^{n}$ is, dan accepteert $H_{s}$ $x$.
-      \item Als $x$ niet van de vorm $0^{n}1^{n}$ is, dan laat $H$ $M$ lopen op $s$ en geeft het resultaat terug.
-      \end{itemize}
-    \item $B$ laat $R$ lopen op $<H_{s}>$ en geeft het resultaat terug.
-    \end{itemize}
-    Merk op dat $H_{s}$ ofwel $0^{n}1^{n}$ (niet-regulier\vbref{vb:0n-1n-niet-regulier}) accepteert (wanneer $M$ $s$ niet accepteert), ofwel heel $\Sigma^{*}$ (regulier) accepteert (wanneer $M$ $s$ accepteert).
-    $B$ accepteert $<M,s>$ als en slechts als $R$ $<H_{s}>$ accepteert.
-    Dit is precies wanneer $H_{s}$ heel $\Sigma^{*}$ accepteert en $M$ dus $s$ accepteert.
-    $B$ is bijgevolg een beslisser voor $A_{TM}$.
-    Omdat $A_{TM}$ niet beslisbaar is\stref{st:a-tm-niet-besl}, kan $E_{TM}$ ook niet beslisbaar zijn.
-  \end{proof}
-\end{st}
-
-\begin{de}
-  \label{de:eq-tm}
-  $EQ_{TM}$ is de taal van alle koppels Turingmachines die dezelfde taal herkennen.
-\end{de}
-
-\begin{st}
-  \label{st:eq-tm-besl}
-  $EQ_{TM}$ is niet beslisbaar.
-
-  \begin{proof}
-    Het is niet beslisbaar of een TM geen enkele string aanvaardt.
-    't Is te zeggen of de taal herkend door een TM gelijk is aan de lege taal.
-    Het is dus zeker niet beslisbaar of twee TM's dezelfde taal herkennen.
-  \end{proof}
-\end{st}
 
 \begin{de}
   \label{de:linear-begrensde-automaat}
@@ -619,27 +493,226 @@
 
 \extra{p 108 acceptance, halting en leegheid van LBA,PDA en TM}
 
+\extra{$A_{CSG}$}
+\extra{$H_{CSG}$}
+\extra{$E_{CSG}$}
+\extra{$EQ_{CSG}$}
+\extra{$ES_{CSG}$}
+\extra{$REGULAR_{CSG}$}
+\extra{$ALL_{CSG}$}
+\extra{$FINITE_{CSG}$}
+
+\section{...  in verband met Turing machines}
+\label{sec:verb-met-tms}
+
+\subsection{Het acceptatie probleem}
+\label{sec:het-acceptatie-probleem}
+
+\begin{de}
+  \label{de:a-tm}
+  $A_{TM}$ is de taal van koppels $(M,s)$ waarbij $M$ een Turingmachine is die $s$ aanvaardt.
+  \[ A_{TM} = \{ <M,s> \ |\ M \text{ is een Turingmachine en } s \in L_{M} \} \]
+\end{de}
+
 \begin{st}
-  \label{st:all-cfg-niet-herk}
-  $ALL_{CFG}$ is niet herkenbaar. \zb
+  \label{st:a-tm-herk}
+  $A_{TM}$ is herkenbaar.
+  \begin{proof}
+    De herkenner $H$ voor $A_{TM}$ laat bij input $<M,s>$ $M$ lopen op $s$.
+    Als $M$ $s$ accepteert, dan accepteert $H$ $<M,s>$.
+  \end{proof}
 \end{st}
 
 \begin{st}
-  \label{st:all-cfg-coherk}
-  $ALL_{CFG}$ is co-herkenbaar.
-\extra{bewijs}
+  \label{st:a-tm-niet-besl}
+  $A_{TM}$ is niet beslisbaar.
+
+  \begin{proof}
+    Bewijs uit het ongerijmde.\\
+    Stel dat er een beslisser $B$ bestaat voor $A_{TM}$.
+    Dit betekent dat de TM $B$ de string $<M,s>$ accepteert als $M$ bij input $s$ zou stoppen in een accepterende toestand.
+    $B$ zou bovendien de string $<M,s>$ verwerpen als $M$ bij input $s$ zou stoppen in een onaanvaardbare toestand, of niet zou stoppen.
+    We construeren nu een machine (TM) $C$ die voor een contradictie moet zorgen.
+    $C$ accepteert een string $<M>$ (met $M$ een $TM$) als $B$ $<M,<M>>$ niet accepteert.
+    $C$ verwerpt een string $<M>$ als $B$ $<M,<M>>$ verwerpt.
+    We beschouwen nu wat $C$ doet met de string $<C>$.
+    Stel dat $C$ $<C>$ zou accepteren, dan betekent dat dat $B$ $<C<C>>$ accepteert (volgens de definitie van $B$), want $C$ is een machine die de string $<C>$ accepteert.
+    Het betekent echter dat $C$ $<C>$ moet verwerpen(, volgens de definitie van $C$).
+    \[ C \text{ accepteert } <C> \quad\Rightarrow\quad B \text{ accepteert } <C<C>> \quad\Rightarrow\quad C \text{ verwerpt } <C> \]
+    Stel omgekeerd dat $C$ $<C>$ zou verwerpen, dan betekent dat dat $B$ $<C<C>>$ verwerpt (volgens de definitie van $B$), want $C$ is een machine die de string $<C>$ accepteert.
+    Dat zou betekenen dat $C$ $<C<C>>$ moet accepteren(, volgens de definitie van $C$).
+    \[ C \text{ verwerpt } <C> \quad\Rightarrow\quad B \text{ verwerpt } <C<C>> \quad\Rightarrow\quad C \text{ accepteert } <C> \]
+    Bijgevolg kan $B$ niet bestaan.
+    Contradictie.
+  \end{proof}
 \end{st}
 
 \begin{gev}
-  \label{gev:all-cfg-niet-besl}
-  $ALL_{CFG}$ is niet beslisbaar.
-
+  \label{gev:a-tm-niet-coherk}
+  $A_{TM}$ is niet co-herkenbaar.
   \begin{proof}
-    $ALL_{CFG}$ is niet herkenbaar, dus zeker niet beslisbaar.
+    $A_{TM}$ is herkenbaar, maar niet beslisbaar, dus $A_{TM}$ is niet co-herkenbaar.\stref{st:herk-plus-coherk-is-besl}
   \end{proof}
 \end{gev}
 
-\extra{$ALL_{RegExp}$ is beslisbaar: bewijs}
+\subsection{Het halting probleem}
+
+\begin{de}
+  \label{de:h-tm}
+  $H_{TM}$ is de taal van koppels $(M,s)$ waarbij $M$ een Turingmachine is die stopt bij input $s$.
+  \[ H_{TM} = \{ <M,s> \ |\ M \text{ is een Turinmgmachine en } M \text{ stopt bij input } s \} \]
+\end{de}
+
+\begin{st}
+  \label{st:h-tm-herk}
+  $H_{TM}$ is herkenbaar.
+  \begin{proof}
+    De herkenner $H$ voor $H_{TM}$ laat bij input $<M,s>$ $M$ lopen op $s$.
+    Als $M$ $s$ stopt, dan accepteert $H$ $<M,s>$.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:h-tm-niet-besl}
+  $H_{TM}$ is niet beslisbaar.
+
+  \begin{proof}
+    Stel dat $H_{TM}$ beslisbaar is door een beslisser $H$.
+    We construeren nu een beslisser $B$ voor $A_{TM}$ vanuit $H$.
+    Bij input $<M,s>$ doet laat $B$ eerst $H$ lopen op $<M,s>$.
+    Als $H$ accepteert(, dus $M$ stopt bij input $s$) laat $B$ $M$ lopen op $s$ en geeft als resultaat het resultaat van $M$.
+    Als $H$ niet accepteert(, dus $M$ stopt niet bij input $s$) verwerpt $B$ ook.
+    Vermits er geen beslisser bestaat voor $A_{TM}$, kan $H$ niet bestaan en is $H_{TM}$ dus ook niet beslisbaar.
+  \end{proof}
+\end{st}
+
+\begin{gev}
+  \label{gev:h-tm-niet-coherk}
+  $H_{TM}$ is niet co-herkenbaar.
+  \begin{proof}
+    $H_{TM}$ is herkenbaar, maar niet beslisbaar, dus $H_{TM}$ is niet co-herkenbaar.\stref{st:herk-plus-coherk-is-besl}
+  \end{proof}
+\end{gev}
+
+\subsection{Het equivalentieprobleem}
+
+\begin{de}
+  \label{de:eq-tm}
+  $EQ_{TM}$ is de taal van alle koppels Turingmachines die dezelfde taal herkennen.
+\end{de}
+
+\begin{st}
+  \label{st:eq-tm-besl}
+  $EQ_{TM}$ is niet beslisbaar.
+
+  \begin{proof}
+    Het is niet beslisbaar of een TM geen enkele string aanvaardt.
+    't Is te zeggen of de taal herkend door een TM gelijk is aan de lege taal.
+    Het is dus zeker niet beslisbaar of twee TM's dezelfde taal herkennen.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:eq-tm-niet-herk}
+  $EQ_{TM}$ is niet herkenbaar.
+
+  \begin{proof}
+    We construeren een reductie $f$ van $A_{TM}$ naar $\overline{EQ_{TM}}$.
+    Vermits $\overline{A_{TM}}$ niet herkenbaar is, is $EQ_{TM}$ ook niet herkenbaar.\stref{st:reduceerbaarheid-taal-complement}
+    Definieer $M_{s}$ als een machine die elke string accepteert als $M$ de string $s$ accepteert en $M_{\phi}$ als de Turingmachine die de lege taal bepaalt.
+    \[ f: <M,s> \mapsto <M_{s},M_{\phi}> \]
+    \begin{itemize}
+    \item $f$ is Turing-berekenbaar. \clarify{waarom? Hoe constreren we de encodering van $M_{s}$ en $M_{\phi}$??}
+    \item Als $M$ de string $s$ accepteert, dan zijn $M_{s}$ en $M_{\phi}$ verschillend.
+      $M_{s}$ accepteert elke string wanneer $M$ $s$ accepteert terwijl $M_{\phi}$ geen enkele string accepteert.
+    \item Als $m$ de string $s$ niet accepteert, dan zijn $M_{s}$ en $M_{\phi}$ gelijk.
+      Als $M$ $s$ accepteert accepteren $M_{s}$ en $M_{\phi}$ beide geen enkele string.
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:eq-tm-niet-coherk}
+  $EQ_{TM}$ is niet co-herkenbaar.
+
+  \begin{proof}
+    We constreren een reductie $f$ van $A_{TM}$ naar $EQ_{TM}$.
+    Vermits $\overline{A_{TM}}$ niet herkenbaar is, is $\overline{EQ_{TM}}$ ook niet herkenbaar.\stref{st:reduceerbaarheid-taal-complement}
+    Definieer $M_{s}$ als een machine die elke string accepteert als $M$ de string $s$ accepteert en $M_{\Sigma^{*}}$ als de Turingmachine die elke string aanvaardt.
+    \[ f:\ <M,s> \mapsto <M_{s},M_{\Sigma^{*}}> \]
+    \begin{itemize}
+    \item $f$ is Turing-berekenbaar. \clarify{waarom? Hoe constreren we de encodering van $M_{s}$ en $M_{\Sigma^{*}}$??}
+    \item Als $M$ $s$ accepteert, dan zijn $M_{s}$ en $M_{\Sigma^{*}}$ gelijk.
+      $M_{s}$ en $M_{\Sigma^{*}}$ accepteren dan beide elke string.
+    \item Als $M$ $s$ niet accepteert, dan zijn $M_{s}$ en $M_{\Sigma^{*}}$ verschillend.
+      Als $M$ $s$ niet accepteert, accepteert $M_{s}$ immers geen enkele string terwijl $M_{\Sigma^{*}}$ elke string accepteert.
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\subsection{Het leegheidprobleem}
+
+
+\begin{de}
+  \label{de:e-tm}
+  $E_{TM}$ is de taal van alle Turingmachines die geen enkele string aanvaardt.
+  \[ E_{TM} = \{ <M,s>\ |\ M \text{ is een Turingmachine en } L_{M} = \phi \} \]
+\end{de}
+
+\begin{st}
+  \label{st:e-tm-niet-besl}
+  $E_{TM}$ is niet beslisbaar.
+
+  \begin{proof}
+    Bewijs uit het ongerijmde\\
+    Stel dat $E_{TM}$ beslisbaar is, dan bestaat er een beslisser $E$ voor $E_{TM}$.
+    Vanuit $E$ construeren we nu een beslisser $B$ voor $A_{TM}$ als volgt:
+    $B$ krijgt als invoer een string van de vorm $<M,s>$ en moet beslissen of $M$ de string $s$ aanvaardt.
+    \begin{itemize}
+    \item $B$ construeert een machine $M_{s}$ die voor invoer $w$ $w$ verwerpt wanneer $w$ verschillend is van $s$ en $M$ laat lopen op $w$ als $w$ gelijk is aan $s$ en het resultaat terug geeft.
+    \item $B$ laat $E$ lopen op $<M_{s}>$
+      \begin{itemize}
+      \item Als $E$ $<M_{s}>$ accepteert, dan verwerpt $B$ $<M,s>$, want dan accepteert $M_{s}$ geen enkele string (ook niet $s$).
+      \item Als $E$ $<M_{s}>$ accepteert, dan verwerpt $B$ $<M,s>$ want dan accepteert $M_{s}$ minstens \'e\'en string (enkel $s$).
+      \end{itemize}
+    \end{itemize}
+    Omdat $A_{TM}$ niet beslisbaar is\stref{st:a-tm-niet-besl}, kan $E_{TM}$ ook niet beslisbaar zijn.
+  \end{proof}
+\end{st}
+
+\subsection{Het regulieretaalprobleem}
+
+
+\begin{de}
+  \label{de:regular-tm}
+  $REGULAR_{TM}$ is de taal van alle Turingmachines die een reguliere taal bepaalt.
+\end{de}
+
+\begin{st}
+  \label{st:regular-tm-niet-besl}
+  $REGULAR_{TM}$ is niet beslisbaar.
+
+  \begin{proof}
+    Bewijs uit het ongerijmde\\
+    Stel dat $REGULAR_{TM}$ beslisbaar is, dan bestaat er een beslisser $R$ voor $REGULAR_{TM}$.
+    Vanuit $R$ construeren we nu een beslisser $B$ voor $A_{TM}$ als volgt:
+    $B$ krijgt als invoer een string van de vorm $<M,s>$ en moet beslissen of $M$ de string $s$ aanvaardt.
+    \begin{itemize}
+    \item $B$ construeert een hulpmachine $H_{s}$ die bij invoer $x$ het volgende doet:
+      \begin{itemize}
+      \item Als $x$ van de vorm $0^{n}1^{n}$ is, dan accepteert $H_{s}$ $x$.
+      \item Als $x$ niet van de vorm $0^{n}1^{n}$ is, dan laat $H$ $M$ lopen op $s$ en geeft het resultaat terug.
+      \end{itemize}
+    \item $B$ laat $R$ lopen op $<H_{s}>$ en geeft het resultaat terug.
+    \end{itemize}
+    Merk op dat $H_{s}$ ofwel $0^{n}1^{n}$ (niet-regulier\vbref{vb:0n-1n-niet-regulier}) accepteert (wanneer $M$ $s$ niet accepteert), ofwel heel $\Sigma^{*}$ (regulier) accepteert (wanneer $M$ $s$ accepteert).
+    $B$ accepteert $<M,s>$ als en slechts als $R$ $<H_{s}>$ accepteert.
+    Dit is precies wanneer $H_{s}$ heel $\Sigma^{*}$ accepteert en $M$ dus $s$ accepteert.
+    $B$ is bijgevolg een beslisser voor $A_{TM}$.
+    Omdat $A_{TM}$ niet beslisbaar is\stref{st:a-tm-niet-besl}, kan $E_{TM}$ ook niet beslisbaar zijn.
+  \end{proof}
+\end{st}
+
 
 \section{Weetjes}
 \label{sec:weetjes}
