@@ -257,6 +257,21 @@
 \end{st}
 
 \begin{de}
+  \label{de:h-dfa}
+  $H_{DFA}$ is de taal van koppels $(M,s)$ waarbij $M$ een DFA is die bij invoer $s$ beslist of $s$ tot $L_{M}$ behoort in een eindige hoeveelheid tijd.
+\end{de}
+
+\begin{st}
+  \label{st:h-dfa-besl}
+  $H_{DFA}$ is beslisbaar.
+  
+  \begin{proof}
+    Elke $DFA$ beslist in een eindige hoeveelheid tijd of een gegeven invoerstring tot zijn taal behoort.
+    Een beslisser voor $H_{NFA}$ accepteert elk geldig koppel $(M,s)$ van een DFA $M$ en een string $s$.
+  \end{proof}
+\end{st}
+
+\begin{de}
   \label{de:e-dfa}
   $E_{DFA}$ is de taal van alle machines $D$ die de lege taal bepalen.
   \[ E_{DFA} = \{ <D,s>\ |\ D \text{ is een DFA en } L_{D} = \emptyset \} \]
@@ -276,6 +291,20 @@
 \end{st}
 
 \begin{de}
+  \label{de:e-re}
+  $E_{RE}$ is de taal van reguliere expressies $E$ die de lege taal bepalen.
+  \[ E_{RE} = \{ E\ |\ E \text{ is een RE } L_{E} = \emptyset \} \]
+\end{de}
+
+
+\begin{st}
+  \label{st:e-re}
+  $E_{DFA}$ is beslisbaar.
+\extra{bewijs}
+\end{st}
+
+
+\begin{de}
   \label{de:eq-dfa}
   $EQ_{DFA}$ is de taal van alle koppels DFA's die dezelfde taal bepalen.
   \[ EQ_{DFA} = \{ <D_{1},D_{2}> \ |\ D_{1},D_{2} \text{ zijn DFA's en } L_{D_{1}} = L_{D_{2}} \} \]  
@@ -292,13 +321,64 @@
   \end{proof}
 \end{st}
 
-\extra{$H_{DFA}$}
-\extra{$E_{RE}$}
-\extra{$EQ_{RE}$}
-\extra{$ES_{RE}$}
-\extra{$REGULAR_{RE}$}
-\extra{$ALL_{RE}$}
-\extra{$FINITE_{RE}$}
+\begin{de}
+  \label{de:eq-re}
+  $EQ_{RE}$ is de taal van alle koppels reguliere expressies die dezelfde taal bepalen.
+  \[ EQ_{RE} = \{ (E_{1},E_{2}) \ |\ E_{1},E_{2} \text{ zijn RE's en } L_{E_{1}} = L_{E_{2}} \} \]  
+\end{de}
+
+\begin{st}
+  \label{st:eq-re-besl}
+\extra{bewijs}
+\end{st}
+
+\begin{de}
+  \label{de:es-re}
+  $ES_{RE}$ is de taal van reguliere expressies waarvan de taal de lege string bevat.
+  \[ ES_{RE} = \{ E \ |\ E \text{ is een RE en } \epsilon \in L_{E}\} \]
+\end{de}
+
+\begin{st}
+  \label{st:es-re}
+  $ES_{RE}$ is beslisbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{de}
+  \label{de:regular-re}
+  $REGULAR_{RE}$ is de taal van reguliere expressies die een reguliere taal bepalen.
+\end{de}
+
+\begin{st}
+  \label{st:regular-re-besl}
+  $REGULAR_{RE}$ is beslisbaar.
+
+  \begin{proof}
+    Een beslisser voor $REGULAR_{RE}$ accepteert elke geldige reguliere expressie.\deref{de:reguliere-taal} \stref{st:regex-cfl}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:all-re}
+  $ALL_{RE}$ is de taal van reguliere expressies die $\Sigma^{*}$ bepalen.
+\end{de}
+
+\begin{st}
+  \label{st:all-re-besl}
+  $ALL_{RE}$ is beslisbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{de}
+  \label{de:finite-re}
+  $FINITE_{RE}$ is de taal van reguliere expressies die een eindige taal bepalen.
+\end{de}
+
+\begin{st}
+  \label{st:finite-re-besl}
+  $FINITE_{RE}$ is beslisbaar.
+\extra{bewijs}
+\end{st}
 
 \section{... in verband met contextvrije talen}
 \label{sec:verb-met-cont}
@@ -320,6 +400,21 @@
     Dat zijn er eindig veel.
     Als $s$ erbij zit, genereert $G$ $s$.\stref{st:chomsky-normaalvorm-afleidingslengte}
     $B$ accepteert $<G,s>$ dan, anders niet.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:h-pda}
+  $H_{PDA}$ is de taal van koppels $(M,s)$ waarbij $M$ een PDA is die bij invoer $s$ beslist of $s$ tot $L_{M}$ behoort in een eindige hoeveelheid tijd.
+\end{de}
+
+\begin{st}
+  \label{st:h-pda-besl}
+  $H_{PDA}$ is beslisbaar.
+  
+  \begin{proof}
+    Elke $PDA$ beslist in een eindige hoeveelheid tijd of een gegeven invoerstring tot zijn taal behoort.
+    Een beslisser voor $H_{PDA}$ accepteert elk geldig koppel $(M,s)$ van een DFA $M$ en een string $s$.
   \end{proof}
 \end{st}
 
@@ -466,6 +561,17 @@
     \end{itemize}
     Als $M$ de string $s$ nog niet geaccepteerd had binnen de $m$ stappen betekent dat dat $M$ in een lus terecht was gekomen en dan zou $M$ $s$ ook niet accepteren.
   \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:h-lba}
+  $H_{LBA}$ is de taal van koppels $(M,s)$ waarbij $M$ een LBA is die bij invoer $s$ beslist of $s$ tot $L_{M}$ behoort in een eindige hoeveelheid tijd.
+\end{de}
+
+\begin{st}
+  \label{st:h-lba-besl}
+  $H_{LBA}$ is beslisbaar.
+  \extra{bewijs}
 \end{st}
 
 \begin{de}
@@ -806,7 +912,7 @@
   \end{tabular}
   \begin{tabular}[H]{cccc}
     \pvak{\ref{de:a-re}}{$A_{RE}$}{B} & \pvak{\ref{de:a-cfg}}{$A_{CFG}$}{B} & \pvak{\ref{de:a-csg}}{$A_{CSG}$}{B} & \pvak{\ref{de:a-tm}}{$A_{TM}$}{H}\\
-    \pvak{\ref{de:h-re}}{$H_{RE}$}{B} & \pvak{\ref{de:h-cfg}}{$H_{CFG}$}{B} & \pvak{\ref{de:h-csg}}{$H_{CSG}$}{B} & \pvak{\ref{de:h-tm}}{$H_{TM}$}{H}\\
+    \pvak{\ref{de:h-dfa}}{$H_{DFA}$}{B} & \pvak{\ref{de:h-pda}}{$H_{PDA}$}{B} & \pvak{\ref{de:h-lba}}{$H_{LBA}$}{B} & \pvak{\ref{de:h-tm}}{$H_{TM}$}{H}\\
     \pvak{\ref{de:e-re}}{$E_{RE}$}{B} & \pvak{\ref{de:e-cfg}}{$E_{CFG}$}{B} & \pvak{\ref{de:e-csg}}{$E_{CSG}$}{H} & \pvak{\ref{de:e-tm}}{$E_{TM}$}{C}\\
     \pvak{\ref{de:eq-re}}{$EQ_{RE}$}{B} & \pvak{\ref{de:eq-cfg}}{$EQ_{CFG}$}{H} & \pvak{\ref{de:eq-csg}}{$EQ_{CSG}$}{H} & \pvak{\ref{de:eq-tm}}{$EQ_{TM}$}{N}\\
     \pvak{\ref{de:es-re}}{$ES_{RE}$}{B} & \pvak{\ref{de:es-cfg}}{$ES_{CFG}$}{B} & \pvak{\ref{de:es-csg}}{$ES_{CSG}$}{B} & \pvak{\ref{de:es-tm}}{$ES_{TM}$}{H}\\
