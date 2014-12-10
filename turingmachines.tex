@@ -879,8 +879,7 @@
 \end{de}
 
 \begin{de}
-  We korten Turing-berekenbaar vaak af tot berekenbaar.
-\waarom
+  Omwille van du Church-Turing these korten we ``Turing-berekenbaar'' vaak af tot ``berekenbaar''.
 \end{de}
 
 \begin{de}
@@ -896,19 +895,51 @@
 
 \begin{st}
   Zij $L_1$ en $L_2$ talen over, respectievelijk, $\Sigma_1$ en $\Sigma_2$.
-  \[ L_1\le_m L_2 \Rightarrow (L_1 \text{ is beslisbaar } \Rightarrow L_2 \text{ is beslisbaar }) \]
-\extra{bewijs}
+  \[ L_1\le_m L_2 \Rightarrow (L_2 \text{ is beslisbaar } \Rightarrow L_1 \text{ is beslisbaar }) \]
+
+  \begin{proof}
+    Zij $L_{1}$ reduceerbaar naar $L_{2}$ en $L_{2}$ beslisbaar.
+    Gegeven een beslisser $B_{2}$ voor $L_{2}$ zullen we een beslisser $B_{1}$ voor $L_{1}$ construeren.
+    $B_{1}$ zal als invoer een string $s$ verwachten en moeten beslissen of $s$ tot $L_{1}$ behoort.
+    \begin{itemize}
+    \item $B_{1}$ berekent de afbeelding $f(s)$ van $s$ onder $f$.
+      Dit kan want uit de definitie van reduceerbaarheid volgt dat $f$ Turing-berekenbaar is.
+    \item $B_{1}$ gaat (in eindige tijd) na of $f(s)$ tot $L_{2}$ behoort door $B_{2}$ op te roepen en geeft het resultaat terug.
+    \end{itemize}
+    Precies omdat $L_{1}$ op een deel van $L_{2}$ wordt afgebeeld en $\overline{L_{1}}$ op een deel van $\overline{L_{2}}$ komt het resultaat van $B_{2}$ overeen met het resultaat van $B_{1}$.
+  \end{proof}
 \end{st}
 
 
 \begin{st}
   Zij $L_1$ en $L_2$ talen over, respectievelijk, $\Sigma_1$ en $\Sigma_2$.
-  \[ L_1\le_m L_2 \Rightarrow (L_1 \text{ is herkenbaar } \Rightarrow L_2 \text{ is herkenbaar }) \]
-\extra{bewijs}
+  \[ L_1\le_m L_2 \Rightarrow (L_2 \text{ is herkenbaar } \Rightarrow L_1 \text{ is herkenbaar }) \]
+
+  \begin{proof}
+    Zij $L_{1}$ reduceerbaar naar $L_{2}$ en $L_{2}$ herkenbaar.
+    Gegeven een herkenner $H_{2}$ voor $L_{2}$ zullen we een herkenner $H_{1}$ voor $L_{1}$ construeren.
+    $H_{1}$ zal als invoer een string $s$ verwachten en moeten herkennen of $s$ tot $L_{1}$ behoort.
+    \begin{itemize}
+    \item $H_{1}$ berekent de afbeelding $f(s)$ van $s$ onder $f$.
+      Dit kan want uit de definitie van reduceerbaarheid volgt dat $f$ Turing-berekenbaar is.
+    \item $H_{1}$ gaat na of $f(s)$ tot $L_{2}$ behoort door $H_{2}$ op te roepen en geeft het resultaat terug.
+    \end{itemize}
+    Precies omdat $L_{1}$ op een deel van $L_{2}$ wordt afgebeeld komt het resultaat van $B_{2}$ overeen met het resultaat van $B_{1}$.
+  \end{proof}
 \end{st}
 
+\begin{opm}
+  In het geval dat een taal $L_{1}$ reduceerbaar is naar een taal $L_{2}$ en $L_{2}$ herkenbaar, loopt de bovenstaande constructie ook oneindig door voor alle strings $f(s)$ waarvoor de herkenner voor $L_{2}$ oneindig doorloopt.
+\end{opm}
+
+\begin{gev}
+  \label{gev:reductie-niet-beslisbaarheid}
+  Zij $L_{1}$ een taal die reduceerbaar is naar een taal $L_{2}$ met $L_{1}$ niet herkenbaar/niet beslisbaar, dan is $L_{2}$ ook niet herkenbaar/beslisbaar.
+  \zb
+\end{gev}
 
 \begin{st}
+  \label{st:eq-tm-niet-besl}
   $EQ_{TM}$ is niet beslisbaar.
 
   \begin{proof}
@@ -917,20 +948,59 @@
     \[
     <M> \mapsto <M,M_{\phi}>
     \]
-    $f$ is duidelijk Turing-berekenbaar.
-\waarom
+    $f$ is duidelijk Turing-berekenbaar. $M_{\phi}$ is immers eindig.
+    Omdat $E_{TM}$ niet beslisbaar is, is $EQ_{TM}$ ook niet beslisbaar.\gevref{gev:reductie-niet-beslisbaarheid}
   \end{proof}
 \end{st}
 
 \begin{st}
+  \label{st:reduceerbaarheid-taal-complement}
   Zij $A$ en $B$ twee talen.
-  \[ A \le_m B \Rightarrow \overline{a} \le_m \overline{b} \]
+  \[ A \le_m B \Rightarrow \overline{A} \le_m \overline{B} \]
+
+  \begin{proof}
+    Zij $A \le_{m} B$, dan bestaat er een afbeelding $f$ die $L_{1}$ afbeeldt op een deel van $L_{2}$ en $\overline{L_{1}}$ op een deel van $\overline{L_{2}}$.
+    Diezelfde afbeelding houdt in dat $\overline{A}$ reduceerbaar is naar $\overline{B}$.
+    Het complement van het complement van een verzameling is immers opnieuw de originele verzameling.
+  \end{proof}
 \end{st}
 
 \begin{st}
-  $EQ_{TM}$ is niet herkenbaar en ook niet co-herkenbaar.
+  \label{st:eq-tm-niet-herk}
+  $EQ_{TM}$ is niet herkenbaar.
 
-\TODO{bewijs p 119}
+  \begin{proof}
+    We construeren een reductie $f$ van $A_{TM}$ naar $\overline{EQ_{TM}}$.
+    Vermits $\overline{A_{TM}}$ niet herkenbaar is, is $EQ_{TM}$ ook niet herkenbaar.\stref{st:reduceerbaarheid-taal-complement}
+    Definieer $M_{s}$ als een machine die elke string accepteert als $M$ de string $s$ accepteert en $M_{\phi}$ als de Turingmachine die de lege taal bepaalt.
+    \[ f: <M,s> \mapsto <M_{s},M_{\phi}> \]
+    \begin{itemize}
+    \item $f$ is Turing-berekenbaar. \clarify{waarom? Hoe constreren we de encodering van $M_{s}$ en $M_{\phi}$??}
+    \item Als $M$ de string $s$ accepteert, dan zijn $M_{s}$ en $M_{\phi}$ verschillend.
+      $M_{s}$ accepteert elke string wanneer $M$ $s$ accepteert terwijl $M_{\phi}$ geen enkele string accepteert.
+    \item Als $m$ de string $s$ niet accepteert, dan zijn $M_{s}$ en $M_{\phi}$ gelijk.
+      Als $M$ $s$ accepteert accepteren $M_{s}$ en $M_{\phi}$ beide geen enkele string.
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:eq-tm-niet-coherk}
+  $EQ_{TM}$ is niet co-herkenbaar.
+
+  \begin{proof}
+    We constreren een reductie $f$ van $A_{TM}$ naar $EQ_{TM}$.
+    Vermits $\overline{A_{TM}}$ niet herkenbaar is, is $\overline{EQ_{TM}}$ ook niet herkenbaar.\stref{st:reduceerbaarheid-taal-complement}
+    Definieer $M_{s}$ als een machine die elke string accepteert als $M$ de string $s$ accepteert en $M_{\Sigma^{*}}$ als de Turingmachine die elke string aanvaardt.
+    \[ f:\ <M,s> \mapsto <M_{s},M_{\Sigma^{*}}> \]
+    \begin{itemize}
+    \item $f$ is Turing-berekenbaar. \clarify{waarom? Hoe constreren we de encodering van $M_{s}$ en $M_{\Sigma^{*}}$??}
+    \item Als $M$ $s$ accepteert, dan zijn $M_{s}$ en $M_{\Sigma^{*}}$ gelijk.
+      $M_{s}$ en $M_{\Sigma^{*}}$ accepteren dan beide elke string.
+    \item Als $M$ $s$ niet accepteert, dan zijn $M_{s}$ en $M_{\Sigma^{*}}$ verschillend.
+      Als $M$ $s$ niet accepteert, accepteert $M_{s}$ immers geen enkele string terwijl $M_{\Sigma^{*}}$ elke string accepteert.
+    \end{itemize}
+  \end{proof}
 \end{st}
 
 \section{Orakelmachines}
@@ -946,7 +1016,15 @@
 
 \begin{st}
   Er bestaat een orakelmachine $O^{A_{TM}}$ die $E_{TM}$ beslist.
-\TODO{bewijs p 120}
+
+  \begin{proof}
+    Bij invoer $<M>$ gaat $O^{A_{TM}}$ als volgt te werk.
+    \begin{itemize}
+    \item Constreert een Turingmachine $P$ die $M$ laat lopen op elke string en enkel zijn invoer aanvaardt als $M$ minstens \'e\'en string aanvaardt.
+    \item $O^{A_{TM}}$ vraagt aan het orakel voor $A_{TM}$ of $<P,x>$ tot $A_{TM}$ behoort (voor een willekeurige $x$) en geeft het tegengestelde terug.
+    \end{itemize}
+    $O^{A_{TM}}$ beslist op deze manier of een machine $M$ al dan niet de lege taal bepaalt.
+  \end{proof}
 \end{st}
 
 \begin{de}
@@ -957,6 +1035,7 @@
 
 \begin{st}
   Als $A$ Turingreduceerbaar is ten opzichte van $B$ en $B$ beslisbaar, dan is $A$ beslisbaar.
+
 \extra{bewijs}
 \end{st}
 
@@ -965,7 +1044,7 @@
 \end{st}
 
 \begin{gev}
-  $\le_{m}$ is dus fijner dan $\le_{r}$.
+  $\le_{m}$ is dus fijner dan $\le_{T}$.
 \extra{bewijs}
 \end{gev}
 
@@ -1031,7 +1110,7 @@
   \left\{
     \begin{array}{ll}
       h(\bar{x},0) &= f(\bar{x})\\
-      h(\bar{x},y+1) &= g(\bar{x}, y, h(\bar{x},y))\\
+      h(\bar{x},y) &= g(\bar{x}, y-1, h(\bar{x},y-1))\\
     \end{array}
   \right.
   \]
@@ -1061,8 +1140,7 @@
 \end{de}
 
 \begin{st}
-  De Ackerman functie is niet primitief recursief.
-\extra{bewijs}
+  De Ackerman functie is niet primitief recursief. \zb
 \end{st}
 
 \begin{de}
@@ -1097,8 +1175,7 @@
 \end{de}
 
 \begin{st}
-  Elke recursieve functie is Turing-berekenbaar en omgekeerd.
-\extra{bewijs}
+  Elke recursieve functie is Turing-berekenbaar en omgekeerd. \zb
 \end{st}
 
 
@@ -1116,12 +1193,18 @@
 
 \begin{st}
   $\Sigma$ is niet Turingberekenbaar.
-\extra{bewijs}
+
+  \begin{proof}
+    De enige manier om na te gaan of een Turingmachine met $n$ staten een zogenaamede busy beaver is, is door de machine te laten lopen en te tellen hoeveel enen die produceert.
+    \waarom
+    Dit aantal moet dan worden vergeleken met de uitvoer van de andere Turingmachines met evenveel staten om te concluderen of de machine al dan niet een Turingmachine is.
+    Het probleem ligt erin dat het niet beslisbaar (en dus ook niet co-herkenbaar) is of een Turingmachine al dan niet zal stoppen voor een gegeven (lege) invoer.
+    Er valt dus ook niet te beslissen welke van de Turingmachines met $n$ staten het meeste enen zal schrijven en toch nog stoppen.
+  \end{proof}
 \end{st}
 
 \begin{st}
-  $\Sigma$ is de snelst stijgende functie.
-\extra{bewijs}
+  $\Sigma$ stijgt sneller dan elke Turingberekenbare functie. \zb
 \end{st}
 
 \end{document}
