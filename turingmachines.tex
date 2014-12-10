@@ -838,7 +838,40 @@
   Eerste \term{stelling van Rice}\\
   Voor elke niet-triviale, taal-invariante eigenschap $P$ van Turingmachines is noch $Pos_{P}$ noch $Neg_{P}$ beslisbaar.
 
-\TODO{bewijs p 112}
+  \begin{proof}
+    Bewijs uit het ongerijmde\\
+    Stel dat er een niet-triviale taal-invariante eigenschap $P$ bestaat en een beslisser $B$ voor $Pos_{P}$ (en dus ook een beslisser voor $Neg_{P}$).
+    We construeren vanuit $B$ een beslisser $A$ voor $A_{TM}$.
+    Stel dat $M_{\phi}$ (de machine die de lege taal beslist) de eigenschap $P$ niet heeft.
+    (Indien dat diet zo is, verander $P$ in zijn negatie. Dan is het immers wel zo.)
+    Omdat $P$ niet-triviaal is bestaat er een taal $L_{X}$ zodat $X$ een Turingmachine is met de eigenschap $P$ die $L_{X}$ bepaalt.
+    $A$ krijgt als invoer een string van de vorm $<M,s>$ en doet het volgende:
+    \begin{itemize}
+    \item $A$ construeert een hulpmachine $H_{M,s}$ die het volgende doet bij invoer $w$:
+      \begin{itemize}
+      \item $H$ laat $M$ lopen op $s$.
+      \item Als $M$ $s$ accepteert, dan laat $H$ $X$ lopen op $w$ en geeft het resultaat terug.
+        In het andere geval verwerpt $H$ $s$.
+      \end{itemize}
+    \item $A$ laat nu $B$ los op $H_{M,s}$. en geeft het resultaat terug.
+    \end{itemize}
+    Merk eerst op dat $H_{M,s}$ ofwel de lege taal accepteert, ofwel $L_{X}$.
+    Als $w$ een string is die niet door $M$ geaccepteerd wordt, dan zal $H$ die ook niet accepteren.
+    Als $w$ door $m$ geaccepteerd wordt, maar niet in $X$ zit, dan zal $H$ die ook niet accepteren.
+    Als $w$ door $m$ geaccepteerd wordt, en ook in $X$ zit, dan zal $H$ $w$ accepteren.
+    Of $H_{M,s}$ $L_{X}$ accepteert of niet hangt af van of $M$ al dan niet $s$ accepteert.
+    We bekijken nu wat het inhoudt als $A$ als invoer $<M,s>$ krijgt:
+    \[
+    \begin{array}{rl}
+      A \text{ accepteert } <M,s> &\Leftrightarrow B \text{ accepteert } H_{M,s}\\
+      &\Leftrightarrow H_{M,s} \text{ heeft eigenschap } P\\ 
+      &\Leftrightarrow H_{M,s} \text{ accepteert } L_{X}\\
+      &\Leftrightarrow M \text{ accepteert } s
+    \end{array}
+    \]
+    Dit betekent precies dat $A$ een beslisser is voor $A_{TM}$.
+    Omdat $A$ niet beslisbaar is kan $B$ niet bestaan en is $Pos_{P}$ dus ook niet beslisbaar.
+  \end{proof}
 \end{st}
 
 \extra{tweede stelling van rice}
