@@ -190,6 +190,43 @@
   \end{proof}
 \end{st}
 
+\begin{st}
+  De taal van contextvrije grammatica's is regulier.
+
+  \begin{proof}
+    Definieer eerst $V^{n}$ als $(|_{v \in V}v)^{n}$ voor een verzameling $V$ en $V^{*} = (|_{v \in V}v)^{*}$.
+    We construeren nu een reguliere expressie voor de taal van contextvrije grammatica's over $\Sigma$ met niet-eindsymbolen $V$.
+    In de constructie moeten we natuurlijk $V$ en $\Sigma$ vervangen door de hele beschrijving ervan, maar die is steeds eindig, dus regulier.\stref{st:eindige-taal-regulier}
+    \[
+    (V,\Sigma, R, V^{1}) \text{ met } R = \{ (V^{1} \rightarrow (V \cup \Sigma)^{1}) (,(V^{1} \rightarrow V \cup \Sigma)^{1})^{*} \}
+    \]
+  \end{proof}
+\end{st}
+
+\begin{st}
+  De taal van reguliere expressies is contextvrij maar niet regulier.
+  
+  \begin{proof}
+    De taal van reguliere expressies is niet regulier.
+    Een reguliere expressie kan immers oneindig geneste haakjes bevatten.
+    De taal is wel contextvrij.
+    Hier is namelijk een CFG voor de taal van reguliere expressies over een alfabet $\Sigma$
+    \[ (\{E\},\Sigma\cup \{(,),*,|,\epsilon,\phi\},R,E)\]
+    Merk op dat de $\epsilon$ hierboven wel degelijk het symbool $\epsilon$ betekent en niet de lege string.
+    \[ R =
+    \left\{ 
+      \begin{array}{l}
+        E \rightarrow \epsilon,\\
+        E \rightarrow a,\\
+        E \rightarrow \phi,\\
+        E \rightarrow EE,\\
+        E \rightarrow E^{*},\\
+        E \rightarrow E|E
+      \end{array}
+    \right\}
+    \]
+    \end{proof}
+\end{st}
 
 \section{Push-down automaten}
 \label{sec:push-down-automaten}
