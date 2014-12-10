@@ -345,6 +345,531 @@
 \end{st}
 
 \begin{de}
+  \label{de:all-re}
+  $ALL_{RE}$ is de taal van reguliere expressies die $\Sigma^{*}$ bepalen.
+\end{de}
+
+\begin{st}
+  \label{st:all-re-besl}
+  $ALL_{RE}$ is beslisbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{de}
+  \label{de:finite-re}
+  $FINITE_{RE}$ is de taal van reguliere expressies die een eindige taal bepalen.
+\end{de}
+
+\begin{st}
+  \label{st:finite-re-besl}
+  $FINITE_{RE}$ is beslisbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{de}
+  \label{de:regular-re}
+  $REGULAR_{RE}$ is de taal van reguliere expressies die een reguliere taal bepalen.
+\end{de}
+
+\begin{st}
+  \label{st:regular-re-besl}
+  $REGULAR_{RE}$ is beslisbaar.
+
+  \begin{proof}
+    Een beslisser voor $REGULAR_{RE}$ accepteert elke geldige reguliere expressie.\deref{de:reguliere-taal} \stref{st:regex-cfl}
+  \end{proof}
+\end{st}
+
+\section{... in verband met contextvrije talen}
+\label{sec:verb-met-cont}
+
+\begin{de}
+  \label{de:a-cfg}
+  $A_{CFG}$ is de taal van koppels $(C,s)$ waarbij $C$ een contextvrije grammatica is die $s$ genereert.
+  \[ A_{CFG} = \{ <G,s> \ |\ G \text{ is een CFG en } s \in L_{C} \} \]
+\end{de}
+
+\begin{st}
+  \label{st:a-cfg-besl}
+  $A_{CFG}$ is beslisbaar.
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $A_{CFG}$.
+    $B$ krijgt als input een string $<G,s>$ en converteert eerst $G$ naar Chomsky Normaal Vorm.
+    Vervolgens genereert $G$ alle mogelijke strings afleidingslengte $2|s| - 1$.
+    Dat zijn er eindig veel.
+    Als $s$ erbij zit, genereert $G$ $s$.\stref{st:chomsky-normaalvorm-afleidingslengte}
+    $B$ accepteert $<G,s>$ dan, anders niet.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:h-pda}
+  $H_{PDA}$ is de taal van koppels $(M,s)$ waarbij $M$ een PDA is die bij invoer $s$ beslist of $s$ tot $L_{M}$ behoort in een eindige hoeveelheid tijd.
+\end{de}
+
+\begin{st}
+  \label{st:h-pda-besl}
+  $H_{PDA}$ is beslisbaar.
+  
+  \begin{proof}
+    Elke $PDA$ beslist in een eindige hoeveelheid tijd of een gegeven invoerstring tot zijn taal behoort.
+    Een beslisser voor $H_{PDA}$ accepteert elk geldig koppel $(M,s)$ van een DFA $M$ en een string $s$.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:e-cfg}
+  $E_{CFG}$ is de taal van CFG's $C$ die de lege taal bepalen.
+  \[ E_{CFG} = \{ <C,s>\ |\ D \text{ is een CFG en } L_{C} = \emptyset \} \]
+\end{de}
+
+\begin{st}
+  \label{st:e-cfg-besl}
+  $E_{CFG}$ is beslisbaar.
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $E_{CFG}$.
+    $B$ krijgt als input een string $<G,s>$ en gaat als volgt te werk:
+    $B$ verwijdert algoritmisch regels uit $G$ zodat de resulterende CFG equivalent is, maar $B$ makkelijker een beslissing laat maken.
+    Voor alle regels $A \rightarrow \alpha$ waarbij $\alpha$ enkel bestaat uit eindsymbolen verwijdert $B$ alle regels waarin $A$ aan de linkerkant voorkomt en vervangt $B$ $A$ door $\alpha$ in alle regels waar $A$ aan de rechterkant voorkomt.
+    Als het startsymbool verwijderd wordt verwerpt $B$ $<G,s>$, want dan kon uit $S$ een string afgeleid worden.
+    Wanneer er geen regels meer zijn van de beschreven vorm accepteert $B$ $<G,s>$.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:es-cfg}
+  $ES_{CFG}$ is de taal van alle CFG's die de lege string aanvaarden.
+  \[ ES_{CFG} = \{ <C> \ |\ C \text{ is een CFG en } \epsilon \in L_{C}\} \]
+\end{de}
+
+\begin{st}
+  \label{st:es-cfg-besl}
+  $ES_{CFG}$ is beslisbaar.
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $ES_{CFG}$.
+    $B$ krijgt als input een string $<G,s>$ en gaat als volgt te werk:
+    $B$ transformeert $G$ naar zijn Chomsky Normaal Vorm en kijkt na of er een regel van de vorm $S \rightarrow \epsilon$ overblijft.
+    Zo ja accepteert $B$, anders verwerpt $B$.
+  \end{proof}
+
+  \begin{proof}
+    Een beslisser voor $ES_{CFG}$ roept een beslisser voor $A_{CFG}$ op met als invoer de gegeven CFG en de lege string.\stref{st:a-cfg-besl}
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:contextvrije-taal-besl}
+  Een contextvrije taal $L$ is beslisbaar.
+
+\extra{bewijs}
+\end{st}
+
+\begin{de}
+  $EQ_{CFG}$ is de taal van alle koppels CFG's $(C_{1},C_{2})$ die dezelfde taal beslissen.
+  \[ EQ_{CFG} = \{ <C_{1},C_{2}> \ |\ C_{1}, C_{2} \text{ zijn CFG's en } L_{C_{1}} = L_{C_{2}} \} \]
+\end{de}
+
+\begin{st}
+  \label{st:eq-cfg-niet-herk}
+  $EQ_{CFG}$ is niet herkenbaar.
+\TODO{bewijs intuitief p 103}
+\end{st}
+
+\begin{st}
+  \label{st:eq-cfg-coherk}
+  $EQ_{CFG}$ is co-herkenbaar.
+
+  \begin{proof}
+    Een PDA kan in eindige tijd beslissen of een gegeven string uit gegeven grammatica afgeleid kan worden.
+    Een co-herkenner $M$ voor $EQ_{CFG}$ verwacht als invoer twee CFG's $<C_{1},C_{2}>$ en gaat als volgt te werk:
+    \begin{itemize}
+    \item $M$ construeert voor beide CFG's de overeenkomstige PDA's
+    \item $M$ laat beide PDA's simultaan lopen op alle strings van $Sigma^{*}$.
+    \item Op het moment dat er een verschil wordt gevonden tussen de acceptatie van een string door $C_{1}$ en $C_{2}$ accepteert $M$ het koppel.
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\begin{gev}
+  \label{gev:eq-cfg-niet-besl}
+  $EQ_{CFG}$ is niet beslisbaar.
+
+  \begin{proof}
+    $EQ_{CFG}$ is niet herkenbaar, dus zeker niet beslisbaar.
+  \end{proof}
+\end{gev}
+
+\begin{st}
+  \label{st:all-cfg-niet-herk}
+  $ALL_{CFG}$ is niet herkenbaar. \zb
+\end{st}
+
+\begin{st}
+  \label{st:all-cfg-coherk}
+  $ALL_{CFG}$ is co-herkenbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{gev}
+  \label{gev:all-cfg-niet-besl}
+  $ALL_{CFG}$ is niet beslisbaar.
+
+  \begin{proof}
+    $ALL_{CFG}$ is niet herkenbaar, dus zeker niet beslisbaar.
+  \end{proof}
+\end{gev}
+
+\extra{$H_{CFG}$}
+\extra{$REGULAR_{CFG}$}
+\extra{$FINITE_{CFG}$}
+
+\section{... in verband met contextsensitieve talen}
+\label{sec:-verb-met-csls}
+
+
+\begin{de}
+  \label{de:linear-begrensde-automaat}
+  Een \term{lineair begrensde automaat} (\term{LBA}) is een Turingmachine die niet leest of schrijft buiten een deel van de geheugenstrook dat de initiele invoer bevat.
+\end{de}
+
+\begin{st}
+  In een equivalente definitie leest of schrijft een LBA niet buiten een deel van de band dat een constante factor groter is dan de invoer.
+\zb
+\end{st}
+
+\begin{st}
+  De taal die alle Turingmachines bevat die ook een LBA zijn is niet beslisbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{de}
+  \label{de:a-lba}
+  $A_{LBA}$ is de taal van alle koppels $(L,s)$ waarbij $L$ een LBA is die $s$ aanvaardt.
+  \[ A_{LBA} = \{ <L,s> \ |\ L \text{ is een LBA en } s \in L_{L}\} \]
+\end{de}
+
+\begin{st}
+  \label{st:a-lba-is-besl}
+  $A_{LBA}$ is beslisbaar.
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $A_{LBA}$.
+    $B$ verwacht een string van de vorm $<L,s>$.
+    We definieren eerst een paar getallen:
+    \begin{itemize}
+    \item $n$: de lengte van de invoerstring.
+    \item $q$: het aantal toestanden van $L$.
+    \item $b$: het aantal elementen van het bandalfabet van $L$.
+    \end{itemize}
+    Merk nu op dat het aantal strings dat mogelijk op de band kan staan tijdens de uitvoering van $L$ kleiner of gelijk is aan $b^{n}$.
+    De leeseenheid kan bovendien hoogstens bij elk van de symbolen staan en de machine kan zich hoogstens in elk van zijn toestanden bevinden tijdens zijn uitvoering.
+    Het aantal mogelijke configuraties van $L$ tijdens zijn uitvoering is dus kleiner of gelijk aan $qnb^{n}$ (eindig!).
+    De beslisser $B$ voor $A_{LBA}$ gaat als volgt te work:
+    \begin{itemize}
+    \item $B$ berekent $m = qnb^{n}$.
+    \item $B$ laat $M$ lopen op $s$ voor maximaal $m$ stappen.
+    \item $B$ accepteert $s$ als en slechts als $M$ de string $s$ accepteerde binnen de $m$ stappen.
+    \end{itemize}
+    Als $M$ de string $s$ nog niet geaccepteerd had binnen de $m$ stappen betekent dat dat $M$ in een lus terecht was gekomen en dan zou $M$ $s$ ook niet accepteren.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:h-lba}
+  $H_{LBA}$ is de taal van koppels $(M,s)$ waarbij $M$ een LBA is die bij invoer $s$ beslist of $s$ tot $L_{M}$ behoort in een eindige hoeveelheid tijd.
+\end{de}
+
+\begin{st}
+  \label{st:h-lba-besl}
+  $H_{LBA}$ is beslisbaar.
+  \extra{bewijs}
+\end{st}
+
+\begin{de}
+  \label{de:e-lba}
+  $E_{LBA}$ is de taal van alle LBA's die geen enkele string aanvaarden.
+  \[ E_{LBA} = \{ <L> \ |\ L \text{ is een LBA en } L_{L} = \emptyset \} \]
+\end{de}
+
+\begin{st}
+  \label{st:e-lba-niet-herk}
+  $E_{LBA}$ is niet herkenbaar.
+\TODO{bewijs p 107}
+\end{st}
+
+\begin{st}
+  \label{st:e-lba-coherk}
+  $E_{LBA}$ is co-herkenbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{gev}
+  $E_{LBA}$ is beslisbaar.
+\TODO{bewijs}
+\end{gev}
+
+\extra{$A_{CSG}$}
+\extra{$H_{CSG}$}
+\extra{$E_{CSG}$}
+\extra{$EQ_{CSG}$}
+\extra{$ES_{CSG}$}
+\extra{$REGULAR_{CSG}$}
+\extra{$ALL_{CSG}$}
+\extra{$FINITE_{CSG}$}
+
+\begin{de}
+  \label{de:finite-csg}
+  $FINITE_{CSG}$ is de taal van alle CSG's die een eindige taal bepalen.
+\end{de}
+
+\begin{st}
+  \label{st:finite-csg-coherk}
+  $FINITE_{CSG}$ is niet beslisbaar.
+
+  \begin{proof}
+    We reducieren $E_{CSG}$ naar $FINITE_{CSG}$ met de afbeelding $f$:
+    $f$ voegt simpelweg aan een $CSG$ een regel $S \rightarrow S 0$ toe.
+    \begin{itemize}
+    \item $f$ is Turing-berekenbaar.
+    \item Als een CSG de lege taal bepaalt, zal het beeld van die CSG een eindige taal bepalen.
+    \item Als een CSG een niet-lege taal bepaalt, zal het beeld van die CSG een oneindige taal bepalen.
+      Alle afleidingen van $S$, $S0$, $S00$, ... zijn immers geldige afleidingen uit het beeld van de CSG.
+    \end{itemize}
+    Omdat $E_{CSG}$ niet beslisbaar is, is $FINITE_{CSG}$ ook niet beslisbaar.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:finite-csg-niet-herk}
+  $FINITE_{CSG}$ is niet herkenbaar.
+  
+  \begin{proof}
+    Met dezelfde reductie als in het vorige bewijs tonen we aan dat $FINITE_{CSG}$ niet herkenbaar is.\label{st:e-csg-niet-herk}
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:finite-csg-niet-herk}
+  $FINITE_{CSG}$ is co-herkenbaar.
+  \extra{bewijs}
+\end{st}
+
+\begin{st}
+  \label{st:eq-tm-niet-besl}
+  $EQ_{TM}$ is niet beslisbaar.
+
+  \begin{proof}
+    We weten dat $E_{TM}$ niet beslisbaar is.
+    We reduceren $E_{TM}$ naar $EQ_{TM}$ met de functie $f$:
+    \[
+    <M> \mapsto <M,M_{\phi}>
+    \]
+    $f$ is duidelijk Turing-berekenbaar. $M_{\phi}$ is immers eindig.
+    Omdat $E_{TM}$ niet beslisbaar is, is $EQ_{TM}$ ook niet beslisbaar.\gevref{gev:reductie-niet-beslisbaarheid}
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:reduceerbaarheid-taal-complement}
+  Zij $A$ en $B$ twee talen.
+  \[ A \le_m B \Rightarrow \overline{A} \le_m \overline{B} \]
+
+  \begin{proof}
+    Zij $A \le_{m} B$, dan bestaat er een afbeelding $f$ die $L_{1}$ afbeeldt op een deel van $L_{2}$ en $\overline{L_{1}}$ op een deel van $\overline{L_{2}}$.
+    Diezelfde afbeelding houdt in dat $\overline{A}$ reduceerbaar is naar $\overline{B}$.
+    Het complement van het complement van een verzameling is immers opnieuw de originele verzameling.
+  \end{proof}
+\end{st}
+
+
+\section{Orakelmachines}
+\label{sec:orakelmachines}
+
+\begin{de}
+  Een orakel voor een taal $L$ is een machine die in een eindige hoeveelheid tijd kan beslissen of een string tot $L$ behoort.
+\end{de}
+
+\begin{de}
+  Een orakelmachine $O^{L}$ is een machine die als subroutine een orakel voor de taal $L$ kan aanroepen.
+\end{de}
+
+\begin{st}
+  Er bestaat een orakelmachine $O^{A_{TM}}$ die $E_{TM}$ beslist.
+
+  \begin{proof}
+    Bij invoer $<M>$ gaat $O^{A_{TM}}$ als volgt te werk.
+    \begin{itemize}
+    \item Constreert een Turingmachine $P$ die $M$ laat lopen op elke string en enkel zijn invoer aanvaardt als $M$ minstens \'e\'en string aanvaardt.
+    \item $O^{A_{TM}}$ vraagt aan het orakel voor $A_{TM}$ of $<P,x>$ tot $A_{TM}$ behoort (voor een willekeurige $x$) en geeft het tegengestelde terug.
+    \end{itemize}
+    $O^{A_{TM}}$ beslist op deze manier of een machine $M$ al dan niet de lege taal bepaalt.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  Een taal $A$ is \term{Turingreduceerbaar} naar een taal $B$ als $A$ beslisbaar is ten opzichte van $B$.
+  Dit betekent dat er een orakelmachine $O^{B}$ bestaat die $A$ beslist.
+  \[ A \le_{T} B \]
+\end{de}
+
+\begin{st}
+  Als $A$ Turingreduceerbaar is ten opzichte van $B$ en $B$ beslisbaar, dan is $A$ beslisbaar.
+
+\extra{bewijs}
+\end{st}
+
+\begin{st}
+  Als $A$ reduceerbaar is naar $B$, dan is $A$ ook Turingreduceerbaar naar $B$.
+\end{st}
+
+\begin{gev}
+  $\le_{m}$ is dus fijner dan $\le_{T}$.
+\extra{bewijs}
+\end{gev}
+
+\section{... in verband met reguliere talen}
+\label{sec:verb-met-regul}
+
+\begin{de}
+  \label{de:a-dfa}
+  $A_{DFA}$ is de taal van koppels $(D,s)$ waarbij $D$ een DFA is die $s$ aanvaardt.
+  \[ A_{DFA} = \{ <D,s> \ |\ D \text{ is een DFA en } s \in L_{D} \} \]
+\end{de}
+
+\begin{st}
+  \label{st:a-dfa-besl}
+  $A_{DFA}$ is beslisbaar.
+
+  \begin{proof}
+    Een beslisser $B$ voor $A_{DFA}$ krijgt als input $<D,s>$ met $D$ een $DFA$.
+    De beslisser simuleert $D$, en accepteert $s$ als en slechts als $D$ $s$ accepteert.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:a-re}
+  $A_{RE}$ is de taal van koppels $(R,s)$ waarbij $R$ een reguliere expressie is die $s$ genereert.
+  \[ A_{RE} = \{ <R,s> \ |\ R \text{ is een reguliere expressie en } s \in L_{R} \} \]
+\end{de}
+
+\begin{st}
+  \label{st:a-re-besl}
+  $A_{RE}$ is beslisbaar.
+
+  \begin{proof}
+    Een beslisser $B$ voor $A_{RE}$ krijgt als input een reguliere expressie $R$ en een string $s$ als $<R,s>$.
+    De beslisser construeert dan een DFA voor $R$\gevref{gev:reguliere-taal-DFA} en roept daarna een beslisser voor $A_{DFA}$ op.\stref{st:a-dfa-besl}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:a-nfa}
+  $A_{NFA}$ is de taal van koppels $(N,s)$ waarbij $N$ een NFA is die $s$ aanvaardt.
+  \[ A_{NFA} = \{ <N,s> \ |\ N \text{ is een NFA en } s \in L_{N} \} \]
+\end{de}
+
+\begin{st}
+  \label{st-a-nfa-besl}
+  $A_{NFA}$ is beslisbaar.
+
+  \begin{proof}
+    Een beslisser $B$ voor $A_{NFA}$ krijgt als input $<N,s>$.
+    $B$ zet $N$ eerst om naar een DFA\stref{st:nfa-naar-dfa} en roept daarna een beslisser voor $A_{DFA}$ op.\stref{st:a-dfa-besl}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:h-dfa}
+  $H_{DFA}$ is de taal van koppels $(M,s)$ waarbij $M$ een DFA is die bij invoer $s$ beslist of $s$ tot $L_{M}$ behoort in een eindige hoeveelheid tijd.
+\end{de}
+
+\begin{st}
+  \label{st:h-dfa-besl}
+  $H_{DFA}$ is beslisbaar.
+  
+  \begin{proof}
+    Elke $DFA$ beslist in een eindige hoeveelheid tijd of een gegeven invoerstring tot zijn taal behoort.
+    Een beslisser voor $H_{NFA}$ accepteert elk geldig koppel $(M,s)$ van een DFA $M$ en een string $s$.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:e-dfa}
+  $E_{DFA}$ is de taal van alle machines $D$ die de lege taal bepalen.
+  \[ E_{DFA} = \{ <D,s>\ |\ D \text{ is een DFA en } L_{D} = \emptyset \} \]
+\end{de}
+
+\begin{st}
+  \label{st:e-dfa-besl}
+  $E_{DFA}$ is beslisbaar.
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $E_{DFA}$.
+    De beslisser krijg (de encodering van) een DFA $D$ als invoer.
+    De beslisser vormt $D$ om tot een minimale DFA $D'$.\alref{al:dfa-minimalisatie}
+    Als $D$ (en dus ook $D'$) de lege taal bepaalt, is $D'$ isomorf met de $NFA_{\phi}$ \figref{fig:nfa_phi}.
+    Dat is eenvoudig beslisbaar. $B$ moet immers maar een eindig aantal mogelijke bijecties afgaan.
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:e-re}
+  $E_{RE}$ is de taal van reguliere expressies $E$ die de lege taal bepalen.
+  \[ E_{RE} = \{ E\ |\ E \text{ is een RE } L_{E} = \emptyset \} \]
+\end{de}
+
+
+\begin{st}
+  \label{st:e-re}
+  $E_{DFA}$ is beslisbaar.
+\extra{bewijs}
+\end{st}
+
+
+\begin{de}
+  \label{de:eq-dfa}
+  $EQ_{DFA}$ is de taal van alle koppels DFA's die dezelfde taal bepalen.
+  \[ EQ_{DFA} = \{ <D_{1},D_{2}> \ |\ D_{1},D_{2} \text{ zijn DFA's en } L_{D_{1}} = L_{D_{2}} \} \]  
+\end{de}
+
+\begin{st}
+  \label{st:eq-dfa-besl}
+  $EQ_{DFA}$ is beslisbaar.
+
+  \begin{proof}
+    We construeren een beslisser $B$ voor $EQ_{DFA}$ als volgt:
+    $B$ krijgt als input $<D_{1},D_{2}>$ en construeert vervolgens de DFA $D$ die het symmetrisch verschil bepaalt van $L_{D_{1}}$ en $L_{D_{2}}$.\deref{de:symmetrisch-verschil-dfas}
+    Vervolgens beslist $B$ of $D$ de lege taal bepaalt.\stref{st:e-dfa-besl}
+  \end{proof}
+\end{st}
+
+\begin{de}
+  \label{de:eq-re}
+  $EQ_{RE}$ is de taal van alle koppels reguliere expressies die dezelfde taal bepalen.
+  \[ EQ_{RE} = \{ (E_{1},E_{2}) \ |\ E_{1},E_{2} \text{ zijn RE's en } L_{E_{1}} = L_{E_{2}} \} \]  
+\end{de}
+
+\begin{st}
+  \label{st:eq-re-besl}
+\extra{bewijs}
+\end{st}
+
+\begin{de}
+  \label{de:es-re}
+  $ES_{RE}$ is de taal van reguliere expressies waarvan de taal de lege string bevat.
+  \[ ES_{RE} = \{ E \ |\ E \text{ is een RE en } \epsilon \in L_{E}\} \]
+\end{de}
+
+\begin{st}
+  \label{st:es-re}
+  $ES_{RE}$ is beslisbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{de}
   \label{de:regular-re}
   $REGULAR_{RE}$ is de taal van reguliere expressies die een reguliere taal bepalen.
 \end{de}
@@ -439,6 +964,33 @@
 \end{st}
 
 \begin{de}
+  \label{de:eq-cfg}
+  $EQ_{CFG}$ is de taal van alle koppels CFG's $C_{1},C_{2}$ die dezelfde talen bepalen.
+  \[ EQ_{CFG}= \{ <C_{1},C_{2}> \ |\ C_{1}, C_{2} \text{ zijn CFG's en } L_{C_{1}} = L_{C_{2}}\}\]
+\end{de}
+
+\begin{st}
+  \label{st:eq-cfg-niet-herk}
+  $EQ_{CFG}$ is niet herkenbaar.
+\TODO{bewijs intuitief p 103}
+\end{st}
+
+\begin{st}
+  \label{st:eq-cfg-coherk}
+  $EQ_{CFG}$ is co-herkenbaar.
+\extra{bewijs}
+\end{st}
+
+\begin{gev}
+  \label{gev:eq-cfg-niet-besl}
+  $EQ_{CFG}$ is niet beslisbaar.
+
+  \begin{proof}
+    $EQ_{CFG}$ is niet herkenbaar, dus zeker niet beslisbaar.
+  \end{proof}
+\end{gev}
+
+\begin{de}
   \label{de:es-cfg}
   $ES_{CFG}$ is de taal van alle CFG's die de lege string aanvaarden.
   \[ ES_{CFG} = \{ <C> \ |\ C \text{ is een CFG en } \epsilon \in L_{C}\} \]
@@ -467,26 +1019,6 @@
 \extra{bewijs}
 \end{st}
 
-\begin{st}
-  \label{st:eq-cfg-niet-herk}
-  $EQ_{CFG}$ is niet herkenbaar.
-\TODO{bewijs intuitief p 103}
-\end{st}
-
-\begin{st}
-  \label{st:eq-cfg-coherk}
-  $EQ_{CFG}$ is co-herkenbaar.
-\extra{bewijs}
-\end{st}
-
-\begin{gev}
-  \label{gev:eq-cfg-niet-besl}
-  $EQ_{CFG}$ is niet beslisbaar.
-
-  \begin{proof}
-    $EQ_{CFG}$ is niet herkenbaar, dus zeker niet beslisbaar.
-  \end{proof}
-\end{gev}
 
 \begin{st}
   \label{st:all-cfg-niet-herk}
@@ -608,6 +1140,27 @@
 \extra{$ALL_{CSG}$}
 \extra{$FINITE_{CSG}$}
 
+\begin{de}
+  \label{de:finite-csg}
+  $FINITE_{CSG}$ is de taal van alle CSG's die een eindige taal bepalen.
+\end{de}
+
+\begin{st}
+  \label{st:finite-csg}
+  $FINITE_{CSG}$ is niet beslisbaar.
+  \begin{proof}
+    We reducieren $E_{CSG}$ naar $FINITE_{CSG}$ met de afbeelding $f$:
+    $f$ voegt simpelweg aan een $CSG$ een regel $S \rightarrow S 0$ toe.
+    \begin{itemize}
+    \item $f$ is Turing-berekenbaar.
+    \item Als een CSG de lege taal bepaalt, zal het beeld van die CSG een eindige taal bepalen.
+    \item Als een CSG een niet-lege taal bepaalt, zal het beeld van die CSG een oneindige taal bepalen.
+      Alle afleidingen van $S$, $S0$, $S00$, ... zijn immers geldige afleidingen uit het beeld van de CSG.
+    \end{itemize}
+    Omdat $E_{CSG}$ niet beslisbaar is, is $FINITE_{CSG}$ ook niet beslisbaar.
+  \end{proof}
+\end{st}
+
 \section{...  in verband met Turing machines}
 \label{sec:verb-met-tms}
 
@@ -728,7 +1281,7 @@
     Definieer $M_{s}$ als een machine die elke string accepteert als $M$ de string $s$ accepteert en $M_{\phi}$ als de Turingmachine die de lege taal bepaalt.
     \[ f: <M,s> \mapsto <M_{s},M_{\phi}> \]
     \begin{itemize}
-    \item $f$ is Turing-berekenbaar. \clarify{waarom? Hoe constreren we de encodering van $M_{s}$ en $M_{\phi}$??}
+    \item $f$ is Turing-berekenbaar.
     \item Als $M$ de string $s$ accepteert, dan zijn $M_{s}$ en $M_{\phi}$ verschillend.
       $M_{s}$ accepteert elke string wanneer $M$ $s$ accepteert terwijl $M_{\phi}$ geen enkele string accepteert.
     \item Als $m$ de string $s$ niet accepteert, dan zijn $M_{s}$ en $M_{\phi}$ gelijk.
@@ -747,7 +1300,7 @@
     Definieer $M_{s}$ als een machine die elke string accepteert als $M$ de string $s$ accepteert en $M_{\Sigma^{*}}$ als de Turingmachine die elke string aanvaardt.
     \[ f:\ <M,s> \mapsto <M_{s},M_{\Sigma^{*}}> \]
     \begin{itemize}
-    \item $f$ is Turing-berekenbaar. \clarify{waarom? Hoe constreren we de encodering van $M_{s}$ en $M_{\Sigma^{*}}$??}
+    \item $f$ is Turing-berekenbaar.
     \item Als $M$ $s$ accepteert, dan zijn $M_{s}$ en $M_{\Sigma^{*}}$ gelijk.
       $M_{s}$ en $M_{\Sigma^{*}}$ accepteren dan beide elke string.
     \item Als $M$ $s$ niet accepteert, dan zijn $M_{s}$ en $M_{\Sigma^{*}}$ verschillend.
@@ -788,7 +1341,6 @@
 
 \subsection{Het regulieretaalprobleem}
 
-
 \begin{de}
   \label{de:regular-tm}
   $REGULAR_{TM}$ is de taal van alle Turingmachines die een reguliere taal bepaalt.
@@ -816,6 +1368,58 @@
     Dit is precies wanneer $H_{s}$ heel $\Sigma^{*}$ accepteert en $M$ dus $s$ accepteert.
     $B$ is bijgevolg een beslisser voor $A_{TM}$.
     Omdat $A_{TM}$ niet beslisbaar is\stref{st:a-tm-niet-besl}, kan $E_{TM}$ ook niet beslisbaar zijn.
+  \end{proof}
+\end{st}
+
+\subsection{Het eindigheidsprobleem}
+
+\begin{de}
+  \label{de:finite-tm}
+  $FINITE_{TM}$ is de taal van alle Turingmachines die een eindige taal bepalen.
+  \[ FINITE_{TM} = \{ <M> \ |\ M \text{ is een TM en } |L_{M}| \in \mathbb{N}\} \]
+\end{de}
+
+\begin{st}
+  \label{st:finite-tm-niet-besl}
+  $FINITE_{TM}$ is niet beslisbaar.
+
+  \begin{proof}
+    De eigenschap ``$L_{M}$ bevat een eindig aantal strings'' is een niet-triviale, taal-invariante eigenschap van Turingmachines.
+    $L_{M}$ is bijgevolg niet beslisbaar.\stref{st:eerste-stelling-van-rice}
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:finite-tm-niet-herk}
+  $FINITE_{TM}$ is niet herkenbaar.
+  \begin{proof}
+  We kunnen $A_{TM}$ reduceren naar $\overline{FINITE_{TM}}$ met een afbeelding $f$:
+  \[ f: <M,s> \rightarrow <M_{s}> \]
+  In de definite van $f$ is $M_{s}$ de machine die $M$ bij invoer $w$ $|w|$ stappen laat lopen op $s$.
+  $M_{s}$ accepteert de string $s$ als $M$ de string $w$ binnen de $|s|$ stappen accepteert.
+  \begin{itemize}
+  \item $f$ is Turingberekenbaar.
+  \item Als $M$ $s$ accepteert bepaalt $M_{s}$ een oneindige taal.
+    Er zijn immers oneindig veel strings langer dan het aantal stappen dat $M$ nodig heeft om $s$ te accepteren.
+  \item Als $M$ $s$ niet accepteert, bepaal $M_{s}$ een eindige taal.
+  \end{itemize}
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:finite-tm-niet-coherk}
+  $FINITE_{TM}$ is niet co-herkenbaar.
+  \begin{proof}
+  We kunnen $A_{TM}$ reduceren naar $FINITE_{TM}$ met een afbeelding $f$:
+  \[ f: <M,s> \rightarrow <M_{s}> \]
+  In de definite van $f$ is $M_{s}$ de machine die $M$ bij invoer $w$ $|w|$ stappen laat lopen op $s$.
+  $M_{s}$ verwerpt de string $s$ als $M$ de string $w$ binnen de $|s|$ stappen accepteert.
+  \begin{itemize}
+  \item $f$ is Turingberekenbaar.
+  \item Als $M$ $s$ accepteert bepaalt $M_{s}$ een eindige taal.
+  \item Als $M$ $s$ niet accepteert, bepaal $M_{s}$ een oneindige taal.
+    Er zijn immers oneindig veel strings langer dan het aantal stappen dat $M$ nodig heeft om $s$ te accepteren.
+  \end{itemize}
   \end{proof}
 \end{st}
 
@@ -916,9 +1520,11 @@
     \pvak{\ref{de:e-re}}{$E_{RE}$}{B} & \pvak{\ref{de:e-cfg}}{$E_{CFG}$}{B} & \pvak{\ref{de:e-csg}}{$E_{CSG}$}{H} & \pvak{\ref{de:e-tm}}{$E_{TM}$}{C}\\
     \pvak{\ref{de:eq-re}}{$EQ_{RE}$}{B} & \pvak{\ref{de:eq-cfg}}{$EQ_{CFG}$}{H} & \pvak{\ref{de:eq-csg}}{$EQ_{CSG}$}{H} & \pvak{\ref{de:eq-tm}}{$EQ_{TM}$}{N}\\
     \pvak{\ref{de:es-re}}{$ES_{RE}$}{B} & \pvak{\ref{de:es-cfg}}{$ES_{CFG}$}{B} & \pvak{\ref{de:es-csg}}{$ES_{CSG}$}{B} & \pvak{\ref{de:es-tm}}{$ES_{TM}$}{H}\\
-    \pvak{\ref{de:regular-re}}{$REGULAR_{RE}$}{B} & \pvak{\ref{de:regular-cfg}}{$REGULAR_{CFG}$}{N} & \pvak{\ref{de:regular-csg}}{$REGULAR_{CSG}$}{N} & \pvak{\ref{de:regular-tm}}{$REGULAR_{TM}$}{N}\\
     \pvak{\ref{de:all-re}}{$ALL_{RE}$}{B} & \pvak{\ref{de:all-cfg}}{$ALL_{CFG}$}{H} & \pvak{\ref{de:all-csg}}{$ALL_{CSG}$}{H} & \pvak{\ref{de:all-tm}}{$ALL_{TM}$}{N}\\
     \pvak{\ref{de:finite-re}}{$FINITE_{RE}$}{B} & \pvak{\ref{de:finite-cfg}}{$FINITE_{CFG}$}{B} & \pvak{\ref{de:finite-csg}}{$FINITE_{CSG}$}{N} & \pvak{\ref{de:finite-tm}}{$FINITE_{TM}$}{N}\\
+    \pvak{\ref{de:regular-re}}{$REGULAR_{RE}$}{B} & \pvak{\ref{de:regular-cfg}}{$REGULAR_{CFG}$}{N} & \pvak{\ref{de:regular-csg}}{$REGULAR_{CSG}$}{N} & \pvak{\ref{de:regular-tm}}{$REGULAR_{TM}$}{N}\\
+    \pvak{\ref{de:cfl-re}}{$CFL_{RE}$}{B} & \pvak{\ref{de:cfl-cfg}}{$CFL_{CFG}$}{B} & \pvak{\ref{de:cfl-csg}}{$CFL_{CSG}$}{N} & \pvak{\ref{de:cfl-tm}}{$CFL_{TM}$}{N}\\
+    \pvak{\ref{de:csl-re}}{$CSL_{RE}$}{B} & \pvak{\ref{de:csl-cfg}}{$CSL_{CFG}$}{B} & \pvak{\ref{de:csl-csg}}{$CSL_{CSG}$}{B} & \pvak{\ref{de:csl-tm}}{$CFL_{TM}$}{N}\\
   \end{tabular}
   \caption{Algemene problemen}
   \label{fig:algemene-problemen}
