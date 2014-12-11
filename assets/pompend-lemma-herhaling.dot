@@ -1,0 +1,33 @@
+digraph cfg_parsetree {
+
+    graph[ordering="out"];
+
+    node [shape=circle];
+    edge [style="dashed"]
+ 
+    s[label="S"]; 
+    x2[label=<X<sub>2</sub>>];
+    x1[label=<X<sub>1</sub>>];
+
+    node [style="invis",shape=none];
+    {rank=same a,b,c,d,e,f};
+    node [style="",shape=none];
+    {rank=same a,u,b,v,c,x,d,y,e,z,f};
+
+    s -> a;
+    s -> x2;
+
+    x2 -> b
+    x2 -> x1;
+
+    x1 -> c;
+    x1 -> d;
+
+    x2 -> e;
+
+    s -> f;
+
+    edge[style="invis"];
+    a -> u -> b -> v -> c -> x -> d -> y -> e -> z -> f;
+}
+

@@ -1,0 +1,281 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\chapter{Turingmachines}
+\label{cha:turingmachines}
+
+
+\begin{de}
+  Een \term{Turingmachine} is een $7$-tal $(Q,\Sigma,\Gamma, \delta, q_{s}, q_{a}, q_{r})$:
+  \begin{itemize}
+  \item $Q$ is een eindige verzameling toestanden
+  \item $\Sigma$ is een eindig invoeralfabet dat $\#$ niet bevat.
+  \item $\Gamma$ is een eindig bandalfabet dat $\#$ bevat, alsook $\Sigma$.
+  \item $q_{s}$ is de starttoestand.
+  \item $q_{a}$ is de aanvaardende toestand.
+  \item $q_{r}$ is de verwerpende toestand.
+  \item $\delta$ is de totale overgangsfunctie.
+  \[ \delta:\ Q \times \Gamma \rightarrow Q \times \Gamma \times \{L,R,S\} \]
+  \end{itemize}
+  Een Turingmachine beschikt over een strook geheugen die aan twee kanten onbegrensd is.
+  Deze strook is ingedeeld in vakjes die precies \'e\'en symbool bevatten.
+  De Turingmachine beschikt bovendien over een lees- en schrijfeenheid die zich over een vakje bevindt dat de machine bijgevolg kan lezen en waarnaar de machine kan schrijven.
+  De Turingmachine bevindt zich op elk moment in precies \'e\'en toestand.
+\end{de}
+
+\begin{de}
+  De \term{werking van een Turingmachine} definieren we aan de hand van een Turingmachine $M = (Q,\Sigma,\Gamma, \delta, q_{s}, q_{a}, q_{r})$ en een invoerstring $s$.
+  \begin{itemize}
+  \item \textbf{Initialisatie}\\
+    De geheugenstrook wordt eerst ge\"initialiseerd zodat ze enkel het symbool $\#$ bevat in op elk vakje.
+    Vervolgens wordt vanaf een willekeurig vakje opeenvolgend de invoerstring in de vakjes op de band gezet.
+    De lees- en schrijfeenheid wordt op het vakje gezet waar de string begint.
+    De machine bevindt zich aan het begin in de begintoestand $q_{s}$.
+  \item \textbf{Uitvoering}\\
+    De Turingmachine $M$ voert achtereenvolgens de volgende stappen uit.
+    \begin{itemize}
+    \item De machine leest het symbool dat onder de lees- en schrijfeenheid staat.
+    \item Op basis van de staat $q$ waarin de machine zich bevindt en het symbool $a$ onder de eenheid beslist de machine wat hij zal doen aan de hand van de overgangsfunctie.
+      \[ \delta(q,a) = (q',a',r) \]
+      De machine zal het symbool $a'$ schrijven, naar staat $q'$ overgaan en zicht in de richting $r$ verplaatsen.
+    \end{itemize}
+  \item \textbf{Beslissing}\\
+    Zodra de machine zich ofwel in $q_{a}$ ofwel in $q_{r}$ bevindt stopt hij.
+    Als de machine zich op het einde in $q_{a}$ bevindt zeggen we dat $M$ de string $s$ aanvaardt.
+    Als de machine zich op het einde in $q_{r}$ bevindt zeggen we dat $M$ de string $s$ verwerpt.
+    Merk op dat het ook kan voorvallen dat de machine bij een gegeven string $s$ niet ophoudt met werken.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Elke turingmachine $M$ bepaalt een verdeling van $\Sigma^{*}$ in drie stukken:
+  \begin{itemize}
+  \item De strings die door $M$ worden geaccepteerd: $L_{M}$.
+  \item De strings waarvoor $M$ in een oneindige lus belandt: $\infty_{M}$.
+  \item De strings die door $M$ worden verworpen.
+  \end{itemize}
+\end{de}
+
+\begin{de}
+  Een turingmachine $M$ \term{herkent} $L_{M}$.
+\end{de}
+
+\begin{de}
+  Een taal $L$ is \term{Turing-herkenbaar} als er een Turingmachine $M$ bestaat die $L$ herkent.
+\end{de}
+
+\begin{de}
+  Een turingmachine $M$ \term{beslist} een taal $L$ als $M$ $L$ herkent en $\infty_{M}$ leeg is.
+\end{de}
+
+\begin{de}
+  Een taal $L$ is \term{Turing-beslisbaar} als er een Turingmachine $M$ bestaat die $L$ beslist.
+\end{de}
+
+\begin{de}
+  Een taal $L$ is \term{co-herkenbaar} als $\bar{L}$ herkenbaar is.
+\end{de}
+
+\begin{de}
+  Een taal $L$ is \term{co-beslisbaar} als $\bar{L}$ beslisbaar is.
+\end{de}
+
+\begin{st}
+  \label{st:herk-plus-coherk-is-besl}
+  Als een taal $L$ zowel herkenbaar als co-herkenbaar is, dan is $L$ beslisbaar (en co-beslisbaar).
+  \begin{proof}
+    Kies een willekeurige herkenbare en co-herkenbare taal $L$.
+    Er bestaat dan een Turingmachine $m$ die $L$ herkent en een Turingmachine $m'$ die $\bar{L}$ herkent.
+    Construeer vanuit $m$ en $m'$ nu een machine $M$ die $L$ beslist.
+    $M$ bestaat erin $m$ en $m'$ simultaan te laten lopen op de invoerstring $s$
+    Zodra $m$ $s$ aanvaardt, aanvaardt $m$ $s$ en zodra $m'$ $s$ aanvaardt, verwerpt $m$ $s$.
+    Voor elke mogelijke invoerstring stopt minstens \'enen van de machines $m$ en $m'$.
+    $M$ zal dus altijd stoppen.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  Er bestaat een taal die niet herkenbaar is.
+  \begin{proof}
+    Het aantal Turingmachines is aftelbaar oneindig (, maar enkel op isomorfisme na).
+    Elke (equivalentieklasse van) Turingmachine(s) herkent bovendien precies \'e\'en taal.
+    Het aantal talen over een gegeven alfabet is overaftelbaar oneindig.\footnote{Zie stelling \ref{st:overaftelbaar-veel-talen}.}
+    Er bestaat dus minstens \'e\'en taal waarvoor er geen Turingmachine bestaat die die taal herkent.
+    Die taal is niet herkenbaar.
+    Sterker nog: ``De meeste\footnote{``De meeste'' heeft een heel specifieke wiskundige betekenis.} talen zijn niet herkenbaar.''
+  \end{proof}
+\end{st}
+
+
+\begin{de}
+  Een Turingmachine kan een andere Turingmachine als subroutine oproepen.
+\extra{Hoe formaliseren we dit?}
+\end{de}
+
+\begin{st}
+  Het aantal Turing-machines is aftelbaar oneindig (op isomorfisme na).
+
+  \begin{proof}
+    Een Turing-machine wordt gekaracteriseerd door zijn overgangsfunctie $\delta$.
+    \[ \delta:\ Q \times \Gamma \rightarrow Q \times \Gamma \times \{L,R,S\} \]
+    In het voorschrift van $\delta$ is staan $Q,\Gamma$ en $\{L,R,S\}$. 
+    Dit zijn alledrie eindige verzamelingen. 
+    Voor een gegeven grootte van $\Gamma$ en $Q$ zijn er dus maar een eindig aantal Turingmachines.
+    Beginnende bij $\Gamma = \{\#,a\}$ en $|Q|=1$ kunnen we dus alle Turringmachines opschrijven in volgorde volgens hun $(|Q|\cdot|\Gamma|)$-getal.
+    Dit betekent dat we de Turingmachines kunnen nummeren.
+    Er bestaat dus een bijectie tussen $\mathbb{N}$ en $TM$.
+  \end{proof}
+\end{st}
+
+\extra{NDTMs?}
+
+\begin{st}
+  De taal van Turing-machines is regulier.
+
+  \begin{proof}
+    Het $7$-tal uit de definitie van een Turing-machine bevat enkel eindige verzamelingen.
+    De verzamelingen kunnen bovendien beschreven worden aan de hand van enkel hun notatie.
+    Men kan bijgevolg een reguliere expressie opstellen voor de Turingmachine's.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  De berekeningskracht van prolog is gelijk aan die van een turingmachine.
+
+  \begin{proof}
+    We bewijzen elke richting appart, en geven slechts een schets van een bewijs.
+    \begin{itemize}
+    \item Een Turingmachine kan een Prologprogramma simuleren.\\
+      We tonen dit niet direct aan, maar via een omweg.
+      We tonen eerst aan dat Prolog ge\"implementeerd kan worden op een Intel machine.
+      SWI Prolog is een voorbeeld hiervan.
+      Vervolgens tonen we aan dat een Intel machine gesimuleerd kan worden met een registermachine.
+      Tenslotte tonen we aan dat een registermachine gesimuleerd kan worden met een Turingmachine.
+    \item Een Prologprogramma kan een Turingmachine simuleren.\\
+      Het is heel eenvoudig in te zien dat een Turingmachine gesimuleerd kan worden met een Prologprogramma.
+      Er zijn veel bestaande implementaties van zo'n programma.
+      Er is zelfs een \verb|turing.pl| bestand binnen SWI Prolog.\cite{prolog-tm}
+    \end{itemize}
+  \end{proof}
+\end{st}
+
+\section{Configuraties}
+\label{sec:configuraties}
+
+\begin{de}
+  Zij $M = (Q,\Sigma,\Gamma, \delta, q_{s}, q_{a}, q_{r})$ een Turingmachine die zich in een staat $q$ bevindt tijdens de uitvoering. 
+  Zij $\alpha$ de niet-$\#$ symbolen links van de schrijfeenheid en $\beta$ de niet-$\#$ symbolen onder en rechts van de schrijfeenheid.
+  We noteren dan deze \term{configuratie} van $M$ als volgt.
+  \[ \alpha q \beta \]
+\end{de}
+
+\begin{opm}
+  Merk op dat er links en rechts van de schrijfeenheid altijd een aantal vakjes bestaan waarna alle vakjes een $\#$-symbool bevatten.
+  Dit betekent echter niet dat alle symbolen tot dat niet-$\#$-symbolen zijn.
+  In de bovenstaande definitie bedoelen we dus met $\alpha$/$\beta$ de symbolen voor het oneindig aantal vakjes met $\#$-symbolen begint.
+\end{opm}
+
+\begin{opm}
+  De beginconfiguratie van een Turingmachine is altijd van de volgende vorm:
+  \[ q_{s}\alpha \]
+\end{opm}
+
+\begin{opm}
+  De eindconfiguratie van een Turingmachine is altijd van de volgende vorm:
+  \[ \alpha q_{a} \beta \]
+\end{opm}
+
+\begin{opm}
+  Tijdens de uitvoering van een TM zijn twee opeenvolgende configuraties verbonden door $\delta$ op \'e\'en van de volgende manieren, afhankelijk van of de turingmachine naar links gaat, naar rechts gaat, of terplaatse blijft na het schrijven.
+
+  \begin{figure}[H]
+    \centering
+    \[
+    \begin{array}{c|ccc}
+      \delta & &\text{overgang}&\\
+      \hline
+      \delta(q,b) = (p,c,S) & \alpha q b \beta &\rightarrow& \alpha p a c \beta\\
+      \delta(q,b) = (p,c,L) & \alpha a q b \beta &\rightarrow& \alpha p a c \beta\\ 
+      \delta(q,b) = (p,c,R) & \alpha q b \beta &\rightarrow& \alpha c p \beta
+    \end{array}
+    \]
+    \caption{Overgang van TM configuraties}
+    \label{overgang-tm-configuraties}
+  \end{figure}
+\end{opm}
+
+\section{Universele Turingmachine}
+\label{sec:universele-turingmachine}
+
+X\begin{de}
+  Een encodering van een verzameling $A$ over een alfabet $\Sigma$ is een bijectieve afbeelding $e: A \rightarrow \Sigma^{*}$ die elk element afbeeldt op een string.
+\end{de}
+
+\begin{opm}
+  Idealiter introduceert een encodering geen extra informatie.
+\end{opm}
+
+\begin{de}
+  Twee encoderingen $e_{1}$ en $e_{2}$ zijn equivalent als de omzetting van de ene naar de andere codering Turing-berekenbaar is.
+  \[ e_{1} \sim e_{2} \Leftrightarrow e_{2} \circ e_{1}^{-1} \text{ en } e_{1} \circ e_{2}^{-1} \text{ zijn Turing-berekenbaar.}\]
+\end{de}
+
+\begin{de}
+  De encodering van een object $a$ noteren we als $<a>$.
+\end{de}
+
+\begin{de}
+  Een \term{universele Turingmachine} is een Turingmachine die een willekeurige ge\"encodeerde Turingmachine kan simuleren.
+\end{de}
+
+\begin{de}
+  Een verzameling $V$ is \term{effectief aftelbaar} of \term{opsombaar} als en een TM bestaat die alle elementen uit $v$ (eventueel geencodeerd) \'e\'en voor \'e\'en genereert.
+\end{de}
+
+\section{De enumeratormachine}
+\label{sec:de-enumeratormachine}
+
+\begin{de}
+  Een \term{enumeratormachine} is een is een $7$-tal $(Q,\Sigma,\Gamma, \delta, q_{s}, q_{a}, q_{r})$, gelijkaardig aan een Turingmachine.
+  De overgangsfunctie heeft voor een enumeratormachine een andere signatuur:
+  \[ \delta:\ Q \times \Gamma \rightarrow Q \times \Gamma \times \Gamma_{\epsilon}\times \{L,R,S\} \]
+  Een enumeratormachine heeft bovendien een enumeratortoestand $q_{e}$, een outputband (naast de inputband) en een outputmarker.
+  Wanneer de enumeratormachine een stap afrondt, schrijft hij ook nog een symbool weg naar de outputband en gaat daar ook steeds naar rechts. Wanneer de machine in toestand $q_{e}$ belandt, schrijft hij de outputmarker naar de outputband, en gaat terug over in de begintoestand $q_{s}$.
+\end{de}
+
+\begin{de}
+  De taal bepaald door een enumeratormachine is de verzameling van strings die volledig op de outputband belanden, gescheiden door de outputmarker.
+\end{de}
+
+\begin{de}
+  We noemen een taal \term{enumereerbaar} als er een enumeratormachine bestaat die die taal bepaalt.
+\end{de}
+
+\begin{st}
+  \label{st:enumer-is-herk}
+  De taal bepaald door een enumerator $E$ is herkenbaar.
+  \begin{proof}
+    We beschrijven een herkenner $H$ voor de taal $L$ bepaald door een enumerator $E$.
+    Gegeven een string $s$ als input doet $H$ het volgende.
+    $H$ laat $E$ lopen tot $E$ een string $s'$ heeft afgemaakt.
+    Vervolgens kijkt $H$ of $s$ en $s'$ gelijk zijn.
+    Zo ja, accepteert $H$ $s$.
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:herk-is-enumer}
+  Elke herkenbare is enumereerbaar.
+  \begin{proof}
+    Zij $M$ een $TM$ die een taal $L$ bepaalt.
+    $L$ is dus herkenbaar.
+    We construeren nu de enumerator $E$ die $L$ enumereert.
+    Eerst construeren we een $TM$ $gen$ die, gegeven een input $n$, de eerste $n$ strings van $\Sigma^{*}$ op de band zet.
+    Vervolgens construeren we een $TM$ $M_{n}$ die, gegeven een input $n$, de eerste $n$ stappen van $M$ uitvoert.
+    Tenslotte construeren we de enumerator $E$ die de opeenvolgende natuurlijke getallen genereert, en na elk getal eerst $gen$ uitvoert, dan $M_{n}$ uitvoert, en elke string op de band zet die $M_{n}$ accepteert.
+  \end{proof}
+\end{st}
+
+
+
+\end{document}

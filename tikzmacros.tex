@@ -1,0 +1,41 @@
+\xdefinecolor{darkgreen}{RGB}{36, 175, 36}
+\xdefinecolor{darkred}{RGB}{175, 36, 36}
+
+\newcommand{\case}[1]{
+    \IfEqCase{#1}{%
+        {N}{
+          \draw [rounded corners,fill=darkred] (ml) -- (bl) -- (br) -- (mr);
+          \draw [rounded corners,fill=darkred] (ml) -- (tl) -- (tr) -- (mr);
+        }%
+        {C}{
+          \draw [rounded corners,fill=darkgreen] (ml) -- (bl) -- (br) -- (mr);
+          \draw [rounded corners,fill=darkred] (ml) -- (tl) -- (tr) -- (mr);
+        }%
+        {H}{
+          \draw [rounded corners,fill=darkred] (ml) -- (bl) -- (br) -- (mr);
+          \draw [rounded corners,fill=darkgreen] (ml) -- (tl) -- (tr) -- (mr);
+        }%
+        {B}{
+          \draw [rounded corners,fill=darkgreen] (ml) -- (bl) -- (br) -- (mr);
+          \draw [rounded corners,fill=darkgreen] (ml) -- (tl) -- (tr) -- (mr);
+        }%
+    }[\PackageError{vak}{Undefined option to pvak: #1}{}]%
+}
+
+\newcommand{\pvak}[3]
+{
+  
+  \begin{tikzpicture}[scale=1.5]
+    \coordinate (tl) at (0,1);
+    \coordinate (tr) at (2,1);
+    \coordinate (bl) at (0,0);
+    \coordinate (br) at (2,0);
+    \coordinate (ml) at ($ (tl)!.5!(bl) $);
+    \coordinate (mr) at ($ (tr)!.5!(br) $);
+    \case{#3}
+    \draw (ml) -- (mr);
+    \coordinate [label=above:#1] (m) at ($ (ml)!.5!(mr) $);    
+    \coordinate [label=below:#2] (m) at ($ (ml)!.5!(mr) $);   
+
+  \end{tikzpicture}
+}

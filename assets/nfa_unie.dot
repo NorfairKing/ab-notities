@@ -42,7 +42,7 @@ digraph finite_state_machine {
             label = "NFA2";
         }
 
-        finish[label=<q<sub>f</sub>>shape="doublecircle"];
+        finish[label=<q<sub>f</sub>>,shape="doublecircle"];
  
         superstart -> start; 
         

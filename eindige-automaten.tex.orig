@@ -367,8 +367,13 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{opm}
   Een GNFA heeft de volgende (informele) eigenschappen.
   \begin{itemize}
+<<<<<<< HEAD
+  \item Er is precies een eindtoestand en die is verschillend van de starttoestand.
+  \item Er is precies een boog van elke toestand naar de eindetoestand
+=======
   \item Er is precies \'e\'en eindtoestand en die is verschillend van de eindtoestand.
   \item Er is precies \'e\'en boog van elke toestand naar de eindtoestand
+>>>>>>> development
   \item Uit de eindtoestand vertrekken geen pijlen.
   \item Tussen elke twee toestanden (behalve de begin- en eindtoestand) vertrekt precies \'e\'en boog in beide richtingen
   \item Er is precies \'e\'en boog van elke toestand (behalve de begin- en eindtoestand) naar zichzelf.

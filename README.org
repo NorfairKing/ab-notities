@@ -4,6 +4,8 @@
 Dit boek is een open-source project.
 De lezer is bij deze uitgenodigd om bij te dragen.
 Toevoegingen, verbeteringen en commentaar zijn welkom in de vorm van pull requests of issues.
+Achteraan het boek is een lijst van TODO's opgemaakt.
+Toevoegingen die deze TODO's voltooien zijn *uiterst* welkom.
 
 ** Compilatie
 De lezer wordt uitgenodigd om het boek zelf te compileren.

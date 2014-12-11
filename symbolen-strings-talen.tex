@@ -8,30 +8,32 @@
 \label{sec:symbolen-en-strings}
 
 \begin{de}
-  Een \term{symbool} $s$ is een representatie van een object in de abstractste zin van het woord. 
+  Een \term{symbool} $s$ is een representatie van \textit{een object} in de abstractste zin van het woord.
+  De enige voorwaarde voor een symbool is dat er een equivalentierelatie (de gelijkheid) op gedefinieerd is met symbolen van dezelfde soort.
 \end{de}
 
 \begin{de}
-  Een alfabet $\Sigma$ is een eindige verzameling van symbolen.
+  Een alfabet $\Sigma$ is een \textit{eindige} verzameling van symbolen.
 \end{de}
 
 \begin{de}
-  Een \term{string} $s$ over een alfabet $\Sigma$ is een geordende opeenvolging van nul, \'e\'en of meer elementen van $\Sigma$. Symbolen zijn dus strings van lengte 1.
-  \[ s = a_{1}\ldots a_{n} \text{ met } a_{i} \in \Sigma \]
+  Een \term{string} $s$ over een alfabet $\Sigma$ is een geordende opeenvolging van nul, \'e\'en of meer elementen van $\Sigma$.
+  \[ s = a_{1}\ldots a_{n} \quad\text{ met }\quad a_{i} \in \Sigma \]
+  Symbolen zijn dus strings van lengte 1.
 \end{de}
 
 \begin{de}
-  $\epsilon$ is de \term{string} zonder symbolen en noemen we de \term{lege string}.
+  $\epsilon$ is de \textit{string} zonder symbolen en noemen we de \term{lege string}.
 \end{de}
 
 \begin{opm}
-  Bij twijfel kan elk symbool gezien worden als een string van lengte $1$.
+  $\epsilon$ is een notatie voor `niets'. Het symbool wordt slechts gebruikt omdat effectief `niets' (ook niet dat woord) opschrijven onpractisch is.
 \end{opm}
 
 \begin{de}
-  De \term{concatenatie} $xy$ van twee strings $x = \{x_1,x_2,\ldots,x_m\}$ en $y =   \{y_1,y_2,\ldots,y_n\}$ is de volgende geordende verzameling  
+  De \term{concatenatie} $xy$ van twee strings $x = \{x_1,x_2,\ldots,x_m\}$ en $y =   \{y_1,y_2,\ldots,y_n\}$ is de volgende geordende opeenvolging.
   \[
-  xy = \{ x_1,x_2,\ldots,x_m,y_1,y_2,\ldots,y_n\}
+  xy = x_1x_2\ldots x_my_1y_2\ldots y_n
   \] 
 \end{de}
 
@@ -145,7 +147,7 @@
 \label{sec:reguliere-expressies}
 
 \begin{de}
-  Een \term{reguliere expressie} (RE) wordt inductief gedefinieerd als een expressie van de volgende vorm:
+  Een \term{reguliere expressie} (RE) over een alfabet $\Sigma$ wordt inductief gedefinieerd als een expressie van de volgende vorm:
   \begin{itemize}
   \item $\epsilon$
   \item $\phi$
@@ -159,18 +161,17 @@
 \end{de}
 
 \begin{de}
-  De verzameling van alle reguliere expressies over een alfabet $\Sigma$ noteren we als $RegEx_{\Sigma}$ of $RegEx$.
+  De verzameling van alle reguliere expressies over een alfabet $\Sigma$ noteren we als $RegEx_{\Sigma}$ of $RegEx$ als het alfabet duidelijk is.
 \end{de}
 
 \begin{st}
-  De verzameling van alle reguliere expressies $RegEx$ over een alfabet $\Sigma$ vormt een taal.
+  De verzameling van alle reguliere expressies $RegEx_{\Sigma}$ over een alfabet $\Sigma$ vormt een taal.
 
   \begin{proof}
     Inderdaad, voeg aan $\Sigma$ nog de volgende symbolen toe om $\Sigma'$ te bekomen: $\epsilon$, $\phi$, $($, $)$, $|$ en $^{*}$.
     Nu vormt de verzameling van alle reguliere expressies een taal over $\Sigma'$.
 
-    Merk op dat deze taal \emph{niet} regulier\footnote{Zie de definitie van reguliere talen (Definitie \ref{de:reguliere-taal}).} is. Er zitten immers haakjes in die moeten samen passen. (Zie verder waarom dit dan geen reguliere taal is (TODO)) 
-    \TODO{ voeg verwijzing toe zodra bewezen is dat $0^{n}1^{n}$ niet regulier is. }
+    Merk op dat deze taal \emph{niet} regulier\deref{de:reguliere-taal} is. Er zitten immers haakjes in die moeten samen passen.\stref{st:an-bn-niet-regulier-pompend-lemma} \stref{st:an-bn-niet-regulier-mn-relatie}
   \end{proof}
 \end{st}
 
@@ -203,7 +204,7 @@
   Voor elke reguliere taal bestaat er een reguliere expressie die die taal bepaalt.
 
   \begin{proof}
-    Inderdaad, anders was het geen reguliere taal! \footnote{Zie de definitie van een reguliere taal (Definitie \ref{de:reguliere-taal}).}
+    Inderdaad, anders was het geen reguliere taal! \deref{de:reguliere-taal}
   \end{proof}
 \end{ei}
 
@@ -212,33 +213,35 @@
   
   \begin{proof}
     We tonen eerst de kardinaliteit van van $L_{E}$ afhankelijk van $E$.
-    \[
-    \begin{array}{|c|c|}
-      \hline
-      E                           & |L_E|\\
-      \hline
-      a \text{ met } a \in \Sigma & 1\\
-      \epsilon                    & 1\\
-      \phi                        & 0\\
-      (E_1E_2)                    & |L_{E1}| \cdot |L_{E2}|\\
-      (E)^{*}                      & \infty\\
-      (E_1|E_2)                   & |L_{E1}| + |L_{E2}| - |L_{E1} \cap L_{E2}|\\
-      \hline
-    \end{array}
-    \]
-    Zoals we zien in de tabel blijft de kardinaliteit $L_{E}$ eindig zolang we geen ster gebruiken in $E$.
+    \begin{figure}[H]
+      \centering
+      \[
+      \begin{array}{|c|c|}
+        \hline
+        E                           & |L_E|\\
+        \hline
+        a \text{ met } a \in \Sigma & 1\\
+        \epsilon                    & 1\\
+        \phi                        & 0\\
+        (E_1E_2)                    & |L_{E1}| \cdot |L_{E2}|\\
+        (E)^{*}                      & \infty\\
+        (E_1|E_2)                   & |L_{E1}| + |L_{E2}| - |L_{E1} \cap L_{E2}|\\
+        \hline
+      \end{array}
+      \]
+      \caption{Kardinaliteit van de taal bepaald door een regex}
+      \label{fig:regex-cardinaliteiten}
+    \end{figure}   
+    \noindent Zoals we zien in de tabel blijft de kardinaliteit $L_{E}$ eindig zolang we geen ster gebruiken in $E$.
   \end{proof}
 \end{st}
 
-\begin{st}
-  Als een reguliere expressie $E$ een ster bevat, is $L_{E}$ oneindig.
-  \begin{proof}
-    Inderdaad, als we opnieuw kijken naar de tabel met kardinaliteiten, zien we dat een ster in $E$ een oneindige kardinaliteit geeft voor $|L_{E}|$.
-    Bovendien is er geen manier om een oneindige kardinaliteit in een reguliere expressie weg te werken door samenstelling van reguliere expressies.
-    De kardinaliteit kan enkel oneindig blijven eens er een ster is gebruikt.
-    $L_{E}$ is dus inderdaad oneindig zodra $E$ een ster bevat.
-  \end{proof}
-\end{st}
+\begin{opm}
+  De omgekeerde stelling geldt niet.
+  Een reguliere expressie met een ster bepaalt niet noodzakelijk een oneindige taal.
+  Tegenvoorbeeld:
+  \[ L_{\epsilon^{*}} \text{ bevat precies \'e\'en element } \]
+\end{opm}
 
 \begin{st}
   Zij $E$ en $F$ reguliere expressies. Nu geldt volgende bewering.
@@ -251,7 +254,7 @@
 \end{st}
 
 \begin{de}
-  $RegLan$ is \term{verzameling van alle reguliere talen}.
+  $RegLan$ is de \term{verzameling van alle reguliere talen}.
 \end{de}
 
 \begin{ei}
@@ -265,15 +268,17 @@
     \item De unie is inwendig in $RegLan$.\\
       Kies twee willekeurige reguliere talen $L_{E1},\ L_{E2} \in RegLan$.
       De unie $L_{E1} \cup L_{E2}$ van deze twee talen wordt bepaald door de reguliere expressie $(E_1|E_2)$ en is bijgevolg een reguliere taal.
-      \footnote{Zie de definitie van de taal bepaald door een reguliere expressie. (Definite \ref{def:taal-bepaald-door-regex})}
+      \deref{def:taal-bepaald-door-regex}
     \item De concatenatie is inwendig in $RegLan$.\\
       Kies twee willekeurige reguliere talen $L_{E1},\ L_{E2} \in RegLan$.
       De concatenatie $L_{E1}L_{E2}$ van deze twee talen wordt bepaald door de reguliere expressie $E_1E_2$ en is bijgevolg een reguliere taal.
-      \footnote{Zie de definitie van de taal bepaald door een reguliere expressie. (Definite \ref{def:taal-bepaald-door-regex})}
+      \deref{def:taal-bepaald-door-regex}
     \item Het complement is inwendig in $RegLan$.
       \TODO{Verwijzing naar bewijs (later)}
     \item De doorsnede is inwendig in $RegLan$.
-      \TODO{Verwijzing naar bewijs (later)}
+      De doorsnede van twee reguliere talen $L_{1}$ en $L_{2}$ valt te schrijven als volgt.
+      \[ L_{1} \cap L_{2} = \overline{\overline{L_{1}} \cup \overline{L_{2}}} \]
+      Omdat zowel de unie van twee reguliere talen als het complement van twee reguliere talen een  reguliere taal is, is ook de doorsnede van twee reguliere talen een reguliere taal.
     \end{itemize}
   \end{proof}
 \end{ei}
@@ -300,17 +305,7 @@
 \end{ei}
 
 \begin{st}
-  Er bestaat een niet-reguliere taal.
-
-  \begin{proof}
-    Elke reguliere expressie bepaalt precies \'e\'en (reguliere) taal.
-    Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg hoogstens aftelbaar oneindig veel reguliere talen.
-    Er zijn echter overaftelbaar oneindig veel talen. Er moet dus minstens \'e\'en niet-reguliere taal bestaan.
-    (In feite zijn de meeste\footnote{'de meeste' heeft een heel specifieke wiskundige betekenis.} talen niet-regulier.)
-  \end{proof}
-\end{st}
-
-\begin{st}
+  \label{st:eindige-taal-regulier}
   Elke eindige taal $L$ is regulier.
 
   \begin{proof}
@@ -325,7 +320,7 @@
   Zij $L$ een reguliere taal en $s \not \in L$ een string.
   $L' = L \cup \{s\}$ is regulier.
   \begin{proof}
-    $L$ is een reguliere taal, dus er bestaat een reguliere expressie $E$ die $L$ bepaalt.\footnote{Zie definitie \ref{de:reguliere-taal}.}
+    $L$ is een reguliere taal, dus er bestaat een reguliere expressie $E$ die $L$ bepaalt.\deref{de:reguliere-taal}
     \[ L = L_{E} \]
     Beschouw nu de reguliere expressie $E'$.
     \[ E' = (E | s) \]
@@ -350,22 +345,35 @@
   Elke oneindige reguliere taal $L$ is aftelbaar in aantal elementen.
 
   \begin{proof}
-    $L$ is een deelverzameling van $\Sigma^{*}$.\footnote{Zie eigenschap \ref{ei:taal-alternatieve-definitie}.}, dus $L$ is hoogstens aftelbaar oneindig.
+    $L$ is een deelverzameling van $\Sigma^{*}$\eiref{ei:taal-alternatieve-definitie}, dus $L$ is hoogstens aftelbaar oneindig.
   \end{proof}
 \end{st}
 
 \begin{st}
+  \label{st:overaftelbaar-veel-talen}
   Er zijn overaftelbaar veel talen over een alfabet $\Sigma$.
 
   \begin{proof}
-    De talen $L_{\Sigma}$ over een alfabet zijn allemaal een deelverzameling van $\Sigma^{*}$. \footnote{Zie eigenschap \ref{ei:taal-alternatieve-definitie}.} $L_{\Sigma}$ is dus de machtsverzameling van $\Sigma^{*}$.
-    Bovendien is de machtsverzameling van een aftelbare verzameling\footnote{Zie stelling \ref{sigma-ster-aftelbaar}.} overaftelbaar.
+    De talen $L_{\Sigma}$ over een alfabet zijn allemaal een deelverzameling van $\Sigma^{*}$. \eiref{ei:taal-alternatieve-definitie} $L_{\Sigma}$ is dus de machtsverzameling van $\Sigma^{*}$.
+    Bovendien is de machtsverzameling van een aftelbare verzameling\stref{sigma-ster-aftelbaar} overaftelbaar.
     Er zijn dus overaftelbaar oneindig veel talen over een alfabet $\Sigma$.
   \end{proof}
 \end{st}
 
+\begin{st}
+  Er bestaat een niet-reguliere taal.
+
+  \begin{proof}
+    Elke reguliere expressie bepaalt precies \'e\'en (reguliere) taal.
+    Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg hoogstens aftelbaar oneindig veel reguliere talen.
+    Er zijn echter overaftelbaar oneindig veel talen.\stref{st:overaftelbaar-veel-talen}
+    Er moet dus minstens \'e\'en niet-reguliere taal bestaan.
+    (In feite zijn de meeste\footnote{'de meeste' heeft een heel specifieke wiskundige betekenis.} talen niet-regulier.)
+  \end{proof}
+\end{st}
+
 \begin{de}
-  De omgekeerde taal $L^{R}$ is de waarin alle strings van $L$ omgekeerd zijn is regulier.
+  De omgekeerde taal $L^{R}$ is de taal waarin alle strings van $L$ omgekeerd zijn.
   \[ L^{R} = \{ s^{R}\ |\ s \in L \} \]
 \end{de}
 
@@ -392,7 +400,6 @@
       \hline
     \end{array}
     \]
-    Zoals we zien wordt eigenlijk enkel het concatenatie geval aangepast. 
   \end{proof}
 \end{st}
 
