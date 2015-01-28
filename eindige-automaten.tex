@@ -94,7 +94,7 @@
   In de eerste kolom staat een staat, in de tweede een symbool, en in de derde een verzameling van staten.                   
 \end{de}
 
-\section{De algebra van NFA's}
+\subsection{De algebra van NFA's}
 Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare eindtoestand heeft waaruit bovendien geen pijlen vertrekken, zonder verlies van algemeenheid.\eiref{st:hoogstens-een-eindtoestand-NFA}
 \label{sec:de-algebra-van-nfas}
 
@@ -236,7 +236,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{ei}
 
-\section{Van reguliere expressie naar NFA}
+\subsection{Van reguliere expressie naar NFA}
 \label{sec:van-reguliere-expressie-naar-nfa}
 
 \begin{de}
@@ -349,7 +349,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
-\section{NFA naar reguliere expressie}
+\subsection{NFA naar reguliere expressie}
 \begin{de}
   Een \term{gegeneraliseerde niet-deterministische eindige toestandsautomaat} (\term{GNFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s},q_{f}$).
   \begin{itemize}
@@ -592,7 +592,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
-\section{Minimale DFA}
+\subsection{Minimale DFA's}
 \begin{de}
   \label{de:f-gelijk}
   Twee toestanden $p$ en $q$ van een DFA $(Q,\Sigma,\delta,q_{s},F)$ zijn \term{$f$-gelijk} $p\sim q$ als het volgende geldt:
@@ -803,10 +803,10 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \end{de}
 
 
-\section{Myhill-Nerode relaties op $\Sigma$}
+\subsection{Myhill-Nerode relaties op $\Sigma$}
 \label{sec:myhill-nerode-relaties}
 
-\subsection{Partities van $\Sigma^{*}$}
+\subsubsection{Partities van $\Sigma^{*}$}
 \label{sec:partities-van-sigma-ster}
 
 \begin{de}
@@ -973,7 +973,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
-\subsection{Het supremum van twee $MN(L)$ relaties}
+\subsubsection{Het supremum van twee $MN(L)$ relaties}
 \label{sec:het-supremum-van}
 
 \begin{de}
@@ -1019,6 +1019,37 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
+\subsubsection{$MN(L)$ gebruiken om te bewijzen dat een taal niet regulier is}
+\label{sec:mnl-gebruiken-om}
+
+\begin{st}
+  De taal $L= \{ a^{n}b^{n} \ |\ n\in \mathbb{N} \} $ is niet regulier.
+
+  \begin{proof}
+    Stel dat er een equivalentierelatie $\sim$ bestaat voor $L$ die zowel rechts-congruent is als $\sim_{L}$ verfijnt en afkomstig is van de minimale DFA van $L$, dan bewijzen we nu dat deze equivalentierelatie een oneindig aantal equivalentieklassen heeft en bijgevolg geen $MN(L)$-relatie kan zijn.
+    De taal $L$ is dan zeker niet regulier.
+    Beschouw de equivalentieklassen van $\sim$.
+    Voor elke $n\in \mathbb{N}$ moet de string $a^{n}$ in een andere klasse zitten, want voor elke $n$ is er een ander aantal $b$'s dat de automaat in $F$ brengt.
+    Er zijn dus oneindig veel equivalentieklassen.
+  \end{proof}
+\end{st}
+
+\subsubsection{De stelling van Myhill-Nerode}
+\label{sec:de-stelling-van}
+
+\begin{st}
+  De \term{stelling van Myhill-Nerode}\\
+  Zij $L\subseteq \Sigma^{*}$ een taal over $\Sigma$, dan zijn de volgende uitspraken equivalent.
+  \begin{itemize}
+  \item $L$ is regulier.
+  \item Er bestaat een Myhill-Nerode relatie voor $L$.
+  \item Definieer $\sim$ op $\Sigma^{*}$ als volgt, dan heeft $\sim$ een eindige index.
+    \[ x \sim y \Leftrightarrow \forall s \in \Sigma^{*}:\ (xs \in L \Leftrightarrow ys \in L) \]
+  \end{itemize}
+  \zb
+\end{st}
+
+
 \subsection{De minimale DFA}
 \label{sec:de-minimale-dfa}
 
@@ -1042,37 +1073,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
-\subsection{$MN(L)$ gebruiken om te bewijzen dat een taal niet regulier is}
-\label{sec:mnl-gebruiken-om}
-
-\begin{st}
-  De taal $L= \{ a^{n}b^{n} \ |\ n\in \mathbb{N} \} $ is niet regulier.
-
-  \begin{proof}
-    Stel dat er een equivalentierelatie $\sim$ bestaat voor $L$ die zowel rechts-congruent is als $\sim_{L}$ verfijnt en afkomstig is van de minimale DFA van $L$, dan bewijzen we nu dat deze equivalentierelatie een oneindig aantal equivalentieklassen heeft en bijgevolg geen $MN(L)$-relatie kan zijn.
-    De taal $L$ is dan zeker niet regulier.
-    Beschouw de equivalentieklassen van $\sim$.
-    Voor elke $n\in \mathbb{N}$ moet de string $a^{n}$ in een andere klasse zitten, want voor elke $n$ is er een ander aantal $b$'s dat de automaat in $F$ brengt.
-    Er zijn dus oneindig veel equivalentieklassen.
-  \end{proof}
-\end{st}
-
-\subsection{De stelling van Myhill-Nerode}
-\label{sec:de-stelling-van}
-
-\begin{st}
-  De \term{stelling van Myhill-Nerode}\\
-  Zij $L\subseteq \Sigma^{*}$ een taal over $\Sigma$, dan zijn de volgende uitspraken equivalent.
-  \begin{itemize}
-  \item $L$ is regulier.
-  \item Er bestaat een Myhill-Nerode relatie voor $L$.
-  \item Definieer $\sim$ op $\Sigma^{*}$ als volgt, dan heeft $\sim$ een eindige index.
-    \[ x \sim y \Leftrightarrow \forall s \in \Sigma^{*}:\ (xs \in L \Leftrightarrow ys \in L) \]
-  \end{itemize}
-  \zb
-\end{st}
-
-\section{Het pompen van strings in reguliere talen}
+\subsection{Het pompen van strings in reguliere talen}
 \label{sec:het-pompend-van}
 
 \begin{lem}
@@ -1125,7 +1126,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   \end{proof}
 \end{st}
 
-\section{De algebra van DFA's}
+\subsection{De algebra van DFA's}
 \label{sec:de-algebra-van-DFAs}
 
 \begin{de}
@@ -1158,6 +1159,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \extra{bewijs}
 
 \begin{de}
+  \label{de:symmetrisch-verschil-dfas}
   Het \term{symmetrisch verschil van DFA's} $D_{1}$ en $D_{2}$ is de DFA $D$ die het symmetrisch verschil bepaalt van de talen bepaald door $D_{1}$ en $D_{2}$.
   \[ D_{1} \times D_{2} \text{ met } F = (Q_{1}\setminus F_{1}) \times (Q_{2}\setminus F_{2}) \]
 \end{de}

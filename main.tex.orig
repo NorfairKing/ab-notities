@@ -13,7 +13,11 @@
 \subfile{voorwoord}
 \tableofcontents
 \pagebreak
+<<<<<<< HEAD
 a
+=======
+
+>>>>>>> master
 \subfile{voorkennis}
 \subfile{symbolen-strings-talen}
 \subfile{eindige-automaten}

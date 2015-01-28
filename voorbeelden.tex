@@ -124,9 +124,8 @@
 \TODO{transitietabel}
 \TODO{DFA naar NFA}
 \TODO{DFA minimalisatie}
-\TODO{bewijzen dat een taal niet regulier is met het pompend lemma.}
 
-\section{Pompend lemma voor reguliere talen}
+\subsection{Pompend lemma voor reguliere talen}
 \label{sec:pompend-lemma-voor-reguliere-talen}
 
 \begin{lem}
@@ -158,7 +157,7 @@ Op een iets minder formele logische manier: (Als het zo duidelijker is, kan je d
 \end{array}
 \]
 
-\subsection{Het pompend lemma gebruiken om te bewijzen dat een taal regulier is}
+\subsubsection{Het pompend lemma gebruiken om te bewijzen dat een taal regulier is}
 Laat dit voor eens en voor altijd duidelijk zijn:
 \begin{center}
   We kunnen het pompend lemma \underline{niet} gebruiken om te bewijzen dat een taal regulier is.
@@ -173,7 +172,7 @@ Met andere woorden, het omgekeerde van het pompend lemma is niet waar:
 \]
 In woorden: $L$ bevat alle strings over het alfabet $\{0,1,2,3\}$ met een substring van lengte $3$ waar een duplicaat character in zit alsook alle strings waarbij precies \'e\'en zevende van de symbolen $3$-en zijn.
 
-\subsection{Het pompend lemma gebruiken om te bewijzen dat een taal niet regulier is}
+\subsubsection{Het pompend lemma gebruiken om te bewijzen dat een taal niet regulier is}
 We kunnen het pompend lemma \underline{wel} gebruiken om te bewijzen dat een taal \underline{niet regulier} is.
 We doen dit doorgaans met een bewijs uit het ongerijmde.
 
@@ -187,6 +186,7 @@ Zij $L$ de taal waarvan we willen bewijzen dat hij niet regulier is.
 We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat die \underline{niet} gepompt kan worden, dus is de taal $L$ niet regulier.
 
 \begin{vb}
+  \label{vb:0n-1n-niet-regulier}
   Bewijs dat $L = 0^{n}1^{n}$ \underline{niet} regulier is.
   \begin{proof}
     Bewijs uit het ongerijmde.
@@ -211,7 +211,31 @@ We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat 
   \end{proof}
 \end{vb}
 
-\section{Pompend lemma voor contextvrije talen}
+\extra{myhill nerode relatie}
+
+\section{Contextvrije talen en hun gramatica}
+\label{sec:cont-talen-en}
+
+\begin{vb}
+  Het viertal $c = \{ S,A,B \},\{ 0,1 \},R,S)$ is een contextvrije grammatica.
+  \[ R = \{ S \rightarrow \epsilon, S \rightarrow AB, A \rightarrow 10, B \rightarrow ABA, B \rightarrow 01 \} \]
+  De string $1001$ is afleidbaar uit $c$ als volgt:
+  \[ S \leadsto AB \leadsto 10B \leadsto 1001 \]
+  De string $10100110$ is ook afleidbaar uit $c$:
+  \[ S \leadsto AB \leadsto 10B \leadsto 10ABA \leadsto 1010BA \leadsto 101001A \leadsto 10100110 \]
+  De taal $L$ bepaald door $c$ ziet er als volgt uit:
+  \[ L = \{\epsilon\} \cup \{ 10 (10)^{n}01(10)^{n} | n \in \mathbb{N}\} \]
+\end{vb}
+
+\extra{ambigue string}
+\extra{niet ambigue CFG}
+\extra{inherent ambigue taal}
+\extra{Chomsky normaal vorm en omzetting}
+\extra{Greibach normaal vorm en omzetting}
+
+\extra{PDA en uitvoering}
+
+\subsection{Pompend lemma voor contextvrije talen}
 \label{sec:pompend-lemma-voor-contextvrije-talen}
 
 \begin{lem}
@@ -242,7 +266,7 @@ Op een iets minder formele logische manier: (Als het zo duidelijker is, kan je d
 \end{array}
  \]
 
-\subsection{Het pompend lemma gebruiken om te bewijzen dat een taal contextvrij is}
+\subsubsection{Het pompend lemma gebruiken om te bewijzen dat een taal contextvrij is}
 Laat dit ook voor eens en voor altijd duidelijk zijn:
 \begin{center}
   We kunnen het pompend lemma \underline{niet} gebruiken om te bewijzen dat een taal contextvrij is.
@@ -250,7 +274,7 @@ Laat dit ook voor eens en voor altijd duidelijk zijn:
 Er bestaan immers talen met een pomplengte die niet contextvrij zijn.
 \extra{tegenvoorbeeld voor het omgekeerde van het pompend lemma voor contextvrije talen}
 
-\subsection{Het pompend lemma gebruiken om te bewijzen dat een taal niet contextvrij is}
+\subsubsection{Het pompend lemma gebruiken om te bewijzen dat een taal niet contextvrij is}
 We kunnen het pompend lemma \underline{wel} gebruiken om te bewijzen dat een taal \underline{niet contextvrij} is.
 We doen dit doorgaans ook met een bewijs uit het ongerijmde.
 
@@ -264,6 +288,7 @@ Zij $L$ de taal waarvan we willen bewijzen dat hij niet contextvrij is.
 We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat die \underline{niet} gepompt kan worden, dus is de taal $L$ niet contextvrij.
 
 \begin{vb}
+  \label{vb:0n-1n-2n-niet-contextvrij}
   Bewijs dat $0^{n}1^{n}2^{n}$ \underline{niet} contextvrij is.
   \begin{proof}
     Bewijs uit het ongerijmde.
@@ -291,8 +316,27 @@ We hebben dan aangetoond dat er \underline{minstens \'e\'en} string $s$ bestaat 
 \end{vb}
 
 
-\TODO{encoderingen}
-\TODO{aftelbaar en opsombaar}
+\extra{aftelbaar en opsombaar}
+\extra{contextsensitieve grammatica}
+\extra{LBA}
+
+\section{Turingmachines en beslisbaarheid}
+\label{sec:turingm-en-besl}
+
+\extra{Turingmachine}
+\extra{Turingmachine en uitvoering}
+\extra{voorbeeld van taal die herkend en taal die beslist wordt}
+\extra{encoderingen}
+\extra{enumeratormachine}
+\extra{reductie}
+\extra{post-correspondence}
+\TODO{bewijs met stelling van RICE}
+\TODO{bewijs met reductie}
+\extra{orakelmachine}
+\extra{triviale en niet-triviale eigenschappen van TM's}
+\extra{taal-invariante en niet-taal-invariante eigenschappen van TM's}
+
+
 
 \section{Recursieve functies}
 \label{sec:recursieve-functies}

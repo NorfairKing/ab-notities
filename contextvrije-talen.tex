@@ -34,8 +34,7 @@
 
 \begin{de}
   De taal $L_{c}$ bepaald door een CFG $c = (V,\Sigma,R,S)$ is de verzameling strings over $\Sigma$ die kunnen afgeleid worden van het startsymbool $S$.
-  \[ L_{c} = \{ s \in \Sigma^{*}\ |\ S \leadsto^{*} s \}
-\]
+  \[ L_{c} = \{ s \in \Sigma^{*}\ |\ S \leadsto^{*} s \} \]
 \end{de}
 
 \begin{de}
@@ -106,7 +105,7 @@
       Verwijder vervolgens alle regels van de vorm $A\rightarrow \epsilon$
       
       De bekomen grammatica bepaalt nog steeds dezelfde taal.
-      %\clarify{waarom?}
+      \clarify{waarom?}
 
     \item Nu zorgen we ervoor dat er steeds vooruitgang zit in de regels.
       Alle regels van de vorm $A\rightarrow B$ moeten dus weg.
@@ -119,7 +118,7 @@
       Verwijder vervolgens alle regels van de vorm $A\rightarrow B$.
 
       De bekomen grammatica bepaalt nog steeds dezelfde taal.
-      %\clarify{waarom?}
+      \clarify{waarom?}
 
     \item Er zijn nu nog vier soorten regels te behandelen:
       \begin{itemize}
@@ -131,7 +130,7 @@
         Deze procedure is eindig omdat zowel elke opeenvolging van symbolen in een regel eindig is als het aantal regels.
 
         De bekomen grammatica bepaalt nog steeds dezelfde taal.
-        %\clarify{waarom?}
+        \clarify{waarom?}
 
       \item $S\rightarrow \epsilon$.
         Deze laten we voor wat ze zijn.
@@ -147,7 +146,7 @@
       Deze procedure is eindig omdat zowel elke opeenvolging van symbolen in een regel eindig is als het aantal regels.
 
       De bekomen grammatica bepaalt nog steeds dezelfde taal.
-      %\clarify{waarom?}
+      \clarify{waarom?}
 
 
     \item Wat er van $R$ overblijft noemen we nu $R'$ en $V'$ is hoogstwaarschijnlijk ook uitgebreid.
@@ -156,6 +155,7 @@
 \end{st}
 
 \begin{st}
+  \label{st:chomsky-normaalvorm-afleidingslengte}
   Een afleiding van een string van lengte $n>0$ uit het startsymbool van een contextvrije grammatica in Chomsky normaalvorm heeft lengte $2n-1$.
   \begin{proof}
     Om een string van lengte $n$ af te leiden moet er voor elk symbool $a$ een regel van de vorm $A \rightarrow a$ gevolgd worden.
@@ -190,6 +190,44 @@
   \end{proof}
 \end{st}
 
+\begin{st}
+  De taal van contextvrije grammatica's is regulier.
+
+  \begin{proof}
+    Definieer eerst $V^{n}$ als $(|_{v \in V}v)^{n}$ voor een verzameling $V$ en $V^{*} = (|_{v \in V}v)^{*}$.
+    We construeren nu een reguliere expressie voor de taal van contextvrije grammatica's over $\Sigma$ met niet-eindsymbolen $V$.
+    In de constructie moeten we natuurlijk $V$ en $\Sigma$ vervangen door de hele beschrijving ervan, maar die is steeds eindig, dus regulier.\stref{st:eindige-taal-regulier}
+    \[
+    (V,\Sigma, R, V^{1}) \text{ met } R = \{ (V^{1} \rightarrow (V \cup \Sigma)^{1}) (,(V^{1} \rightarrow V \cup \Sigma)^{1})^{*} \}
+    \]
+  \end{proof}
+\end{st}
+
+\begin{st}
+  \label{st:regex-cfl}
+  De taal van reguliere expressies is contextvrij maar niet regulier.
+  
+  \begin{proof}
+    De taal van reguliere expressies is niet regulier.
+    Een reguliere expressie kan immers oneindig geneste haakjes bevatten.
+    De taal is wel contextvrij.
+    Hier is namelijk een CFG voor de taal van reguliere expressies over een alfabet $\Sigma$
+    \[ (\{E\},\Sigma\cup \{(,),*,|,\epsilon,\phi\},R,E)\]
+    Merk op dat de $\epsilon$ hierboven wel degelijk het symbool $\epsilon$ betekent en niet de lege string.
+    \[ R =
+    \left\{ 
+      \begin{array}{l}
+        E \rightarrow \epsilon,\\
+        E \rightarrow a,\\
+        E \rightarrow \phi,\\
+        E \rightarrow EE,\\
+        E \rightarrow E^{*},\\
+        E \rightarrow E|E
+      \end{array}
+    \right\}
+    \]
+    \end{proof}
+\end{st}
 
 \section{Push-down automaten}
 \label{sec:push-down-automaten}
@@ -347,8 +385,6 @@
 
 \section{Een algebra van contextvrije talen?}
 
-\extra{herstructureer deze sectie}
-
 \begin{de}
   De unie $c_{1} \cup c_{2}$ van twee CFG's $c_{1}$ en $c_{2}$ is de CFG die de unie van $L_{c_{1}}$ en $L_{c_{2}}$ bepaalt.
 \end{de}
@@ -373,11 +409,11 @@
 \begin{tvb}
   \label{tvb:doorsnede-cfl-niet-altijd-cfl}
   De doorsnede van twee CFG's bestaat niet noodzakelijk.
-  De doorsnede van twee contextvrije talen is immers niet steeds contextvrij.
+  De doorsnede van twee contextvrije talen is immers niet steeds contextvrij.\footnote{Het is zelfs niet beslisbaar of de doorsnede van twee contextvrije talen contextvrij is.(zie later)}
 
   \begin{proof}
     Kies $L_{1} = \{ a^{n}b^{n}c^{m} \ |\ n,m \ge 0 \}$ en $L_{2} = \{ a^{n}b^{m}c^{m} \ |\ n,m \ge 0 \}$.
-    De doorsnede $L_{1} \cap L_{2}$ van $L_{1}$ en $L_{2}$ is nu een bekend voorbeeld van een taal die niet contextvrij is.
+    De doorsnede $L_{1} \cap L_{2}$ van $L_{1}$ en $L_{2}$ is nu een bekend voorbeeld van een taal die niet contextvrij is.\vbref{vb:0n-1n-2n-niet-contextvrij}
     \[ L_{1} \cap L_{2} = \{ a^{n}b^{n}c^{n} \ |\ n \ge 0 \} \]
   \end{proof}
 \end{tvb}
@@ -388,7 +424,7 @@
 
 \begin{st}
   Het complement van een CFG bestaat niet noodzakelijk.
-  Het complement van een contextvrije taal is immers niet steeds contextvrij.
+  Het complement van een contextvrije taal is immers niet steeds contextvrij.\footnote{Het is zelfs niet beslisbaar of het complement van een contextvrije taal contextvrij is.(zie later)}
 
   \begin{proof}
     De doorsnede $A \cap B$ van twee talen $A$ en $B$ kan geschreven worden als de samenstelling van de unie en het complement.
@@ -480,6 +516,7 @@
 
 \TODO{ een lineair begrensde automaat LBA }
 
+\TODO{taal van contextsensitieve grammatica's is regulier}
 
 
 \end{document}
