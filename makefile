@@ -1,20 +1,20 @@
-.PHONY: assets
-
 OUTPUT_NAME = ab-notities
 MAIN_NAME = main
 
-LATEX = ./makepdf.sh
+all: assets exercises text
 
-all:
-	make assets
-	make text
-	make exercises
+assets:
+	$(MAKE) -C assets
 
 text: $(OUTPUT_NAME).pdf
 
-exercises:
+exercises: oefenzittingen.pdf
+
+oefenzittingen.pdf:
 	bash compile_oz.sh
 
-$(OUTPUT_NAME).pdf:
-	$(LATEX) $(MAIN_NAME).tex $(OUTPUT_NAME).pdf
+$(OUTPUT_NAME).pdf: individuals main.tex
+	latexmk -pdf -pdflatex="pdflatex -shell-escape -halt-on-error -enable-pipes -enable-write18" $(MAIN_NAME).tex
+	cp $(MAIN_NAME).pdf $(OUTPUT_NAME).pdf
 
+individuals: *.tex
