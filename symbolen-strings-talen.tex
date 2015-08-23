@@ -160,10 +160,6 @@
   Deze definitie laat immers geen oneindige reguliere expressies toe.
 \end{de}
 
-\begin{de}
-  De verzameling van alle reguliere expressies over een alfabet $\Sigma$ noteren we als $RegEx_{\Sigma}$ of $RegEx$ als het alfabet duidelijk is.
-\end{de}
-
 \begin{st}
   De verzameling van alle reguliere expressies $RegEx_{\Sigma}$ over een alfabet $\Sigma$ vormt een taal.
 
@@ -199,14 +195,9 @@
   Een \term{reguliere taal} is een taal die bepaald wordt door een reguliere expressie.
 \end{de}
 
-\begin{ei}
-  \label{ei:reguliere-taal-expressie}
-  Voor elke reguliere taal bestaat er een reguliere expressie die die taal bepaalt.
-
-  \begin{proof}
-    Inderdaad, anders was het geen reguliere taal! \deref{de:reguliere-taal}
-  \end{proof}
-\end{ei}
+\begin{de}
+  De verzameling van alle reguliere expressies over een alfabet $\Sigma$ noteren we als $RegEx_{\Sigma}$ of $RegEx$ als het alfabet duidelijk is.
+\end{de}
 
 \begin{st}
   Als een reguliere expressie $E$ geen ster bevat, dan is de taal $L_{E}$ bepaald door die reguliere expressie eindig.
@@ -274,7 +265,7 @@
       De concatenatie $L_{E1}L_{E2}$ van deze twee talen wordt bepaald door de reguliere expressie $E_1E_2$ en is bijgevolg een reguliere taal.
       \deref{def:taal-bepaald-door-regex}
     \item Het complement is inwendig in $RegLan$.
-      \TODO{Verwijzing naar bewijs (later)}
+      \zb
     \item De doorsnede is inwendig in $RegLan$.
       De doorsnede van twee reguliere talen $L_{1}$ en $L_{2}$ valt te schrijven als volgt.
       \[ L_{1} \cap L_{2} = \overline{\overline{L_{1}} \cup \overline{L_{2}}} \]
@@ -368,7 +359,7 @@
     Er zijn aftelbaar oneindig veel reguliere expressies en bijgevolg hoogstens aftelbaar oneindig veel reguliere talen.
     Er zijn echter overaftelbaar oneindig veel talen.\stref{st:overaftelbaar-veel-talen}
     Er moet dus minstens \'e\'en niet-reguliere taal bestaan.
-    (In feite zijn de meeste\footnote{'de meeste' heeft een heel specifieke wiskundige betekenis.} talen niet-regulier.)
+    \footnote{In feite zijn de meeste ('de meeste' heeft een heel specifieke wiskundige betekenis.) talen niet-regulier.) }
   \end{proof}
 \end{st}
 

@@ -15,7 +15,7 @@
 
 \begin{de}
   We noemen $V'$ een deelverzameling van $V$ als elk element van $V'$ ook een element van $V$ is.
-  \[ \forall v' \in V' \Rightarrow v \in V \]
+  \[ V' \subset V \Leftrightarrow (\forall v' \in V' \Rightarrow v \in V) \]
 \end{de}
 
 \begin{de}
@@ -23,9 +23,69 @@
   \[ \{v\ |\ v\subset V \}\] 
 \end{de}
 
+\section{Relaties}
+\label{sec:relaties}
+
+\begin{de}
+  De \term{transitieve sluiting} $R^{+}$ van een binaire relatie $R$ op een verzameling $M$ is de kleinste transitieve relatie op $M$ die de oorspronkelijke relatie omvat.
+  \[ xR^{+}y \Leftrightarrow \exists x_{1},\dotsc,x_{n-1}:\ xRx_{1} \wedge x_{1}Rx_{2} \wedge \dotsb \wedge x_{n-1} R y \]
+\end{de}
+
+\subsection{Equivalentierelaties}
+\extra{equivalentierelaties}
+
+\subsection{Orderelaties}
+
+\begin{de}
+  Een relatie $R$ op een verzameling $X \times X$ is \term{anti-symmetrisch} als het volgende geldt:
+  \[ \forall x,y \in X: ((x,y) \in R \wedge (y,x) \in R) \Rightarrow x = y \]
+\end{de}
+
+\begin{de}
+  Een (parti\"ele) \term{orderelatie} op $X$ is reflexief, transitief en anti-symmetrisch.
+\end{de}
+
+\begin{de}
+  Een \term{grootste element} $a$ van een verzameling $A$ waarop een orderelatie $\prec$ is gedefinieerd is, is een element waarvoor geldt dat alle andere elementen kleiner zijn of gelijk aan $a$.
+  \[ \forall x \in A: x \preceq a \] 
+  Analoog wordt ook een \term{kleinste element} gedefinieerd.
+\end{de}
+
+\begin{de}
+  Een \term{maximaal element} $a$ van $A$ waarop een orderelatie $\prec$ is gedefinieerd is, is een element waarvoor geldt dat er geen groter bestaat.
+  \[ \not\exists x \in A: a \prec x \]
+  Analoog wordt ook een \term{minimaal element} gedefinieerd.
+\end{de}
+
+\begin{opm}
+  Een maximaal/minimaal element is niet noodzakelijk een grootste/kleinste element.    
+\end{opm}
+
+\begin{de}
+  Zij $(X,\preceq)$ een geordende verzameling en $A \subsetneq X$.
+  $b \in X$ is een \term{bovengrens} van $A$ als het volgende geldt.
+  \[ \forall x \in A: x \preceq b \]
+  Analoog wordt een \term{ondergrens} gedefinieerd.
+\end{de}
+
+\begin{opm}
+  Een grens van een ordeverzameling hoeft dus niet in die verzameling te zitten.
+\end{opm}
+
+\begin{de}
+  Een \term{supremum}(\term{infimum}) van een deelverzameling van een geordende verzameling is een bovengrens(ondergrens) die kleiner(groter) is dan elke andere bovengrens(ondergrens).
+\end{de}
+
+\begin{opm}
+  Een supremum/infimum is een grens van een ordeverzameling en hoeft dus niet in die verzameling te zitten.
+\end{opm}
+
+\section{Partities}
+\label{sec:partities}
+
 \begin{de}
   \label{de:partitie}
-  Een partitie $P$ van een verzameling $X$ is een deelverzameling van de machtsverzameling $\mathcal {P}(x)$ van $X$ met de volgende eigenschappen:
+  Een partitie $P$ van een verzameling $X$ is een deelverzameling van de machtsverzameling $\mathcal {P}(X)$ van $X$ met de volgende eigenschappen:
   \begin{itemize}
   \item De verzamelingen zijn niet leeg.
     \[ \forall A \in P:\ A \neq \emptyset \]
@@ -55,64 +115,6 @@
   We noemen een partitie $P_{1}$ \term{fijner} dan een andere partitie $P_{2}$ als elk element van $P_{1}$ gelijk is aan, of in een element zit van $P_{2}$.
   Het omgekeerde van fijner is \term{groffer}.
 \end{de}
-
-\section{Relaties}
-\label{sec:relaties}
-
-\begin{de}
-  De \term{transitieve sluiting} $R^{+}$ van een binaire relatie $R$ op een verzameling $M$ is de kleinste transitieve relatie op $M$ die de oorspronkelijke relatie omvat.
-  \[ xR^{+}y \Leftrightarrow \exists x_{1},\dotsc,x_{n-1}:\ xRx_{1} \wedge x_{1}Rx_{2} \wedge \dotsb \wedge x_{n-1} R y \]
-\end{de}
-
-\subsection{Equivalentierelaties}
-\extra{equivalentierelaties}
-
-
-\subsection{Orderelaties}
-
-\begin{de}
-  Een relatie $R$ op een verzameling $X \times X$ is \term{anti-symmetrisch} als het volgende geldt:
-  \[ \forall x,y \in X: ((x,y) \in R \wedge (y,x) \in R) \Rightarrow x = y \]
-\end{de}
-
-\begin{de}
-  Een (parti\"ele) \term{orderelatie} op $X$ is reflexief, transitief en anti-symmetrisch.
-\end{de}
-
-\begin{de}
-  Een \term{grootste element} $a$ van een verzameling $A$ waarop een orderelatie $\prec$ is gedefinieerd is, is het element waarvoor geldt dan alle andere elementen kleiner zijn of gelijk aan $a$.
-  \[ \forall x \in A: x \preceq a \] 
-  Analoog wordt ook een \term{kleinste element} gedefinieerd.
-\end{de}
-
-\begin{de}
-  Een \term{maximaal element} $a$ van $A$ waarop een orderelatie $\prec$ is gedefinieerd is, is het element waarvoor geldt dat er geen kleiner bestaat.
-  \[ \not\exists x \in A: a \prec x \]
-  Analoog wordt ook een \term{minimaal element} gedefinieerd.
-\end{de}
-
-\begin{opm}
-  Een maximaal/minimaal element is niet noodzakelijk een grootste/kleinste element.    
-\end{opm}
-
-\begin{de}
-  Zij $(X,\preceq)$ een geordende verzameling en $A \subsetneq X$.
-  $b \in X$ is een \term{bovengrens} van $A$ als het volgende geldt.
-  \[ \forall x \in A: x \preceq b \]
-  Analoog wordt een \term{ondergrens} gedefinieerd.
-\end{de}
-
-\begin{opm}
-  Een grens van een ordeverzameling hoeft dus niet in die verzameling te zitten.
-\end{opm}
-
-\begin{de}
-  Een \term{supremum}(\term{infimum}) van een deelverzameling van een geordende verzameling is een bovengrens(ondergrens) die kleiner(groter) is dan elke andere bovengrens(ondergrens).
-\end{de}
-
-\begin{opm}
-  Een supremum/infimum is een grens van een ordeverzameling en hoeft dus niet in die verzameling te zitten.
-\end{opm}
 
 \section{Abstracte algebra}
 \label{sec:abstracte-algebra}
