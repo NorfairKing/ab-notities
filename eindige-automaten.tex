@@ -367,7 +367,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{opm}
   Een GNFA heeft de volgende (informele) eigenschappen.
   \begin{itemize}
-  \item Er is precies \'e\'en eindtoestand en die is verschillend van de eindtoestand.
+  \item Er is precies \'e\'en eindtoestand en die is verschillend van de starttoestand.
   \item Er is precies \'e\'en boog van elke toestand naar de eindtoestand
   \item Uit de eindtoestand vertrekken geen pijlen.
   \item Tussen elke twee toestanden (behalve de begin- en eindtoestand) vertrekt precies \'e\'en boog in beide richtingen
@@ -456,7 +456,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 
 \section{Deterministische eindige toestandsautomaten}
 \begin{de}
-  Een \term{deterministische eindige toestandsautomaat} (\term{DFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s}F)$
+  Een \term{deterministische eindige toestandsautomaat} (\term{DFA}) is een 5-tal $(Q,\Sigma,\delta,q_{s},F)$
   \begin{itemize}
   \item $Q$ is een eindige verzameling toestanden.
   \item $\Sigma$ is een alfabet.
