@@ -25,7 +25,7 @@
 \end{de}
 
 \begin{de}
-  Een \term{string} $s$ wordt \term{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s}F)$ als $s$ geschreven kan worden als een opeenvolging $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en een opeenvolging toestanden $t_{1}t_{2}\ldots t_{n+1}$ zodat:
+  Een \term{string} $s$ wordt \term{aanvaard door een NFA} $N=(Q,\Sigma,\delta,q_{s},F)$ als $s$ geschreven kan worden als een opeenvolging $a_{1}a_{2}\ldots a_{n}$ met $a_{i} \in \Sigma_{\epsilon}$ en een opeenvolging toestanden $t_{1}t_{2}\ldots t_{n+1}$ zodat:
   \begin{itemize}
   \item $t_{1} = q_{s}$
   \item $t_{i+1} \in \delta(t_{i},a_{i})$
