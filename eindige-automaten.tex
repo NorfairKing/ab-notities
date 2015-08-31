@@ -821,12 +821,12 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
   
   \begin{proof}
     Inderdaad, construeer een nieuwe automaat $D'$ vanuit $D$ waarin enkel $q$ een accepterende eindtoestand is.
-    $reach(q)$ is nu de taal bepaald door $D'$. $D'$ aanvaardt immers enkel de strings waarvoor $D$ (en dus $D'$, want we hebbn $\delta$ niet veranderd) in $q$ zou belanden.
+    $reach(q)$ is nu de taal bepaald door $D'$. $D'$ aanvaardt immers enkel de strings waarvoor $D$ (en dus $D'$, want we hebben $\delta$ niet veranderd) in $q$ zou belanden.
   \end{proof}
 \end{st}
 
 \begin{st}
-  De verzameling $R$ is een partitie van $\Sigma^{*}$ is een partitie van $\Sigma^{*}$ als elke toestand bereikbaar is.
+  De verzameling $R$ is een partitie van $\Sigma^{*}$ als elke toestand bereikbaar is.
   \[ R = \{ reach(q)\ |\ q \in Q \} \]
 
   \begin{proof}
@@ -864,7 +864,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 
 \begin{ei}
   \label{ei:sim-dfa-rechts-congruent}
-  De equivalentierelatie $\sim_{D}$ door bepaald door $R = \{ reach(q)\ |\ q \in Q \}$ bij een DFA $(Q,\Sigma,\delta,q_{s},F)$ is rechts congruent:
+  De equivalentierelatie $\sim_{D}$ bepaald door $R = \{ reach(q)\ |\ q \in Q \}$ bij een DFA $(Q,\Sigma,\delta,q_{s},F)$ is rechts congruent:
   \[ \forall x,y \in \Sigma^{*},\ a \in \Sigma:\ (x \sim_{D} y) \Rightarrow (xa \sim_{D} ya) \]
   \begin{proof}
     $x \sim_{D} y$ betekent dat de automaat $D$ bij input string $x$ en $y$ in dezelfde staat belandt.
@@ -916,7 +916,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
 \begin{st}
   \label{st:dfa-naar-mn-relatie}
   Gegeven een DFA $D = (Q,\Sigma,\delta,q_{s},F)$ bestaat er een $MN(L_{D})$ relatie $\sim$ over $L$:
-  \[ \forall x,y \in \Sigma^{*}: x \sim_{D} y \Leftrightarrow \delta^{*}(q_{s},x) = \delta^{*}(q_{s},y) \Leftrightarrow reacht(x) = reach(y) \]
+  \[ \forall x,y \in \Sigma^{*}: x \sim_{D} y \Leftrightarrow \delta^{*}(q_{s},x) = \delta^{*}(q_{s},y) \Leftrightarrow reach(x) = reach(y) \]
   In woorden: ``De DFA belandt voor de strings $x$ en $y$ in dezelfde toestand.''
   \begin{proof}
     Inderdaad, deze relatie is rechts-congruent\eiref{ei:sim-dfa-rechts-congruent}, verfijnt $\sim_{L}$\eiref{ei:sim-dfa-verfijnt-sim-l} en heeft een eindig aantal equivalentieklassen\eiref{ei:sim-dfa-eindig-aantal-equivalentieklassen}.
