@@ -836,7 +836,7 @@ Vanaf deze sectie gaan we ervan uit dat een NFA hoogstens \'e\'en aanvaardbare e
     \item $reach(q)$ is niet leeg.\\
       We moeten er hier van uitgaan dat de overgangsfunctie $\delta$ van $D$ totaal is.
       Dit kunnen we zonder verlies van algemeenheid.\stref{st:dfa-totale-overgangsfunctie}
-      Elke string $s\in \Sigma$ die we als invoer kunnen geven aan $D$ belandt zeker in een staat $q'$ zonder dat de automaat vast loopt.
+      Elke string $s\in \Sigma^*$ die we als invoer kunnen geven aan $D$ belandt zeker in een staat $q'$ zonder dat de automaat vast loopt.
       Nu geldt dat elke staat bereikt zal worden door minstens \'e\'en string als elke toestand bereikbaar is.
       $D$ kan immers ook gezien worden als een NFA zonder $\epsilon$ bogen (etc...). Wanneer we die NFA omzetten naar een reguliere expressie via een GNFA krijgen we een reguliere expressie zonder $\phi$'s. Er bestaat dus altijd minstens \'e\'en string die in $q$ belandt voor elke $q$.
     \item De verzamelingen in $R$ zijn onderling disjunct.
